@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC 
+		"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+		"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<!-- Definitions for Tiles documentation   -->
+
+<tiles-definitions>
+	<definition name="template" template="/WEB-INF/view/layout/template.jsp">
+	    <put-attribute name="header" value="/WEB-INF/view/layout/header.jsp"/>
+	    <put-attribute name="footer" value="/WEB-INF/view/layout/footer.jsp"/>
+	    <put-attribute name="menu" value="/WEB-INF/view/layout/side_menu.jsp"/>
+	</definition>
+	
+	<!-- main.tiles, abc.tiles, root.tiles -->
+	<definition name="*.tiles" extends="template">
+	    <put-attribute name="body" value="/WEB-INF/view/body/{1}.jsp"/>
+	</definition>
+	
+	<!-- member/login_form.tiles, order/order_form.tiles -->
+	<definition name="*/*.tiles" extends="template">
+	    <put-attribute name="body" value="/WEB-INF/view/body/{1}/{2}.jsp"/>
+	</definition>
+	
+	<!--  
+	<definition name="main" extends="template">
+	    <put-attribute name="body" value="/WEB-INF/view/body/main.jsp"/>
+	</definition>
+	
+	<definition name="member/join_form" extends="template">
+	    <put-attribute name="body" value="/WEB-INF/view/body/member/join_form.jsp"/>
+	</definition>
+	
+	<definition name="product/register_form" extends="template">
+	    <put-attribute name="body" value="/WEB-INF/view/body/product/register_form.jsp"/>
+	</definition>
+	-->
+</tiles-definitions>
