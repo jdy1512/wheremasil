@@ -16,7 +16,7 @@
 	
 	<!-- 이동 뷰 컨트롤러 -->
 	<mvc:view-controller path="index.do" view-name="main.tiles"/>
-	<mvc:view-controller path="info.do" view-name="/WEB-INF/view/body/plan/info.jsp"/>
+	<mvc:view-controller path="info.do" view-name="/WEB-INF/view/notiles/plan/info.jsp"/>
 	
 	<!-- interceptors 
 	<mvc:interceptors>
