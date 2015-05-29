@@ -8,6 +8,6 @@ public class TestController {
 
 	@RequestMapping("no_tiles.do")
 	public String noTilesView() {
-		return "/WEB-INF/view/no_tiles.jsp";
+		return "/WEB-INF/view/notiles/no_tiles.jsp";
 	}
 }
