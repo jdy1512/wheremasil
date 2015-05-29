@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="/wheremasil/script/jquery.js"></script>
 <style type="text/css">
 
 

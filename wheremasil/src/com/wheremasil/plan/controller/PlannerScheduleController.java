@@ -16,11 +16,6 @@ import com.wheremasil.plan.vo.PlannerSchedule;
 @RequestMapping("plan/")
 public class PlannerScheduleController {
 
-	@RequestMapping("info")
-	public String showInfoView() {
-		return "/WEB-INF/view/notiles/plan/info.jsp";
-	}
-	
 	@RequestMapping(value="map", method=RequestMethod.POST)
 	public ModelAndView showPlannerScheduleMap(@ModelAttribute PlannerSchedule plan, Errors errors, HttpServletRequest request) {
 		new PlannerScheduleValidator().validate(plan, errors);
