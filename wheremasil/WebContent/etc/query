@@ -1,0 +1,5 @@
+
+
+insert into theme values("", "")
+
+select * from theme

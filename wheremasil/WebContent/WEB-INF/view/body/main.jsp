@@ -4,6 +4,9 @@
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <script> 
+	$(function() {
+		$("nav").css("width", "0px");
+	});
 
 	function fn_layer_popup(){ 
 		var layer = document.getElementById("popup_layer"); 

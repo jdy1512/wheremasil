@@ -6,14 +6,16 @@
 	$(function() {
 		$("#tile_left_nav").css("visibility", "visible");
 		$("#tile_right_nav").css("visibility", "visible");
-		$("nav").css("width", "300px");
+		$("nav").css("width", "18%");
+		$("section").css("width", "64%");
+		
+		alert("${requestScope.plan}");
 	});
 	
 </script>
 
 
-<div id="map" style="width:1210px;height:700px;"></div><br/><br/>
-
+<div id="map" style="width:99%; height:100%; margin:auto"></div>
 <script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = {

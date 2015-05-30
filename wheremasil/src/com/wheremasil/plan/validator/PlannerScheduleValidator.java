@@ -17,6 +17,10 @@ public class PlannerScheduleValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "startDate", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endDate", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "groupNum", "required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "theme", "required");
 
 	}
 

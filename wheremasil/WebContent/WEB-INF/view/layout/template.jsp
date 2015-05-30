@@ -13,37 +13,38 @@ header {
 	background-color: #22BBCC;
 	color: white;
 	text-align: center;
-	padding: 5px;
+	padding: 13px;
 }
 
 .left_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
 	background-color: #F5F5DC;
-	padding: 15px;
 	height: 700px;
-	width: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	float: left;
 }
+
 .right_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
 	background-color: #F5F5DC;
-	padding: 15px;
 	height: 700px;
-	width: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 	float: right;
 }
 
 section {
 	/*TODO : 페이지를 줄이면 밑으로 내려간다.. 어떻게?*/
-	padding: 15px;
 	height: 700px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	float: left;
 }
 
 footer {
 	background-color: #F5F5F5;
-	color: white;
-	padding-top: 20px;
+	color: gray;
 	text-align: center;
 	height: 50px;
 	clear: both;
@@ -64,16 +65,17 @@ footer {
 			<tiles:insertAttribute name="left_menu" />
 		</nav>
 	</div>
-	<div id="tile_right_nav" style="visibility:hidden">
-		<nav class="right_nav">
-			<tiles:insertAttribute name="right_menu" />
-		</nav>
-	</div>
 
 	<div id="tile_section">
 		<section>
 			<tiles:insertAttribute name="body" />
 		</section>
+	</div>
+	
+	<div id="tile_right_nav" style="visibility:hidden">
+		<nav class="right_nav">
+			<tiles:insertAttribute name="right_menu" />
+		</nav>
 	</div>
 
 	<div id="tile_footer">
