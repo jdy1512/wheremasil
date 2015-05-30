@@ -5,6 +5,11 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
 
 <script> 
+	<!-- tile control -->
+	$(function() {
+		$("#tile_nav").css("visibility", "hidden");
+		$("nav").css("width", "0");
+	});
 
 	function fn_layer_popup(){ 
 		var layer = document.getElementById("popup_layer"); 
