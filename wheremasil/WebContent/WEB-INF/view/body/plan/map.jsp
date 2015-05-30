@@ -2,6 +2,12 @@
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=8090c845eb21bcc92becc6f8f3bf61fa"></script>
 <script type="text/javascript">
+	<!-- tile control -->
+	$(function() {
+		$("#tile_left_nav").css("visibility", "visible");
+		$("#tile_right_nav").css("visibility", "visible");
+		$("nav").css("width", "150px");
+	});
 	
 </script>
 

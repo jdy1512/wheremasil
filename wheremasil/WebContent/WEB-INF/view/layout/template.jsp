@@ -16,20 +16,27 @@ header {
 	padding: 5px;
 }
 
-nav {
+.left_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
-	visibility: hidden;
 	background-color: #F5F5DC;
 	padding: 15px;
-	height: 400px;
+	height: 700px;
 	width: 0px;
 	float: left;
+}
+.right_nav {
+	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
+	background-color: #F5F5DC;
+	padding: 15px;
+	height: 700px;
+	width: 0px;
+	float: right;
 }
 
 section {
 	/*TODO : 페이지를 줄이면 밑으로 내려간다.. 어떻게?*/
 	padding: 15px;
-	height: 80%;
+	height: 700px;
 	float: left;
 }
 
@@ -52,9 +59,14 @@ footer {
 		</header>
 	</div>
 
-	<div id="tile_nav">
-		<nav>
-			<tiles:insertAttribute name="menu" />
+	<div id="tile_left_nav" style="visibility:hidden">
+		<nav class="left_nav">
+			<tiles:insertAttribute name="left_menu" />
+		</nav>
+	</div>
+	<div id="tile_right_nav" style="visibility:hidden">
+		<nav class="right_nav">
+			<tiles:insertAttribute name="right_menu" />
 		</nav>
 	</div>
 
