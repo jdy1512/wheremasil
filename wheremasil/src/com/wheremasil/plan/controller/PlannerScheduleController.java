@@ -20,10 +20,10 @@ public class PlannerScheduleController {
 	public ModelAndView showPlannerScheduleMap(@ModelAttribute PlannerSchedule plan, Errors errors, HttpServletRequest request) {
 		new PlannerScheduleValidator().validate(plan, errors);
 		if(errors.hasErrors()){
-			return new ModelAndView("main.tiles", "", "");
+			return new ModelAndView("main.tiles", "errors", errors.getAllErrors());
 		}
 		
-		return new ModelAndView("plan/map.tiles", "", "");
+		return new ModelAndView("plan/map.tiles", "plan", plan);
 	}
 	
 }
