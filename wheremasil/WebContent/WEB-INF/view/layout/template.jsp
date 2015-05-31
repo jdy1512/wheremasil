@@ -10,30 +10,29 @@
 
 <style type="text/css">
 header {
-	background-color: #22BBCC;
 	color: white;
-	text-align: center;
+	text-align: left;
 	padding: 13px;
 }
-
+body {
+	background-color: #f5f5f5;
+}
 .left_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
-	background-color: #F5F5DC;
+	background-color: #f5f5f5;
 	height: 700px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	float: left;
 }
-
 .right_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
-	background-color: #F5F5DC;
+	background-color: #f5f5f5;
 	height: 700px;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	float: right;
 }
-
 section {
 	/*TODO : 페이지를 줄이면 밑으로 내려간다.. 어떻게?*/
 	height: 700px;
@@ -41,13 +40,102 @@ section {
 	padding-bottom: 5px;
 	float: left;
 }
-
 footer {
 	background-color: #F5F5F5;
 	color: gray;
 	text-align: center;
 	height: 50px;
 	clear: both;
+}
+
+#videobcg { 
+	position: absolute;
+	top: -200px;
+	left: 0px;
+	min-width: 100%;
+	min-height: 60%;
+	width: auto;
+	height: auto;
+	z-index: -1000;
+	overflow: hidden;
+}
+.main_center { position:absolute; top:50%; left:50%; width:40%; height:30%; overflow:hidden; margin-top:-15%; margin-left:-20%;}
+h1 {
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
+    text-transform: uppercase;
+    text-align: center;
+    color: #666;
+    margin: 0 0 30px 0;
+    letter-spacing: 4px;
+    font: normal 26px/1 Verdana, Helvetica;
+    position: relative;
+}
+h1:after, 
+h1:before {
+    background-color: #777;
+    content: "";
+    height: 1px;
+    position: absolute;
+    top: 15px;
+    width: 120px;   
+}
+h1:after {      
+    right: 0;
+}
+h1:before {
+    background-image: linear-gradient(right, #777, #fff);
+    left: 0;
+}
+
+.main_button {
+   border: 1px solid #0a3c59;
+   outline: 0;
+   background: #3e3e3e;
+   background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#3e3e3e));
+   background: -webkit-linear-gradient(top, #ffffff, #3e3e3e);
+   background: -moz-linear-gradient(top, #ffffff, #3e3e3e);
+   background: -ms-linear-gradient(top, #ffffff, #3e3e3e);
+   background: -o-linear-gradient(top, #ffffff, #3e3e3e);
+   background-image: -ms-linear-gradient(top, #ffffff 0%, #3e3e3e 100%);
+   padding: 7.5px 15px;
+   -webkit-border-radius: 30px;
+   -moz-border-radius: 30px;
+   border-radius: 30px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+   text-shadow: #7ea4bd 0 1px 0;
+   color: #ffffff;
+   font-size: 13px;
+   font-family: helvetica, serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.main_button:hover {
+   border: 1px solid #0a3c59;
+   outline: 0;
+   text-shadow: #1e4158 0 1px 0;
+   background: #3e3e3e;
+   background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#3e3e3e));
+   background: -webkit-linear-gradient(top, #ffffff, #3e3e3e);
+   background: -moz-linear-gradient(top, #ffffff, #3e3e3e);
+   background: -ms-linear-gradient(top, #ffffff, #3e3e3e);
+   background: -o-linear-gradient(top, #ffffff, #3e3e3e);
+   background-image: -ms-linear-gradient(top, #ffffff 0%, #3e3e3e 100%);
+   color: #fff;
+   }
+.main_button:active {
+   outline: 0;
+   text-shadow: #1e4158 0 1px 0;
+   border: 1px solid #0a3c59;
+   background: #ffffff;
+   background: -webkit-gradient(linear, left top, left bottom, from(#3e3e3e), to(#3e3e3e));
+   background: -webkit-linear-gradient(top, #3e3e3e, #ffffff);
+   background: -moz-linear-gradient(top, #3e3e3e, #ffffff);
+   background: -ms-linear-gradient(top, #3e3e3e, #ffffff);
+   background: -o-linear-gradient(top, #3e3e3e, #ffffff);
+   background-image: -ms-linear-gradient(top, #3e3e3e 0%, #ffffff 100%);
+   color: #fff;
 }
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}

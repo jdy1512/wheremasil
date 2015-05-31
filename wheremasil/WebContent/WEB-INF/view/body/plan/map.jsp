@@ -4,6 +4,7 @@
 <script type="text/javascript">
 	$(function() {
 		// 스타일시트 변경
+		$("header").css("background-color", "#a0c0d0");
 		$("#tile_left_nav").css("visibility", "visible");
 		$("#tile_right_nav").css("visibility", "visible");
 		$("nav").css("width", "18%");
