@@ -13,12 +13,16 @@
 		layer.style.visibility="visible"; //반대는 hidden 
 	
 	}
-
 	$(function(){
-		$("#stDate").datepicker();
+		$("#stDate").datepicker({
+			dateFormat: 'yymmdd'
+		});
 	});
+	
 	$(function(){
-		$("#edDate").datepicker();
+		$("#edDate").datepicker({
+			dateFormat: 'yymmdd'
+		});
 	});
 </script> 
 

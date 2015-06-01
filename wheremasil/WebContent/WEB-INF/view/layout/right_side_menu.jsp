@@ -12,17 +12,8 @@
 	      collapsible: false
 	    });
 	  });
-	  
-	  var sequencer = function() {
-	  var start = 0, end = 5, inc = 1;
-		  return function() {
-		  if(start < end) {
-		  return (start = start + inc); }
-		  return end;
-		  }
-	   }();
-
-  </script>
+	     
+ </script>
 
 	<h2 id="before">이전</h2>
 
@@ -57,7 +48,10 @@
     <div id="tabs-4">
      <table border="1">
        <form method="post">
-	   	<textarea name="memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.</textarea>
+	   	<textarea name="memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.
+	   	${requestScope.plan.title}
+	   	
+	   	</textarea>
 	   </form>
     </table>
   </div>
