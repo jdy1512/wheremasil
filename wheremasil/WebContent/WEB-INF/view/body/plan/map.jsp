@@ -10,6 +10,18 @@
 		$("section").css("width", "64%");
 		
 		alert("${requestScope.plan}");
+		
+		$.ajax({
+			url: "/wheremasil/plan/",
+			type: "POST",
+			cache:false,
+			timeout : 30000, 
+			dataType:"json",
+			data: {"key1":"value1","key2":"value2","key3":[{"a":"a","b":"b"},{"a":"a","b":"b"},{"a":"a","b":"b"},{"a":"a","b":"b"}]},
+			success: function(data) {
+				alert('success');
+			}
+		});
 	});
 	
 </script>
@@ -19,7 +31,7 @@
 <script>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = {
-	        center: new daum.maps.LatLng(37.31656, 127.58942), // 지도의 중심좌표
+	        center: new daum.maps.LatLng(37.3971644, 127.1081042), // 지도의 중심좌표
 	        level: 11, // 지도의 확대 레벨
 	        mapTypeId : daum.maps.MapTypeId.ROADMAP // 지도종류
 	    }; 

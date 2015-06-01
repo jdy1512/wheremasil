@@ -45,11 +45,11 @@
 		</select><br>
 	테마 <select id="theme" name="theme">
 		  <option value="">테마선택</option>
-		  <option value="t1">배낭여행</option>
-		  <option value="t2">우정여행</option>
-		  <option value="t3">가족여행</option>
-		  <option value="t4">커플여행</option>
-		  <option value="t5">부모님여행</option>
+		  <option value="T1">배낭여행</option>
+		  <option value="T2">우정여행</option>
+		  <option value="T3">가족여행</option>
+		  <option value="T4">커플여행</option>
+		  <option value="T5">부모님여행</option>
 	</select>
 	<br>
 	<input type="submit" value="전송">
