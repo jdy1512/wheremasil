@@ -230,6 +230,15 @@ ALTER TABLE AREA
       PRIMARY KEY (
          area_id
       );
+ALTER TABLE AREA
+   ADD
+      CONSTRAINT FK_CHANNEL_TO_AREA
+      FOREIGN KEY (
+         channel_id
+      )
+      REFERENCES CHANNEL (
+         channel_id
+      );
       
 /* THEME */
 CREATE TABLE THEME (
@@ -346,3 +355,20 @@ ALTER TABLE SCHEDULE
       );
       
 select * from tab
+
+/* 새 테이블 */
+CREATE TABLE CHANNEL (
+   channel_id VARCHAR2(16) NOT NULL, /* 접근 경로 id */
+   c_name VARCHAR2(256) NOT NULL /* 접근경로명 */
+);
+
+CREATE UNIQUE INDEX PK_CHANNEL
+   ON CHANNEL (
+      channel_id ASC
+   );
+ALTER TABLE CHANNEL
+   ADD
+      CONSTRAINT PK_CHANNEL
+      PRIMARY KEY (
+         channel_id
+      );

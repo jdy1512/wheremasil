@@ -58,8 +58,9 @@
 		var ps = new daum.maps.services.Places();
 		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성
 		var infowindow = new daum.maps.InfoWindow({zIndex:1});
-		// 키워드로 장소를 검색
-		searchPlaces();
+		// 검색창 접기
+		$(this).val("펼치기");
+		$("#menu_wrap").css("height", "18px");
 		// 키워드 검색을 요청하는 함수
 		function searchPlaces() {
 		    var keyword = document.getElementById('keyword').value;
@@ -126,21 +127,24 @@
 		        // mouseout 했을 때는 인포윈도우를 닫음
 		        (function(marker, title, addr, img) {
 		            daum.maps.event.addListener(marker, 'mouseover', function() {
+		                infowindow.close();
 		                displayInfowindow(marker, title, addr, img);
 		            });
 
-		            daum.maps.event.addListener(marker, 'mouseout', function() {
-		                infowindow.close();
-		            });
-
+		            //daum.maps.event.addListener(marker, 'mouseout', function() {
+		            //    infowindow.close();
+		            //});
+		            
 		            itemEl.onmouseover =  function () {
+		                infowindow.close();
 		    		    map.panTo(marker.getPosition());
+		                map.setLevel(4);
 		                displayInfowindow(marker, title, addr, img);
 		            };
 
-		            itemEl.onmouseout =  function () {
-		                infowindow.close();
-		            };
+		            //itemEl.onmouseout =  function () {
+		            //    infowindow.close();
+		            //};
 		        })(marker, places[i].title, places[i].address, places[i].imageUrl);
 
 		        fragment.appendChild(itemEl);
@@ -262,9 +266,14 @@
 		function displayInfowindow(marker, title, addr, img) {
 			var imageUrl = img;
 			if (imageUrl == '') {
-				imageUrl = "/wheremasil/uploads/images/no-photo.png";
+				imageUrl = "/wheremasil/uploads/images/area/img_not_found.gif";
 			}
-		    var content = '<div style="max-width:300px"><div style="width:32%;float:left;margin:1%"><img src="' + imageUrl + '" style="width:100%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:90%margin:5%;padding-top:15px;text-align:center"><b>' + title + '</b></p><p style="width:90%;margin:5%;padding-top:5%;text-align:center">' + addr + '</p></div></div>';
+		    var content = '<div style="max-width:300px"><div style="width:32%;float:left;margin:1%"><img src="' + 
+		    	imageUrl + '" style="width:100%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:90%;margin:5%;text-align:center"><b>' + 
+		    	title + '</b></p><p style="width:90%;margin-top:5%;margin-left:5%;margin-right:5%;text-align:center">' + 
+		    	addr + '</p><div style="width:50%;margin-left:25%;margin-right:25%;padding-top:2%"><input type="button" class="plan_button" id="' + 
+		    	title + '" value="일정등록"></div></div>' +
+		    	'<a href="javascript:void(0);" id="closeBt" class="close-thik"></a></div>';
 
 		    infowindow.setContent(content);
 		    infowindow.open(map, marker);
@@ -283,6 +292,7 @@
 		});
 		$("#menu_search").on("click", function() {
 			searchPlaces();
+			$("#menu_more").val("접기");
 		});
 		$("#menu_more").on("click", function() {
 			if ($(this).val() == "펼치기") {
@@ -293,7 +303,13 @@
 				$("#menu_wrap").css("height", "18px");
 			}
 		});
+		$(document).on("click", "#closeBt", function() {
+			infowindow.close();
+		});
 	});// end of onload
+	
+	
+	
 </script>
 
 <div style="heigth:3%">
@@ -306,7 +322,7 @@
 
 	<div id="menu_wrap" class="bg_white">
 		<div class="option">
-			<input type="text" value="kosta" id="keyword" size="15"> 
+			<input type="text" value="" placeholder="검색어 입력" id="keyword" size="15"> 
 			<input type="button" id="menu_search" value="검색">
 			<input type="button" id="menu_more" value="접기" >
 		</div>

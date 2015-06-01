@@ -137,6 +137,68 @@ h1:before {
    background-image: -ms-linear-gradient(top, #3e3e3e 0%, #ffffff 100%);
    color: #fff;
 }
+.plan_button {
+   outline: 0;
+   border: 0px solid #0a3c59;
+   background: #a8a8a8;
+   background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#a8a8a8));
+   background: -webkit-linear-gradient(top, #ffffff, #a8a8a8);
+   background: -moz-linear-gradient(top, #ffffff, #a8a8a8);
+   background: -ms-linear-gradient(top, #ffffff, #a8a8a8);
+   background: -o-linear-gradient(top, #ffffff, #a8a8a8);
+   background-image: -ms-linear-gradient(top, #ffffff 0%, #a8a8a8 100%);
+   padding: 8.5px 17px;
+   -webkit-border-radius: 7px;
+   -moz-border-radius: 7px;
+   border-radius: 7px;
+   -webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+   -moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+   box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+   text-shadow: #9c9c9c 0 1px 0;
+   color: #575757;
+   font-size: 12px;
+   font-family: helvetica, serif;
+   text-decoration: none;
+   vertical-align: middle;
+   width: 100%;
+   height: 20px;
+   }
+.plan_button:hover {
+   outline: 0;
+   border: 0px solid #0a3c59;
+   text-shadow: #575757 0 1px 0;
+   background: #a8a8a8;
+   background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#a8a8a8));
+   background: -webkit-linear-gradient(top, #ffffff, #a8a8a8);
+   background: -moz-linear-gradient(top, #ffffff, #a8a8a8);
+   background: -ms-linear-gradient(top, #ffffff, #a8a8a8);
+   background: -o-linear-gradient(top, #ffffff, #a8a8a8);
+   background-image: -ms-linear-gradient(top, #ffffff 0%, #a8a8a8 100%);
+   color: #575757;
+   }
+.plan_button:active {
+   outline: 0;
+   text-shadow: #575757 0 1px 0;
+   border: 0px solid #0a3c59;
+   background: #ffffff;
+   background: -webkit-gradient(linear, left top, left bottom, from(#a8a8a8), to(#a8a8a8));
+   background: -webkit-linear-gradient(top, #a8a8a8, #ffffff);
+   background: -moz-linear-gradient(top, #a8a8a8, #ffffff);
+   background: -ms-linear-gradient(top, #a8a8a8, #ffffff);
+   background: -o-linear-gradient(top, #a8a8a8, #ffffff);
+   background-image: -ms-linear-gradient(top, #a8a8a8 0%, #ffffff 100%);
+   color: #575757;
+}
+.close-thik:after {
+  color: #777;
+  font: 14px/100% arial, sans-serif;
+  position: absolute;
+  right: 5px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 5px;
+  content: '✖'; /* UTF-8 symbol */
+}
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
