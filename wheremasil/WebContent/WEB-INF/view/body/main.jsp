@@ -9,10 +9,16 @@
 		$("nav").css("width", "0px");
 		
 
-		$("#stDate").datepicker();
-		$("#edDate").datepicker();
 		$("#cancel").on("click", function() {
 			$("#popup_layer").css("visibility", "hidden");
+		});
+		
+
+		$("#stDate").datepicker({
+			dateFormat: 'yymmdd'
+		});
+		$("#edDate").datepicker({
+			dateFormat: 'yymmdd'
 		});
 	});
 
@@ -21,7 +27,6 @@
 		layer.style.visibility="visible"; //반대는 hidden 
 	
 	}
-
 </script> 
 
 <div id="popup_layer" 
