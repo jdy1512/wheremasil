@@ -1,17 +1,34 @@
 package com.wheremasil.plan.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+
 
 public class PlannerSchedule implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String title;
-	private String startDate;
-	private String endDate;
-	private int groupNum;
-	private String theme;
+	private String title; //플래너명
+	private String startDate; //시작일
+	private String endDate; //종료일
+	private int groupNum; //인원수
+	private String theme; //테마 정보
+	private ArrayList<Schedule> InfoList;
 
-	public PlannerSchedule() {
+
+	public PlannerSchedule(){}
+
+
+	public PlannerSchedule(String title, String startDate, String endDate,
+			int groupNum, String theme, ArrayList<Schedule> infoList) {
+		super();
+		this.title = title;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.groupNum = groupNum;
+		this.theme = theme;
+		InfoList = infoList;
+
 	}
 
 	public String getTitle() {
