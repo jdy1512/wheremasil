@@ -54,6 +54,10 @@
 		var markers = [];
 		// 마커 타이틀을 담을 배열
 		var markerTitles = [];
+		// DB에서 검색된 지역 마커를 담을 배열
+		var areaMarkers = [];
+		// DB에서 검색된 지역 마커 타이틀을 담을 배열
+		var areaMarkerTitles = [];
 		// 장소 검색 객체를 생성
 		var ps = new daum.maps.services.Places();
 		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성
@@ -102,7 +106,7 @@
 		    var listEl = document.getElementById('placesList'), 
 		    menuEl = document.getElementById('menu_wrap'),
 		    fragment = document.createDocumentFragment(), 
-		    bounds = new daum.maps.LatLngBounds(), 
+		    //bounds = new daum.maps.LatLngBounds(), 
 		    listStr = '';
 		    
 		    // 검색 결과 목록에 추가된 항목들을 제거
@@ -120,7 +124,7 @@
 
 		        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 		        // LatLngBounds 객체에 좌표를 추가
-		        bounds.extend(placePosition);
+		        //bounds.extend(placePosition);
 
 		        // 마커와 검색결과 항목에 mouseover 했을때
 		        // 해당 장소에 인포윈도우에 장소명을 표시
@@ -131,15 +135,20 @@
 		                displayInfowindow(marker, title, addr, img);
 		            });
 
-		            //daum.maps.event.addListener(marker, 'mouseout', function() {
-		            //    infowindow.close();
-		            //});
+		            daum.maps.event.addListener(marker, 'click', function() {
+		    		    map.panTo(marker.getPosition());
+		                map.setLevel(7);
+		            });
 		            
 		            itemEl.onmouseover =  function () {
 		                infowindow.close();
 		    		    map.panTo(marker.getPosition());
-		                map.setLevel(4);
 		                displayInfowindow(marker, title, addr, img);
+		            };
+		            
+		            itemEl.onmouseup =  function () {
+		    		    map.panTo(marker.getPosition());
+		                map.setLevel(7);
 		            };
 
 		            //itemEl.onmouseout =  function () {
@@ -222,6 +231,29 @@
 
 		    return marker;
 		}
+		// DB지역 마커를 생성하고 지도 위에 마커를 표시하는 함수
+		function addAreaMarker(position, idx, title, imageUrl) {
+			var imageSrc = imageUrl,
+			imageSize = new daum.maps.Size(36, 37),  // 마커 이미지의 크기
+	        markerImage = new daum.maps.MarkerImage(imageSrc, imageSize),
+	        marker = new daum.maps.Marker({
+		    	position: position, // 마커의 위치
+		    	image: markerImage 
+	        });
+			var content = '<div class="title"><h3><b>' + title + '</b></h3></div>';
+			var markerTitle = new daum.maps.CustomOverlay({
+			    map: map,
+			    position: position,
+			    content: content,
+			    yAnchor: 0
+			});
+			
+		    marker.setMap(map); // 지도 위에 마커를 표출
+		    areaMarkers.push(marker);  // 배열에 생성된 마커를 추가
+		    areaMarkerTitles.push(markerTitle); // 배열에 생성된 마커오버레이를 추가
+
+		    return marker;
+		}
 		// 지도 위에 표시되고 있는 마커와 오버레이를 모두 제거
 		function removeMarker() {
 		    for ( var i = 0; i < markers.length; i++ ) {
@@ -230,6 +262,15 @@
 		    }
 		    markers = [];
 		    markerTitles = [];
+		}
+		// 지도 위에 표시되고 있는 DB지역 마커와 오버레이를 모두 제거
+		function removeAreaMarker() {
+		    for ( var i = 0; i < areaMarkers.length; i++ ) {
+		    	areaMarkers[i].setMap(null);
+		    	areaMarkerTitles[i].setMap(null);
+		    }
+		    areaMarkers = [];
+		    areaMarkerTitles = [];
 		}
 		// 검색결과 목록 하단에 페이지번호를 표시는 함수
 		function displayPagination(pagination) {
@@ -266,7 +307,7 @@
 		function displayInfowindow(marker, title, addr, img) {
 			var imageUrl = img;
 			if (imageUrl == '') {
-				imageUrl = "/wheremasil/uploads/images/area/img_not_found.gif";
+				imageUrl = "/wheremasil/uploads/images/area/img_not_found.png";
 			}
 		    var content = '<div style="max-width:300px"><div style="width:32%;float:left;margin:1%"><img src="' + 
 		    	imageUrl + '" style="width:100%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:90%;margin:5%;text-align:center"><b>' + 
@@ -306,8 +347,49 @@
 		$(document).on("click", "#closeBt", function() {
 			infowindow.close();
 		});
+		
+		getAreasByRange(map.getBounds());
+		
+		function getAreasByRange(bounds) {
+			var swLatLng = bounds.getSouthWest();
+			var neLatLng = bounds.getNorthEast();
+			var stLat = swLatLng.getLat();
+			var stLon = neLatLng.getLng();
+			var enLat = neLatLng.getLat();
+			var enLon = swLatLng.getLng();
+			
+			$.ajax({
+	        	url: "/wheremasil/plan/getAreasByRange.do",
+	        	dataType : "json",
+	            type: "POST",
+	            timeout : 30000, 
+	        	data : {"stLat":stLat,"stLon":stLon,"enLat":enLat,"enLon":enLon},
+	        	success: function(data) {
+	        		removeAreaMarker();
+	        		
+	        		for ( var i = 0; i < data.length; i++ ) {
+	    		        // 마커를 생성하고 지도에 표시
+	    		        var placePosition = new daum.maps.LatLng(data[i].latitude, data[i].longitude),
+	    		        	marker = addAreaMarker(placePosition, i, data[i].title, data[i].imgPath);
+	    		        
+	    		        (function(marker, title, addr, img) {
+	    		            daum.maps.event.addListener(marker, 'mouseover', function() {
+	    		                infowindow.close();
+	    		                displayInfowindow(marker, title, addr, img);
+	    		            });
+	    		        })(marker, data[i].title, data[i].address, data[i].imgPath);
+	    		        
+	    		        var content = '<div style="max-width:100%;clear:both;border: 1px solid #0a3c59;"><div style="width:32%;float:left;margin:1%"><img src="' + 
+		        			data[i].imgPath + '" style="width:95%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:100%;margin:0px;padding:0px;text-align:center"><b>' + 
+		        			data[i].title + '</b></p><p style="width:100%;margin:0px;padding:0px;text-align:center;line-height:120%;">' + 
+		        			data[i].address + '</p></div></div>';
+
+    		        	$("#left-container").append(content);
+	    		    }// end of for
+	            }
+			});
+		}// end of getAreasByRange()
 	});// end of onload
-	
 	
 	
 </script>

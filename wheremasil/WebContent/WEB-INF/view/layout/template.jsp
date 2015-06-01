@@ -23,6 +23,7 @@ body {
 	height: 700px;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	overflow-y:scroll;
 	float: left;
 }
 .right_nav {

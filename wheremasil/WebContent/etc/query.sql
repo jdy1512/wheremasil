@@ -1,4 +1,6 @@
+ALTER TABLE member MODIFY m_position NULL;
 
+select * from member
 
 insert into theme values('T1', '배낭여행');
 insert into theme values('T2', '우정여행');
