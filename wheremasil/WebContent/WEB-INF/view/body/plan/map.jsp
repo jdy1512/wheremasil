@@ -23,8 +23,6 @@
 		$("nav").css("width", "18%");
 		$("section").css("width", "64%");
 		
-		//alert("${requestScope.plan}");
-		
 		// daum api 지도
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = {
