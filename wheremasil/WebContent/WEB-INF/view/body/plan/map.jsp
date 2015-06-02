@@ -12,6 +12,7 @@
 	var areaMarkers = [];
 	// DB에서 검색된 지역 마커 타이틀을 담을 배열
 	var areaMarkerTitles = [];
+	// 지역 상세 데이타 뷰
 	var infowindow;
 	
 	//TODO start of onload
@@ -122,7 +123,7 @@
 	    		        // 마커를 생성하고 지도에 표시
 	    		        var placePosition = new daum.maps.LatLng(data[i].latitude, data[i].longitude),
 	    		        	marker = addAreaMarker(placePosition, i, data[i].title, data[i].imgPath);
-	    		        
+
 	    		        (function(marker, title, addr, img) {
 	    		            daum.maps.event.addListener(marker, 'mouseover', function() {
 	    		                infowindow.close();
@@ -130,7 +131,7 @@
 	    		            });
 	    		        })(marker, data[i].title, data[i].address, data[i].imgPath);
 	    		        
-	    		        var content = '<div id="' +
+	    		        var content = '<div id="leftmenu_' +
 	    		        	data[i].title + '" style="max-width:100%;clear:both;border: 1px solid #0a3c59;"><div style="width:32%;float:left;margin:1%"><img src="' + 
 		        			data[i].imgPath + '" style="width:95%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:100%;margin:0px;padding:0px;text-align:center"><b>' + 
 		        			data[i].title + '</b></p><p style="width:100%;margin:0px;padding:0px;text-align:center;line-height:120%;">' + 
@@ -138,26 +139,30 @@
 		        			
     		        	$("#left-container").append(content);
     		        	
-    		        	$(document).on("mouseover", "#" + data[i].title , function() {
+    		        	$(document).on("mouseover", "#leftmenu_" + data[i].title , function() {
     		        		$(this).css("color", "blue");
     					});
-    		        	$(document).on("mouseout", "#" + data[i].title , function() {
+    		        	$(document).on("mouseout", "#leftmenu_" + data[i].title , function() {
     		        		$(this).css("color", "black");
     					});
+    		        	$(document).on("click", "#infowindow_" + data[i].title , function() {
+    		        		var data = $($(this).parents().html()).last().val().split(",");
+    		        		var title = data[0];
+    		        		var img = data[1];
+    		        		var addr = data[2];
+
+    		        		var content = '<div style="max-width:100%"><div style="width:32%;float:left;margin:1%"><img src="' + 
+    		        		img + '" style="width:100%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:100%;margin:0px;padding:0px;text-align:center;"><b>' + 
+    				    	title + '</b></p><p style="width:90%;margin-top:5%;margin-left:5%;margin-right:5%;text-align:center">' + 
+    				    	addr + '</p><div style="width:50%;margin-left:25%;margin-right:25%;padding-top:2%"></div></div>' +
+    				    	'<a href="javascript:void(0);" id="closeBt" class="close-thik"></a></div>';
+
+    		        		setSchedule(content);
+    		    		});
 	    		    }// end of for
 	            }
 			});
 		}// end of getAreasByRange()
-		
-		// 동적 이벤트 -----------------------------------------------
-		
-		// 인포윈도우 닫기버튼 (x)
-		$(document).on("click", "#closeBt", function() {
-			infowindow.close();
-		});
-		
-		
-		// 동적 이벤트 -----------------------------------------------
 		
 		// 지도 범위 설정
 		function setBounds() {
@@ -324,7 +329,7 @@
 		        var placePosition = new daum.maps.LatLng(places[i].latitude, places[i].longitude),
 		            marker = addMarker(placePosition, i, places[i].title, places[i].imageUrl), 
 		            itemEl = getListItem(i, places[i], marker); // 검색 결과 항목 Element를 생성
-	
+
 		        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 		        // LatLngBounds 객체에 좌표를 추가
 	
@@ -351,10 +356,6 @@
 		    		    map.panTo(marker.getPosition());
 		                map.setLevel(7);
 		            };
-	
-		            //itemEl.onmouseout =  function () {
-		            //    infowindow.close();
-		            //};
 		        })(marker, places[i].title, places[i].address, places[i].imageUrl);
 	
 		        fragment.appendChild(itemEl);
@@ -430,13 +431,19 @@
 			if (imageUrl == '') {
 				imageUrl = "/wheremasil/uploads/images/area/img_not_found.png";
 			}
+			var data = {
+				"title":title,
+				"img":imageUrl,
+				"addr":addr
+			};
 		    var content = '<div style="max-width:300px"><div style="width:32%;float:left;margin:1%"><img src="' + 
 		    	imageUrl + '" style="width:100%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:90%;margin:5%;text-align:center"><b>' + 
 		    	title + '</b></p><p style="width:90%;margin-top:5%;margin-left:5%;margin-right:5%;text-align:center">' + 
-		    	addr + '</p><div style="width:50%;margin-left:25%;margin-right:25%;padding-top:2%"><input type="button" class="plan_button" id="' + 
-		    	title + '" value="일정등록"></div></div>' +
+		    	addr + '</p><div style="width:50%;margin-left:25%;margin-right:25%;padding-top:2%"><input type="button" class="plan_button" id="infowindow_' + 
+		    	title + '" value="일정등록"><input type="hidden" value="' + 
+		    	title + ',' + imageUrl + ',' + addr + '"></div></div>' +
 		    	'<a href="javascript:void(0);" id="closeBt" class="close-thik"></a></div>';
-	
+		    	
 		    infowindow.setContent(content);
 		    infowindow.open(map, marker);
 		}
@@ -446,13 +453,22 @@
 		        el.removeChild (el.lastChild);
 		    }
 		}
-		 
-		// 일정을 추가하는 메소드
-		function setSchedule(schedule) {
-			// schedule = html페이지
-			
-		}
 	
+
+		
+		// 동적 이벤트 -----------------------------------------------
+		
+		// 인포윈도우 닫기버튼 (x)
+		$(document).on("click", "#closeBt", function() {
+			infowindow.close();
+		});
+		
+		//$(document).on("click", "#infowindow_" + title , function() {
+    	//	alert(title + " 클릭");
+    		//setSchedule(content);
+		//});
+		
+		// 동적 이벤트 -----------------------------------------------
 	});// end of onload
 	//TODO end of onload
 

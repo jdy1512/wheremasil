@@ -12,6 +12,18 @@
  	 var dayCount=1; // 현재 day
   	 var courseCount=2;
  	 
+ 	 
+  	 function setSchedule(html) {
+ 		$("#tabs-1").append('<fieldset><legend>Course'+courseCount+'</legend><table id="areaList"><tr>'+
+ 					       '<td>' + html +'</td></tr></table></fieldset>');
+		
+ 		$("#tabs-2").append("<fieldset><legend>Course"+courseCount+"</legend><table><tr><td>식비</td><td><input type='text' name='costFood' size='10'></td></tr>"+
+				"<tr><td>교통비</td><td><input type='text' name='costVehicle' size='10'></td></tr>"+
+				"<tr><td>숙박비</td><td><input type='text' name='costStay' size='10'></td></tr>"+
+				"<tr><td>기타</td><td><input type='text' name='costEtc' size='10'></td></tr></table></fieldset>");
+		courseCount++;
+	 };
+	
  	 //오른쪽 탭 만들기
 	  $(function() {
 
@@ -23,16 +35,7 @@
 		      collapsible: false
 		    });
 	   
-	 	$("#addBtn").on("click",function(){
-	 		$("#tabs-1").append('<fieldset><legend>Course'+courseCount+'</legend><table id="areaList"><tr>'+
-	 					       '<td>코스 넣기 </td></tr></table></fieldset>');
-			
-	 		$("#tabs-2").append("<fieldset><legend>Course"+courseCount+"</legend><table><tr><td>식비</td><td><input type='text' name='costFood' size='10'></td></tr>"+
-					"<tr><td>교통비</td><td><input type='text' name='costVehicle' size='10'></td></tr>"+
-					"<tr><td>숙박비</td><td><input type='text' name='costStay' size='10'></td></tr>"+
-					"<tr><td>기타</td><td><input type='text' name='costEtc' size='10'></td></tr></table></fieldset>");
-			courseCount++;
-		});
+	 	
 	 	
 	 	$("#removeBtn").on("click", function(){
 	 		var tabs1 = document.getElementById("tabs-1");
@@ -45,7 +48,7 @@
 	 			courseCount--;
 	 		}
 	 	});
-	  });
+	  });// end of function;
 	  
 	 function makeDiv(dayAllCount){
 			 	for(var i=2;i<=dayAllCount;i++){
