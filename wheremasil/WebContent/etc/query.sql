@@ -1,5 +1,12 @@
+
+ALTER TABLE posting rename column p_content to p_content_path;
+ALTER TABLE posting MODIFY(p_content clob);
+ALTER TABLE posting add(p_content clob);
+ALTER TABLE posting drop column p_content_path;
 ALTER TABLE member MODIFY m_position NULL;
 
+delete from posting
+select * from posting
 select * from member
 
 insert into theme values('T1', '배낭여행');

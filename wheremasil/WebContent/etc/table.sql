@@ -6,9 +6,9 @@ CREATE TABLE MEMBER (
    m_email VARCHAR2(512) NOT NULL, /* 회원이메일 */
    m_prof_img_path VARCHAR2(256) NOT NULL, /* 회원프로필이미지경로 */
    m_join_date CHAR(8) NOT NULL, /* 회원 가입일 */
-   m_drop_Date CHAR(8), /* 회원 탈퇴일 */
-   m_position CHAR(1) NOT NULL, /* 회원 구분 */
-   m_state CHAR(1) NOT NULL /* 회원 상태 */
+   m_drop_Date CHAR(8) NULL, /* 회원 탈퇴일 */
+   m_position CHAR(1) NULL, /* 회원 구분 */
+   m_state CHAR(1) NULL /* 회원 상태 */
 );
 
 COMMENT ON TABLE MEMBER IS 'MEMBER';
@@ -64,7 +64,7 @@ ALTER TABLE BOARDTYPE
 /* POSTING */
 CREATE TABLE POSTING (
    posting_id VARCHAR2(16) NOT NULL, /* 게시물코드 */
-   p_content_path VARCHAR2(256) NOT NULL, /* 게시물 파일 경로 */
+   p_content CLOB NOT NULL, /* 게시물 파일 경로 */
    p_datetime CHAR(14) NOT NULL, /* 게시글 작성 시간 */
    p_number NUMBER(11) NOT NULL, /* 게시글 번호 */
    p_like NUMBER(11) NOT NULL, /* 게시글 좋아요 */
@@ -216,7 +216,8 @@ CREATE TABLE AREA (
    a_address VARCHAR2(128), /* 지역 주소 */
    a_latitude VARCHAR2(32) NOT NULL, /* 지역 위도 */
    a_longitude VARCHAR2(32) NOT NULL, /* 지역 경도 */
-   a_img_path varchar2(256) /* 지역이미지경로 */
+   a_img_path VARCHAR2(256), /* 지역이미지경로 */
+   channel_id VARCHAR2(16)
 );
 
 CREATE UNIQUE INDEX PK_AREA
@@ -356,7 +357,7 @@ ALTER TABLE SCHEDULE
       
 select * from tab
 
-/* 새 테이블 */
+/* CHANNEL 테이블 */
 CREATE TABLE CHANNEL (
    channel_id VARCHAR2(16) NOT NULL, /* 접근 경로 id */
    c_name VARCHAR2(256) NOT NULL /* 접근경로명 */
