@@ -1,14 +1,13 @@
 package com.wheremasil.plan.vo;
 
-import java.io.File;
 import java.io.Serializable;
 
 public class Schedule implements Serializable{
 	private Cost cost;
 	private Area area;
-	private File memo;
+	private String memo;
 	
-	public Schedule(Cost cost, Area area, File memo) {
+	public Schedule(Cost cost, Area area, String memo) {
 		super();
 		if(cost!=null){
 			this.cost = cost;
@@ -41,11 +40,11 @@ public class Schedule implements Serializable{
 		this.area = area;
 	}
 
-	public File getMemo() {
+	public String getMemo() {
 		return memo;
 	}
 
-	public void setMemo(File memo) {
+	public void setMemo(String memo) {
 		this.memo = memo;
 	}
 

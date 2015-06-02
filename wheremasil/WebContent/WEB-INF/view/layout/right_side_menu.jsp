@@ -6,22 +6,65 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
   
   <script>
  	 var dayAllCount=0; //총 여행 날짜
  	 var dayCount=1; // 현재 day
-  	
+  	 var courseCount=2;
+ 	 
  	 //오른쪽 탭 만들기
 	  $(function() {
-	    $( "#tabs" ).tabs({
-	      collapsible: false
-	    });
-	    
+
 	   dayAllCount=calDateRange("${requestScope.plan.startDate}","${requestScope.plan.endDate}")+1;
 	   day(dayCount);
+	   makeDiv(dayAllCount);
+	   
+	   $(".tabs").tabs({
+		      collapsible: false
+		    });
+	   
+	 	$("#addBtn").on("click",function(){
+	 		$("#tabs-1").append('<fieldset><legend>Course'+courseCount+'</legend><table id="areaList"><tr>'+
+	 					       '<td>코스 넣기 </td></tr></table></fieldset>');
+			
+	 		$("#tabs-2").append("<fieldset><legend>Course"+courseCount+"</legend><table><tr><td>식비</td><td><input type='text' name='costFood' size='10'></td></tr>"+
+					"<tr><td>교통비</td><td><input type='text' name='costVehicle' size='10'></td></tr>"+
+					"<tr><td>숙박비</td><td><input type='text' name='costStay' size='10'></td></tr>"+
+					"<tr><td>기타</td><td><input type='text' name='costEtc' size='10'></td></tr></table></fieldset>");
+			courseCount++;
+		});
+	 	
+	 	$("#removeBtn").on("click", function(){
+	 		var tabs1 = document.getElementById("tabs-1");
+	 		var tabs2 = document.getElementById("tabs-2");
+	 		if (tabs1.hasChildNodes()&&tabs1.childNodes.length>1){
+	 			tabs1.removeChild(tabs1.lastChild);
+	 			tabs2.removeChild(tabs2.lastChild);
+	 		}
+	 		if(courseCount>1){
+	 			courseCount--;
+	 		}
+	 	});
 	  });
-	     
+	  
+	 function makeDiv(dayAllCount){
+			 	for(var i=2;i<=dayAllCount;i++){
+					$("#rightContent").append('<div class="tabs" id="tab'+i+'"style="display:none;">'+
+					'<ul><li><a href="#tabs-1">일정</a></li><li><a href="#tabs-2">비용</a></li><li><a href="#tabs-3">메모</a></li></ul>'+
+				    '<div id="tabs-1"><input type="button" id="addBtn" value="추가"><input type="button" id="removeBtn" value="삭제">'+
+					'<fieldset><legend>Course 1</legend><table id="areaList"><tr><td>코스 넣기 </td></tr></table></fieldset></div>'+
+				    '<div id="tabs-2">'+
+				    '<fieldset><legend>Course 1</legend>'+
+					    '<table id="costList"><tr><td>식비</td><td><input type="text" name="costFood" size="10"></td></tr>'+
+						'<tr><td>교통비</td><td><input type="text" name="costVehicle" size="10"></td></tr>'+
+						  '<tr><td>숙박비</td><td><input type="text" name="costStay" size="10"></td></tr>'+
+						  '<tr><td>기타</td><td><input type="text" name="costEtc" size="10"></td></tr></table></fieldset></div>'+
+						  '<div id="tabs-3"><table border="1"><form method="post">'+
+						  '<textarea name="memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.</textarea>'+
+					   '</form></table></div></div>');
+			 	}
+			 	
+	}
 	/*
      * 두 날짜의 차이를 일자로 구한다.(조회 종료일 - 조회 시작일)
      * @return 기간에 해당하는 일자
@@ -43,14 +86,17 @@
 
         var fromDate = new Date(stYear, stMonth, stDay);
         var toDate = new Date(endYear, endMonth, endDay);
- 
-        return (toDate.getTime() - fromDate.getTime()) / 1000 / 60 / 60 / 24;
+ 		var date = (toDate.getTime() - fromDate.getTime()) / 1000 / 60 / 60 / 24;
+        return date;
     }
 	
 	// day 다음 버튼 누른 후의 작업.
 	function afterDayCheck(){
 		if(dayCount < dayAllCount){
+			$("#tab"+dayCount).hide();
 			dayCount++;
+			$("#tab"+dayCount).show();
+			
 		}else if(dayCount==dayAllCount){
 			alert("마지막 페이지입니다.");
 		}
@@ -60,7 +106,9 @@
 	// day 이전 버튼 누른 후의 작업.
 	function beforeDayCheck(){
 		if(1<dayCount){
+			$("#tab"+dayCount).hide();
 			dayCount--;
+			$("#tab"+dayCount).show();
 		}else if(dayCount==1){
 			alert("첫번째 페이지입니다.");
 		}
@@ -71,54 +119,59 @@
 	function day(dayCount) {
 		$("#day").html("DAY"+dayCount);
 	}
-	
 
  </script>
-<input type="button" name="before" value="이전" onclick="beforeDayCheck()"><div id="day"></div><input type="button" name="after" value="다음" onclick="afterDayCheck()">
 
-<div id="tabs">
-  <ul>
-    <li><a href="#tabs-1">일정</a></li>
-    <li><a href="#tabs-2">비용</a></li>
-    <li><a href="#tabs-3">메모</a></li>
-  </ul>
-  <div id="tabs-1">
-       <table border="1">
-		    <tr><td>1</td><td>이미지</td></tr>
-		    <tr><td>2</td><td>이미지</td></tr>
-		    <tr><td>3</td><td>이미지</td></tr>
-    	</table>
+<input type="button" name="before" value="이전" onclick="beforeDayCheck()" style="float:left;"><input type="button" name="after" value="다음" onclick="afterDayCheck()" style="float:right;"><div id="day"></div>
+<div id="rightContent">
+	<div class="tabs" id="tab1">
+	  <ul>
+	    <li><a href="#tabs-1">일정</a></li>
+	    <li><a href="#tabs-2">비용</a></li>
+	    <li><a href="#tabs-3">메모</a></li>
+	  </ul>
+	  <div id="tabs-1">
+		<input type="button" id="addBtn" value="추가"><input type="button" id="removeBtn" value="삭제">
+		<fieldset>
+	 		<legend>Course 1</legend>
+		    <table id="areaList">
+			    <tr>
+			        <td>코스 넣기 </td>
+			    </tr>
+		    </table>
+	    </fieldset>
+	  </div>
+	  <div id="tabs-2">
+	 	<fieldset>
+	 		<legend>Course 1</legend>
+		    <table id="costList">
+			    <tr>
+			        <td>식비</td>
+			        <td><input type="text" name="costFood" size="10"></td>
+			    </tr>
+			    <tr>
+				    <td>교통비</td>
+				    <td><input type="text" name="costVehicle" size="10"></td>    
+				</tr>
+			    <tr>
+			    	<td>숙박비</td>
+				    <td><input type="text" name="costStay" size="10"></td>  
+			    </tr>
+			    <tr>
+			    	<td>기타</td>
+				    <td><input type="text" name="costEtc" size="10"></td>  
+			    </tr>
+		    </table>
+	    </fieldset>
+	  </div>
+	   <div id="tabs-3">
+	     <table border="1">
+	       <form method="post">
+		   	<textarea name="memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.
+		   	</textarea>
+		   </form>
+	    </table>
+	  </div>
   </div>
-  <div id="tabs-2">
-    <table border="1">
-	    <tr>
-	    	<td rowspan="4">1</td>
-	        <td>식비</td>
-	        <td><input type="text" name="costFood"></td>
-	    </tr>
-	    <tr>
-		    <td>교통비</td>
-		    <td><input type="text" name="costVehicle"></td>    
-		</tr>
-	    <tr>
-	    	<td>숙박비</td>
-		    <td><input type="text" name="costStay"></td>  
-	    </tr>
-	    <tr>
-	    	<td>기타</td>
-		    <td><input type="text" name="costEtc"></td>  
-	    </tr>
-    </table>
-  </div>
-   <div id="tabs-3">
-     <table border="1">
-       <form method="post">
-	   	<textarea name="memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.
-	   	${requestScope.plan.title}	
-	   	</textarea>
-	   </form>
-    </table>
-  </div>
-  
 </div>
  

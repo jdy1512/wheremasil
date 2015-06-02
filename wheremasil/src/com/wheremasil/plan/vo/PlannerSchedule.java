@@ -13,7 +13,7 @@ public class PlannerSchedule implements Serializable {
 	private String endDate; //종료일
 	private int groupNum; //인원수
 	private String theme; //테마 정보
-	private ArrayList<Schedule> InfoList;
+	private ArrayList<Schedule> scheduleList;
 
 
 	public PlannerSchedule(){}
@@ -27,7 +27,7 @@ public class PlannerSchedule implements Serializable {
 		this.endDate = endDate;
 		this.groupNum = groupNum;
 		this.theme = theme;
-		InfoList = infoList;
+		scheduleList = infoList;
 
 	}
 

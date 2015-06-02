@@ -174,6 +174,8 @@ h1:before {
 #pagination {margin:10px auto;text-align: center;height:18px}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+
+
 </style>
 </head>
 <body>
