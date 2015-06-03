@@ -1,4 +1,5 @@
 
+ALTER TABLE posting MODIFY(p_title VARCHAR2(512));
 ALTER TABLE posting rename column p_content to p_content_path;
 ALTER TABLE posting MODIFY(p_content clob);
 ALTER TABLE posting add(p_content clob);

@@ -68,7 +68,7 @@ CREATE TABLE POSTING (
    p_datetime CHAR(14) NOT NULL, /* 게시글 작성 시간 */
    p_number NUMBER(11) NOT NULL, /* 게시글 번호 */
    p_like NUMBER(11) NOT NULL, /* 게시글 좋아요 */
-   p_title VARCHAR2(64) NOT NULL, /* 게시글 제목 */
+   p_title VARCHAR2(512) NOT NULL, /* 게시글 제목 */
    p_hits NUMBER(11) NOT NULL, /* 게시글 조회수 */
    p_img_path varchar2(256) NOT NULL, /* 글 대표이미지 경로 */
    boardtype_id VARCHAR2(16) NOT NULL, /* 게시판 타입 분류 코드 */

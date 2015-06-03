@@ -201,6 +201,43 @@ h1:before {
   content: '✖'; /* UTF-8 symbol */
 }
 
+.infoview_container {
+	width:100%;
+	clear:both;
+	
+	border: 1px solid #0a3c59;
+}
+.infoview_image_block {
+	width:34%;
+	min-height:80px;
+	max-height:80px;
+	float:left;
+	display:-webkit-box;
+	-webkit-box-pack:center;
+	-webkit-box-align:center;
+}
+.infoview_image {
+	width:70px;
+	height:70px;
+}
+.infoview_text_block {
+	width:66%;
+	float:right;
+}
+.infoview_text_title {
+	width:100%;
+	margin:0px;
+	padding:0px;
+	text-align:center;
+}
+.infoview_text_content {
+	width:100%;
+	margin:0px;
+	padding:0px;
+	text-align:center;
+	line-height:120%;
+}
+
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}

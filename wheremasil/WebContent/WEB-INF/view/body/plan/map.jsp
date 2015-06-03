@@ -132,9 +132,9 @@
 	    		        })(marker, data[i].title, data[i].address, data[i].imgPath);
 	    		        
 	    		        var content = '<div id="leftmenu_' +
-	    		        	data[i].title + '" style="max-width:100%;clear:both;border: 1px solid #0a3c59;"><div style="width:32%;float:left;margin:1%"><img src="' + 
-		        			data[i].imgPath + '" style="width:95%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:100%;margin:0px;padding:0px;text-align:center"><b>' + 
-		        			data[i].title + '</b></p><p style="width:100%;margin:0px;padding:0px;text-align:center;line-height:120%;">' + 
+	    		        	data[i].title + '" class="infoview_container"><div class="infoview_image_block"><img src="' + 
+		        			data[i].imgPath + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
+		        			data[i].title + '</b></p><p class="infoview_text_content">' + 
 		        			data[i].address + '</p></div></div>';
 		        			
     		        	$("#left-container").append(content);
@@ -151,11 +151,9 @@
     		        		var img = data[1];
     		        		var addr = data[2];
 
-    		        		var content = '<div style="max-width:100%"><div style="width:32%;float:left;margin:1%"><img src="' + 
-    		        		img + '" style="width:100%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:100%;margin:0px;padding:0px;text-align:center;"><b>' + 
-    				    	title + '</b></p><p style="width:90%;margin-top:5%;margin-left:5%;margin-right:5%;text-align:center">' + 
-    				    	addr + '</p><div style="width:50%;margin-left:25%;margin-right:25%;padding-top:2%"></div></div>' +
-    				    	'<a href="javascript:void(0);" id="closeBt" class="close-thik"></a></div>';
+    		        		var content = '<div style="max-width:100%;margin:0px;padding:0px;"><div style="width:32%;float:left;bottom:1%;right:1%;"><img src="' + 
+    		        		img + '" style="width:90%;margin:5px;"></div><div style="width:64%;float:right;margin:1%;"><p style="width:100%;margin:0px;padding:0px;text-align:center;font-size:90%;"><b>' + 
+    				    	title + '</b></p><p style="width:100%;margin:0px;padding:0px;text-align:center;line-height:120%;font-size:80%;">' + addr + '</p></div></div>';
 
     		        		setSchedule(content);
     		    		});
