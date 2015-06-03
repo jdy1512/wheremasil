@@ -10,18 +10,19 @@
   <script>
  	 var dayAllCount=0; //총 여행 날짜
  	 var dayCount=1; // 현재 day
-  	 var courseCount=2;
- 	 
- 	 
-  	 function setSchedule(html) {
+  	 var courseCount=1;
+ 	 var appendCount=1;
+  	
+  	 function setSchedule(html,dayCount) {
  		$("#tabs-1").append('<fieldset><legend>Course'+courseCount+'</legend><table id="areaList"><tr>'+
  					       '<td>' + html +'</td></tr></table></fieldset>');
 		
- 		$("#tabs-2").append("<fieldset><legend>Course"+courseCount+"</legend><table><tr><td>식비</td><td><input type='text' name='costFood' size='10'></td></tr>"+
-				"<tr><td>교통비</td><td><input type='text' name='costVehicle' size='10'></td></tr>"+
-				"<tr><td>숙박비</td><td><input type='text' name='costStay' size='10'></td></tr>"+
-				"<tr><td>기타</td><td><input type='text' name='costEtc' size='10'></td></tr></table></fieldset>");
+ 		$("#tabs-2").append("<fieldset><legend>Course"+courseCount+"</legend><table><tr><td>식비</td><td><input type='text' name='scheduleList["+dayCount+"].costList["+i+"].costFood' size='10'></td></tr>"+
+				"<tr><td>교통비</td><td><input type='text' name='scheduleList["+dayCount+"].costList["+i+"].costVehicle' size='10'></td></tr>"+
+				"<tr><td>숙박비</td><td><input type='text' name='scheduleList["+dayCount+"].costList["+i+"].costStay' size='10'></td></tr>"+
+				"<tr><td>기타</td><td><input type='text' name='scheduleList["+dayCount+"].costList["+i+"].costEtc' size='10'></td></tr></table></fieldset>");
 		courseCount++;
+		appendCount++;
 	 };
 	
  	 //오른쪽 탭 만들기
@@ -46,25 +47,26 @@
 	 		}
 	 		if(courseCount>1){
 	 			courseCount--;
+	 			appendCount--;
 	 		}
 	 	});
 	  });// end of function;
 	  
 	 function makeDiv(dayAllCount){
-			 	for(var i=2;i<=dayAllCount;i++){
+			 	for(var i=1;i<=dayAllCount-1;i++){
 					$("#rightContent").append('<div class="tabs" id="tab'+i+'"style="display:none;">'+
 					'<ul><li><a href="#tabs-1">일정</a></li><li><a href="#tabs-2">비용</a></li><li><a href="#tabs-3">메모</a></li></ul>'+
 				    '<div id="tabs-1"><input type="button" id="addBtn" value="추가"><input type="button" id="removeBtn" value="삭제">'+
 					'<fieldset><legend>Course 1</legend><table id="areaList"><tr><td>코스 넣기 </td></tr></table></fieldset></div>'+
 				    '<div id="tabs-2">'+
 				    '<fieldset><legend>Course 1</legend>'+
-					    '<table id="costList"><tr><td>식비</td><td><input type="text" name="costFood" size="10"></td></tr>'+
-						'<tr><td>교통비</td><td><input type="text" name="costVehicle" size="10"></td></tr>'+
-						  '<tr><td>숙박비</td><td><input type="text" name="costStay" size="10"></td></tr>'+
-						  '<tr><td>기타</td><td><input type="text" name="costEtc" size="10"></td></tr></table></fieldset></div>'+
-						  '<div id="tabs-3"><table border="1"><form method="post">'+
-						  '<textarea name="memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.</textarea>'+
-					   '</form></table></div></div>');
+					    '<table id="costList"><tr><td>식비</td><td><input type="text" name="scheduleList['+i+'].costList[0].costFood" size="10"></td></tr>'+
+						'<tr><td>교통비</td><td><input type="text" name="scheduleList['+i+'].costList[0].costVehicle" size="10"></td></tr>'+
+						  '<tr><td>숙박비</td><td><input type="text" name="scheduleList['+i+'].costList[0].costStay" size="10"></td></tr>'+
+						  '<tr><td>기타</td><td><input type="text" name="scheduleList['+i+'].costList[0].costEtc" size="10"></td></tr></table></fieldset></div>'+
+						  '<div id="tabs-3"><table border="1">'+
+						  '<textarea name="scheduleList['+i+'].costList[0].memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.</textarea>'+
+					   '</table></div></div>');
 			 	}
 			 	
 	}
@@ -126,55 +128,28 @@
  </script>
 
 <input type="button" name="before" value="이전" onclick="beforeDayCheck()" style="float:left;"><input type="button" name="after" value="다음" onclick="afterDayCheck()" style="float:right;"><div id="day"></div>
-<div id="rightContent">
-	<div class="tabs" id="tab1">
-	  <ul>
-	    <li><a href="#tabs-1">일정</a></li>
-	    <li><a href="#tabs-2">비용</a></li>
-	    <li><a href="#tabs-3">메모</a></li>
-	  </ul>
-	  <div id="tabs-1">
-		<input type="button" id="addBtn" value="추가"><input type="button" id="removeBtn" value="삭제">
-		<fieldset>
-	 		<legend>Course 1</legend>
-		    <table id="areaList">
-			    <tr>
-			        <td>코스 넣기 </td>
-			    </tr>
+<form method="post" action="/wheremasil/plan/planInfo.do">
+	<div id="rightContent">
+		<div class="tabs" id="tab0">
+		  <ul>
+		    <li><a href="#tabs-1">일정</a></li>
+		    <li><a href="#tabs-2">비용</a></li>
+		    <li><a href="#tabs-3">메모</a></li>
+		  </ul>
+		  <div id="tabs-1">
+			<input type="button" id="addBtn" value="추가"><input type="button" id="removeBtn" value="삭제">
+		  </div>
+		  <div id="tabs-2">
+		  </div>
+		   <div id="tabs-3">
+		     <table border="1">
+			   	<textarea name="scheduleList[0].costList[0].memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.
+			   	</textarea>
 		    </table>
-	    </fieldset>
+		  </div>
 	  </div>
-	  <div id="tabs-2">
-	 	<fieldset>
-	 		<legend>Course 1</legend>
-		    <table id="costList">
-			    <tr>
-			        <td>식비</td>
-			        <td><input type="text" name="costFood" size="10"></td>
-			    </tr>
-			    <tr>
-				    <td>교통비</td>
-				    <td><input type="text" name="costVehicle" size="10"></td>    
-				</tr>
-			    <tr>
-			    	<td>숙박비</td>
-				    <td><input type="text" name="costStay" size="10"></td>  
-			    </tr>
-			    <tr>
-			    	<td>기타</td>
-				    <td><input type="text" name="costEtc" size="10"></td>  
-			    </tr>
-		    </table>
-	    </fieldset>
-	  </div>
-	   <div id="tabs-3">
-	     <table border="1">
-	       <form method="post">
-		   	<textarea name="memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.
-		   	</textarea>
-		   </form>
-	    </table>
-	  </div>
-  </div>
-</div>
+	</div>
+	<input type="submit" value="submit">
+  </form>
+  
  

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,5 +46,19 @@ public class PlannerScheduleController {
 		area.setEnLat(enLat);
 		area.setEnLon(enLon);
 		return service.getAreasByRange(area);
+	}
+	
+	// 수정중
+	@RequestMapping("planInfo")
+	public ModelAndView planInfo(@ModelAttribute PlannerSchedule plan, HttpServletRequest request){
+//		String costFood2=(String) request.getParameter("costFood2");
+//		String costFood1=(String) request.getParameter("costFood1");
+//		System.out.println("request : "  +costFood2);
+//		System.out.println("request : "  +costFood1);
+//		System.out.println("title=" +plan.getTitle()+"startDate "+plan.getStartDate()+"endDate "+plan.getEndDate()+"theme"+plan.getTheme());
+		
+		System.out.println(plan);
+		
+		return null;
 	}
 }

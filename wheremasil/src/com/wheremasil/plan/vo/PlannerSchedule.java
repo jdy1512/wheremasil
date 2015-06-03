@@ -21,7 +21,6 @@ public class PlannerSchedule implements Serializable {
 
 	public PlannerSchedule(String title, String startDate, String endDate,
 			int groupNum, String theme, ArrayList<Schedule> infoList) {
-		super();
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -71,11 +70,13 @@ public class PlannerSchedule implements Serializable {
 		this.theme = theme;
 	}
 
+
 	@Override
 	public String toString() {
 		return "PlannerSchedule [title=" + title + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", groupNum=" + groupNum
-				+ ", theme=" + theme + "]";
+				+ ", theme=" + theme + ", scheduleList=" + scheduleList + "]";
 	}
+
 
 }

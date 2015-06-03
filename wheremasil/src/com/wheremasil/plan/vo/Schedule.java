@@ -1,43 +1,33 @@
 package com.wheremasil.plan.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class Schedule implements Serializable{
-	private Cost cost;
-	private Area area;
+public class Schedule implements Serializable {
+	private List<Cost> costList;
+	private List<Area> areaList;
 	private String memo;
-	
-	public Schedule(Cost cost, Area area, String memo) {
-		super();
-		if(cost!=null){
-			this.cost = cost;
-		}else{
-			this.cost = new Cost();
-		}
-		
-		if(area!=null){
-			this.area = area;
-		}else{
-			this.area=new Area();
-		}
-		
-			this.memo = memo;
+
+	public Schedule(List<Cost> costList, List<Area> areaList, String memo) {
+		this.costList = costList;
+		this.areaList = areaList;
+		this.memo = memo;
 	}
 
-	public Cost getCost() {
-		return cost;
+	public List<Cost> getCostList() {
+		return costList;
 	}
 
-	public void setCost(Cost cost) {
-		this.cost = cost;
+	public void setCostList(List<Cost> costList) {
+		this.costList = costList;
 	}
 
-	public Area getArea() {
-		return area;
+	public List<Area> getAreaList() {
+		return areaList;
 	}
 
-	public void setArea(Area area) {
-		this.area = area;
+	public void setAreaList(List<Area> areaList) {
+		this.areaList = areaList;
 	}
 
 	public String getMemo() {
@@ -50,11 +40,8 @@ public class Schedule implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Schedule [cost=" + cost + ", area=" + area + ", memo=" + memo
-				+ "]";
+		return "Schedule [costList=" + costList + ", areaList=" + areaList
+				+ ", memo=" + memo + "]";
 	}
-	
-	
-	
-	
+
 }
