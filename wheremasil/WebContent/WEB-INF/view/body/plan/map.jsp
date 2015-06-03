@@ -131,19 +131,22 @@
 	    		            });
 	    		        })(marker, data[i].title, data[i].address, data[i].imgPath);
 	    		        
-	    		        var content = '<div id="leftmenu_' +
+	    		        var content = '<div class="borderme"><div id="leftmenu_' +
 	    		        	data[i].title + '" class="infoview_container"><div class="infoview_image_block"><img src="' + 
 		        			data[i].imgPath + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
 		        			data[i].title + '</b></p><p class="infoview_text_content">' + 
-		        			data[i].address + '</p></div></div>';
+		        			data[i].address + '</p></div></div></div>';
 		        			
     		        	$("#left-container").append(content);
     		        	
-    		        	$(document).on("mouseover", "#leftmenu_" + data[i].title , function() {
-    		        		$(this).css("color", "blue");
-    					});
-    		        	$(document).on("mouseout", "#leftmenu_" + data[i].title , function() {
-    		        		$(this).css("color", "black");
+    		        	$(document).on("click", "#leftmenu_" + data[i].title , function() {
+    		        		var title = $(this).find(".infoview_text_title b").text();
+    		        		for (var idx = 0; idx < areaMarkers.length; idx++) {
+    		        			if (title == areaMarkers[idx].getTitle()) {
+    		        				infowindow.open(map, areaMarkers[idx]);
+    		        			}
+    		        		}
+    		                //displayInfowindow(marker, title, addr, img);
     					});
     		        	$(document).on("click", "#infowindow_" + data[i].title , function() {
     		        		var data = $($(this).parents().html()).last().val().split(",");
@@ -189,7 +192,8 @@
 	        markerImage = new daum.maps.MarkerImage(imageSrc, imageSize),
 	        marker = new daum.maps.Marker({
 		    	position: position, // 마커의 위치
-		    	image: markerImage 
+		    	image: markerImage,
+		    	title: title
 	        });
 			var content = '<div class="title"><h3><b>' + title + '</b></h3></div>';
 			var markerTitle = new daum.maps.CustomOverlay({
@@ -234,7 +238,8 @@
 		        markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imgOptions),
 		            marker = new daum.maps.Marker({
 			            position: position, // 마커의 위치
-			            image: markerImage 
+			            image: markerImage,
+			            title: title
 		        	});
 			} else {
 				var imageSrc = imageUrl, // 마커 이미지가 있는경우
@@ -242,7 +247,8 @@
 		        markerImage = new daum.maps.MarkerImage(imageSrc, imageSize),
 		            marker = new daum.maps.Marker({
 			            position: position, // 마커의 위치
-			            image: markerImage 
+			            image: markerImage,
+			            title: title
 		        	});
 			}
 			var content = '<div class="title"><h3><b>' + title + '</b></h3></div>';
