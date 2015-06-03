@@ -151,9 +151,10 @@
     		        		var img = data[1];
     		        		var addr = data[2];
 
-    		        		var content = '<div style="max-width:100%;margin:0px;padding:0px;"><div style="width:32%;float:left;bottom:1%;right:1%;"><img src="' + 
-    		        		img + '" style="width:90%;margin:5px;"></div><div style="width:64%;float:right;margin:1%;"><p style="width:100%;margin:0px;padding:0px;text-align:center;font-size:90%;"><b>' + 
-    				    	title + '</b></p><p style="width:100%;margin:0px;padding:0px;text-align:center;line-height:120%;font-size:80%;">' + addr + '</p></div></div>';
+    		        		var content = '<div class="infoview_container" style="width:230px;"><div class="infoview_image_block"><img src="' + 
+    		        		img + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
+    				    	title + '</b></p><p class="infoview_text_content">' + 
+    				    	addr + '</p></div></div>';
 
     		        		setSchedule(content);
     		    		});
@@ -359,6 +360,20 @@
 		        fragment.appendChild(itemEl);
 		        
 		        totalHeight += 110;
+			    
+	        	$(document).on("click", "#infowindow_" + places[i].title , function() {
+	        		var data = $($(this).parents().html()).last().val().split(",");
+	        		var title = data[0];
+	        		var img = data[1];
+	        		var addr = data[2];
+
+	        		var content = '<div class="infoview_container" style="width:230px;"><div class="infoview_image_block"><img src="' + 
+	        		img + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
+			    	title + '</b></p><p class="infoview_text_content">' + 
+			    	addr + '</p></div></div>';
+
+	        		setSchedule(content);
+	    		});
 		    }
 	
 		    // 검색결과 항목들을 검색결과 목록 Element에 추가

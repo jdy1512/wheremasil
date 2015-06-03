@@ -202,15 +202,14 @@ h1:before {
 }
 
 .infoview_container {
-	width:100%;
-	clear:both;
-	
+	width:96%;
+	padding:2%;
 	border: 1px solid #0a3c59;
+	overflow-y:hidden;
+	clear:both;
 }
 .infoview_image_block {
 	width:34%;
-	min-height:80px;
-	max-height:80px;
 	float:left;
 	display:-webkit-box;
 	-webkit-box-pack:center;
@@ -219,23 +218,26 @@ h1:before {
 .infoview_image {
 	width:70px;
 	height:70px;
-}
+	margin-top:15px;
+}	
 .infoview_text_block {
 	width:66%;
+	min-height:inherit;
+	max-height:inherit;
+	text-align:center;
 	float:right;
 }
 .infoview_text_title {
 	width:100%;
-	margin:0px;
-	padding:0px;
-	text-align:center;
+	height:0px;
+	margin:0 auto;
+	font-size:90%;
 }
 .infoview_text_content {
 	width:100%;
-	margin:0px;
-	padding:0px;
-	text-align:center;
+	padding-top:20%;
 	line-height:120%;
+	font-size:80%;
 }
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}

@@ -128,6 +128,7 @@
  </script>
 
 <input type="button" name="before" value="이전" onclick="beforeDayCheck()" style="float:left;"><input type="button" name="after" value="다음" onclick="afterDayCheck()" style="float:right;"><div id="day"></div>
+
 <form method="post" action="/wheremasil/plan/planInfo.do">
 	<div id="rightContent">
 		<div class="tabs" id="tab0">
@@ -147,9 +148,7 @@
 			   	</textarea>
 		    </table>
 		  </div>
-	  </div>
+		</div>
 	</div>
 	<input type="submit" value="submit">
   </form>
-  
- 
