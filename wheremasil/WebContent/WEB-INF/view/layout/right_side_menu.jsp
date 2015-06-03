@@ -10,7 +10,7 @@
   <script>
  	 var dayAllCount=0; //총 여행 날짜
  	 var dayCount=1; // 현재 day
-  	 var courseCount=2;
+  	 var courseCount=1;
  	 
  	 
   	 function setSchedule(html) {
@@ -135,37 +135,8 @@
 	  </ul>
 	  <div id="tabs-1">
 		<input type="button" id="addBtn" value="추가"><input type="button" id="removeBtn" value="삭제">
-		<fieldset>
-	 		<legend>Course 1</legend>
-		    <table id="areaList">
-			    <tr>
-			        <td>코스 넣기 </td>
-			    </tr>
-		    </table>
-	    </fieldset>
 	  </div>
 	  <div id="tabs-2">
-	 	<fieldset>
-	 		<legend>Course 1</legend>
-		    <table id="costList">
-			    <tr>
-			        <td>식비</td>
-			        <td><input type="text" name="costFood" size="10"></td>
-			    </tr>
-			    <tr>
-				    <td>교통비</td>
-				    <td><input type="text" name="costVehicle" size="10"></td>    
-				</tr>
-			    <tr>
-			    	<td>숙박비</td>
-				    <td><input type="text" name="costStay" size="10"></td>  
-			    </tr>
-			    <tr>
-			    	<td>기타</td>
-				    <td><input type="text" name="costEtc" size="10"></td>  
-			    </tr>
-		    </table>
-	    </fieldset>
 	  </div>
 	   <div id="tabs-3">
 	     <table border="1">
