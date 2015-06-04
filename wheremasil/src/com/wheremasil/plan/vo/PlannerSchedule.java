@@ -19,6 +19,7 @@ public class PlannerSchedule implements Serializable {
 	public PlannerSchedule(){}
 
 
+
 	public PlannerSchedule(String title, String startDate, String endDate,
 			int groupNum, String theme, ArrayList<Schedule> infoList) {
 		this.title = title;
@@ -28,6 +29,15 @@ public class PlannerSchedule implements Serializable {
 		this.theme = theme;
 		scheduleList = infoList;
 
+	}
+	
+	public ArrayList<Schedule> getScheduleList() {
+		return scheduleList;
+	}
+	
+	
+	public void setScheduleList(ArrayList<Schedule> scheduleList) {
+		this.scheduleList = scheduleList;
 	}
 
 	public String getTitle() {

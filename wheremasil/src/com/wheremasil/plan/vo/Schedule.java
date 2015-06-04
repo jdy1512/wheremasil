@@ -8,6 +8,7 @@ public class Schedule implements Serializable {
 	private List<Area> areaList;
 	private String memo;
 
+	public Schedule(){}
 	public Schedule(List<Cost> costList, List<Area> areaList, String memo) {
 		this.costList = costList;
 		this.areaList = areaList;
