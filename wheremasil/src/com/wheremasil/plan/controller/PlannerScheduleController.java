@@ -1,12 +1,13 @@
 package com.wheremasil.plan.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,14 +51,15 @@ public class PlannerScheduleController {
 	
 	// 수정중
 	@RequestMapping("planInfo")
-	public ModelAndView planInfo(@ModelAttribute PlannerSchedule plan, HttpServletRequest request){
+	public ModelAndView planInfo(@RequestParam Map<String, Object> map, HttpServletRequest request){
 //		String costFood2=(String) request.getParameter("costFood2");
 //		String costFood1=(String) request.getParameter("costFood1");
 //		System.out.println("request : "  +costFood2);
 //		System.out.println("request : "  +costFood1);
 //		System.out.println("title=" +plan.getTitle()+"startDate "+plan.getStartDate()+"endDate "+plan.getEndDate()+"theme"+plan.getTheme());
-		
-		System.out.println(plan);
+		for(Object s: map.entrySet()) {
+			System.out.println(s);
+		}
 		
 		return null;
 	}
