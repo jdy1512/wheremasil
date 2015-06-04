@@ -14,6 +14,9 @@
 	var areaMarkerTitles = [];
 	// 지역 상세 데이타 뷰
 	var infowindow;
+	// 지도 범위 재설정 딜레이 flg, time
+	var delayFlg = false;
+	var delayTime = 200; // 200ms, 0.2초
 	
 	//TODO start of onload
 	$(function() {
@@ -101,14 +104,28 @@
 		    resetBounds();
 		});
 		
+		// 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출
+		daum.maps.event.addListener(map, 'bounds_changed', function() {
+			// delayFlg 기본값 false
+			if (!delayFlg) {
+				delayFlg = !delayFlg;
+				// 범위 재설정
+				getAreasByRange(map.getBounds());
+				// 지연 기본값 0.2초 후, delayFlg 복구
+				setTimeout(function() {
+					delayFlg = !delayFlg;
+				}, delayTime);
+			}
+		});
+		
 		getAreasByRange(map.getBounds());
 		function getAreasByRange(bounds) {
 			var swLatLng = bounds.getSouthWest();
 			var neLatLng = bounds.getNorthEast();
 			var stLat = swLatLng.getLat();
-			var stLon = neLatLng.getLng();
+			var stLon = swLatLng.getLng();
 			var enLat = neLatLng.getLat();
-			var enLon = swLatLng.getLng();
+			var enLon = neLatLng.getLng();
 			
 			$.ajax({
 	        	url: "/wheremasil/plan/getAreasByRange.do",
@@ -117,6 +134,10 @@
 	            timeout : 30000, 
 	        	data : {"stLat":stLat,"stLon":stLon,"enLat":enLat,"enLon":enLon},
 	        	success: function(data) {
+	        		// leftcontainer 아이템 삭제
+	        		removeAllLeftContainerItems();
+	        		
+	        		// 마커 삭제
 	        		removeAreaMarker();
 	        		
 	        		for ( var i = 0; i < data.length; i++ ) {
@@ -133,21 +154,27 @@
 	    		        
 	    		        var content = '<div class="borderme"><div id="leftmenu_' +
 	    		        	data[i].title + '" class="infoview_container"><div class="infoview_image_block"><img src="' + 
-		        			data[i].imgPath + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
+		        			data[i].imgPath + '" class="infoview_image"><input type="hidden" value="' + data[i].imgPath + '"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
 		        			data[i].title + '</b></p><p class="infoview_text_content">' + 
 		        			data[i].address + '</p></div></div></div>';
 		        			
     		        	$("#left-container").append(content);
     		        	
+    		        	// leftmenu 클릭시 인포윈도우 출현 - 맵이동
     		        	$(document).on("click", "#leftmenu_" + data[i].title , function() {
     		        		var title = $(this).find(".infoview_text_title b").text();
+    		        		var addr = $(this).find(".infoview_text_content").text();
+    		        		var img = $(this).find(".infoview_image_block input").val();
     		        		for (var idx = 0; idx < areaMarkers.length; idx++) {
     		        			if (title == areaMarkers[idx].getTitle()) {
-    		        				infowindow.open(map, areaMarkers[idx]);
+    	    		                infowindow.close();
+    	    		    		    map.panTo(areaMarkers[idx].getPosition());
+    	    		                displayInfowindow(areaMarkers[idx], title, addr, img);
     		        			}
     		        		}
-    		                //displayInfowindow(marker, title, addr, img);
     					});
+    		        	
+    		        	// DB지역 데이타인 경우, 인포윈도우 '일정등록' 클릭시 등록
     		        	$(document).on("click", "#infowindow_" + data[i].title , function() {
     		        		var data = $($(this).parents().html()).last().val().split(",");
     		        		var title = data[0];
@@ -211,6 +238,11 @@
 			extendsBounds(position);
 	
 		    return marker;
+		}
+
+		// leftmenu 아이템 삭제
+		function removeAllLeftContainerItems() {
+			$("#left-container").html("");
 		}
 		
 		// 지도 위에 표시되고 있는 DB지역 마커와 오버레이를 모두 제거
@@ -366,7 +398,8 @@
 		        fragment.appendChild(itemEl);
 		        
 		        totalHeight += 110;
-			    
+
+	        	// DaumAPI검색 데이타인 경우, 인포윈도우 '일정등록' 클릭시 (* DB에 insert 후 *) 등록
 	        	$(document).on("click", "#infowindow_" + places[i].title , function() {
 	        		var data = $($(this).parents().html()).last().val().split(",");
 	        		var title = data[0];

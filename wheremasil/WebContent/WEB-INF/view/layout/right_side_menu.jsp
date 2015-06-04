@@ -52,6 +52,7 @@
 	 	});
 	  });// end of function;
 	  
+
 	  function makeDiv(dayAllCount){
           for(var i=2;i<=dayAllCount;i++){
             $("#rightContent").append('<div class="tabs" id="tab'+i+'"style="display:none;">'+
@@ -64,6 +65,7 @@
           }
           
 }
+
 	/*
      * 두 날짜의 차이를 일자로 구한다.(조회 종료일 - 조회 시작일)
      * @return 기간에 해당하는 일자
