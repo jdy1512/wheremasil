@@ -17,10 +17,10 @@
  		$("#tabs-1").append('<fieldset><legend>Course'+courseCount+'</legend><table id="areaList"><tr>'+
  					       '<td>' + html +'</td></tr></table></fieldset>');
 		
- 		$("#tabs-2").append("<fieldset><legend>Course"+courseCount+"</legend><table><tr><td>식비</td><td><input type='text' name='scheduleList["+dayCount+"].costList["+appendCount+"].costFood' size='10'></td></tr>"+
-				"<tr><td>교통비</td><td><input type='text' name='scheduleList["+dayCount+"].costList["+appendCount+"].costVehicle' size='10'></td></tr>"+
-				"<tr><td>숙박비</td><td><input type='text' name='scheduleList["+dayCount+"].costList["+appendCount+"].costStay' size='10'></td></tr>"+
-				"<tr><td>기타</td><td><input type='text' name='scheduleList["+dayCount+"].costList["+appendCount+"].costEtc' size='10'></td></tr></table></fieldset>");
+ 		$("#tabs-2").append("<fieldset><legend>Course"+courseCount+"</legend><table><tr><td>식비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costFood' size='10'></td></tr>"+
+				"<tr><td>교통비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costVehicle' size='10'></td></tr>"+
+				"<tr><td>숙박비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costStay' size='10'></td></tr>"+
+				"<tr><td>기타</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costEtc' size='10'></td></tr></table></fieldset>");
 		courseCount++;
 		appendCount++;
 	 };
@@ -61,11 +61,11 @@
 				    '<div id="tabs-2">'+
 				    '<fieldset><legend>Course 1</legend>'+
 					    '<table id="costList"><tr><td>식비</td><td><input type="text" name="scheduleList['+i+'].costList[1].costFood" size="10"></td></tr>'+
-						'<tr><td>교통비</td><td><input type="text" name="scheduleList['+i+'].costList[1].costVehicle" size="10"></td></tr>'+
-						  '<tr><td>숙박비</td><td><input type="text" name="scheduleList['+i+'].costList[1].costStay" size="10"></td></tr>'+
-						  '<tr><td>기타</td><td><input type="text" name="scheduleList['+i+'].costList[1].costEtc" size="10"></td></tr></table></fieldset></div>'+
+						'<tr><td>교통비</td><td><input type="text" name="scheduleList:'+i+',costList:1,costVehicle" size="10"></td></tr>'+
+						  '<tr><td>숙박비</td><td><input type="text" name="scheduleList:'+i+',costList:1,costStay" size="10"></td></tr>'+
+						  '<tr><td>기타</td><td><input type="text" name="scheduleList:'+i+',costList:1,costEtc" size="10"></td></tr></table></fieldset></div>'+
 						  '<div id="tabs-3"><table border="1">'+
-						  '<textarea name="scheduleList['+i+'].costList[1].memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.</textarea>'+
+						  '<textarea name="scheduleList:'+i+',costList:1,memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.</textarea>'+
 					   '</table></div></div>');
 			 	}
 			 	
@@ -143,7 +143,7 @@
 		  </div>
 		   <div id="tabs-3">
 		     <table border="1">
-			   	<textarea name="scheduleList[1].costList[1].memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.
+			   	<textarea name="scheduleList:1,costList:1,memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.
 			   	</textarea>
 		    </table>
 		  </div>
