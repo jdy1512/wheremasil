@@ -1,9 +1,15 @@
 package com.wheremasil.plan.controller;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +53,50 @@ public class PlannerScheduleController {
 		area.setEnLat(enLat);
 		area.setEnLon(enLon);
 		return service.getAreasByRange(area);
+	}
+
+	@RequestMapping("registArea")
+	@ResponseBody
+	public int registArea(@RequestParam String title, @RequestParam String address, @RequestParam String imageUrl, @RequestParam String latitude, @RequestParam String longitude, HttpServletRequest request) {
+		Area area = new Area();
+		area.setTitle(title);
+		area.setAddress(address);
+		area.setLatitude(latitude);
+		area.setLongitude(longitude);
+		area.setImgPath(imageUrl);
+		
+		int result = service.registArea(area);
+		
+		String id = null;
+		if (result == 1) {
+			id = service.getAreaIdByName(title);
+			
+			if (id != null) {
+				System.out.println(id);
+				String localPath = request.getSession().getServletContext().getRealPath("/uploads/images/area/" + id);
+				imgFile(localPath, imageUrl, "main", "png");
+			}
+		}
+
+		return 0;
+	}
+
+	private void imgFile(String localPath, String path, String name, String file_ext){
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(new URL(path));
+			BufferedImage bufferedImage = new BufferedImage(image.getWidth(),
+					image.getHeight(), BufferedImage.TYPE_INT_BGR);
+
+			Graphics2D graphics = (Graphics2D) bufferedImage.getGraphics();
+			graphics.setBackground(Color.WHITE);
+			graphics.drawImage(image, 0, 0, null);
+
+			ImageIO.write(bufferedImage, file_ext, new File(localPath + "/" + name + "." + file_ext));
+			//System.out.println(path + " -> " + localPath + "/" + name + "." + file_ext + " 다운완료");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	// 수정중

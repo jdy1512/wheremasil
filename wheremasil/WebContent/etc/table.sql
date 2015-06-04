@@ -64,7 +64,7 @@ ALTER TABLE BOARDTYPE
 /* POSTING */
 CREATE TABLE POSTING (
    posting_id VARCHAR2(16) NOT NULL, /* 게시물코드 */
-   p_content VARCHAR2(512) NOT NULL, /* 게시물 파일 경로 */
+   p_content CLOB NOT NULL, /* 게시물 파일 경로 */
    p_datetime CHAR(14) NOT NULL, /* 게시글 작성 시간 */
    p_number NUMBER(11) NOT NULL, /* 게시글 번호 */
    p_like NUMBER(11) NOT NULL, /* 게시글 좋아요 */
@@ -114,7 +114,8 @@ CREATE TABLE REPLY (
    r_datetime CHAR(14) NOT NULL, /* 댓글 작성 시간 */
    r_level NUMBER(11) NOT NULL, /* 댓글 깊이 구분 값 */
    posting_id VARCHAR2(16) NOT NULL, /* 게시물코드 */
-   member_id VARCHAR2(512) NOT NULL /* 회원코드 */
+   member_id VARCHAR2(512) NOT NULL, /* 회원코드 */
+   r_content VARCHAR2(4000) NOT NULL /* 댓글 내용 */
 );
 
 CREATE UNIQUE INDEX PK_REPLY

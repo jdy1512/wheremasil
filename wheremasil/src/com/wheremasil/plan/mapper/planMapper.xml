@@ -17,11 +17,21 @@
 		from area
 	</sql>
     
+    <select id="selectAreaIdByName" resultType="string" parameterType="string">
+		select area_id
+		from area
+		where a_name=${value}
+    </select>
+    
     <select id="selectAreasByRange" resultMap="result-area" parameterType="area">
         <include refid="plan-area"/>
         
 		where (${enLat} > a_latitude and a_latitude > ${stLat})
 			and (${enLon} > a_longitude and a_longitude > ${stLon})
     </select>
+    
+    <insert id="insertArea" parameterType="area">
+        insert into area values(concat('A',area_seq.nextval),${title},${address},${latitude},${longitude},'/wheremasil/uploads/images/area/'||'A'||area_seq.currval||'/main.png','C1')
+    </insert>
     
 </mapper>

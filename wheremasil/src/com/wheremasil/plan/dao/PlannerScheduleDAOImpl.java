@@ -20,4 +20,14 @@ public class PlannerScheduleDAOImpl implements PlannerScheduleDAO {
 		return session.selectList(namespace + "selectAreasByRange", area);
 	}
 
+	@Override
+	public int insertArea(Area area) {
+		return session.insert(namespace + "insertArea", area);
+	}
+
+	@Override
+	public String selectAreaIdByName(String name) {
+		return session.selectOne(namespace + "selectAreaIdByName", name);
+	}
+
 }

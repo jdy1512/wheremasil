@@ -19,4 +19,14 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 		return dao.selectAreasByRange(area);
 	}
 
+	@Override
+	public int registArea(Area area) {
+		return dao.insertArea(area);
+	}
+
+	@Override
+	public String getAreaIdByName(String name) {
+		return dao.selectAreaIdByName(name);
+	}
+	
 }

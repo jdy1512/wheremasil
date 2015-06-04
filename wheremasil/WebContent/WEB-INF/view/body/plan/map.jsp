@@ -4,6 +4,8 @@
 <script type="text/javascript">
 	var map;
 	var bounds;
+	// 지역명 리스트
+	var titles = [];
 	// 마커를 담을 배열
 	var markers = [];
 	// 마커 타이틀을 담을 배열
@@ -145,12 +147,12 @@
 	    		        var placePosition = new daum.maps.LatLng(data[i].latitude, data[i].longitude),
 	    		        	marker = addAreaMarker(placePosition, i, data[i].title, data[i].imgPath);
 
-	    		        (function(marker, title, addr, img) {
+	    		        (function(marker, title, addr, img, id) {
 	    		            daum.maps.event.addListener(marker, 'mouseover', function() {
 	    		                infowindow.close();
-	    		                displayInfowindow(marker, title, addr, img);
+	    		                displayInfowindow(marker, title, addr, img, id);
 	    		            });
-	    		        })(marker, data[i].title, data[i].address, data[i].imgPath);
+	    		        })(marker, data[i].title, data[i].address, data[i].imgPath, data[i].id);
 	    		        
 	    		        var content = '<div class="borderme"><div id="leftmenu_' +
 	    		        	data[i].title + '" class="infoview_container"><div class="infoview_image_block"><img src="' + 
@@ -173,25 +175,91 @@
     		        			}
     		        		}
     					});
-    		        	
-    		        	// DB지역 데이타인 경우, 인포윈도우 '일정등록' 클릭시 등록
-    		        	$(document).on("click", "#infowindow_" + data[i].title , function() {
-    		        		var data = $($(this).parents().html()).last().val().split(",");
-    		        		var title = data[0];
-    		        		var img = data[1];
-    		        		var addr = data[2];
-
-    		        		var content = '<div class="infoview_container" style="width:230px;"><div class="infoview_image_block"><img src="' + 
-    		        		img + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
-    				    	title + '</b></p><p class="infoview_text_content">' + 
-    				    	addr + '</p></div></div>';
-
-    		        		setSchedule(content);
-    		    		});
 	    		    }// end of for
 	            }
 			});
 		}// end of getAreasByRange()
+		
+		// 지역명 리스트 추가
+		function addTitle(title) {
+			if (titles.length == 0) {
+				titles.push(title);
+				// DB지역 데이타인 경우, 인포윈도우 '일정등록' 클릭시 등록
+	        	$(document).on("click", "#infowindow_" + title , function() {
+	        		var data = $($(this).parents().html()).last().val().split(",");
+	        		var title = data[0];
+	        		var img = data[1];
+	        		var addr = data[2];
+	        		var lat = data[3];
+	        		var lng = data[4];
+	        		var id = data[5];
+
+	        		var content = '<div class="infoview_container" style="width:230px;"><div class="infoview_image_block"><img src="' + 
+	        		img + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
+			    	title + '</b></p><p class="infoview_text_content">' + 
+			    	addr + '</p></div></div>';
+
+	        		setSchedule(content);
+					//TODO: 신규 지역정보 db insert
+					if (id == 'undefined') {
+						// id가 없는경우, 지역정보를 db에 insert
+						//alert(title+", "+address+", "+imgUrl);
+						$.ajax({
+				        	url: "/wheremasil/plan/registArea.do",
+				        	dataType : "text",
+				            type: "POST",
+				            timeout : 30000, 
+				        	data : {"title":title,"address":addr,"imageUrl":img,"latitude":lat,"longitude":lng},
+				        	success: function(data) {
+				        		alert(data);
+				        	}
+						});
+					}
+	    		});
+			} else {
+				for (var idx = 0; idx < titles.length; idx++) {
+					if (title == titles[idx]) {
+						break;
+					}
+					if (idx == titles.length - 1) {
+						titles.push(title);
+						
+						// 인포윈도우 '일정등록' 클릭시 등록
+			        	$(document).on("click", "#infowindow_" + title , function() {
+			        		var data = $($(this).parents().html()).last().val().split(",");
+			        		var title = data[0];
+			        		var img = data[1];
+			        		var addr = data[2];
+			        		var lat = data[3];
+			        		var lng = data[4];
+			        		var id = data[5];
+
+			        		var content = '<div class="infoview_container" style="width:230px;"><div class="infoview_image_block"><img src="' + 
+			        		img + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
+					    	title + '</b></p><p class="infoview_text_content">' + 
+					    	addr + '</p></div></div>';
+
+			        		setSchedule(content);
+							//TODO: 신규 지역정보 db insert
+							if (id == 'undefined') {
+								// id가 없는경우, 지역정보를 db에 insert
+								//alert(title+", "+address+", "+imgUrl);
+								$.ajax({
+						        	url: "/wheremasil/plan/registArea.do",
+						        	dataType : "text",
+						            type: "POST",
+						            timeout : 30000, 
+						        	data : {"title":title,"address":addr,"imageUrl":img,"latitude":lat,"longitude":lng},
+						        	success: function(data) {
+						        		alert(data);
+						        	}
+								});
+							}
+			    		});
+					}
+				}
+			}
+		}
 		
 		// 지도 범위 설정
 		function setBounds() {
@@ -233,6 +301,7 @@
 		    marker.setMap(map); // 지도 위에 마커를 표출
 		    areaMarkers.push(marker);  // 배열에 생성된 마커를 추가
 		    areaMarkerTitles.push(markerTitle); // 배열에 생성된 마커오버레이를 추가
+		    addTitle(title); // 지역명 리스트에 추가
 	
 		    // 마커를 지도 뷰 범위에 추가
 			extendsBounds(position);
@@ -294,6 +363,7 @@
 		    marker.setMap(map); // 지도 위에 마커를 표출
 		    markers.push(marker);  // 배열에 생성된 마커를 추가
 		    markerTitles.push(markerTitle); // 배열에 생성된 마커오버레이를 추가
+		    addTitle(title); // 지역명 리스트에 추가
 	
 		    // 마커를 지도 뷰 범위에 추가
 			extendsBounds(position);
@@ -398,22 +468,7 @@
 		        fragment.appendChild(itemEl);
 		        
 		        totalHeight += 110;
-
-	        	// DaumAPI검색 데이타인 경우, 인포윈도우 '일정등록' 클릭시 (* DB에 insert 후 *) 등록
-	        	$(document).on("click", "#infowindow_" + places[i].title , function() {
-	        		var data = $($(this).parents().html()).last().val().split(",");
-	        		var title = data[0];
-	        		var img = data[1];
-	        		var addr = data[2];
-
-	        		var content = '<div class="infoview_container" style="width:230px;"><div class="infoview_image_block"><img src="' + 
-	        		img + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
-			    	title + '</b></p><p class="infoview_text_content">' + 
-			    	addr + '</p></div></div>';
-
-	        		setSchedule(content);
-	    		});
-		    }
+		    }// end of for
 	
 		    // 검색결과 항목들을 검색결과 목록 Element에 추가
 		    listEl.appendChild(fragment);
@@ -478,7 +533,7 @@
 		}
 		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수
 		// 인포윈도우에 장소명을 표시
-		function displayInfowindow(marker, title, addr, img) {
+		function displayInfowindow(marker, title, addr, img, id) {
 			var imageUrl = img;
 			if (imageUrl == '') {
 				imageUrl = "/wheremasil/uploads/images/area/img_not_found.png";
@@ -493,7 +548,7 @@
 		    	title + '</b></p><p style="width:90%;margin-top:5%;margin-left:5%;margin-right:5%;text-align:center">' + 
 		    	addr + '</p><div style="width:50%;margin-left:25%;margin-right:25%;padding-top:2%"><input type="button" class="plan_button" id="infowindow_' + 
 		    	title + '" value="일정등록"><input type="hidden" value="' + 
-		    	title + ',' + imageUrl + ',' + addr + '"></div></div>' +
+		    	title + ',' + imageUrl + ',' + addr + ',' + marker.getPosition().getLat() + ',' + marker.getPosition().getLng() + ',' + id + '"></div></div>' +
 		    	'<a href="javascript:void(0);" id="closeBt" class="close-thik"></a></div>';
 		    	
 		    infowindow.setContent(content);
@@ -505,22 +560,12 @@
 		        el.removeChild (el.lastChild);
 		    }
 		}
-	
 
-		
-		// 동적 이벤트 -----------------------------------------------
-		
 		// 인포윈도우 닫기버튼 (x)
 		$(document).on("click", "#closeBt", function() {
 			infowindow.close();
 		});
 		
-		//$(document).on("click", "#infowindow_" + title , function() {
-    	//	alert(title + " 클릭");
-    		//setSchedule(content);
-		//});
-		
-		// 동적 이벤트 -----------------------------------------------
 	});// end of onload
 	//TODO end of onload
 
