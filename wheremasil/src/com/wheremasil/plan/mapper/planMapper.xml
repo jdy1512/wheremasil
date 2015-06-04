@@ -19,6 +19,9 @@
     
     <select id="selectAreasByRange" resultMap="result-area" parameterType="area">
         <include refid="plan-area"/>
+        
+		where (${enLat} > a_latitude and a_latitude > ${stLat})
+			and (${enLon} > a_longitude and a_longitude > ${stLon})
     </select>
     
 </mapper>

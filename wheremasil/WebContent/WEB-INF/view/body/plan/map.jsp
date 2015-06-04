@@ -14,6 +14,9 @@
 	var areaMarkerTitles = [];
 	// 지역 상세 데이타 뷰
 	var infowindow;
+	// 지도 범위 재설정 딜레이 flg, time
+	var delayFlg = false;
+	var delayTime = 200; // 200ms, 0.2초
 	
 	//TODO start of onload
 	$(function() {
@@ -101,14 +104,28 @@
 		    resetBounds();
 		});
 		
+		// 지도가 이동, 확대, 축소로 인해 지도영역이 변경되면 마지막 파라미터로 넘어온 함수를 호출
+		daum.maps.event.addListener(map, 'bounds_changed', function() {
+			// delayFlg 기본값 false
+			if (!delayFlg) {
+				delayFlg = !delayFlg;
+				// 범위 재설정
+				getAreasByRange(map.getBounds());
+				// 지연 기본값 0.2초 후, delayFlg 복구
+				setTimeout(function() {
+					delayFlg = !delayFlg;
+				}, delayTime);
+			}
+		});
+		
 		getAreasByRange(map.getBounds());
 		function getAreasByRange(bounds) {
 			var swLatLng = bounds.getSouthWest();
 			var neLatLng = bounds.getNorthEast();
 			var stLat = swLatLng.getLat();
-			var stLon = neLatLng.getLng();
+			var stLon = swLatLng.getLng();
 			var enLat = neLatLng.getLat();
-			var enLon = swLatLng.getLng();
+			var enLon = neLatLng.getLng();
 			
 			$.ajax({
 	        	url: "/wheremasil/plan/getAreasByRange.do",
@@ -117,6 +134,10 @@
 	            timeout : 30000, 
 	        	data : {"stLat":stLat,"stLon":stLon,"enLat":enLat,"enLon":enLon},
 	        	success: function(data) {
+	        		// leftcontainer 아이템 삭제
+	        		removeAllLeftContainerItems();
+	        		
+	        		// 마커 삭제
 	        		removeAreaMarker();
 	        		
 	        		for ( var i = 0; i < data.length; i++ ) {
@@ -217,6 +238,11 @@
 			extendsBounds(position);
 	
 		    return marker;
+		}
+
+		// leftmenu 아이템 삭제
+		function removeAllLeftContainerItems() {
+			$("#left-container").html("");
 		}
 		
 		// 지도 위에 표시되고 있는 DB지역 마커와 오버레이를 모두 제거

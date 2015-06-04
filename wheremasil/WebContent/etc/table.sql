@@ -64,13 +64,13 @@ ALTER TABLE BOARDTYPE
 /* POSTING */
 CREATE TABLE POSTING (
    posting_id VARCHAR2(16) NOT NULL, /* 게시물코드 */
-   p_content CLOB NOT NULL, /* 게시물 파일 경로 */
+   p_content VARCHAR2(512) NOT NULL, /* 게시물 파일 경로 */
    p_datetime CHAR(14) NOT NULL, /* 게시글 작성 시간 */
    p_number NUMBER(11) NOT NULL, /* 게시글 번호 */
    p_like NUMBER(11) NOT NULL, /* 게시글 좋아요 */
    p_title VARCHAR2(512) NOT NULL, /* 게시글 제목 */
    p_hits NUMBER(11) NOT NULL, /* 게시글 조회수 */
-   p_img_path varchar2(256) NOT NULL, /* 글 대표이미지 경로 */
+   p_img_path VARCHAR2(256) NOT NULL, /* 글 대표이미지 경로 */
    boardtype_id VARCHAR2(16) NOT NULL, /* 게시판 타입 분류 코드 */
    member_id VARCHAR2(512) NOT NULL /* 회원코드 */
 );

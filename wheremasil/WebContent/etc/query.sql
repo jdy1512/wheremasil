@@ -1,7 +1,7 @@
 
 ALTER TABLE posting MODIFY(p_title VARCHAR2(512));
 ALTER TABLE posting rename column p_content to p_content_path;
-ALTER TABLE posting MODIFY(p_content clob);
+ALTER TABLE posting MODIFY(p_content VARCHAR2(512));
 ALTER TABLE posting add(p_content clob);
 ALTER TABLE posting drop column p_content_path;
 ALTER TABLE member MODIFY m_position NULL;
@@ -35,3 +35,13 @@ insert into area values(concat('A',area_seq.nextval),'동대문','서울특별�
 insert into area values(concat('A',area_seq.nextval),'남산','서울특별시 용산동2가 남산',37.5512890,126.9884150,'/wheremasil/uploads/images/area/'||'A'||area_seq.currval||'/main.png','C3');
 insert into area values(concat('A',area_seq.nextval),'홍대','서울특별시 마포구 동교동 홍대입구',37.5567070,126.9239330,'/wheremasil/uploads/images/area/'||'A'||area_seq.currval||'/main.png','C3');
 insert into area values(concat('A',area_seq.nextval),'명동','서울특별시 중구 명동',37.5599800,126.9858300,'/wheremasil/uploads/images/area/'||'A'||area_seq.currval||'/main.png','C3');
+
+
+
+
+
+select area_id, a_name, a_address, a_latitude, a_longitude, a_img_path, channel_id
+from area
+where ('38.16558859912489' > a_latitude and a_latitude > '36.603307890620265') and ('128.87059737158913' > a_longitude and a_longitude > '125.38167827835235')
+
+
