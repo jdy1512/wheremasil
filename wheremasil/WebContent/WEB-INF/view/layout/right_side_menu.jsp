@@ -14,10 +14,10 @@
  	 var appendCount=1;
   	
   	 function setSchedule(html) {
- 		$("#tabs-1").append('<fieldset><legend>Course'+courseCount+'</legend><table id="areaList"><tr>'+
+ 		$("#tab" + dayCount + " #tabs-1").append('<fieldset><legend>Course'+courseCount+'</legend><table id="areaList"><tr>'+
  					       '<td>' + html +'</td></tr></table></fieldset>');
 		
- 		$("#tabs-2").append("<fieldset><legend>Course"+courseCount+"</legend><table><tr><td>식비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costFood' size='10'></td></tr>"+
+ 		$("#tab" + dayCount + " #tabs-2").append("<fieldset><legend>Course"+courseCount+"</legend><table><tr><td>식비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costFood' size='10'></td></tr>"+
 				"<tr><td>교통비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costVehicle' size='10'></td></tr>"+
 				"<tr><td>숙박비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costStay' size='10'></td></tr>"+
 				"<tr><td>기타</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costEtc' size='10'></td></tr></table></fieldset>");
@@ -56,15 +56,9 @@
 			 	for(var i=2;i<=dayAllCount;i++){
 					$("#rightContent").append('<div class="tabs" id="tab'+i+'"style="display:none;">'+
 					'<ul><li><a href="#tabs-1">일정</a></li><li><a href="#tabs-2">비용</a></li><li><a href="#tabs-3">메모</a></li></ul>'+
-				    '<div id="tabs-1"><input type="button" id="addBtn" value="추가"><input type="button" id="removeBtn" value="삭제">'+
-					'<fieldset><legend>Course 1</legend><table id="areaList"><tr><td>코스 넣기 </td></tr></table></fieldset></div>'+
-				    '<div id="tabs-2">'+
-				    '<fieldset><legend>Course 1</legend>'+
-					    '<table id="costList"><tr><td>식비</td><td><input type="text" name="scheduleList['+i+'].costList[1].costFood" size="10"></td></tr>'+
-						'<tr><td>교통비</td><td><input type="text" name="scheduleList:'+i+',costList:1,costVehicle" size="10"></td></tr>'+
-						  '<tr><td>숙박비</td><td><input type="text" name="scheduleList:'+i+',costList:1,costStay" size="10"></td></tr>'+
-						  '<tr><td>기타</td><td><input type="text" name="scheduleList:'+i+',costList:1,costEtc" size="10"></td></tr></table></fieldset></div>'+
-						  '<div id="tabs-3"><table border="1">'+
+				    '<div id="tabs-1"></div>'+
+				    '<div id="tabs-2"></div>'+
+					'<div id="tabs-3"><table border="1">'+
 						  '<textarea name="scheduleList:'+i+',costList:1,memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.</textarea>'+
 					   '</table></div></div>');
 			 	}

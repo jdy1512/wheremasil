@@ -133,21 +133,27 @@
 	    		        
 	    		        var content = '<div class="borderme"><div id="leftmenu_' +
 	    		        	data[i].title + '" class="infoview_container"><div class="infoview_image_block"><img src="' + 
-		        			data[i].imgPath + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
+		        			data[i].imgPath + '" class="infoview_image"><input type="hidden" value="' + data[i].imgPath + '"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
 		        			data[i].title + '</b></p><p class="infoview_text_content">' + 
 		        			data[i].address + '</p></div></div></div>';
 		        			
     		        	$("#left-container").append(content);
     		        	
+    		        	// leftmenu 클릭시 인포윈도우 출현 - 맵이동
     		        	$(document).on("click", "#leftmenu_" + data[i].title , function() {
     		        		var title = $(this).find(".infoview_text_title b").text();
+    		        		var addr = $(this).find(".infoview_text_content").text();
+    		        		var img = $(this).find(".infoview_image_block input").val();
     		        		for (var idx = 0; idx < areaMarkers.length; idx++) {
     		        			if (title == areaMarkers[idx].getTitle()) {
-    		        				infowindow.open(map, areaMarkers[idx]);
+    	    		                infowindow.close();
+    	    		    		    map.panTo(areaMarkers[idx].getPosition());
+    	    		                displayInfowindow(areaMarkers[idx], title, addr, img);
     		        			}
     		        		}
-    		                //displayInfowindow(marker, title, addr, img);
     					});
+    		        	
+    		        	// DB지역 데이타인 경우, 인포윈도우 '일정등록' 클릭시 등록
     		        	$(document).on("click", "#infowindow_" + data[i].title , function() {
     		        		var data = $($(this).parents().html()).last().val().split(",");
     		        		var title = data[0];
@@ -366,7 +372,8 @@
 		        fragment.appendChild(itemEl);
 		        
 		        totalHeight += 110;
-			    
+
+	        	// DaumAPI검색 데이타인 경우, 인포윈도우 '일정등록' 클릭시 (* DB에 insert 후 *) 등록
 	        	$(document).on("click", "#infowindow_" + places[i].title , function() {
 	        		var data = $($(this).parents().html()).last().val().split(",");
 	        		var title = data[0];
