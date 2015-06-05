@@ -10,19 +10,17 @@
   <script>
  	 var dayAllCount=0; //총 여행 날짜
  	 var dayCount=1; // 현재 day
-  	 var courseCount=1;
- 	 var appendCount=2;
-  	
+  	 var courseCount=[];
+ 	 
   	 function setSchedule(html) {
- 		$("#tab" + dayCount + " #tabs-1").append('<fieldset><legend>Course'+courseCount+'</legend><table id="areaList"><tr>'+
+ 		$("#tab" + dayCount + " #tabs-1").append('<fieldset><legend>Course'+courseCount[dayCount-1]+'</legend><table id="areaList"><tr>'+
  					       '<td>' + html +'</td></tr></table></fieldset>');
 		
- 		$("#tab" + dayCount + " #tabs-2").append("<fieldset><legend>Course"+courseCount+"</legend><table><tr><td>식비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costFood' size='10'></td></tr>"+
-				"<tr><td>교통비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costVehicle' size='10'></td></tr>"+
-				"<tr><td>숙박비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costStay' size='10'></td></tr>"+
-				"<tr><td>기타</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+appendCount+",costEtc' size='10'></td></tr></table></fieldset>");
-		courseCount++;
-		appendCount++;
+ 		$("#tab" + dayCount + " #tabs-2").append("<fieldset><legend>Course"+courseCount[dayCount-1]+"</legend><table><tr><td>식비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costFood' size='10'></td></tr>"+
+				"<tr><td>교통비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costVehicle' size='10'></td></tr>"+
+				"<tr><td>숙박비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costStay' size='10'></td></tr>"+
+				"<tr><td>기타</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costEtc' size='10'></td></tr></table></fieldset>");
+		courseCount[dayCount-1]++;
 	 };
 	
  	 //오른쪽 탭 만들기
@@ -54,13 +52,18 @@
 	  
 
 	  function makeDiv(dayAllCount){
-          for(var i=2;i<=dayAllCount;i++){
-            $("#rightContent").append('<div class="tabs" id="tab'+i+'"style="display:none;">'+
+          for(var i=1;i<=dayAllCount;i++){
+        	courseCount[i-1]=1;
+        	var display="display:none;";
+        	if (i == 1) {
+        		display="display:block;";
+        	}
+            $("#rightContent").append('<div class="tabs" id="tab'+i+'"style="'+display+'">'+
             '<ul><li><a href="#tabs-1">일정</a></li><li><a href="#tabs-2">비용</a></li><li><a href="#tabs-3">메모</a></li></ul>'+
              '<div id="tabs-1"></div>'+
              '<div id="tabs-2"></div>'+
             '<div id="tabs-3"><table border="1">'+
-                 '<textarea name="scheduleList:'+i+',costList:1,memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.</textarea>'+
+                 '<textarea name="scheduleList:'+i+',costList:0,memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.</textarea>'+
                '</table></div></div>');
           }
           
@@ -120,30 +123,19 @@
 	function day(dayCount) {
 		$("#day").html("DAY"+dayCount);
 	}
+	
 
  </script>
 
 <input type="button" name="before" value="이전" onclick="beforeDayCheck()" style="float:left;"><input type="button" name="after" value="다음" onclick="afterDayCheck()" style="float:right;"><div id="day"></div>
 
 <form method="post" action="/wheremasil/plan/planInfo.do">
-	<div id="rightContent">
-		<div class="tabs" id="tab1">
-		  <ul>
-		    <li><a href="#tabs-1">일정</a></li>
-		    <li><a href="#tabs-2">비용</a></li>
-		    <li><a href="#tabs-3">메모</a></li>
-		  </ul>
-		  <div id="tabs-1">
-		  </div>
-		  <div id="tabs-2">
-		  </div>
-		   <div id="tabs-3">
-		     <table border="1">
-			   	<textarea name="scheduleList:1,memo" style="margin: 0px; height: 540px; width: 221px; overflow:auto;" wrap="hard" >메모를 해주세요.
-			   	</textarea>
-		    </table>
-		  </div>
-		</div>
-	</div>
+	<div id="rightContent"></div>
+	<input type="hidden" name="title" value="${requestScope.plan.title }">
+	<input type="hidden" name="theme" value="${requestScope.plan.theme }">
+	<input type="hidden" name="groupNum" value="${requestScope.plan.groupNum}">
+	<input type="hidden" name="startDate" value="${requestScope.plan.startDate }">
+	<input type="hidden" name="endDate" value="${requestScope.plan.endDate }">
+	
 	<input type="submit" value="submit">
   </form>

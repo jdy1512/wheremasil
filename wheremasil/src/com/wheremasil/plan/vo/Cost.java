@@ -53,9 +53,10 @@ public class Cost implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PlannerScheduleCost [costStay=" + costStay + ", costFood="
-				+ costFood + ", costVehicle=" + costVehicle + ", costEtc="
-				+ costEtc + "]";
+		return "Cost [costStay=" + costStay + ", costFood=" + costFood
+				+ ", costVehicle=" + costVehicle + ", costEtc=" + costEtc + "]";
 	}
+
+
 
 }

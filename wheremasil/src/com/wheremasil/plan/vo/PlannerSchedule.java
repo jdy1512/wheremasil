@@ -13,6 +13,8 @@ public class PlannerSchedule implements Serializable {
 	private String endDate; //종료일
 	private int groupNum; //인원수
 	private String theme; //테마 정보
+	private String memberId; //멤버 id
+	private String planCreateTime;//플랜 만든시간.
 	private ArrayList<Schedule> scheduleList;
 
 
@@ -21,21 +23,65 @@ public class PlannerSchedule implements Serializable {
 
 
 	public PlannerSchedule(String title, String startDate, String endDate,
-			int groupNum, String theme, ArrayList<Schedule> infoList) {
+			int groupNum, String theme, String memberId,
+			ArrayList<Schedule> scheduleList) {
+		super();
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.groupNum = groupNum;
 		this.theme = theme;
-		scheduleList = infoList;
-
+		this.memberId = memberId;
+		this.scheduleList = scheduleList;
 	}
-	
+
+
+
+	public PlannerSchedule(String title, String startDate, String endDate,
+			int groupNum, String theme, String memberId, String planCreateTime,
+			ArrayList<Schedule> scheduleList) {
+		super();
+		this.title = title;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.groupNum = groupNum;
+		this.theme = theme;
+		this.memberId = memberId;
+		this.planCreateTime = planCreateTime;
+		this.scheduleList = scheduleList;
+	}
+
+
+
+	public String getPlanCreateTime() {
+		return planCreateTime;
+	}
+
+
+
+	public void setPlanCreateTime(String planCreateTime) {
+		this.planCreateTime = planCreateTime;
+	}
+
+
+
 	public ArrayList<Schedule> getScheduleList() {
 		return scheduleList;
 	}
 	
 	
+	public String getMemberId() {
+		return memberId;
+	}
+
+
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+
+
 	public void setScheduleList(ArrayList<Schedule> scheduleList) {
 		this.scheduleList = scheduleList;
 	}
@@ -81,12 +127,20 @@ public class PlannerSchedule implements Serializable {
 	}
 
 
+
 	@Override
 	public String toString() {
 		return "PlannerSchedule [title=" + title + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", groupNum=" + groupNum
-				+ ", theme=" + theme + ", scheduleList=" + scheduleList + "]";
+				+ ", theme=" + theme + ", memberId=" + memberId
+				+ ", planCreateTime=" + planCreateTime + ", scheduleList="
+				+ scheduleList + "]";
 	}
+
+
+
+
+
 
 
 }

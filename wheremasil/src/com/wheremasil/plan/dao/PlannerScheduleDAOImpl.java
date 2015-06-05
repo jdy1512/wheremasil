@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.wheremasil.plan.vo.Area;
+import com.wheremasil.plan.vo.PlannerSchedule;
 
 @Repository("dao")
 public class PlannerScheduleDAOImpl implements PlannerScheduleDAO {
@@ -19,5 +20,21 @@ public class PlannerScheduleDAOImpl implements PlannerScheduleDAO {
 	public List<Area> selectAreasByRange(Area area) {
 		return session.selectList(namespace + "selectAreasByRange", area);
 	}
+
+
+	@Override
+	public int registPlanSchedule(PlannerSchedule ps) {
+		// TODO Auto-generated method stub
+		return session.insert(namespace+"registPlanSchedule",ps);
+	}
+
+
+	@Override
+	public String getPlanId(String memberId) {
+	
+		return session.selectOne(namespace+"getPlanId",memberId);
+	}
+
+	
 
 }

@@ -123,7 +123,11 @@ public class Area implements Serializable {
 	public String toString() {
 		return "Area [id=" + id + ", title=" + title + ", address=" + address
 				+ ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", imgPath=" + imgPath + ", channel=" + channel + "]";
+				+ ", imgPath=" + imgPath + ", channel=" + channel + ", stLat="
+				+ stLat + ", stLon=" + stLon + ", enLat=" + enLat + ", enLon="
+				+ enLon + "]";
 	}
+
+
 
 }
