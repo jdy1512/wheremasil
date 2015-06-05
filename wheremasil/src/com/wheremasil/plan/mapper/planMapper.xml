@@ -34,4 +34,20 @@
         insert into area values(concat('A',area_seq.nextval),#{title},#{address},#{latitude},#{longitude},'/wheremasil/uploads/images/area/'||'A'||area_seq.currval||'/main.png','C1')
     </insert>
     
+   <!-- 수정중 -->
+
+    <insert id="registPlanSchedule" parameterType="plannerSchedule">    	
+		insert into PLAN (PLAN_ID,P_TITLE,P_START_DATE,P_END_DATE,P_GROUPNO,P_CREATE_DATETIME,P_CALENDAR_FILE_PATH,P_MAP_IMG_PATH,THEME_ID,MEMBER_ID)
+		values (concat('A',PLAN_SEQ_ID.nextval),#{title}, #{startDate}, #{endDate}, #{groupNum},TO_CHAR(SYSDATE,'yyyymmddhhmiss'),#{title},#{title},#{theme},#{memberId})
+	</insert>
+
+	<select id="getPlanId" parameterType="String">
+	 select plan_Id
+	  from
+	      (select p.*
+	       from plan p
+	       order by p.P_CREATE_DATETIME desc)
+	  where rownum = 1 and member_id=#{memberId}; 
+	</select>
+	
 </mapper>
