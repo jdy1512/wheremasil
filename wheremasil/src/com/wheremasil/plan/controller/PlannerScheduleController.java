@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -65,38 +69,65 @@ public class PlannerScheduleController {
 		area.setLongitude(longitude);
 		area.setImgPath(imageUrl);
 		
+		// area 등록
 		int result = service.registArea(area);
 		
 		String id = null;
 		if (result == 1) {
+			// id 추출
 			id = service.getAreaIdByName(title);
 			
 			if (id != null) {
-				System.out.println(id);
-				String localPath = request.getSession().getServletContext().getRealPath("/uploads/images/area/" + id);
-				imgFile(localPath, imageUrl, "main", "png");
+				// image file download
+				try {
+					String localPath = request.getSession().getServletContext().getRealPath("/uploads/images/area/" + id);
+					new File(localPath).mkdirs();
+					
+					if (!imageUrl.contains("wheremasil")) {
+						imgFileDownload(localPath, imageUrl, "main", "png");
+					} else {
+						imageUrl = request.getSession().getServletContext().getRealPath("/uploads/images/default/img_not_found.png");
+						imgFileCopy(localPath, imageUrl, "main", "png");
+					}
+					
+					// workspace로 copy (backup)
+					String wsLocalPath = "C:/Users/KOSTA_03_001_/git/wheremasil/wheremasil/WebContent/uploads/images/area/" + id;
+					new File(wsLocalPath).mkdirs();
+					imgFileCopy(wsLocalPath, localPath + "/main.png", "main", "png");
+				} catch (Exception e) {
+					e.printStackTrace();
+					return -1;
+				}
 			}
 		}
-
-		return 0;
+		return result;
 	}
 
-	private void imgFile(String localPath, String path, String name, String file_ext){
+	private void imgFileDownload(String localPath, String path, String name, String file_ext) throws Exception {
 		BufferedImage image = null;
-		try {
-			image = ImageIO.read(new URL(path));
-			BufferedImage bufferedImage = new BufferedImage(image.getWidth(),
-					image.getHeight(), BufferedImage.TYPE_INT_BGR);
+		image = ImageIO.read(new URL(path));
+		BufferedImage bufferedImage = new BufferedImage(image.getWidth(),
+				image.getHeight(), BufferedImage.TYPE_INT_BGR);
 
-			Graphics2D graphics = (Graphics2D) bufferedImage.getGraphics();
-			graphics.setBackground(Color.WHITE);
-			graphics.drawImage(image, 0, 0, null);
+		Graphics2D graphics = (Graphics2D) bufferedImage.getGraphics();
+		graphics.setBackground(Color.WHITE);
+		graphics.drawImage(image, 0, 0, null);
 
-			ImageIO.write(bufferedImage, file_ext, new File(localPath + "/" + name + "." + file_ext));
-			//System.out.println(path + " -> " + localPath + "/" + name + "." + file_ext + " 다운완료");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		ImageIO.write(bufferedImage, file_ext, new File(localPath + "/" + name + "." + file_ext));
+	}
+
+	private void imgFileCopy(String localPath, String path, String name, String file_ext) throws Exception {
+		File rscFile = new File(path);
+		FileInputStream fis = new FileInputStream(rscFile);
+		File descFile = new File(localPath + "/" + name + "." + file_ext);
+		FileOutputStream fos = new FileOutputStream(descFile);
+		
+		int i = 0;
+		while (( i = fis.read()) != -1)
+			fos.write(i);
+
+		fos.close();
+		fis.close();
 	}
 	
 	// 수정중

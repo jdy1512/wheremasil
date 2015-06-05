@@ -200,6 +200,18 @@ h1:before {
   top: 5px;
   content: '✖'; /* UTF-8 symbol */
 }
+.schedule_close-thik:after {
+  position:relative;
+  left: 100%;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  color: #777;
+  font: 14px/100% arial, sans-serif;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  content: '✖'; /* UTF-8 symbol */
+}
 
 .infoview_container {
 	width:96%;
@@ -245,6 +257,14 @@ h1:before {
 }
 .borderme:hover {
 	border:#ff0000 solid 1px;
+}
+.schedule_borderme {
+	border:none;
+	-webkit-filter: blur(0px);
+}
+.schedule_borderme:hover {
+	border:#ff0000 solid 1px;
+	-webkit-filter: blur(1px);
 }
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}

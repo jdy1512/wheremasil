@@ -25,6 +25,17 @@
 		appendCount++;
 	 };
 	
+	 // schedule = jquery 객체
+	 function removeSchedule(schedule) {
+		var course = schedule.parents("fieldset").children('legend:first').text();
+		$("#tab" + dayCount + " #tabs-1 fieldset:contains(" + course + ")").remove();
+		$("#tab" + dayCount + " #tabs-2 fieldset:contains(" + course + ")").remove();
+
+ 		if(courseCount[dayCount - 1] > 1){
+ 			courseCount[dayCount - 1]--;
+ 		}
+	 }
+	 
  	 //오른쪽 탭 만들기
 	  $(function() {
 
@@ -36,20 +47,6 @@
 		      collapsible: false
 		    });
 	   
-	 	
-	 	
-	 	$("#removeBtn").on("click", function(){
-	 		var tabs1 = document.getElementById("tabs-1");
-	 		var tabs2 = document.getElementById("tabs-2");
-	 		if (tabs1.hasChildNodes()&&tabs1.childNodes.length>1){
-	 			tabs1.removeChild(tabs1.lastChild);
-	 			tabs2.removeChild(tabs2.lastChild);
-	 		}
-	 		if(courseCount>1){
-	 			courseCount--;
-	 			appendCount--;
-	 		}
-	 	});
 	  });// end of function;
 	  
 	 function makeDiv(dayAllCount){

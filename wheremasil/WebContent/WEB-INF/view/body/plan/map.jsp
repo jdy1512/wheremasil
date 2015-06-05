@@ -154,27 +154,30 @@
 	    		            });
 	    		        })(marker, data[i].title, data[i].address, data[i].imgPath, data[i].id);
 	    		        
-	    		        var content = '<div class="borderme"><div id="leftmenu_' +
+	    		        if (data[i].channel == 'C3') {
+	    		        	var content = '<div class="borderme"><div id="leftmenu_' +
 	    		        	data[i].title + '" class="infoview_container"><div class="infoview_image_block"><img src="' + 
 		        			data[i].imgPath + '" class="infoview_image"><input type="hidden" value="' + data[i].imgPath + '"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
 		        			data[i].title + '</b></p><p class="infoview_text_content">' + 
 		        			data[i].address + '</p></div></div></div>';
 		        			
-    		        	$("#left-container").append(content);
-    		        	
-    		        	// leftmenu 클릭시 인포윈도우 출현 - 맵이동
-    		        	$(document).on("click", "#leftmenu_" + data[i].title , function() {
-    		        		var title = $(this).find(".infoview_text_title b").text();
-    		        		var addr = $(this).find(".infoview_text_content").text();
-    		        		var img = $(this).find(".infoview_image_block input").val();
-    		        		for (var idx = 0; idx < areaMarkers.length; idx++) {
-    		        			if (title == areaMarkers[idx].getTitle()) {
-    	    		                infowindow.close();
-    	    		    		    map.panTo(areaMarkers[idx].getPosition());
-    	    		                displayInfowindow(areaMarkers[idx], title, addr, img);
-    		        			}
-    		        		}
-    					});
+	    		        	$("#left-container").append(content);
+	    		        	
+	    		        	// leftmenu 클릭시 인포윈도우 출현 - 맵이동
+	    		        	$(document).on("click", "#leftmenu_" + data[i].title , function() {
+	    		        		var title = $(this).find(".infoview_text_title b").text();
+	    		        		var addr = $(this).find(".infoview_text_content").text();
+	    		        		var img = $(this).find(".infoview_image_block input").val();
+	    		        		for (var idx = 0; idx < areaMarkers.length; idx++) {
+	    		        			if (title == areaMarkers[idx].getTitle()) {
+	    	    		                infowindow.close();
+	    	    		    		    map.panTo(areaMarkers[idx].getPosition());
+	    	    		                displayInfowindow(areaMarkers[idx], title, addr, img);
+	    	    		                break;
+	    		        			}
+	    		        		}
+	    					});
+	    		        }
 	    		    }// end of for
 	            }
 			});
@@ -182,6 +185,7 @@
 		
 		// 지역명 리스트 추가
 		function addTitle(title) {
+			//TODO: 신규 지역정보 db insert
 			if (titles.length == 0) {
 				titles.push(title);
 				// DB지역 데이타인 경우, 인포윈도우 '일정등록' 클릭시 등록
@@ -194,13 +198,12 @@
 	        		var lng = data[4];
 	        		var id = data[5];
 
-	        		var content = '<div class="infoview_container" style="width:230px;"><div class="infoview_image_block"><img src="' + 
+	        		var content = '<div class="schedule_borderme"><div class="infoview_container" style="width:230px;"><div class="infoview_image_block"><img src="' + 
 	        		img + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
 			    	title + '</b></p><p class="infoview_text_content">' + 
-			    	addr + '</p></div></div>';
+			    	addr + '</p></div></div></div>';
 
 	        		setSchedule(content);
-					//TODO: 신규 지역정보 db insert
 					if (id == 'undefined') {
 						// id가 없는경우, 지역정보를 db에 insert
 						//alert(title+", "+address+", "+imgUrl);
@@ -211,10 +214,10 @@
 				            timeout : 30000, 
 				        	data : {"title":title,"address":addr,"imageUrl":img,"latitude":lat,"longitude":lng},
 				        	success: function(data) {
-				        		alert(data);
 				        	}
 						});
 					}
+					
 	    		});
 			} else {
 				for (var idx = 0; idx < titles.length; idx++) {
@@ -234,13 +237,12 @@
 			        		var lng = data[4];
 			        		var id = data[5];
 
-			        		var content = '<div class="infoview_container" style="width:230px;"><div class="infoview_image_block"><img src="' + 
+			        		var content = '<div class="schedule_borderme"><div class="infoview_container" style="width:230px;"><div class="infoview_image_block"><img src="' + 
 			        		img + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
 					    	title + '</b></p><p class="infoview_text_content">' + 
-					    	addr + '</p></div></div>';
+					    	addr + '</p></div></div></div>';
 
 			        		setSchedule(content);
-							//TODO: 신규 지역정보 db insert
 							if (id == 'undefined') {
 								// id가 없는경우, 지역정보를 db에 insert
 								//alert(title+", "+address+", "+imgUrl);
@@ -251,10 +253,10 @@
 						            timeout : 30000, 
 						        	data : {"title":title,"address":addr,"imageUrl":img,"latitude":lat,"longitude":lng},
 						        	success: function(data) {
-						        		alert(data);
 						        	}
 								});
 							}
+							
 			    		});
 					}
 				}
@@ -536,7 +538,7 @@
 		function displayInfowindow(marker, title, addr, img, id) {
 			var imageUrl = img;
 			if (imageUrl == '') {
-				imageUrl = "/wheremasil/uploads/images/area/img_not_found.png";
+				imageUrl = "/wheremasil/uploads/images/default/img_not_found.png";
 			}
 			var data = {
 				"title":title,
@@ -560,10 +562,14 @@
 		        el.removeChild (el.lastChild);
 		    }
 		}
-
+		
 		// 인포윈도우 닫기버튼 (x)
 		$(document).on("click", "#closeBt", function() {
 			infowindow.close();
+		});
+		// 스케줄 클릭
+		$(document).on("click", ".schedule_borderme", function() {
+			removeSchedule($(this));
 		});
 		
 	});// end of onload

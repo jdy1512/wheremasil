@@ -38,10 +38,6 @@ insert into area values(concat('A',area_seq.nextval),'동대문','서울특별�
 insert into area values(concat('A',area_seq.nextval),'남산','서울특별시 용산동2가 남산',37.5512890,126.9884150,'/wheremasil/uploads/images/area/'||'A'||area_seq.currval||'/main.png','C3');
 insert into area values(concat('A',area_seq.nextval),'홍대','서울특별시 마포구 동교동 홍대입구',37.5567070,126.9239330,'/wheremasil/uploads/images/area/'||'A'||area_seq.currval||'/main.png','C3');
 insert into area values(concat('A',area_seq.nextval),'명동','서울특별시 중구 명동',37.5599800,126.9858300,'/wheremasil/uploads/images/area/'||'A'||area_seq.currval||'/main.png','C3');
-insert into area values(concat('A',area_seq.nextval),'샘플','서울특별시 중구 명동',37.5899800,126.9158300,'/wheremasil/uploads/images/area/'||'A'||area_seq.currval||'/main.png','C3');
-
-
-
 
 
 select area_id, a_name, a_address, a_latitude, a_longitude, a_img_path, channel_id
