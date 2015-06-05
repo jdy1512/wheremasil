@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="plan.mapper.planMapper">
+    <resultMap type="plannerSchedule" id="result-plan">
+    	<id column="plan_id" property="planId"/>
+    	<result column = "p_title" property="title"/>
+    	<result column = "p_start_date" property="startDate"/>
+    	<result column = "p_end_date" property="endDate"/>
+    	<result column = "p_groupno" property="groupNum"/>
+    	<result column = "p_create_Datetime" property="planCreateTime"/>
+    	<result column = "p_calendar_file_path" property="planCalendarFilePath"/>
+    	<result column = "p_map_img_path" property="planMapImgPath"/>
+    	<result column = "theme_id" property="theme"/>
+    	<result column = "member_id" property="memberId"/>
+
+    </resultMap>
     
 	<resultMap type="area" id="result-area">
 		<id column="area_id" property="id"/>
@@ -41,13 +54,13 @@
 		values (concat('A',PLAN_SEQ_ID.nextval),#{title}, #{startDate}, #{endDate}, #{groupNum},TO_CHAR(SYSDATE,'yyyymmddhhmiss'),#{title},#{title},#{theme},#{memberId})
 	</insert>
 
-	<select id="getPlanId" parameterType="String">
-	 select plan_Id
-	  from
+	<select id="getPlanId" parameterType="string" resultType="string">
+	 select plan_id
+	 from
 	      (select p.*
 	       from plan p
 	       order by p.P_CREATE_DATETIME desc)
-	  where rownum = 1 and member_id=#{memberId}; 
+	  where (rownum = 1) and (member_id=#{memberId})
 	</select>
 	
 </mapper>

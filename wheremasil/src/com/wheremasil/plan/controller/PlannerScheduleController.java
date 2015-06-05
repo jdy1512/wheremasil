@@ -215,10 +215,16 @@ public class PlannerScheduleController {
 
 		ps.setScheduleList(scheduleList);
 		System.out.println(ps);
-		service.registPlanSchedule(ps);
-		schedule.setPlanId(service.getPlanId(ps.getMemberId()));
+		service.registPlanSchedule(ps); // DB에 플랜 등록
+		schedule.setPlanId(service.getPlanId(ps.getMemberId())); //DB에서 해당 플랜 ID조회
+		System.out.println(schedule.getPlanId());
 		
-		
+//		for(Schedule s: scheduleList){
+//			System.out.println(s);
+//			for(Cost c:s.getCostList()){
+//			}
+//		}
+//		
 		
 		
 		//return new ModelAndView("plan/map.tiles", "plannerSchedule", ps);

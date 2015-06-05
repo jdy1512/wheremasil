@@ -8,7 +8,9 @@ public class Schedule implements Serializable {
 	private List<Area> areaList;
 	private String memo;
 	private String planId;
-
+	private int sSequence;
+	
+	
 	public Schedule(){}
 	public Schedule(List<Cost> costList, List<Area> areaList, String memo) {
 		this.costList = costList;
@@ -16,17 +18,23 @@ public class Schedule implements Serializable {
 		this.memo = memo;
 	}
 
-	
 	public Schedule(List<Cost> costList, List<Area> areaList, String memo,
-			String planId) {
+			String planId, int sSequence) {
 		super();
 		this.costList = costList;
 		this.areaList = areaList;
 		this.memo = memo;
 		this.planId = planId;
+		this.sSequence = sSequence;
 	}
 	
 	
+	public int getsSequence() {
+		return sSequence;
+	}
+	public void setsSequence(int sSequence) {
+		this.sSequence = sSequence;
+	}
 	public String getPlanId() {
 		return planId;
 	}
@@ -56,10 +64,12 @@ public class Schedule implements Serializable {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
+	
 	@Override
 	public String toString() {
 		return "Schedule [costList=" + costList + ", areaList=" + areaList
-				+ ", memo=" + memo + ", planId=" + planId + "]";
+				+ ", memo=" + memo + ", planId=" + planId + ", sSequence="
+				+ sSequence + "]";
 	}
 
 
