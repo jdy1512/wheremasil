@@ -9,9 +9,9 @@
 <head>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-<script src="/masil_jph/ckeditor/ckeditor.js"></script>
+<script src="/wheremasil/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-var path = "http://localhost:8082/masil_jph/uploads/images/";
+var path = "http://localhost:8082/wheremasil/uploads/images/";
 var cnt=2;
 $(document).ready(function(){
 	
@@ -29,7 +29,7 @@ $(document).ready(function(){
 		 data.append("file",jQuery(this).get(0).files[0]);
 		 alert(data);
 	   	 $.ajax({
-	       	    url: '/masil_jph/board/check.do',
+	       	    url: '/wheremasil/board/check.do',
 	       	    processData: false,
   	    	    contentType: false,
 	       	    data: data,
@@ -78,7 +78,7 @@ $(document).ready(function(){
 		 data.append("file",jQuery(this).get(0).files[0]);
 		 alert(data);
 		 $.ajax({
-	       	    url: '/masil_jph/board/check.do',
+	       	    url: '/wheremasil/board/check.do',
 	       	    processData: false,
 	    	    contentType: false,
 	       	    data: data,
@@ -151,7 +151,7 @@ $("#cancle_btn").on("click",function(){
 </head>
 <body text="#000000" topmargin="0" leftmargin="0" bgcolor="#ffffff" marginheight="0" marginwidth="0">
 글쓰기폼
-<form action="/masil_jph/board/insertBoardDAO.do" enctype=“multipart/form-data” method="post" name="main" id="main">
+<form action="/wheremasil/board/insertBoardDAO.do" enctype=“multipart/form-data” method="post" name="main" id="main">
 <table width="950" border="1" cellspacing="1" cellpadding="0">
 
 
