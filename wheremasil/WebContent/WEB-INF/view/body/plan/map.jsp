@@ -14,6 +14,9 @@
 	var areaMarkers = [];
 	// DB에서 검색된 지역 마커 타이틀을 담을 배열
 	var areaMarkerTitles = [];
+	// 선택한 일정의 경로 리스트
+	var schedulePath = [];
+	var polyline = new daum.maps.Polyline();
 	// 지역 상세 데이타 뷰
 	var infowindow;
 	// 지도 범위 재설정 딜레이 flg, time
@@ -204,6 +207,14 @@
 			    	addr + '</p></div></div></div>';
 
 	        		setSchedule(content);
+
+	        		// 선택한 일정 경로 추가
+	        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+	        		if (schedulePath.length > 1) {
+		    			polyline.setMap(null);
+	        			displayArrow(schedulePath);
+	        		}
+	        		
 					if (id == 'undefined') {
 						// id가 없는경우, 지역정보를 db에 insert
 						//alert(title+", "+address+", "+imgUrl);
@@ -243,6 +254,14 @@
 					    	addr + '</p></div></div></div>';
 
 			        		setSchedule(content);
+
+			        		// 선택한 일정 경로 추가
+			        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+			        		if (schedulePath.length > 1) {
+				    			polyline.setMap(null);
+			        			displayArrow(schedulePath);
+			        		}
+			        		
 							if (id == 'undefined') {
 								// id가 없는경우, 지역정보를 db에 insert
 								//alert(title+", "+address+", "+imgUrl);
@@ -556,6 +575,21 @@
 		    infowindow.setContent(content);
 		    infowindow.open(map, marker);
 		}
+		
+		// path = 좌표 배열
+		function displayArrow(path) {
+			// 지도에 선을 표시한다 
+			polyline = new daum.maps.Polyline({
+				map: map,
+				path: path,
+				strokeWeight: 2, // 선의 두께
+				strokeColor: '#FF0000', // 선 색
+				strokeOpacity: 0.7, // 선 투명도
+				strokeStyle: 'solid' // 선 스타일
+			});
+			polyline.setMap(map);
+		}
+		
 		 // 검색결과 목록의 자식 Element를 제거하는 함수
 		function removeAllChildNods(el) {   
 		    while (el.hasChildNodes()) {
@@ -569,7 +603,17 @@
 		});
 		// 스케줄 클릭
 		$(document).on("click", ".schedule_borderme", function() {
-			removeSchedule($(this));
+			var course = $(this).parents("fieldset").children("legend").text();
+			var targetNo = course.substring(6, 7);
+			
+			// 일정 경로 표시
+			schedulePath.splice(targetNo - 1, 1);
+			polyline.setMap(null);
+			if (schedulePath.length > 1) {
+				displayArrow(schedulePath);
+			}
+			
+			removeSchedule(course);
 		});
 		
 	});// end of onload

@@ -24,14 +24,19 @@
 	 };
 	
 	 // schedule = jquery 객체
-	 function removeSchedule(schedule) {
-		var course = schedule.parents("fieldset").children('legend:first').text();
+	 function removeSchedule(course) {
 		$("#tab" + dayCount + " #tabs-1 fieldset:contains(" + course + ")").remove();
 		$("#tab" + dayCount + " #tabs-2 fieldset:contains(" + course + ")").remove();
 
- 		if(courseCount[dayCount - 1] > 1){
- 			courseCount[dayCount - 1]--;
- 		}
+		var reCount = 1;
+		$("#tab" + dayCount + " #tabs-1 fieldset").children("legend").each(function() {
+			$(this).text("Course" + reCount++);
+		});
+		reCount = 1;
+		$("#tab" + dayCount + " #tabs-2 fieldset").children("legend").each(function() {
+			$(this).text("Course" + reCount++);
+		});
+		courseCount[dayCount - 1]--;
 	 }
 	 
  	 //오른쪽 탭 만들기
