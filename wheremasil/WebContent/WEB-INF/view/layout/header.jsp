@@ -5,3 +5,4 @@
 <a href="/wheremasil/board/square.do">광장</a>
 <a href="/wheremasil/board/review.do">리뷰</a>
 <a href="/wheremasil/board/qna.do">광장</a>
+로그인
