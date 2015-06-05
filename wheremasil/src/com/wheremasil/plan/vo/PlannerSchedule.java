@@ -15,7 +15,9 @@ public class PlannerSchedule implements Serializable {
 	private String theme; //테마 정보
 	private String memberId; //멤버 id
 	private String planCreateTime;//플랜 만든시간.
-	private ArrayList<Schedule> scheduleList;
+	private String planCalendarFilePath; // 플래너스케쥴파일경로
+	private String mapImgPath; //지도 이미지 경로
+	private ArrayList<Schedule> scheduleList; 
 
 
 	public PlannerSchedule(){}
@@ -37,8 +39,11 @@ public class PlannerSchedule implements Serializable {
 
 
 
+
+
 	public PlannerSchedule(String title, String startDate, String endDate,
 			int groupNum, String theme, String memberId, String planCreateTime,
+			String planCalendarFilePath, String mapImgPath,
 			ArrayList<Schedule> scheduleList) {
 		super();
 		this.title = title;
@@ -48,7 +53,33 @@ public class PlannerSchedule implements Serializable {
 		this.theme = theme;
 		this.memberId = memberId;
 		this.planCreateTime = planCreateTime;
+		this.planCalendarFilePath = planCalendarFilePath;
+		this.mapImgPath = mapImgPath;
 		this.scheduleList = scheduleList;
+	}
+
+
+
+	public String getPlanCalendarFilePath() {
+		return planCalendarFilePath;
+	}
+
+
+
+	public void setPlanCalendarFilePath(String planCalendarFilePath) {
+		this.planCalendarFilePath = planCalendarFilePath;
+	}
+
+
+
+	public String getMapImgPath() {
+		return mapImgPath;
+	}
+
+
+
+	public void setMapImgPath(String mapImgPath) {
+		this.mapImgPath = mapImgPath;
 	}
 
 
@@ -133,13 +164,11 @@ public class PlannerSchedule implements Serializable {
 		return "PlannerSchedule [title=" + title + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", groupNum=" + groupNum
 				+ ", theme=" + theme + ", memberId=" + memberId
-				+ ", planCreateTime=" + planCreateTime + ", scheduleList="
+				+ ", planCreateTime=" + planCreateTime
+				+ ", planCalendarFilePath=" + planCalendarFilePath
+				+ ", mapImgPath=" + mapImgPath + ", scheduleList="
 				+ scheduleList + "]";
 	}
-
-
-
-
 
 
 
