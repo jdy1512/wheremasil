@@ -11,7 +11,7 @@ function selHit(id){
 	var txt = "posting_id" + "="+ id;
 	
 	$.ajax({
-   	    url: '/masil_jph/board/selHit.do',
+   	    url: '/wheremasil/board/selHit.do',
    	    
    	    processData: false,
    	 
@@ -160,7 +160,7 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 <div id="powerbbsBody">
 <table border="1" width="" cellpadding="10">
 <tr>
-<td width="70%" style="text-align:right;"><a href="/masil_jph/board/reivew/writer.do">여행리뷰등록</a></td>
+<td width="70%" style="text-align:right;"><a href="/wheremasil/board/reivew/writer.do">여행리뷰등록</a></td>
 <td style="text-align:center;">최근인기게시물 </td>
 
 </tr>
@@ -210,7 +210,7 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 		
 		" >
 			<li class="black">
-				<a href="/masil_jph/board//postingVal.do?postring_id=${board.posting_id}"><img class="thumb" src="${board.p_img_path}" width="119px" height="83px"></a>
+				<a href="/wheremasil/board//postingVal.do?postring_id=${board.posting_id}"><img class="thumb" src="${board.p_img_path}" width="119px" height="83px"></a>
 			</li>
 			<li class="desc">
 				<span class="dotLine" style="
@@ -227,7 +227,7 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 				min-height: 52px;
 				/*overflow: hidden;*/
 				overflow-x: hidden;
-				margin: 0 6px;"><a href="/masil_jph/board//postingVal.do?postring_id="+${board.posting_id}>${board.p_title }</a>&nbsp;&nbsp;<span style="cursor: pointer;"><span style="color: rgb(37, 113, 10); letter-spacing: -1px; font-size: 11px; font-weight: bold;" id="hits" >1234</span></span></h4>
+				margin: 0 6px;"><a href="/wheremasil/board//postingVal.do?postring_id="+${board.posting_id}>${board.p_title }</a>&nbsp;&nbsp;<span style="cursor: pointer;"><span style="color: rgb(37, 113, 10); letter-spacing: -1px; font-size: 11px; font-weight: bold;" id="hits" >1234</span></span></h4>
 				<span class="div" style="margin-top: 5px; margin-left: 5px;"><span style="cursor: pointer;">${board.member_id}</span>
 </span>				<div class="hitreq">
 	
@@ -298,7 +298,7 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 <!-- 이전 페이지 그룹 -->
 <c:choose>
 	<c:when test="${pagingBean.previousPageGroup }">
-		<a href="/masil_jph/board/review.do?page=${pagingBean.startPageOfPageGroup-1}">◀</a>
+		<a href="/wheremasil/board/review.do?page=${pagingBean.startPageOfPageGroup-1}">◀</a>
 	</c:when>
 	<c:otherwise>
 		◀
@@ -311,7 +311,7 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 			<b>[${pageNum}]</b>
 		</c:when>
 		<c:otherwise>
-			<a href="/masil_jph/board/review.do?page=${pageNum}">
+			<a href="/wheremasil/board/review.do?page=${pageNum}">
 				${pageNum}
 			</a>
 		</c:otherwise>
@@ -321,7 +321,7 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 <!-- 다음 페이지 그룹 -->
 <c:choose>
 	<c:when test="${pagingBean.nextPageGroup }">
-		<a href="/masil_jph/board/review.do?page=${pagingBean.endPageOfPageGroup+1}">▶</a>
+		<a href="/wheremasil/board/review.do?page=${pagingBean.endPageOfPageGroup+1}">▶</a>
 	</c:when>
 	<c:otherwise>
 		▶
