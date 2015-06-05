@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="plan.mapper.planMapper">
+    <resultMap type="plannerSchedule" id="result-plan">
+    	<id column="plan_id" property="planId"/>
+    	<result column = "p_title" property="title"/>
+    	<result column = "p_start_date" property="startDate"/>
+    	<result column = "p_end_date" property="endDate"/>
+    	<result column = "p_groupno" property="groupNum"/>
+    	<result column = "p_create_Datetime" property="planCreateTime"/>
+    	<result column = "p_calendar_file_path" property="planCalendarFilePath"/>
+    	<result column = "p_map_img_path" property="planMapImgPath"/>
+    	<result column = "theme_id" property="theme"/>
+    	<result column = "member_id" property="memberId"/>
+
+    </resultMap>
+    
+	<resultMap type="area" id="result-area">
+		<id column="area_id" property="id"/>
+		<result column="a_name" property="title"/>
+		<result column="a_address" property="address"/>
+		<result column="a_latitude" property="latitude"/>	
+		<result column="a_longitude" property="longitude"/>	
+		<result column="a_img_path" property="imgPath"/>
+		<result column="channel_id" property="channel"/>
+	</resultMap>
+	
+	<sql id="plan-area">
+		select area_id, a_name, a_address, a_latitude, a_longitude, a_img_path, channel_id
+		from area
+	</sql>
+    
+    <select id="selectAreaIdByName" resultType="string" parameterType="string">
+		select area_id
+		from area
+		where a_name=#{value}
+    </select>
+    
+    <select id="selectAreasByRange" resultMap="result-area" parameterType="area">
+        <include refid="plan-area"/>
+        
+		where (#{enLat} > a_latitude and a_latitude > #{stLat})
+			and (#{enLon} > a_longitude and a_longitude > #{stLon})
+    </select>
+    
+    <insert id="insertArea" parameterType="area">
+        insert into area values(concat('A',area_seq.nextval),#{title},#{address},#{latitude},#{longitude},'/wheremasil/uploads/images/area/'||'A'||area_seq.currval||'/main.png','C1')
+    </insert>
+    
+   <!-- 수정중 -->
+
+    <insert id="registPlanSchedule" parameterType="plannerSchedule">    	
+		insert into PLAN (PLAN_ID,P_TITLE,P_START_DATE,P_END_DATE,P_GROUPNO,P_CREATE_DATETIME,P_CALENDAR_FILE_PATH,P_MAP_IMG_PATH,THEME_ID,MEMBER_ID)
+		values (concat('A',PLAN_SEQ_ID.nextval),#{title}, #{startDate}, #{endDate}, #{groupNum},TO_CHAR(SYSDATE,'yyyymmddhhmiss'),#{title},#{title},#{theme},#{memberId})
+	</insert>
+
+	<select id="getPlanId" parameterType="string" resultType="string">
+	 select plan_id
+	 from
+	      (select p.*
+	       from plan p
+	       order by p.P_CREATE_DATETIME desc)
+	  where (rownum = 1) and (member_id=#{memberId})
+	</select>
+	
+</mapper>

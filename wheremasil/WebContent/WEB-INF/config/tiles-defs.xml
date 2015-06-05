@@ -8,7 +8,8 @@
 	<definition name="template" template="/WEB-INF/view/layout/template.jsp">
 	    <put-attribute name="header" value="/WEB-INF/view/layout/header.jsp"/>
 	    <put-attribute name="footer" value="/WEB-INF/view/layout/footer.jsp"/>
-	    <put-attribute name="menu" value="/WEB-INF/view/layout/side_menu.jsp"/>
+	    <put-attribute name="left_menu" value="/WEB-INF/view/layout/left_side_menu.jsp"/>
+	    <put-attribute name="right_menu" value="/WEB-INF/view/layout/right_side_menu.jsp"/>
 	</definition>
 	
 	<!-- main.tiles, abc.tiles, root.tiles -->
