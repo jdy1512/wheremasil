@@ -10,12 +10,13 @@
 <script type="text/javascript" src="/wheremasil/script/jquery.cookie.js"></script>
 
 <style type="text/css">
+
 header {
-	color: white;
 	text-align: left;
 	padding: 13px;
 }
 body {
+	padding-top: 110px;
 	background-color: #f5f5f5;
 }
 .left_nav {
@@ -43,6 +44,7 @@ section {
 	float: left;
 }
 footer {
+ 	padding-top: 20px;
 	background-color: #F5F5F5;
 	color: gray;
 	text-align: center;
@@ -61,7 +63,7 @@ footer {
 	z-index: -1000;
 	overflow: hidden;
 }
-.main_center { position:absolute; top:50%; left:50%; width:40%; height:30%; overflow:hidden; margin-top:-15%; margin-left:-20%;}
+.main_center { position:absolute; top:70%; left:50%; width:40%; height:30%; overflow:hidden; margin-top:-15%; margin-left:-20%;}
 h1 {
     text-transform: uppercase;
     text-align: center;

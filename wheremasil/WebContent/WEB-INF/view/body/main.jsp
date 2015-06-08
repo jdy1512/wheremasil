@@ -2,11 +2,20 @@
  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cosmo/bootstrap.min.css" rel="stylesheet">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <script> 
 	$(function() {
 		$("header").css("background-color", "none");
-		$("nav").css("width", "0px");
+		$(".left_nav").css("width", "0px");
+		$(".right_nav").css("width", "0px");
 		
 
 		$("#cancel").on("click", function() {
@@ -75,17 +84,18 @@
 <div>
 	<div class="main_center">
 		<p style="text-align:center"><font size="200%" color="white"><b>Where are you going ?</b></font></p>
+
 		<div style="text-align:center">
 			<h4><font color="white">지금 당장! 어디 마실 나가고 싶다면?</font></h4>
 		</div>
-		<div style="position:absolute;left:50%;top:80%;width:100px;height:60px;overflow:hidden;margin-left:-50px;margin-top:-30px">
-			<input type="button" class="main_button" value="플랜만들기" onclick="fn_layer_popup()"> 
+		<div style="position:absolute;left:48%;top:60%;width:200px;height:60px;overflow:hidden;margin-left:-50px;margin-top:-30px">
+			<input type="button" class="btn btn-warning btn-lg"  value="START" onclick="fn_layer_popup()"> 
 		</div>
 	</div>
 	
 	<video id="videobcg" preload="auto" autoplay="true" loop="loop" muted="muted">
 		<source src="https://a0.muscache.com/airbnb/static/Seoul-P1-4.mp4" type="video/mp4">
 		<source src="https://a0.muscache.com/airbnb/static/Seoul-P1-4.webm" type="video/webm">
-		Sorry, your browser does not support HTML5 video.
+			Sorry, your browser does not support HTML5 video.
 	</video>
 </div>

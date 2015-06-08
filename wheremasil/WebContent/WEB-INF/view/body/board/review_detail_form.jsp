@@ -26,7 +26,7 @@ function insertHit(){
 	alert("조회수 펑션");
 	var txt = "posting_id" + "="+ $("#posting_id").val();
 	$.ajax({
-   	    url: '/masil_jph/board/insertHit.do',
+   	    url: '/wheremasil/board/insertHit.do',
    	    
    	    processData: false,
    	 
@@ -64,7 +64,7 @@ function rpccnt(){
 	var allData = "p_id="+p_id;
 		
 			$.ajax({
-		       	    url: '/masil_jph/board/rpcnt.do',
+		       	    url: '/wheremasil/board/rpcnt.do',
 		       	    
 		       	    processData: false,
 		       	 data:allData,
@@ -97,7 +97,7 @@ function rpinsert(){
 	var editor2 = "editor1" + "="+ $("#posting_id").val();
 	
 	$.ajax({
-       	    url: '/masil_jph/board/sinsertRp.do',
+       	    url: '/wheremasil/board/sinsertRp.do',
        	    
        	    processData: false,
        	 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -151,7 +151,7 @@ function inertLike(posting_id){
 	alert("추천하기 펑션");
 	var txt = "posting_id" + "="+ $("#posting_id").val();
 	$.ajax({
-   	    url: '/masil_jph/board/insertLike.do',
+   	    url: '/wheremasil/board/insertLike.do',
    	    
    	    processData: false,
    	 
@@ -228,7 +228,7 @@ $(document).ready(function(){
 		var editor1 =  "editor1" + "="+ $("#rpcontext").val()+"&" +"member_id" + "="+ $("#member_id").val()+"&" +"posting_id" + "="+ $("#posting_id").val();
 		alert(editor1);
 		$.ajax({
-	       	    url: '/masil_jph/board/insertRp.do',
+	       	    url: '/wheremasil/board/insertRp.do',
 	       	    
 	       	    processData: false,
 	       	 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -291,9 +291,9 @@ function washrp(result) {
 <tr>
 <td style="float:right;">[<a href="#">가족여행</a>]</td>
 <td width="50%"><strong>${requestScope.posting.p_title}</strong></td>
-<td><a href="/masil_jph/board/review.do">목록보기</a></td>
-<td><a href="/masil_jph/board/postingVal.do?postring_id=${posting.posting_id -1} ">이전글보기</a></td>
-<td><a href="/masil_jph/board/postingVal.do?postring_id=${posting.posting_id +1} ">다음글보기</a></td>
+<td><a href="/wheremasil/board/review.do">목록보기</a></td>
+<td><a href="/wheremasil/board/postingVal.do?postring_id=${posting.posting_id -1} ">이전글보기</a></td>
+<td><a href="/wheremasil/board/postingVal.do?postring_id=${posting.posting_id +1} ">다음글보기</a></td>
 
 
 </tr>
