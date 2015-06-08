@@ -131,59 +131,64 @@
 			var stLon = swLatLng.getLng();
 			var enLat = neLatLng.getLat();
 			var enLon = neLatLng.getLng();
-			
-			$.ajax({
-	        	url: "/wheremasil/plan/getAreasByRange.do",
-	        	dataType : "json",
-	            type: "POST",
-	            timeout : 30000, 
-	        	data : {"stLat":stLat,"stLon":stLon,"enLat":enLat,"enLon":enLon},
-	        	success: function(data) {
-	        		// leftcontainer 아이템 삭제
-	        		removeAllLeftContainerItems();
-	        		
-	        		// 마커 삭제
-	        		removeAreaMarker();
-	        		
-	        		for ( var i = 0; i < data.length; i++ ) {
-	    		        // 마커를 생성하고 지도에 표시
-	    		        var placePosition = new daum.maps.LatLng(data[i].latitude, data[i].longitude),
-	    		        	marker = addAreaMarker(placePosition, i, data[i].title, data[i].imgPath);
-
-	    		        (function(marker, title, addr, img, id) {
-	    		            daum.maps.event.addListener(marker, 'mouseover', function() {
-	    		                infowindow.close();
-	    		                displayInfowindow(marker, title, addr, img, id);
-	    		            });
-	    		        })(marker, data[i].title, data[i].address, data[i].imgPath, data[i].id);
-	    		        
-	    		        if (data[i].channel == 'C3') {
-	    		        	var content = '<div class="borderme"><div id="leftmenu_' +
-	    		        	data[i].title + '" class="infoview_container"><div class="infoview_image_block"><img src="' + 
-		        			data[i].imgPath + '" class="infoview_image"><input type="hidden" value="' + data[i].imgPath + '"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
-		        			data[i].title + '</b></p><p class="infoview_text_content">' + 
-		        			data[i].address + '</p></div></div></div>';
-		        			
-	    		        	$("#left-container").append(content);
-	    		        	
-	    		        	// leftmenu 클릭시 인포윈도우 출현 - 맵이동
-	    		        	$(document).on("click", "#leftmenu_" + data[i].title , function() {
-	    		        		var title = $(this).find(".infoview_text_title b").text();
-	    		        		var addr = $(this).find(".infoview_text_content").text();
-	    		        		var img = $(this).find(".infoview_image_block input").val();
-	    		        		for (var idx = 0; idx < areaMarkers.length; idx++) {
-	    		        			if (title == areaMarkers[idx].getTitle()) {
-	    	    		                infowindow.close();
-	    	    		    		    map.panTo(areaMarkers[idx].getPosition());
-	    	    		                displayInfowindow(areaMarkers[idx], title, addr, img);
-	    	    		                break;
-	    		        			}
-	    		        		}
-	    					});
-	    		        }
-	    		    }// end of for
-	            }
-			});
+			Pace.track(function(){
+				Pace.start();
+				$.ajax({
+		        	url: "/wheremasil/plan/getAreasByRange.do",
+		        	dataType : "json",
+		            type: "POST",
+		            timeout : 30000, 
+		        	data : {"stLat":stLat,"stLon":stLon,"enLat":enLat,"enLon":enLon},
+		        	success: function(data) {
+		        		// leftcontainer 아이템 삭제
+		        		removeAllLeftContainerItems();
+		        		
+		        		// 마커 삭제
+		        		removeAreaMarker();
+		        		
+		        		for ( var i = 0; i < data.length; i++ ) {
+		    		        // 마커를 생성하고 지도에 표시
+		    		        var placePosition = new daum.maps.LatLng(data[i].latitude, data[i].longitude),
+		    		        	marker = addAreaMarker(placePosition, i, data[i].title, data[i].imgPath);
+	
+		    		        (function(marker, title, addr, img, id) {
+		    		            daum.maps.event.addListener(marker, 'mouseover', function() {
+		    		                infowindow.close();
+		    		                displayInfowindow(marker, title, addr, img, id);
+		    		            });
+		    		        })(marker, data[i].title, data[i].address, data[i].imgPath, data[i].id);
+		    		        
+		    		        if (data[i].channel == 'C3') {
+		    		        	var content = '<div class="borderme"><div id="leftmenu_' +
+		    		        	data[i].title + '" class="infoview_container"><div class="infoview_image_block"><img src="' + 
+			        			data[i].imgPath + '" class="infoview_image"><input type="hidden" value="' + data[i].imgPath + '"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
+			        			data[i].title + '</b></p><p class="infoview_text_content">' + 
+			        			data[i].address + '</p></div></div></div>';
+			        			
+		    		        	$("#left-container").append(content);
+		    		        	
+		    		        	// leftmenu 클릭시 인포윈도우 출현 - 맵이동
+		    		        	$(document).on("click", "#leftmenu_" + data[i].title , function() {
+		    		        		var title = $(this).find(".infoview_text_title b").text();
+		    		        		var addr = $(this).find(".infoview_text_content").text();
+		    		        		var img = $(this).find(".infoview_image_block input").val();
+		    		        		for (var idx = 0; idx < areaMarkers.length; idx++) {
+		    		        			if (title == areaMarkers[idx].getTitle()) {
+		    	    		                infowindow.close();
+		    	    		    		    map.panTo(areaMarkers[idx].getPosition());
+		    	    		                displayInfowindow(areaMarkers[idx], title, addr, img);
+		    	    		                break;
+		    		        			}
+		    		        		}
+		    					});
+		    		        }
+		    		    }// end of for
+		    		    setTimeout(function(){
+			        		Pace.stop();
+		    			}, 1000);
+		            }// end of success
+				});// end of ajax
+			});// end of pace
 		}// end of getAreasByRange()
 		
 		// 지역명 리스트 추가
@@ -209,23 +214,30 @@
 					if (id == 'undefined') {
 						// id가 없는경우, 지역정보를 db에 insert
 						//alert(title+", "+address+", "+imgUrl);
-						$.ajax({
-				        	url: "/wheremasil/plan/registArea.do",
-				        	dataType : "text",
-				            type: "POST",
-				            timeout : 30000, 
-				        	data : {"title":title,"address":addr,"imageUrl":img,"latitude":lat,"longitude":lng},
-				        	success: function(data) {
-				        		setSchedule(content, data);
-
-				        		// 선택한 일정 경로 추가
-				        		schedulePath.push(new daum.maps.LatLng(lat, lng));
-				        		if (schedulePath.length > 1) {
-					    			polyline.setMap(null);
-				        			displayArrow(schedulePath);
-				        		}
-				        	}
-						});
+						Pace.track(function(){
+							Pace.start();
+							$.ajax({
+					        	url: "/wheremasil/plan/registArea.do",
+					        	dataType : "text",
+					            type: "POST",
+					            timeout : 30000, 
+					        	data : {"title":title,"address":addr,"imageUrl":img,"latitude":lat,"longitude":lng},
+					        	success: function(data) {
+					        		setSchedule(content, data);
+	
+					        		// 선택한 일정 경로 추가
+					        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+					        		if (schedulePath.length > 1) {
+						    			polyline.setMap(null);
+					        			displayArrow(schedulePath);
+					        		}
+	
+					    		    setTimeout(function(){
+						        		Pace.stop();
+					    			}, 1000);
+					        	}
+							});// end of ajax
+						});// end of track (pace)
 					} else {
 		        		setSchedule(content, id);
 
@@ -237,7 +249,7 @@
 		        		}
 					}
 					
-	    		});
+	    		});// end of 일정등록 click event
 			} else {
 				for (var idx = 0; idx < titles.length; idx++) {
 					if (title == titles[idx]) {
@@ -264,23 +276,30 @@
 							if (id == 'undefined') {
 								// id가 없는경우, 지역정보를 db에 insert
 								//alert(title+", "+address+", "+imgUrl);
-								$.ajax({
-						        	url: "/wheremasil/plan/registArea.do",
-						        	dataType : "text",
-						            type: "POST",
-						            timeout : 30000, 
-						        	data : {"title":title,"address":addr,"imageUrl":img,"latitude":lat,"longitude":lng},
-						        	success: function(data) {
-						        		setSchedule(content, data);
-
-						        		// 선택한 일정 경로 추가
-						        		schedulePath.push(new daum.maps.LatLng(lat, lng));
-						        		if (schedulePath.length > 1) {
-							    			polyline.setMap(null);
-						        			displayArrow(schedulePath);
-						        		}
-						        	}
-								});
+								Pace.track(function(){
+									Pace.start();
+									$.ajax({
+							        	url: "/wheremasil/plan/registArea.do",
+							        	dataType : "text",
+							            type: "POST",
+							            timeout : 30000, 
+							        	data : {"title":title,"address":addr,"imageUrl":img,"latitude":lat,"longitude":lng},
+							        	success: function(data) {
+							        		setSchedule(content, data);
+	
+							        		// 선택한 일정 경로 추가
+							        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+							        		if (schedulePath.length > 1) {
+								    			polyline.setMap(null);
+							        			displayArrow(schedulePath);
+							        		}
+	
+							    		    setTimeout(function(){
+								        		Pace.stop();
+							    			}, 1000);
+							        	}
+									});// end of ajax
+								});// end of track (page)
 							} else {
 				        		setSchedule(content, id);
 
@@ -291,11 +310,11 @@
 				        			displayArrow(schedulePath);
 				        		}
 							}
-			    		});
-					}
-				}
-			}
-		}
+			    		});// end of 일정등록 click event
+					}// end of if
+				}// end of for
+			}// end of else
+		}// end of addTItle
 		
 		// 지도 범위 설정
 		function setBounds() {

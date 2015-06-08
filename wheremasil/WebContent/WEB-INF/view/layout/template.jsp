@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,11 @@
 <script type="text/javascript" src="/wheremasil/script/jquery.js"></script>
 <script type="text/javascript" src="/wheremasil/script/jquery-ui.js"></script>
 <script type="text/javascript" src="/wheremasil/script/jquery.cookie.js"></script>
+
+<!-- pace : 프로그레스바 lib -->
+<script src="/wheremasil/script/pace.js"></script>
+<link href="/pace/themes/pace-theme-barber-shop.css" rel="stylesheet" />
+<link rel="stylesheet" href="/wheremasil/css/themes/orange/pace-theme-center-atom.css" />
 
 <style type="text/css">
 
