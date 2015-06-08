@@ -11,17 +11,17 @@
 <div class="row">
   <div class="col-xs-6 col-md-3" style="float:left">
     <a href="#" class="thumbnail">
-      <img src="/WebContent/css/images/sampleMap1.JPG" alt="...">
+      <img src="/wheremasil/uploads/images/default/img_not_found.png" alt="...">
     </a>
   </div>
     <div class="col-xs-6 col-md-3" style="float:left">
     <a href="#" class="thumbnail">
-      <img src="/WebContent/css/images/sampleMap1.JPG" alt="...">
+      <img src="/wheremasil/uploads/images/default/img_not_found.png" alt="...">
     </a>
   </div>
     <div class="col-xs-6 col-md-3" style="float:left">
     <a href="#" class="thumbnail">
-      <img src="/WebContent/css/images/sampleMap1.JPG" alt="...">
+      <img src="/wheremasil/uploads/images/default/img_not_found.png" alt="...">
     </a>
   </div>
 </div>

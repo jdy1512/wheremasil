@@ -7,13 +7,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="/wheremasil/script/jquery.js"></script>
-<script type="text/javascript" src="/wheremasil/script/jquery-ui.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript" src="/wheremasil/script/jquery.cookie.js"></script>
 
 <!-- pace : 프로그레스바 lib -->
-<script src="/wheremasil/script/pace.js"></script>
-<link href="/pace/themes/pace-theme-barber-shop.css" rel="stylesheet" />
-<link rel="stylesheet" href="/wheremasil/css/themes/orange/pace-theme-center-atom.css" />
+<script data-pace-options='{ "document": false, "ajax": true, "eventLag": false }' src="/wheremasil/script/pace.js"></script>
+<link rel="stylesheet" href="/wheremasil/css/pace/orange/pace-theme-center-atom.css" />
 
 <style type="text/css">
 
@@ -278,7 +277,7 @@ h1:before {
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;max-height:500px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:260px;max-height:500px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
