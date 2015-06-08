@@ -7,7 +7,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.net.URL;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -27,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.wheremasil.plan.service.PlannerScheduleService;
 import com.wheremasil.plan.validator.PlannerScheduleValidator;
 import com.wheremasil.plan.vo.Area;
-import com.wheremasil.plan.vo.Cost;
+import com.wheremasil.plan.vo.AreaCost;
 import com.wheremasil.plan.vo.PlannerSchedule;
 import com.wheremasil.plan.vo.Schedule;
 
@@ -44,7 +48,6 @@ public class PlannerScheduleController {
 		if(errors.hasErrors()){
 			return new ModelAndView("main.tiles", "errors", errors.getAllErrors());
 		}
-		
 		return new ModelAndView("plan/map.tiles", "plan", plan);
 	}
 
@@ -62,7 +65,7 @@ public class PlannerScheduleController {
 
 	@RequestMapping("registArea")
 	@ResponseBody
-	public int registArea(@RequestParam String title, @RequestParam String address, @RequestParam String imageUrl, @RequestParam String latitude, @RequestParam String longitude, HttpServletRequest request) {
+	public String registArea(@RequestParam String title, @RequestParam String address, @RequestParam String imageUrl, @RequestParam String latitude, @RequestParam String longitude, HttpServletRequest request) {
 		Area area = new Area();
 		area.setTitle(title);
 		area.setAddress(address);
@@ -92,16 +95,16 @@ public class PlannerScheduleController {
 					}
 					
 					// workspace로 copy (backup)
-					String wsLocalPath = "C:/Users/KOSTA_03_001_/git/wheremasil/wheremasil/WebContent/uploads/images/area/" + id;
+					String wsLocalPath = "C:/Users/KOSTA_03_001_/Desktop/wheremasil_master/wheremasil/wheremasil/WebContent/uploads/images/area/" + id;
 					new File(wsLocalPath).mkdirs();
 					imgFileCopy(wsLocalPath, localPath + "/main.png", "main", "png");
 				} catch (Exception e) {
 					e.printStackTrace();
-					return -1;
+					return null;
 				}
 			}
 		}
-		return result;
+		return id;
 	}
 
 	private void imgFileDownload(String localPath, String path, String name, String file_ext) throws Exception {
@@ -131,105 +134,116 @@ public class PlannerScheduleController {
 		fis.close();
 	}
 	
-	// 수정중
 	@RequestMapping("planInfo")
-	public ModelAndView planInfo(@RequestParam Map<String, Object> map,HttpServletRequest request){
-		request.getSession().setAttribute("login_info", "qwer");
+	public ModelAndView planInfo(@RequestParam Map<String, Object> map, HttpServletRequest request){
+		request.getSession().setAttribute("login_info", "admin@wheremasil.com");
 		PlannerSchedule ps = new PlannerSchedule();
-		ArrayList<Schedule> scheduleList = new ArrayList<Schedule>();
 		Schedule schedule = null;
-		ArrayList<Cost> costList = null;
-		ArrayList<Area> areaList = null;
-		Cost cost = null;
-		Area area = null;
-		int sSequence=1;
-		
-		
+		AreaCost areaCost = null;
+		String scheduleDate = null;
+		String schedulePlanId = null;
+		Calendar c = null;
+
+		// plan db 등록
 		ps.setTitle((String) map.get("title"));
 		ps.setTheme((String) map.get("theme"));
 		ps.setStartDate((String) map.get("startDate"));
 		ps.setEndDate((String) map.get("endDate"));
 		ps.setGroupNum(Integer.parseInt((String) map.get("groupNum")));
 		ps.setMemberId((String) request.getSession().getAttribute("login_info"));
-		
-		map.remove("title");
-		map.remove("theme");
-		map.remove("startDate");
-		map.remove("endDate");
-		map.remove("groupNum");
-		
-		// System.out.println(ps);
-		int curScheduleIdx = -1;
-		int curCostIdx = -1;
-		for(Entry<String, Object> entry: map.entrySet()) {
-		//	System.err.println(entry);
-			String[] keySplit = ((String) entry.getKey()).split(",");
-			int scheduleIdx = Integer.parseInt(keySplit[0].split(":")[1]);
-			int costIdx = Integer.parseInt(keySplit[1].split(":")[1]);
-			String key = keySplit[2];
-			String value = (String) entry.getValue();
-			
-			if (curScheduleIdx != scheduleIdx) {
-				if (curScheduleIdx != -1) {
-					costList.add(cost);
-					areaList.add(area);
-				//	schedule.setsSequence(sSequence);
-					schedule.setCostList(costList);
-					schedule.setAreaList(areaList);
-					scheduleList.add(schedule);
-					//System.out.println(schedule);
-				}
-				curScheduleIdx = scheduleIdx;
-				curCostIdx = -1;
-				schedule = new Schedule();
-				costList = new ArrayList<Cost>();
-				areaList = new ArrayList<Area>();
-			}
-			
-			if (curCostIdx != costIdx && costIdx != 0) {
-				if (curCostIdx != -1) {
-					costList.add(cost);
-					areaList.add(area);
-				}
-				curCostIdx = costIdx;
-				cost = new Cost();
-				area = new Area();
-			}
-			
-			if(key.equals("costFood")){
-				cost.setCostFood(Integer.parseInt(value));
-			} else if(key.equals("costVehicle")){
-				cost.setCostVehicle(Integer.parseInt(value));
-			} else if(key.equals("costStay")){
-				cost.setCostStay(Integer.parseInt(value));
-			} else if(key.equals("costEtc")){
-				cost.setCostEtc(Integer.parseInt(value));
-			} else if(key.equals("memo")){
-				schedule.setMemo(value);
-			}
-		}// end of for
-		// 마지막 값들
-		costList.add(cost);
-		areaList.add(area);
-		schedule.setCostList(costList);
-		schedule.setAreaList(areaList);
-		scheduleList.add(schedule);
-	//	System.out.println(schedule);
 
-		ps.setScheduleList(scheduleList);
-		System.out.println(ps);
-		service.registPlanSchedule(ps); // DB에 플랜 등록
-		schedule.setPlanId(service.getPlanId(ps.getMemberId())); //DB에서 해당 플랜 ID조회
-		System.out.println(schedule.getPlanId());
-		
-//		for(Schedule s: scheduleList){
-//			System.out.println(s);
-//			for(Cost c:s.getCostList()){
-//			}
-//		}
-//		
-		
-		
+		try {
+			int result = service.registPlanSchedule(ps);
+			
+			if (result == 1) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyymmdd");
+				Date date = sdf.parse(ps.getStartDate());
+				c = new GregorianCalendar();
+
+				//DB에서 해당 플랜 ID조회
+				schedulePlanId = service.getPlanId(ps.getMemberId());
+				
+				// split 형식에 맞지않는 prof 삭제
+				map.remove("title");
+				map.remove("theme");
+				map.remove("startDate");
+				map.remove("endDate");
+				map.remove("groupNum");
+				
+				int curScheduleIdx = -1; //현재 Schedule idx 
+				int curCostIdx = -1; // 현재 cost idx
+				
+				for(Entry<String, Object> entry: map.entrySet()) {
+					String[] keySplit = ((String) entry.getKey()).split(",");
+					int scheduleIdx = Integer.parseInt(keySplit[0].split(":")[1]);
+					int costIdx = Integer.parseInt(keySplit[1].split(":")[1]);
+					String key = keySplit[2];
+					String value = (String) entry.getValue();
+					
+					if (curScheduleIdx != scheduleIdx) {
+						System.out.println("----------------------------------------------");
+						curScheduleIdx = scheduleIdx;
+						curCostIdx = -1;
+						
+						// 날짜 증가
+						c.setTime(date);
+						c.add(Calendar.DAY_OF_MONTH, curScheduleIdx - 1);
+						scheduleDate = sdf.format(c.getTime());
+						
+						// 새로운 스케줄(DAY)이 생성되는 곳. 
+						schedule = new Schedule();
+						schedule.setsDate(scheduleDate);
+						schedule.setPlanId(schedulePlanId);
+						schedule.setMemo("");
+
+						// schedule db 등록
+						service.registSchedule(schedule);
+					}
+
+					if (curCostIdx != costIdx && costIdx != 0) {// 새로운 일정이 추가.
+						if (curCostIdx != -1) { // 각 DAY별 처음 제외.
+							// area_cost db 등록
+							areaCost.setAcSeq(curCostIdx);
+							areaCost.setsDate(scheduleDate);
+							areaCost.setPlanId(schedulePlanId);
+							service.registAreaCost(areaCost);
+							System.out.println(areaCost);
+						} // 새로운 일정이 생성되는 곳. 
+						curCostIdx = costIdx;
+						areaCost = new AreaCost();
+					} else if (curCostIdx == -1 && costIdx == 0) {
+						curCostIdx = 1;
+					}
+					
+					if(key.equals("areaId")){
+						areaCost.setAreaId(value);
+					} else if(key.equals("costFood")){
+						areaCost.setAcFood(Integer.parseInt(value));
+					} else if(key.equals("costVehicle")){
+						areaCost.setAcVehicle(Integer.parseInt(value));
+					} else if(key.equals("costStay")){
+						areaCost.setAcStay(Integer.parseInt(value));
+					} else if(key.equals("costEtc")){
+						areaCost.setAcEtc(Integer.parseInt(value));
+					} else if(key.equals("memo")){
+						schedule.setMemo(value);
+						// 메모 업데이트
+						service.setScheduleByMemo(schedule);
+						
+						// area_cost db 등록
+						areaCost.setAcSeq(curCostIdx);
+						areaCost.setsDate(scheduleDate);
+						areaCost.setPlanId(schedulePlanId);
+						service.registAreaCost(areaCost);
+
+						System.out.println(areaCost);
+						System.out.println(schedule);
+					}
+				}// end of for
+			}// end of if(result)
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		//return new ModelAndView("plan/map.tiles", "plannerSchedule", ps);
 		return null;
 	}

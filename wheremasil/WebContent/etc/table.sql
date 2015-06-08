@@ -266,7 +266,7 @@ CREATE TABLE PLAN (
    p_title VARCHAR2(64) NOT NULL, /* 플랜명 */
    p_start_date CHAR(8) NOT NULL, /* 여행 시작 일 */
    p_end_date CHAR(8) NOT NULL, /* 여행 종료 일 */
-   p_groupno NUMBER(11) NOT NULL, /* 여행 그릅 인원수 */
+   p_groupno NUMBER(11) NOT NULL, /* 여행 그룹 인원수 */
    p_create_datetime CHAR(14) NOT NULL, /* 플랜 생성 일시 */
    p_calendar_file_path VARCHAR2(256) NOT NULL, /* 최종 달력 파일 저장 경로 */
    p_map_img_path VARCHAR2(256) NOT NULL, /* 대표 지도 이미지 경로 */
@@ -309,21 +309,18 @@ ALTER TABLE PLAN
 /* SCHEDULE */
 CREATE TABLE SCHEDULE (
    s_date CHAR(8) NOT NULL, /* 해당일정날짜 */
-   s_seq NUMBER(11) NOT NULL, /* 날짜 별 일정순서 */
    plan_id VARCHAR2(16) NOT NULL, /* 플랜고유코드 */
-   s_cost_stay NUMBER(11), /* 숙박비 */
-   s_cost_food NUMBER(11), /* 식비 */
-   s_cost_vehicle NUMBER(11), /* 교통비 */
-   s_cost_etc NUMBER(11), /* 기타 비용 */
-   s_note VARCHAR2(2048), /* 메모 */
-   area_id VARCHAR2(16) NOT NULL /* 지역고유코드 */
+   s_note VARCHAR2(2048) /* 메모 */
 );
 
 CREATE UNIQUE INDEX PK_SCHEDULE
    ON SCHEDULE (
       s_date ASC,
-      s_seq ASC,
       plan_id ASC
+   );
+
+CREATE UNIQUE INDEX UIX_SCHEDULE
+   ON SCHEDULE (
    );
 
 ALTER TABLE SCHEDULE
@@ -331,8 +328,13 @@ ALTER TABLE SCHEDULE
       CONSTRAINT PK_SCHEDULE
       PRIMARY KEY (
          s_date,
-         s_seq,
          plan_id
+      );
+
+ALTER TABLE SCHEDULE
+   ADD
+      CONSTRAINT UK_SCHEDULE
+      UNIQUE (
       );
 
 ALTER TABLE SCHEDULE
@@ -346,17 +348,54 @@ ALTER TABLE SCHEDULE
       )
       ON DELETE CASCADE;
 
-ALTER TABLE SCHEDULE
+/* AREA_COST 테이블 */
+CREATE TABLE AREA_COST (
+   s_date CHAR(8) NOT NULL, /* 해당일정날짜 */
+   plan_id VARCHAR2(16) NOT NULL, /* 플랜고유코드 */
+   ac_seq NUMBER(11) NOT NULL, /* 일정 순서 */
+   ac_etc NUMBER(11), /* 기타 비용 */
+   ac_vehicle NUMBER(11), /* 교통비 */
+   ac_food NUMBER(11), /* 식비 */
+   ac_stay NUMBER(11), /* 숙박비 */
+   area_id VARCHAR2(16) NOT NULL /* 지역고유코드 */
+);
+
+CREATE UNIQUE INDEX PK_AREA_COST
+   ON AREA_COST (
+      s_date ASC,
+      plan_id ASC
+   );
+
+ALTER TABLE AREA_COST
    ADD
-      CONSTRAINT FK_AREA_TO_SCHEDULE
+      CONSTRAINT PK_AREA_COST
+      PRIMARY KEY (
+         s_date,
+         plan_id,
+         ac_seq
+      );
+
+ALTER TABLE AREA_COST
+   ADD
+      CONSTRAINT FK_AREA_TO_AREA_COST
       FOREIGN KEY (
          area_id
       )
       REFERENCES AREA (
          area_id
       );
-      
-select * from tab
+
+ALTER TABLE AREA_COST
+   ADD
+      CONSTRAINT FK_SCHEDULE_TO_AREA_COST
+      FOREIGN KEY (
+         s_date,
+         plan_id
+      )
+      REFERENCES SCHEDULE (
+         s_date,
+         plan_id
+      );
 
 /* CHANNEL 테이블 */
 CREATE TABLE CHANNEL (

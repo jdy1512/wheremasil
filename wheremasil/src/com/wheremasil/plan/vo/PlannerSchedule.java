@@ -1,51 +1,26 @@
 package com.wheremasil.plan.vo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
-
 
 public class PlannerSchedule implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String title; //플래너명
-	private String startDate; //시작일
-	private String endDate; //종료일
-	private int groupNum; //인원수
-	private String theme; //테마 정보
-	private String memberId; //멤버 id
-	private String planCreateTime;//플랜 만든시간.
+	private String title; // 플래너명
+	private String startDate; // 시작일
+	private String endDate; // 종료일
+	private int groupNum; // 인원수
+	private String theme; // 테마 정보
+	private String memberId; // 멤버 id
+	private String planCreateTime;// 플랜 만든시간.
 	private String planCalendarFilePath; // 플래너스케쥴파일경로
-	private String mapImgPath; //지도 이미지 경로
-	private ArrayList<Schedule> scheduleList; 
+	private String mapImgPath; // 지도 이미지 경로
 
-
-	public PlannerSchedule(){}
-
-
-
-	public PlannerSchedule(String title, String startDate, String endDate,
-			int groupNum, String theme, String memberId,
-			ArrayList<Schedule> scheduleList) {
-		super();
-		this.title = title;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.groupNum = groupNum;
-		this.theme = theme;
-		this.memberId = memberId;
-		this.scheduleList = scheduleList;
+	public PlannerSchedule() {
 	}
-
-
-
-
 
 	public PlannerSchedule(String title, String startDate, String endDate,
 			int groupNum, String theme, String memberId, String planCreateTime,
-			String planCalendarFilePath, String mapImgPath,
-			ArrayList<Schedule> scheduleList) {
-		super();
+			String planCalendarFilePath, String mapImgPath) {
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -55,66 +30,6 @@ public class PlannerSchedule implements Serializable {
 		this.planCreateTime = planCreateTime;
 		this.planCalendarFilePath = planCalendarFilePath;
 		this.mapImgPath = mapImgPath;
-		this.scheduleList = scheduleList;
-	}
-
-
-
-	public String getPlanCalendarFilePath() {
-		return planCalendarFilePath;
-	}
-
-
-
-	public void setPlanCalendarFilePath(String planCalendarFilePath) {
-		this.planCalendarFilePath = planCalendarFilePath;
-	}
-
-
-
-	public String getMapImgPath() {
-		return mapImgPath;
-	}
-
-
-
-	public void setMapImgPath(String mapImgPath) {
-		this.mapImgPath = mapImgPath;
-	}
-
-
-
-	public String getPlanCreateTime() {
-		return planCreateTime;
-	}
-
-
-
-	public void setPlanCreateTime(String planCreateTime) {
-		this.planCreateTime = planCreateTime;
-	}
-
-
-
-	public ArrayList<Schedule> getScheduleList() {
-		return scheduleList;
-	}
-	
-	
-	public String getMemberId() {
-		return memberId;
-	}
-
-
-
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-
-
-
-	public void setScheduleList(ArrayList<Schedule> scheduleList) {
-		this.scheduleList = scheduleList;
 	}
 
 	public String getTitle() {
@@ -157,7 +72,37 @@ public class PlannerSchedule implements Serializable {
 		this.theme = theme;
 	}
 
+	public String getMemberId() {
+		return memberId;
+	}
 
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
+	public String getPlanCreateTime() {
+		return planCreateTime;
+	}
+
+	public void setPlanCreateTime(String planCreateTime) {
+		this.planCreateTime = planCreateTime;
+	}
+
+	public String getPlanCalendarFilePath() {
+		return planCalendarFilePath;
+	}
+
+	public void setPlanCalendarFilePath(String planCalendarFilePath) {
+		this.planCalendarFilePath = planCalendarFilePath;
+	}
+
+	public String getMapImgPath() {
+		return mapImgPath;
+	}
+
+	public void setMapImgPath(String mapImgPath) {
+		this.mapImgPath = mapImgPath;
+	}
 
 	@Override
 	public String toString() {
@@ -166,10 +111,7 @@ public class PlannerSchedule implements Serializable {
 				+ ", theme=" + theme + ", memberId=" + memberId
 				+ ", planCreateTime=" + planCreateTime
 				+ ", planCalendarFilePath=" + planCalendarFilePath
-				+ ", mapImgPath=" + mapImgPath + ", scheduleList="
-				+ scheduleList + "]";
+				+ ", mapImgPath=" + mapImgPath + "]";
 	}
-
-
 
 }

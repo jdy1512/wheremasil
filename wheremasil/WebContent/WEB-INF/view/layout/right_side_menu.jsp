@@ -4,22 +4,22 @@
 
   <title>jQuery UI Tabs - Collapse content</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   
   <script>
  	 var dayAllCount=0; //총 여행 날짜
  	 var dayCount=1; // 현재 day
   	 var courseCount=[];
  	 
-  	 function setSchedule(html) {
+  	 function setSchedule(html, areaId) {
  		$("#tab" + dayCount + " #tabs-1").append('<fieldset><legend>Course'+courseCount[dayCount-1]+'</legend><table id="areaList"><tr>'+
  					       '<td>' + html +'</td></tr></table></fieldset>');
-		
- 		$("#tab" + dayCount + " #tabs-2").append("<fieldset><legend>Course"+courseCount[dayCount-1]+"</legend><table><tr><td>식비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costFood' size='10'></td></tr>"+
-				"<tr><td>교통비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costVehicle' size='10'></td></tr>"+
-				"<tr><td>숙박비</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costStay' size='10'></td></tr>"+
-				"<tr><td>기타</td><td><input type='text' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costEtc' size='10'></td></tr></table></fieldset>");
+
+ 		$("#tab" + dayCount + " #tabs-2").append("<input type='hidden' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",areaId' value='" + areaId + "'>" +
+ 				"<fieldset><legend>Course"+courseCount[dayCount-1]+"</legend><table>" +
+ 				"<tr><td>식비</td><td><input type='number' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costFood' value='0' size='10'></td></tr>"+
+				"<tr><td>교통비</td><td><input type='number' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costVehicle' value='0' size='10'></td></tr>"+
+				"<tr><td>숙박비</td><td><input type='number' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costStay' value='0' size='10'></td></tr>"+
+				"<tr><td>기타</td><td><input type='number' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costEtc' value='0' size='10'></td></tr></table></fieldset>");
 		courseCount[dayCount-1]++;
 	 };
 	

@@ -205,15 +205,6 @@
 	        		img + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
 			    	title + '</b></p><p class="infoview_text_content">' + 
 			    	addr + '</p></div></div></div>';
-
-	        		setSchedule(content);
-
-	        		// 선택한 일정 경로 추가
-	        		schedulePath.push(new daum.maps.LatLng(lat, lng));
-	        		if (schedulePath.length > 1) {
-		    			polyline.setMap(null);
-	        			displayArrow(schedulePath);
-	        		}
 	        		
 					if (id == 'undefined') {
 						// id가 없는경우, 지역정보를 db에 insert
@@ -225,8 +216,25 @@
 				            timeout : 30000, 
 				        	data : {"title":title,"address":addr,"imageUrl":img,"latitude":lat,"longitude":lng},
 				        	success: function(data) {
+				        		setSchedule(content, data);
+
+				        		// 선택한 일정 경로 추가
+				        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+				        		if (schedulePath.length > 1) {
+					    			polyline.setMap(null);
+				        			displayArrow(schedulePath);
+				        		}
 				        	}
 						});
+					} else {
+		        		setSchedule(content, id);
+
+		        		// 선택한 일정 경로 추가
+		        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+		        		if (schedulePath.length > 1) {
+			    			polyline.setMap(null);
+		        			displayArrow(schedulePath);
+		        		}
 					}
 					
 	    		});
@@ -252,15 +260,6 @@
 			        		img + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
 					    	title + '</b></p><p class="infoview_text_content">' + 
 					    	addr + '</p></div></div></div>';
-
-			        		setSchedule(content);
-
-			        		// 선택한 일정 경로 추가
-			        		schedulePath.push(new daum.maps.LatLng(lat, lng));
-			        		if (schedulePath.length > 1) {
-				    			polyline.setMap(null);
-			        			displayArrow(schedulePath);
-			        		}
 			        		
 							if (id == 'undefined') {
 								// id가 없는경우, 지역정보를 db에 insert
@@ -272,10 +271,26 @@
 						            timeout : 30000, 
 						        	data : {"title":title,"address":addr,"imageUrl":img,"latitude":lat,"longitude":lng},
 						        	success: function(data) {
+						        		setSchedule(content, data);
+
+						        		// 선택한 일정 경로 추가
+						        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+						        		if (schedulePath.length > 1) {
+							    			polyline.setMap(null);
+						        			displayArrow(schedulePath);
+						        		}
 						        	}
 								});
+							} else {
+				        		setSchedule(content, id);
+
+				        		// 선택한 일정 경로 추가
+				        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+				        		if (schedulePath.length > 1) {
+					    			polyline.setMap(null);
+				        			displayArrow(schedulePath);
+				        		}
 							}
-							
 			    		});
 					}
 				}

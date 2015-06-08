@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="/wheremasil/script/jquery.js"></script>
 <script type="text/javascript" src="/wheremasil/script/jquery-ui.js"></script>
+<script type="text/javascript" src="/wheremasil/script/jquery.cookie.js"></script>
 
 <style type="text/css">
 header {
@@ -62,7 +63,6 @@ footer {
 }
 .main_center { position:absolute; top:50%; left:50%; width:40%; height:30%; overflow:hidden; margin-top:-15%; margin-left:-20%;}
 h1 {
-    text-shadow: 0 1px 0 rgba(255, 255, 255, .7), 0px 2px 0 rgba(0, 0, 0, .5);
     text-transform: uppercase;
     text-align: center;
     color: #666;

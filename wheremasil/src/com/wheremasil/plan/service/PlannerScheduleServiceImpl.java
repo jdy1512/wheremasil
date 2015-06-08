@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 
 import com.wheremasil.plan.dao.PlannerScheduleDAOImpl;
 import com.wheremasil.plan.vo.Area;
+import com.wheremasil.plan.vo.AreaCost;
 import com.wheremasil.plan.vo.PlannerSchedule;
+import com.wheremasil.plan.vo.Schedule;
 
 @Component("service")
 public class PlannerScheduleServiceImpl implements PlannerScheduleService{
@@ -29,16 +31,30 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 	public String getAreaIdByName(String name) {
 		return dao.selectAreaIdByName(name);
 	}
-	
-	public void registPlanSchedule(PlannerSchedule ps) {
-		
-		dao.registPlanSchedule(ps);
+
+	@Override
+	public int registPlanSchedule(PlannerSchedule ps) {
+		return dao.insertPlanSchedule(ps);
 	}
 
 	@Override
 	public String getPlanId(String memberId) {
-		
-		return dao.getPlanId(memberId);
+		return dao.selectPlanId(memberId);
+	}
+
+	@Override
+	public int registSchedule(Schedule schedule) {
+		return dao.insertSchedule(schedule);
+	}
+
+	@Override
+	public int setScheduleByMemo(Schedule schedule) {
+		return dao.updateScheduleByMemo(schedule);
+	}
+
+	@Override
+	public int registAreaCost(AreaCost ac) {
+		return dao.insertAreaCost(ac);
 	}
 
 }
