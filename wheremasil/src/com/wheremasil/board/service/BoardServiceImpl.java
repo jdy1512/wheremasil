@@ -47,7 +47,11 @@ public class BoardServiceImpl {
 		System.out.println("-----------------");
 		System.out.println(board.getDateTime());
 		System.out.println(dao);
+		if(board.getSumname().equals("default")){
+			board.setSumname("http://192.168.7.122:8082/wheremasil/uploads/images/default/posting_no_images.png");
+		}
 		//HTML 파일로 컨텐츠를 저장합시다
+		
 		
 		/*String path="C:\\Users\\JPH.KOSTA_03_030-HP\\Dropbox\\masil\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\masil_jph\\uploads\\files";
 		String filename=str+".html";
@@ -114,7 +118,11 @@ public class BoardServiceImpl {
 		ResultBoard list =  dao.returnPostringValue(numStr2);
 		
 		System.out.println("넘어온 리턴포스팅값"+list);
-		 
+		 if(list==null){
+			 System.out.println("리스트 널확인");
+			 list =  dao.returnPostringValue("1");
+			 System.out.println("교체된 리스트"+list);
+		 }
 		
 		Map map = new HashMap();
 		map.put("posting", list);

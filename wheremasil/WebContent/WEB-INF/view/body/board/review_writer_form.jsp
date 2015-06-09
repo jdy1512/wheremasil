@@ -11,7 +11,7 @@
 
 <script src="/wheremasil/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-var path = "http://localhost:8082/wheremasil/uploads/images/";
+var path = "http://192.168.7.122:8082/wheremasil/uploads/images/posting_img/";
 var cnt=2;
 $(document).ready(function(){
 	
@@ -25,7 +25,7 @@ $(document).ready(function(){
 	});
 	
 	$("#fileSection").on("change","input[type='file']",function(){
-		 var data = FormData();
+		 var data =new FormData();
 		 data.append("file",jQuery(this).get(0).files[0]);
 		 alert(data);
 	   	 $.ajax({
@@ -114,7 +114,8 @@ $(document).ready(function(){
 		
 		if($("#sumname").val()=="2"){
 			if(imgpath=="default"){
-			alert("이미지, 초기이미지 아무것도안넘");	
+			alert("이미지, 초기이미지 아무것도안넘");
+			$("#sumname").attr('value',imgpath); 
 			}else{
 			alert("2라면");
 			$("#sumname").attr('value',imgpath); 
@@ -125,14 +126,23 @@ $(document).ready(function(){
 		return true;
 	});
 	
+	$("#cancle_btn").on("click",function(){
+		alert("켄슬이벤트");
+		var result = confirm('Are you sure you want to do this?');
+
+	    if(result) {
+	       //yes
+	        location.replace('/wheremasil/board/review.do');
+	    } else {
+	        //no
+	    }
+		
+	});
+	
 	
 });
 
-$("#cancle_btn").on("click",function(){
-	
-	
-	
-});
+
 
 
 
@@ -193,7 +203,7 @@ $("#cancle_btn").on("click",function(){
 
                       	  <tr>
                         <td height="35" bgcolor="#f7f7f7"><div align="right"><strong>제목 &nbsp;</strong></div></td>
-                        <td height="35" bgcolor="#ffffff"> &nbsp;   <input name="subject" id="subject" type="text" size="80" maxlength="40">
+                        <td height="35" bgcolor="#ffffff"> &nbsp;   <input name="subject" id="subject" type="text" size="80" maxlength="40" required>
                           &nbsp;</td>
                       </tr>
                       
@@ -210,7 +220,7 @@ $("#cancle_btn").on("click",function(){
                        <td width="80" height="35" bgcolor="#f7f7f7"><div align="right"><font color="#ff0000"></font><strong>내용&nbsp;</strong> </div></td>
                         <td height="35" style="padding: 0px 4px;" bgcolor="#ffffff">
                         
-                         <textarea name="editor1" id="editor1" rows="10" cols="100" class="editor1">
+                         <textarea name="editor1" id="editor1" rows="10" cols="100" class="editor1" >
                 
             </textarea>
             <script>
@@ -253,7 +263,7 @@ $("#cancle_btn").on("click",function(){
                         	                        	<div style="margin: 4px 0px;">
                         	                        	
                             	<input name="confirm_btn" type="submit" value="     확       인     ">
-                            	<input name="cancle_btn" type="button" value="     취       소     ">
+                            	<input name="cancle_btn" type="button"  id="cancle_btn" value="     취       소     ">
                             	
                             </div>
                             
