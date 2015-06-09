@@ -19,6 +19,7 @@ import java.util.Map;
 
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,6 +27,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,6 +41,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 
 
 
@@ -61,10 +66,14 @@ public class BoardController {
 	
 	
 	
+	
+	
+	
+	
 	@RequestMapping("/square.do")
 	public String squareController(){
 		System.out.println("Accece squareController");
-		return "/WEB-INF/view/body/board/square_form.jsp";
+		return "board/square_form.tiles";
 	}
 	
 	
@@ -72,7 +81,7 @@ public class BoardController {
 	public ModelAndView reviewController(@RequestParam(defaultValue="1")int page){
 		System.out.println("Accece reviewController");
 		Map map =service.getReviewList(page);
-		return new ModelAndView("/WEB-INF/view/body/board/review_list_form.jsp", map);
+		return new ModelAndView("board/review_list_form.tiles", map);
 		
 	}
 	@RequestMapping("/postingVal")
@@ -132,15 +141,16 @@ public class BoardController {
 		 System.out.println(arr[1]);
 		 
 		//이경로 수정해야됨
-		// File file = new File("/masil_jph/uploads/"
+		// File file = new File("/wheremasil/uploads/"
 		//		 +date+"."+arr[1]);
-		 String path = req.getServletContext().getRealPath("/uploads/files/");
-		 //String path1= "C:\\Users\\JPH.KOSTA_03_030-HP\\git\\wheremasil1\\masil_jph\\WebContent\\uploads\\images\\";
-		 String path1="C:\\Users\\JPH.KOSTA_03_030-HP\\Dropbox\\masil\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\masil_jph\\uploads\\images";
+		 //String path = req.getServletContext().getRealPath("/uploads/files/");
+		 //String path1= "C:\\Users\\JPH.KOSTA_03_030-HP\\git\\wheremasil1\\wheremasil\\WebContent\\uploads\\images\\";
+		 String path1="C:\\Users\\JPH.KOSTA_03_030-HP\\Dropbox\\masil\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\webapps\\wheremasil\\uploads\\images\\posting_img\\";
 		 String fileName = System.currentTimeMillis()+""; 
 		 File pic = new File(path1, fileName+"."+arr[1]);
 		 
 		 System.out.println("저장된 파일위치"+pic);
+		 
 		 
 		 mpf.transferTo(pic);
 		 

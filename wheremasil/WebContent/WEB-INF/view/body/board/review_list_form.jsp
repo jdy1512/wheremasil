@@ -5,7 +5,19 @@
 <html>
 <head>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
 <script type="text/javascript">
+
 function selHit(id){
 	
 	var txt = "posting_id" + "="+ id;
@@ -43,6 +55,29 @@ function selHit(id){
 
 
 </script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	$("#xx").on("click",function(){
+		alert("버튼이벤트");
+		 $.session.set("login_info", "value");
+		alert("세션값확인");
+		alert($.session.get("login_info"));
+		
+		
+	});
+	
+	
+	
+});
+
+
+
+</script>
+
+
 <style type="text/css">
 #recent{
 height: 100px;
@@ -139,7 +174,7 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 <body>
 
 
-
+<input type="button" id="xx" value="버튼"/>
 
  
 
@@ -153,7 +188,6 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 
 
 </table> -->
-
 
 <div id="lolBody">
 <div id="lolmain">
@@ -181,10 +215,10 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 <c:if test="${fn:length(requestScope.board_list) != 0 }">
 <c:forEach items="${requestScope.board_list }" var="board">
 			
-	<li class="one">
+	<li class="one" >
 
-	<div style="margin-left: 14px;">
-	
+	<div style="margin-left: 14px;" >
+
 		<div style="
 		margin-left: 10px;
 		font-size: 9pt;
@@ -272,7 +306,7 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 <c:forEach items="${requestScope.like_list }" var="like" begin="0" end="4" step="1">
 <tr>
 	
-<td id="recent"><font size="5" color="black"><%=a %>.</font><a href="#"><font size="5">${like.p_title}</font></a></td>
+<td id="recent"><font size="5" color="black"><%=a %>.</font><a href="/wheremasil/board//postingVal.do?postring_id=${like.posting_id}"><font size="5">${like.p_title}</font></a></td>
 <%a++; %>
 </c:forEach>
 
