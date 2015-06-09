@@ -7,28 +7,40 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="/wheremasil/script/jquery.js"></script>
-<script type="text/javascript" src="/wheremasil/script/jquery-ui.js"></script>
 <script type="text/javascript" src="/wheremasil/script/jquery.cookie.js"></script>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cosmo/bootstrap.min.css" rel="stylesheet">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
 <!-- pace : 프로그레스바 lib -->
-<script src="/wheremasil/script/pace.js"></script>
-<link href="/pace/themes/pace-theme-barber-shop.css" rel="stylesheet" />
-<link rel="stylesheet" href="/wheremasil/css/themes/orange/pace-theme-center-atom.css" />
+<script data-pace-options='{ "document": false, "ajax": true, "eventLag": false }' src="/wheremasil/script/pace.js"></script>
+<link rel="stylesheet" href="/wheremasil/css/pace/orange/pace-theme-center-atom.css" />
 
 <style type="text/css">
 
 header {
+	color:white;
 	text-align: left;
 	padding: 13px;
+	height:57px;
 }
 body {
-	padding-top: 110px;
+	
 	background-color: #f5f5f5;
 }
 .left_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
 	background-color: #f5f5f5;
 	height: 700px;
+	width:18%;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	overflow-y:scroll;
@@ -38,13 +50,18 @@ body {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
 	background-color: #f5f5f5;
 	height: 700px;
+	width:18%;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	margin-right: 0px;
+	margin-left: 0px;
+	padding:0px;
+	overflow-y:scroll;
 	float: right;
 }
 section {
 	/*TODO : 페이지를 줄이면 밑으로 내려간다.. 어떻게?*/
-	height: 700px;
+	height:700px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	float: left;
@@ -54,8 +71,10 @@ footer {
 	background-color: #F5F5F5;
 	color: gray;
 	text-align: center;
-	height: 50px;
 	clear: both;
+	margin-right: 0px;
+	margin-left: 0px;
+	padding-right:0px;
 }
 
 #videobcg { 
@@ -278,7 +297,7 @@ h1:before {
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;max-height:500px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:260px;max-height:500px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}

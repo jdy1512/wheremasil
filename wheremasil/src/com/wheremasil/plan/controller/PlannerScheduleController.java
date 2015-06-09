@@ -77,6 +77,6 @@ public class PlannerScheduleController {
 			return new ModelAndView("plan/map.tiles", "plan", plan);
 		}
 		
-		return new ModelAndView("index.do", "plan", plan);
+		return new ModelAndView("main.tiles", "plan", plan);
 	}
 }

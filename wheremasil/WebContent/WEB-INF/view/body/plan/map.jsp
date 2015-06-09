@@ -26,10 +26,9 @@
 	//TODO start of onload
 	$(function() {
 		// 스타일시트 변경
-		$("header").css("background-color", "#a0c0d0");
+		$("header").css("background-color", "none");
 		$("#tile_left_nav").css("visibility", "visible");
 		$("#tile_right_nav").css("visibility", "visible");
-		$("nav").css("width", "18%");
 		$("section").css("width", "64%");
 		
 		// daum api 지도
@@ -75,7 +74,7 @@
 		// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성
 		infowindow = new daum.maps.InfoWindow({zIndex:1});
 		// 검색창 접기
-		$("#menu_wrap").css("height", "18px");
+		$("#menu_wrap").css("height", "30px");
 		 
 		$("#keyword").on("keyup", function(e) {
 			if (e.which == 13) {/* 13 == enter key@ascii */
@@ -91,13 +90,13 @@
 				$("#menu_wrap").css("height", "auto");
 			} else if ($(this).val() == "접기") {
 				$(this).val("펼치기");
-				$("#menu_wrap").css("height", "18px");
+				$("#menu_wrap").css("height", "30px");
 			}
 		});
 		$("#menu_remove").on("click", function() {
 			$("#keyword").val("");
 			$("#menu_more").val("펼치기");
-			$("#menu_wrap").css("height", "18px");
+			$("#menu_wrap").css("height", "30px");
 		    var cList = document.getElementById("placesList");
 		    var page = document.getElementById("pagination");
 		    removeAllChildNods(cList);
@@ -150,7 +149,7 @@
 		    		        // 마커를 생성하고 지도에 표시
 		    		        var placePosition = new daum.maps.LatLng(data[i].latitude, data[i].longitude),
 		    		        	marker = addAreaMarker(placePosition, i, data[i].title, data[i].imgPath);
-	
+		    		        
 		    		        (function(marker, title, addr, img, id) {
 		    		            daum.maps.event.addListener(marker, 'mouseover', function() {
 		    		                infowindow.close();
@@ -193,11 +192,12 @@
 		
 		// 지역명 리스트 추가
 		function addTitle(title) {
+			var fixedTitle = title.replace(/\s/gi, '');
 			//TODO: 신규 지역정보 db insert
 			if (titles.length == 0) {
-				titles.push(title);
+				titles.push(fixedTitle);
 				// DB지역 데이타인 경우, 인포윈도우 '일정등록' 클릭시 등록
-	        	$(document).on("click", "#infowindow_" + title , function() {
+	        	$(document).on("click", "#infowindow_" + fixedTitle , function() {
 	        		var data = $($(this).parents().html()).last().val().split(",");
 	        		var title = data[0];
 	        		var img = data[1];
@@ -210,7 +210,7 @@
 	        		img + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
 			    	title + '</b></p><p class="infoview_text_content">' + 
 			    	addr + '</p></div></div></div>';
-	        		
+			    	
 					if (id == 'undefined') {
 						// id가 없는경우, 지역정보를 db에 insert
 						//alert(title+", "+address+", "+imgUrl);
@@ -252,14 +252,15 @@
 	    		});// end of 일정등록 click event
 			} else {
 				for (var idx = 0; idx < titles.length; idx++) {
-					if (title == titles[idx]) {
+					if (fixedTitle == titles[idx]) {
 						break;
 					}
 					if (idx == titles.length - 1) {
-						titles.push(title);
-						
+						//alert("title : " + title + ", len : " + titles.length + ", curLen : " + idx + ", curTitle : " + titles[idx]);
+						titles.push(fixedTitle);
+
 						// 인포윈도우 '일정등록' 클릭시 등록
-			        	$(document).on("click", "#infowindow_" + title , function() {
+			        	$(document).on("click", "#infowindow_" + fixedTitle , function() {
 			        		var data = $($(this).parents().html()).last().val().split(",");
 			        		var title = data[0];
 			        		var img = data[1];
@@ -272,7 +273,7 @@
 			        		img + '" class="infoview_image"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
 					    	title + '</b></p><p class="infoview_text_content">' + 
 					    	addr + '</p></div></div></div>';
-			        		
+
 							if (id == 'undefined') {
 								// id가 없는경우, 지역정보를 db에 insert
 								//alert(title+", "+address+", "+imgUrl);
@@ -589,6 +590,8 @@
 		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수
 		// 인포윈도우에 장소명을 표시
 		function displayInfowindow(marker, title, addr, img, id) {
+			var fixedTitle = title.replace(/\s/gi, '');
+			
 			var imageUrl = img;
 			if (imageUrl == '') {
 				imageUrl = "/wheremasil/uploads/images/default/img_not_found.png";
@@ -602,10 +605,9 @@
 		    	imageUrl + '" style="width:100%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:90%;margin:5%;text-align:center"><b>' + 
 		    	title + '</b></p><p style="width:90%;margin-top:5%;margin-left:5%;margin-right:5%;text-align:center">' + 
 		    	addr + '</p><div style="width:50%;margin-left:25%;margin-right:25%;padding-top:2%"><input type="button" class="plan_button" id="infowindow_' + 
-		    	title + '" value="일정등록"><input type="hidden" value="' + 
+		    	fixedTitle + '" value="일정등록"><input type="hidden" value="' + 
 		    	title + ',' + imageUrl + ',' + addr + ',' + marker.getPosition().getLat() + ',' + marker.getPosition().getLng() + ',' + id + '"></div></div>' +
 		    	'<a href="javascript:void(0);" id="closeBt" class="close-thik"></a></div>';
-		    	
 		    infowindow.setContent(content);
 		    infowindow.open(map, marker);
 		}

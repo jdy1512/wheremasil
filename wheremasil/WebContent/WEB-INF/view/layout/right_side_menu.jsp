@@ -4,6 +4,7 @@
 
   <title>jQuery UI Tabs - Collapse content</title>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   
   <script>
  	 var dayAllCount=0; //총 여행 날짜
@@ -14,8 +15,8 @@
  		$("#tab" + dayCount + " #tabs-1").append('<fieldset><legend>Course'+courseCount[dayCount-1]+'</legend><table id="areaList"><tr>'+
  					       '<td>' + html +'</td></tr></table></fieldset>');
 
- 		$("#tab" + dayCount + " #tabs-2").append("<input type='hidden' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",areaId' value='" + areaId + "'>" +
- 				"<fieldset><legend>Course"+courseCount[dayCount-1]+"</legend><table>" +
+ 		$("#tab" + dayCount + " #tabs-2").append(
+ 				"<fieldset><legend>Course"+courseCount[dayCount-1]+"</legend>" + "<input type='hidden' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",areaId' value='" + areaId + "'>" + "<table>" +
  				"<tr><td>식비</td><td><input type='number' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costFood' value='0' size='10'></td></tr>"+
 				"<tr><td>교통비</td><td><input type='number' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costVehicle' value='0' size='10'></td></tr>"+
 				"<tr><td>숙박비</td><td><input type='number' name='scheduleList:"+dayCount+",costList:"+courseCount[dayCount-1]+",costStay' value='0' size='10'></td></tr>"+
@@ -28,14 +29,23 @@
 		$("#tab" + dayCount + " #tabs-1 fieldset:contains(" + course + ")").remove();
 		$("#tab" + dayCount + " #tabs-2 fieldset:contains(" + course + ")").remove();
 
+		// tab1 값 초기화
 		var reCount = 1;
 		$("#tab" + dayCount + " #tabs-1 fieldset").children("legend").each(function() {
 			$(this).text("Course" + reCount++);
 		});
+		// tab2 값 초기화
 		reCount = 1;
-		$("#tab" + dayCount + " #tabs-2 fieldset").children("legend").each(function() {
-			$(this).text("Course" + reCount++);
+		$("#tab" + dayCount + " #tabs-2 fieldset").each(function() {
+			$(this).children("legend").text("Course" + reCount);
+			$(this).find("input").each(function() {
+				var nameSplit = $(this).attr("name").split(",");
+				nameSplit[1] = nameSplit[1].split(":")[0] + ":" + reCount;
+				$(this).attr("name", nameSplit[0] + "," + nameSplit[1] + "," + nameSplit[2]);
+			});
+			reCount++;
 		});
+		
 		courseCount[dayCount - 1]--;
 	 }
 	 
@@ -139,5 +149,5 @@
 	<input type="hidden" name="startDate" value="${requestScope.plan.startDate }">
 	<input type="hidden" name="endDate" value="${requestScope.plan.endDate }">
 	
-	<input type="submit" value="submit">
+	<input type="submit" value="Planner 작성">
   </form>
