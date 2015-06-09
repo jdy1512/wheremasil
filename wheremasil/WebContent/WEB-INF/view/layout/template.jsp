@@ -33,6 +33,10 @@ body {
 	height: 700px;
 	margin-top: 5px;
 	margin-bottom: 5px;
+	margin-right: 0px;
+	margin-left: 0px;
+	padding:0px;
+	overflow-y:scroll;
 	float: right;
 }
 section {
@@ -47,8 +51,10 @@ footer {
 	background-color: #F5F5F5;
 	color: gray;
 	text-align: center;
-	height: 50px;
 	clear: both;
+	margin-right: 0px;
+	margin-left: 0px;
+	padding-right:0px;
 }
 
 #videobcg { 
