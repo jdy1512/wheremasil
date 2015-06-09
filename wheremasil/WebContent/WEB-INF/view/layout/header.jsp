@@ -127,19 +127,6 @@
 
 			});
 </script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
-<!-- Optional theme -->
-
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cosmo/bootstrap.min.css"
-	rel="stylesheet">
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -152,6 +139,7 @@
 			</button>
 			<a class="navbar-brand" href="/wheremasil/index.do">어디마실</a>
 		</div>
+
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
@@ -184,13 +172,7 @@
 
 				</c:if>
 			</form>
-			<div id="login_form_header"
-				style="width: 500px; height: 500px; left: 50%; top: 50%;  visibility: hidden; position: absolute;">
-
-
-
-
-
+			<div id="login_form_header" style="width: 500px; height: 500px; left: 50%; top: 50%;  visibility: hidden; position: absolute;">
 				로그인 <br>
 				<hr noshade="noshade" width="30%" align="left">
 

@@ -3,30 +3,5 @@
 <!-- 인클루드 되므로 보여질 부분만 넣는다. -->
 
 <font size="2">
-	<h3>최신 플랜</h3>
-</font>
-
-
-
-<div class="row">
-  <div class="col-xs-6 col-md-3" style="float:left">
-    <a href="#" class="thumbnail">
-      <img src="/wheremasil/uploads/images/default/img_not_found.png" alt="...">
-    </a>
-  </div>
-    <div class="col-xs-6 col-md-3" style="float:left">
-    <a href="#" class="thumbnail">
-      <img src="/wheremasil/uploads/images/default/img_not_found.png" alt="...">
-    </a>
-  </div>
-    <div class="col-xs-6 col-md-3" style="float:left">
-    <a href="#" class="thumbnail">
-      <img src="/wheremasil/uploads/images/default/img_not_found.png" alt="...">
-    </a>
-  </div>
-</div>
-
-
-<font size="2">
 	<h3>powered by 3조 in KOSTA</h3>
 </font>
