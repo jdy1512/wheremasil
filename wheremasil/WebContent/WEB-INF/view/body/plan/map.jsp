@@ -26,10 +26,9 @@
 	//TODO start of onload
 	$(function() {
 		// 스타일시트 변경
-		$("header").css("background-color", "#a0c0d0");
+		$("header").css("background-color", "none");
 		$("#tile_left_nav").css("visibility", "visible");
 		$("#tile_right_nav").css("visibility", "visible");
-		$("nav").css("width", "18%");
 		$("section").css("width", "64%");
 		
 		// daum api 지도

@@ -172,13 +172,7 @@
 
 				</c:if>
 			</form>
-			<div id="login_form_header"
-				style="width: 500px; height: 500px; left: 50%; top: 50%;  visibility: hidden; position: absolute;">
-
-
-
-
-
+			<div id="login_form_header" style="width: 500px; height: 500px; left: 50%; top: 50%;  visibility: hidden; position: absolute;">
 				로그인 <br>
 				<hr noshade="noshade" width="30%" align="left">
 

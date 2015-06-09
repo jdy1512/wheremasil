@@ -7,11 +7,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="/wheremasil/script/jquery.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript" src="/wheremasil/script/jquery.cookie.js"></script>
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
@@ -28,17 +27,20 @@
 <style type="text/css">
 
 header {
+	color:white;
 	text-align: left;
 	padding: 13px;
+	height:57px;
 }
 body {
-	padding-top: 110px;
+	
 	background-color: #f5f5f5;
 }
 .left_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
 	background-color: #f5f5f5;
 	height: 700px;
+	width:18%;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	overflow-y:scroll;
@@ -48,6 +50,7 @@ body {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
 	background-color: #f5f5f5;
 	height: 700px;
+	width:18%;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	margin-right: 0px;
@@ -58,6 +61,7 @@ body {
 }
 section {
 	/*TODO : 페이지를 줄이면 밑으로 내려간다.. 어떻게?*/
+	height:700px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	float: left;
