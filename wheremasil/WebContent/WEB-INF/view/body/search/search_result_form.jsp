@@ -5,8 +5,6 @@
 	jsonp 형식 - callback 가능(json과 차이점)
 	http://yoursolrserver.com/solr/select/?q=yoursearchgoeshere&wt=json&json.wrf=callback
  -->
-<script type="text/javascript" src="/wheremasil/script/jquery.js"></script>
-<script type="text/javascript" src="/wheremasil/script/jquery.cookie.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 	

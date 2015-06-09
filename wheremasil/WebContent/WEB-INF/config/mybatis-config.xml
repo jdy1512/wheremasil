@@ -9,5 +9,6 @@
 		<mapper resource="com/wheremasil/common/mapper/testMapper.xml"/>
 		<mapper resource="com/wheremasil/plan/mapper/planMapper.xml"/>
 		<mapper resource="com/wheremasil/board/mapper/boardMapper.xml"/>
+		<mapper resource="com/wheremasil/member/mapper/memberMapper.xml"/>
 	</mappers>
 </configuration>

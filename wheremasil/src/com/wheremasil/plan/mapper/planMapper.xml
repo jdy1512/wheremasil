@@ -29,6 +29,8 @@
 		select area_id, a_name, a_address, a_latitude, a_longitude, a_img_path, channel_id
 		from area
 	</sql>
+	
+	<!-- select -->
     
     <select id="selectAreaIdByName" resultType="string" parameterType="string">
 		select area_id
@@ -42,25 +44,47 @@
 		where (#{enLat} > a_latitude and a_latitude > #{stLat})
 			and (#{enLon} > a_longitude and a_longitude > #{stLon})
     </select>
+
+	<select id="selectPlanId" parameterType="string" resultType="string">
+	 select plan_id
+	 from (
+	 	select p.*
+	 	from plan p
+	 	where member_id=#{memberId}
+	 	order by p.P_CREATE_DATETIME desc
+	 )
+	 where rownum = 1
+	</select>
+    
+    
+	<!-- insert -->
     
     <insert id="insertArea" parameterType="area">
-        insert into area values(concat('A',area_seq.nextval),#{title},#{address},#{latitude},#{longitude},'/wheremasil/uploads/images/area/'||'A'||area_seq.currval||'/main.png','C1')
+        insert into area 
+        values(concat('A',area_seq.nextval),#{title},#{address},#{latitude},#{longitude},'/wheremasil/uploads/images/area/'||'A'||area_seq.currval||'/main.png','C1')
+    </insert>
+
+    <insert id="insertAreaCost" parameterType="areaCost">
+        insert into area_cost(s_date, plan_id, ac_seq, ac_etc, ac_vehicle, ac_food, ac_stay, area_id) 
+        values(#{sDate},#{planId},#{acSeq},#{acEtc},#{acVehicle},#{acFood},#{acStay},#{areaId})
     </insert>
     
-   <!-- 수정중 -->
-
-    <insert id="registPlanSchedule" parameterType="plannerSchedule">    	
-		insert into PLAN (PLAN_ID,P_TITLE,P_START_DATE,P_END_DATE,P_GROUPNO,P_CREATE_DATETIME,P_CALENDAR_FILE_PATH,P_MAP_IMG_PATH,THEME_ID,MEMBER_ID)
-		values (concat('A',PLAN_SEQ_ID.nextval),#{title}, #{startDate}, #{endDate}, #{groupNum},TO_CHAR(SYSDATE,'yyyymmddhhmiss'),#{title},#{title},#{theme},#{memberId})
-	</insert>
-
-	<select id="getPlanId" parameterType="string" resultType="string">
-	 select plan_id
-	 from
-	      (select p.*
-	       from plan p
-	       order by p.P_CREATE_DATETIME desc)
-	  where (rownum = 1) and (member_id=#{memberId})
-	</select>
+    <insert id="insertSchedule" parameterType="schedule">
+        insert into schedule(s_date, plan_id, s_note) 
+        values(#{sDate},#{planId},#{memo})
+    </insert>
+    
+    <insert id="insertPlanSchedule" parameterType="plannerSchedule">
+        insert into PLAN (PLAN_ID,P_TITLE,P_START_DATE,P_END_DATE,P_GROUPNO,P_CREATE_DATETIME,P_CALENDAR_FILE_PATH,P_MAP_IMG_PATH,THEME_ID,MEMBER_ID)
+		values (concat('L',PLAN_SEQ_ID.nextval),#{title}, #{startDate}, #{endDate}, #{groupNum},TO_CHAR(SYSDATE,'yyyymmddhhmiss'),#{title},'/wheremasil/uploads/images/plan/'||'L'||PLAN_SEQ_ID.currval||'/main.png',#{theme},#{memberId})
+    </insert>
+	
+    
+	<!-- update -->
+	<update id="updateScheduleByMemo" parameterType="schedule">
+	    update schedule
+	    set s_note=#{memo}
+	    where s_date=#{sDate} and plan_id=#{planId}
+	</update>
 	
 </mapper>
