@@ -59,7 +59,7 @@ from area
 where ('38.16558859912489' > a_latitude and a_latitude > '36.603307890620265') and ('128.87059737158913' > a_longitude and a_longitude > '125.38167827835235')
 
 
-select plan_id
+select plan_id, p_create_datetime
 	 from (
 	 	select p.*
 	 	from plan p
