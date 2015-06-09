@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wheremasil.plan.dao.PlannerScheduleDAOImpl;
 import com.wheremasil.plan.vo.Area;
@@ -49,6 +50,7 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 	}
 
 	@Override
+	@Transactional
 	public String registAreaTran(Area area, String name, String imageUrl, String workspaceImageUrl, HttpServletRequest request) {
 		String id = null;
 		
@@ -136,6 +138,7 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 	}
 
 	@Override
+	@Transactional
 	public PlannerSchedule registPlanScheduleTran(Map<String, Object> params, HttpServletRequest request) throws Exception {
 		PlannerSchedule plan = new PlannerSchedule();
 		Schedule schedule = null;
