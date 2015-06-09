@@ -6,7 +6,7 @@
 
 <script>
 	<c:if test="${ not empty requestScope.plan }">
-	alert("${ requestScope.plan.title } + 등록 완료");
+		alert("${ requestScope.plan.title } 등록 완료");
 	</c:if>
 	$(function() {
 		$("header").css("background-color", "none");

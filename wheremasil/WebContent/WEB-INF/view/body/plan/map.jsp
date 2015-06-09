@@ -29,8 +29,6 @@
 		$("header").css("background-color", "none");
 		$("#tile_left_nav").css("visibility", "visible");
 		$("#tile_right_nav").css("visibility", "visible");
-		$("#tile_left_nav").css("width", "18%");
-		$("#tile_right_nav").css("width", "18%");
 		$("section").css("width", "64%");
 		
 		// daum api 지도
