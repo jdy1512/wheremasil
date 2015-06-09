@@ -9,8 +9,6 @@
 <script type="text/javascript" src="/wheremasil/script/jquery.js"></script>
 <script type="text/javascript" src="/wheremasil/script/jquery.cookie.js"></script>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
@@ -332,19 +330,28 @@ h1:before {
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
 .schedule_container {
-	
+	width: 1600px;
+	height: 700px;
+	margin: 0 0 auto;
+	padding: 0 0 auto;
+	text-align: center;
 }
-.schedule_container .itembox .root{
-	width: 1000px;
-	height: 530px:
+
+.schedule_container .itembox {
+	margin: 60px auto;
+	text-align: center;
+}
+.schedule_container .itembox .root {
+	width: 1434px;
+	height: 700px;
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
 	border-radius: 30px;
 	-webkit-box-shadow: 5px 5px 30px #D3D3D3;
 	-moz-box-shadow: 5px 5px 30px #D3D3D3;
 	box-shadow: 5px 5px 30px #D3D3D3;
-	background-image: -moz-linear-gradient(top, #FFFFE0, #F0E68C);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #FFFFE0), color-stop(1.0, #F0E68C));
+	background-image: -moz-linear-gradient(top, #FFFFFF, #D3D3D3);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #FFFFFF), color-stop(1.0, #D3D3D3));
 	background-color: #DDDDDD;
 	padding: 10px;
 	font-family: Verdana, Geneva, sans-serif;
@@ -353,7 +360,25 @@ h1:before {
 	text-align: center;
 }
 .schedule_container .itembox .day {
+	width: 200px;
+	height: 600px;
+	margin-top: 80px;
+	margin-left: 2px;
+	float:left;
 	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 5px 5px 30px #D3D3D3;
+	-moz-box-shadow: 5px 5px 30px #D3D3D3;
+	box-shadow: 5px 5px 30px #D3D3D3;
+	background-image: -moz-linear-gradient(top, #FFFFE0, #F0E68C);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #FFFFE0), color-stop(1.0, #F0E68C));
+	background-color: #DDDDDD;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12pt;
+	color: #888888;
+	text-align: center;
 }
 
 </style>

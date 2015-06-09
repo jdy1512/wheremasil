@@ -34,6 +34,7 @@ select * from area
 select * from area_cost
 select * from schedule
 select * from plan
+
 alter table area rename column channel to channel_id;
 
 select * from v$resource_limit where resource_name = 'processes';

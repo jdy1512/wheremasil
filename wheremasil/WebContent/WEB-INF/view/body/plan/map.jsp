@@ -504,7 +504,7 @@
 		                infowindow.close();
 		                displayInfowindow(marker, title, addr, img);
 		            });
-	
+		            
 		            daum.maps.event.addListener(marker, 'click', function() {
 		    		    map.panTo(marker.getPosition());
 		                map.setLevel(7);
