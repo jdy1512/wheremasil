@@ -5,7 +5,7 @@
 
 <script>
 	<c:if test="${ not empty requestScope.plan }">
-	alert("${ requestScope.plan.title } + 등록 완료");
+		alert("${ requestScope.plan.title } 등록 완료");
 	</c:if>
 	$(function() {
 		$("header").css("background-color", "none");
@@ -15,7 +15,7 @@
 		$(".right_nav").css("width", "0px");
 		$("#bs-example-navbar-collapse-1").css("width", "1880px");
 
-		$("#cancel").on("click", function() {
+		$("#popup_cancel").on("click", function() {
 			$("#popup_layer").css("visibility", "hidden");
 		});
 
@@ -107,7 +107,7 @@
 					<div class="form-group" >
 						 <div class="col-lg-10 col-lg-offset-7">
 						 	<input type="submit" class="btn btn-warning" value="작성 시작">
-	    					<input type="reset" class="btn btn-default" id="cancel" value="취소">
+	    					<input type="reset" class="btn btn-default" id="popup_cancel" value="취소">
 	    				</div>
 					</div>
 				</fieldset>

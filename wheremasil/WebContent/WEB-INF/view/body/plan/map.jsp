@@ -192,11 +192,12 @@
 		
 		// 지역명 리스트 추가
 		function addTitle(title) {
+			var fixedTitle = title.replace(/\s/gi, '');
 			//TODO: 신규 지역정보 db insert
 			if (titles.length == 0) {
-				titles.push(title);
+				titles.push(fixedTitle);
 				// DB지역 데이타인 경우, 인포윈도우 '일정등록' 클릭시 등록
-	        	$(document).on("click", "#infowindow_" + title , function() {
+	        	$(document).on("click", "#infowindow_" + fixedTitle , function() {
 	        		var data = $($(this).parents().html()).last().val().split(",");
 	        		var title = data[0];
 	        		var img = data[1];
@@ -251,17 +252,16 @@
 	    		});// end of 일정등록 click event
 			} else {
 				for (var idx = 0; idx < titles.length; idx++) {
-					if (title == titles[idx]) {
+					if (fixedTitle == titles[idx]) {
 						break;
 					}
 					if (idx == titles.length - 1) {
 						//alert("title : " + title + ", len : " + titles.length + ", curLen : " + idx + ", curTitle : " + titles[idx]);
-						titles.push(title);
-						
+						titles.push(fixedTitle);
+
 						// 인포윈도우 '일정등록' 클릭시 등록
-			        	$(document).on("click", "#infowindow_" + title , function() {
+			        	$(document).on("click", "#infowindow_" + fixedTitle , function() {
 			        		var data = $($(this).parents().html()).last().val().split(",");
-			        		alert(data);
 			        		var title = data[0];
 			        		var img = data[1];
 			        		var addr = data[2];
@@ -590,6 +590,8 @@
 		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수
 		// 인포윈도우에 장소명을 표시
 		function displayInfowindow(marker, title, addr, img, id) {
+			var fixedTitle = title.replace(/\s/gi, '');
+			
 			var imageUrl = img;
 			if (imageUrl == '') {
 				imageUrl = "/wheremasil/uploads/images/default/img_not_found.png";
@@ -603,10 +605,9 @@
 		    	imageUrl + '" style="width:100%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:90%;margin:5%;text-align:center"><b>' + 
 		    	title + '</b></p><p style="width:90%;margin-top:5%;margin-left:5%;margin-right:5%;text-align:center">' + 
 		    	addr + '</p><div style="width:50%;margin-left:25%;margin-right:25%;padding-top:2%"><input type="button" class="plan_button" id="infowindow_' + 
-		    	title + '" value="일정등록"><input type="hidden" value="' + 
+		    	fixedTitle + '" value="일정등록"><input type="hidden" value="' + 
 		    	title + ',' + imageUrl + ',' + addr + ',' + marker.getPosition().getLat() + ',' + marker.getPosition().getLng() + ',' + id + '"></div></div>' +
 		    	'<a href="javascript:void(0);" id="closeBt" class="close-thik"></a></div>';
-		    	
 		    infowindow.setContent(content);
 		    infowindow.open(map, marker);
 		}

@@ -30,28 +30,28 @@
       $("#tab" + dayCount + " #tabs-1 fieldset:contains(" + course + ")").remove();
       $("#tab" + dayCount + " #tabs-2 fieldset:contains(" + course + ")").remove();
 
-      // tab1 값 초기화
-      var reCount = 1;
-      $("#tab" + dayCount + " #tabs-1 fieldset").children("legend").each(function() {
-         $(this).text("Course" + reCount++);
-      });
-      // tab2 값 초기화
-      reCount = 1;
-      $("#tab" + dayCount + " #tabs-2 fieldset").each(function() {
-         $(this).children("legend").text("Course" + reCount);
-         $(this).find("input").each(function() {
-            var nameSplit = $(this).attr("name").split(",");
-            nameSplit[1] = nameSplit[1].split(":")[0] + ":" + reCount;
-            $(this).attr("name", nameSplit[0] + "," + nameSplit[1] + "," + nameSplit[2]);
-         });
-         reCount++;
-      });
-      
-      courseCount[dayCount - 1]--;
-    }
-    
-     //오른쪽 탭 만들기
-     $(function() {
+		// tab1 값 초기화
+		var reCount = 1;
+		$("#tab" + dayCount + " #tabs-1 fieldset").children("legend").each(function() {
+			$(this).text("Course" + reCount++);
+		});
+		// tab2 값 초기화
+		reCount = 1;
+		$("#tab" + dayCount + " #tabs-2 fieldset").each(function() {
+			$(this).children("legend").text("Course" + reCount);
+			$(this).find("input").each(function() {
+				var nameSplit = $(this).attr("name").split(",");
+				nameSplit[1] = nameSplit[1].split(":")[0] + ":" + reCount;
+				$(this).attr("name", nameSplit[0] + "," + nameSplit[1] + "," + nameSplit[2]);
+			});
+			reCount++;
+		});
+		
+		courseCount[dayCount - 1]--;
+	 }
+	 
+ 	 //오른쪽 탭 만들기
+	  $(function() {
 
       dayAllCount=calDateRange("${requestScope.plan.startDate}","${requestScope.plan.endDate}")+1;
       day(dayCount);
@@ -142,6 +142,7 @@
 <input type="button" class="img_button_before" name="before" onclick="beforeDayCheck()" style="float:left;"><input type="button"  class="img_button_next" name="after" onclick="afterDayCheck()" style="float:right;"><div id="day"></div>
 
 <form method="post" action="/wheremasil/plan/planInfo.do">
+
    <div id="rightContent"></div>
    <input type="hidden" name="title" value="${requestScope.plan.title }">
    <input type="hidden" name="theme" value="${requestScope.plan.theme }">

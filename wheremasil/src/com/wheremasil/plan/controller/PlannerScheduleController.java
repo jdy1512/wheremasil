@@ -77,6 +77,13 @@ public class PlannerScheduleController {
 			return new ModelAndView("plan/map.tiles", "plan", plan);
 		}
 		
-		return new ModelAndView("index.do", "plan", plan);
+		return new ModelAndView("redirect:/plan/getSchedule.do");
+	}
+	
+	@RequestMapping("getSchedule")
+	public ModelAndView getSchedule(HttpServletRequest request) {
+		PlannerSchedule plan = null;
+		
+		return new ModelAndView("plan/schedule.tiles", "plan", plan);
 	}
 }

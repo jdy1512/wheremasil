@@ -323,6 +323,7 @@ h1:before {
 #pagination {margin:10px auto;text-align: center;height:18px}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+
 input.img_button_before {
        background: url(/wheremasil/uploads/images/icon/Last_Track_Left_Arrow_32.png) no-repeat;
        border: none;
@@ -350,6 +351,31 @@ input.submit {
        font-variant:small-caps;
        font-weight:bold;
        font-size:25px;
+
+
+.schedule_container {
+	
+}
+.schedule_container .itembox .root{
+	width: 1000px;
+	height: 530px:
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	-webkit-box-shadow: 5px 5px 30px #D3D3D3;
+	-moz-box-shadow: 5px 5px 30px #D3D3D3;
+	box-shadow: 5px 5px 30px #D3D3D3;
+	background-image: -moz-linear-gradient(top, #FFFFE0, #F0E68C);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #FFFFE0), color-stop(1.0, #F0E68C));
+	background-color: #DDDDDD;
+	padding: 10px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12pt;
+	color: #888888;
+	text-align: center;
+}
+.schedule_container .itembox .day {
+	
 }
 
 </style>

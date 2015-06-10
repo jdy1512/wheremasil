@@ -12,7 +12,7 @@
 					var s = location.href;
 
 					default_url = s;
-					alert(default_url);
+					
 				});
 
 				$("#login_send").on(
@@ -26,9 +26,7 @@
 									+ "m_password" + "=" + m_password + "&"
 									+ "default_url" + "=" + default_url;
 
-							alert(member_id);
-							alert(m_password)
-							alert(default_url);
+						
 							$.ajax({
 								url : "/wheremasil/member/logincheck.do",
 								data : editor1,
@@ -36,7 +34,7 @@
 								dataType : "text",
 								success : function(data) {
 
-									alert("성공 //데이터= " + data);
+							
 
 									// window.location.replace(data);
 
@@ -53,7 +51,7 @@
 
 								},
 								error : function(data) {
-									alert("실패 = " + data);
+									alert("로그인실패 새로고침(F5)눌러주세요~");
 								}
 							});
 						});
@@ -67,11 +65,11 @@
 				$("#join_send").on(
 						"click",
 						function() {
-							alert('전송');
+							
 							var member_id1 = $('#member_id1').val();
 							var m_password1 = $('#m_password1').val();
 							var m_name1 = $('#m_name1').val();
-							alert(member_id1);
+							
 							var editor1 = "member_id12" + "=" + member_id1
 									+ "&" + "m_password1" + "=" + m_password1
 									+ "&" + "m_name1" + "=" + m_name1;
@@ -82,13 +80,13 @@
 								dataType : "text",
 								success : function(data) {
 
-									alert("성공//넘어온데이타	= " + data);
+								
 
 									if (data == "1") {
 										alert("아이디중복")
 
 									} else if (data == "2") {
-										alert("닉넴중복");
+										alert("닉네임중복");
 
 									} else {
 										location.reload(true);
@@ -96,14 +94,14 @@
 
 								},
 								error : function(data) {
-									alert("실패 = " + data);
+									alert("회원가입실패 새로고침(F5)눌러주세요~");
 								}
 							});
 						});
 
 				$("#logout_bt").on("click", function() {
 
-					alert("확인");
+					alert("로그아웃완료!");
 					//location.href("/wheremasil2	/member/logout.do?page="+location.href);
 					var editor1 = "page" + "=" + location.href;
 					$.ajax({
@@ -170,9 +168,9 @@
 
 				</c:if>
 			</form>
-			<div id="login_form_header" style="width: 500px; height: 500px; left: 50%; top: 50%;  visibility: hidden; position: absolute;">
+			<div id="login_form_header" style="width: 250px; height: 200px; left: 50%; top: 50%;  visibility: hidden; position: absolute;">
 				로그인 <br>
-				<hr noshade="noshade" width="30%" align="left">
+				<hr noshade="noshade" width="100%" align="left">
 
 				<font color="red" size="2">${requestScope.error_message}</font>
 
@@ -198,7 +196,7 @@
 					</table>
 				</div>
 			</div>
-			<div id="join_form_header" style="width:300px;height:300px;left:50%;top:50%;visibility:hidden;position:absolute;">
+			<div id="join_form_header" style="width:300px;height:250px;left:50%;top:50%;visibility:hidden;position:absolute;">
 
 <h2>회원가입</h2><br>
 
