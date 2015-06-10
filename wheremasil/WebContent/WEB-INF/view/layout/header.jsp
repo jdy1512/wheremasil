@@ -133,7 +133,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/wheremasil/index.do">어디마실</a>
+			<a class="navbar-brand" href="/wheremasil/index.do"><img src="/wheremasil/uploads/images/icon/logo5.png" style="margin-top:0px"></a>
 		</div>
 
 
