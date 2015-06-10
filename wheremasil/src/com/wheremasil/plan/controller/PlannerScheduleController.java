@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.wheremasil.plan.service.PlannerScheduleService;
 import com.wheremasil.plan.validator.PlannerScheduleValidator;
 import com.wheremasil.plan.vo.Area;
+import com.wheremasil.plan.vo.PlanDetail;
 import com.wheremasil.plan.vo.PlannerSchedule;
 
 @Controller
@@ -77,13 +79,31 @@ public class PlannerScheduleController {
 			return new ModelAndView("plan/map.tiles", "plan", plan);
 		}
 		
-		return new ModelAndView("redirect:/plan/getSchedule.do");
+		return new ModelAndView("redirect:/plan/getSchedule.do?plan_id=" + plan.getPlan_id());
 	}
 	
 	@RequestMapping("getSchedule")
-	public ModelAndView getSchedule(HttpServletRequest request) {
-		PlannerSchedule plan = null;
+	public ModelAndView getSchedule(@RequestParam("plan_id") String planId, HttpServletRequest request) {
+		List<PlanDetail> pdList = service.getPlanDetails(planId);
 		
-		return new ModelAndView("plan/schedule.tiles", "plan", plan);
+		for (int i = 0; i < pdList.size(); i++) {
+			PlanDetail pd = pdList.get(i);
+			String oriDate = pd.getCurDate();
+			String year = oriDate.substring(0, 4);
+			String month = oriDate.substring(4, 6);
+			String day = oriDate.substring(6, 8);
+			if (i == 0) {
+				pd.setStartDate(year + "." + month + "." + day);
+			} else if (i == pdList.size() - 1) {
+				pd.setEndDate(year + "." + month + "." + day);
+			}
+			System.out.println(pd);
+		}
+		
+		return new ModelAndView("plan/schedule.tiles", "planDetailList", new Gson().toJson(pdList));
 	}
+	
 }
+
+
+

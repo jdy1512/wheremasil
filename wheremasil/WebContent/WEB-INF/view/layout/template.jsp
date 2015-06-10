@@ -330,41 +330,61 @@ h1:before {
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
 .schedule_container {
-	width: 1600px;
+	width: 1900px;
 	height: 700px;
 	margin: 0 0 auto;
 	padding: 0 0 auto;
 	text-align: center;
+	background-color: #EEEEEE;
 }
 
 .schedule_container .itembox {
-	margin: 60px auto;
+	width: 75%;
+	height: inherit;
+	margin: 0 auto;
+	padding: 0 auto;
 	text-align: center;
+	float: left;
 }
+
+.schedule_container .side {
+	width: 25%;
+	height: inherit;
+	margin: 0 auto;
+	padding: 0 auto;
+	border-left: 1px solid black;
+	
+	text-align: center;
+	float: left;
+}
+
 .schedule_container .itembox .root {
-	width: 1434px;
-	height: 700px;
-	-webkit-border-radius: 30px;
-	-moz-border-radius: 30px;
-	border-radius: 30px;
+	width: 80%;
+	height: 80%;
+	margin-top: 2%;
+	margin-bottom: 5%;
+	margin-left: 10%;
+	margin-right: 10%;
+	padding: 0 auto;
 	-webkit-box-shadow: 5px 5px 30px #D3D3D3;
 	-moz-box-shadow: 5px 5px 30px #D3D3D3;
 	box-shadow: 5px 5px 30px #D3D3D3;
 	background-image: -moz-linear-gradient(top, #FFFFFF, #D3D3D3);
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #FFFFFF), color-stop(1.0, #D3D3D3));
 	background-color: #DDDDDD;
-	padding: 10px;
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 12pt;
 	color: #888888;
 	text-align: center;
 }
 .schedule_container .itembox .day {
-	width: 200px;
-	height: 600px;
-	margin-top: 80px;
-	margin-left: 2px;
-	float:left;
+	width: 70%;
+	height: 80%;
+	margin-top: 5%;
+	margin-battom: 5%;
+	margin-left: 15%;
+	margin-right: 15%;
+	padding: 0 auto;
 	
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -372,9 +392,7 @@ h1:before {
 	-webkit-box-shadow: 5px 5px 30px #D3D3D3;
 	-moz-box-shadow: 5px 5px 30px #D3D3D3;
 	box-shadow: 5px 5px 30px #D3D3D3;
-	background-image: -moz-linear-gradient(top, #FFFFE0, #F0E68C);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #FFFFE0), color-stop(1.0, #F0E68C));
-	background-color: #DDDDDD;
+	background-color: #FFF;
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 12pt;
 	color: #888888;

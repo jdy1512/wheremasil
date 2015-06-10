@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.wheremasil.plan.vo.Area;
 import com.wheremasil.plan.vo.AreaCost;
+import com.wheremasil.plan.vo.PlanDetail;
 import com.wheremasil.plan.vo.PlannerSchedule;
 import com.wheremasil.plan.vo.Schedule;
 
@@ -56,6 +57,11 @@ public class PlannerScheduleDAOImpl implements PlannerScheduleDAO {
 	@Override
 	public int insertAreaCost(AreaCost ac) {
 		return session.insert(namespace + "insertAreaCost", ac);
+	}
+
+	@Override
+	public List<PlanDetail> selectPlanDetails(String planId) {
+		return session.selectList(namespace + "selectPlanDetails", planId);
 	}
 
 }

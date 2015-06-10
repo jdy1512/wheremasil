@@ -12,7 +12,21 @@
     	<result column = "p_map_img_path" property="planMapImgPath"/>
     	<result column = "theme_id" property="theme"/>
     	<result column = "member_id" property="memberId"/>
-
+    </resultMap>
+    
+    <resultMap type="planDetail" id="result-planDetail">
+    	<result column="s_date" property="curDate"/>
+    	<result column = "ac_seq" property="seq"/>
+    	<result column = "a_img_path" property="areaImagePath"/>
+    	<result column = "a_name" property="areaTitle"/>
+    	<result column = "a_address" property="areaAddress"/>
+    	<result column = "ac_food" property="costFood"/>
+    	<result column = "ac_vehicle" property="costVehicle"/>
+    	<result column = "ac_stay" property="costStay"/>
+    	<result column = "ac_etc" property="costEtc"/>
+    	<result column = "s_note" property="memo"/>
+    	<result column = "a_latitude" property="aLatitude"/>
+    	<result column = "a_longitude" property="aLongitude"/>
     </resultMap>
     
 	<resultMap type="area" id="result-area">
@@ -56,6 +70,18 @@
 		where rownum = 1
 	</select>
     
+    <select id="selectPlanDetails" resultMap="result-planDetail" parameterType="string">
+        select s_date, ac_seq, a_img_path, a_name, a_address, ac_food, ac_vehicle, ac_stay, ac_etc, s_note, a_latitude, a_longitude
+		from
+			(select area_id, a_img_path, a_name, a_address, a_latitude, a_longitude
+			from area) area_tbl
+		inner join
+			(select area_id, ac.s_date, s.s_note, ac_seq, ac_food, ac_vehicle, ac_stay, ac_etc
+			from area_cost ac, schedule s
+			where ac.plan_id=#{value} and s.plan_id=#{value} and ac.s_date=s.s_date
+			order by s_date, ac_seq) ac_tbl
+		on area_tbl.area_id=ac_tbl.area_id
+    </select>
     
 	<!-- insert -->
     

@@ -20,6 +20,8 @@ select * from schedule
 select * from plan
 select * from member
 
+update area set channel_id='C3' where area_id='A11'
+
 insert into theme values('T1', '배낭여행');
 insert into theme values('T2', '우정여행');
 insert into theme values('T3', '가족여행');
@@ -41,7 +43,7 @@ select * from v$resource_limit where resource_name = 'processes';
 
 delete from area_cost;
 delete from schedule;
-delete from plan;
+delete from plan where plan_id='L160';
 delete from area;
 drop sequence area_seq;
 create sequence area_seq start with 1 increment by 1;
@@ -71,3 +73,25 @@ select plan_id, p_create_datetime
 	 
 	 
 update member set member_id='admin@wheremasil.com' where member_id='qwe'
+
+
+
+select p_start_date, p_end_date
+from plan
+
+
+where plan_id='L159'
+
+select s_date, ac_seq, a_img_path, a_name, a_address, ac_food, ac_vehicle, ac_stay, ac_etc, s_note, a_latitude, a_longitude
+from
+	(select area_id, a_img_path, a_name, a_address, a_latitude, a_longitude
+	from area) area_tbl
+inner join
+	(select area_id, ac.s_date, s.s_note, ac_seq, ac_food, ac_vehicle, ac_stay, ac_etc
+	from area_cost ac, schedule s
+	where ac.plan_id='L159' and s.plan_id='L159' and ac.s_date=s.s_date
+	order by s_date, ac_seq) ac_tbl
+on area_tbl.area_id=ac_tbl.area_id
+
+
+

@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wheremasil.plan.dao.PlannerScheduleDAOImpl;
 import com.wheremasil.plan.vo.Area;
 import com.wheremasil.plan.vo.AreaCost;
+import com.wheremasil.plan.vo.PlanDetail;
 import com.wheremasil.plan.vo.PlannerSchedule;
 import com.wheremasil.plan.vo.Schedule;
 
@@ -163,7 +164,9 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 		c = new GregorianCalendar();
 
 		//DB에서 해당 플랜 ID조회
-		schedulePlanId = getPlanId(plan.getMemberId());
+		String planId = getPlanId(plan.getMemberId());
+		plan.setPlan_id(planId);
+		schedulePlanId = planId;
 		
 		// split 형식에 맞지않는 prof 삭제
 		params.remove("title");
@@ -245,5 +248,11 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 		
 		return plan;
 	}
+
+	@Override
+	public List<PlanDetail> getPlanDetails(String planId) {
+		return dao.selectPlanDetails(planId);
+	}
+
 
 }
