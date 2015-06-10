@@ -7,7 +7,7 @@
 				var default_url;
 				$("#login_form_bt").on("click", function() {
 
-					$("#login_form_header").css("background-color", "#abcdef");
+					$("#login_form_header").css("background-color", "#000000");
 					$("#login_form_header").css("visibility", "visible");
 					var s = location.href;
 
@@ -57,7 +57,7 @@
 						});
 				$("#join_form_bt").on("click", function() {
 
-					$("#join_form_header").css("background-color", "#abcdef");
+					$("#join_form_header").css("background-color", "#000000");
 					$("#join_form_header").css("visibility", "visible");
 					$("#login_form_header").css("visibility", "hidden");
 
@@ -120,6 +120,15 @@
 				$("#cancel").on("click", function() {
 					location.reload(true);
 				});
+				
+				$("#mypage").on("click", function() {
+					
+					alert("123");
+					location.href("/wheremasil/mypage/mypageconn.do");
+			
+				
+		
+				});
 
 			});
 </script>
@@ -158,6 +167,8 @@
 
 					<input id="logout_bt" type="button"
 						class="btn btn-default navbar-btn" value="로그아웃">
+							<input id="mypage" type="button"
+						class="btn btn-default navbar-btn" value="마이페이지">
 
 				</c:if>
 
