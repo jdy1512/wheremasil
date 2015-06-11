@@ -149,5 +149,5 @@
    <input type="hidden" name="groupNum" value="${requestScope.plan.groupNum}">
    <input type="hidden" name="startDate" value="${requestScope.plan.startDate }">
    <input type="hidden" name="endDate" value="${requestScope.plan.endDate }">
-   <input type="submit" class="submit" value="Planner 완성" style="width:320px;">
+   <input type="submit" class="submit_plan" value="Planner 완성" style="width:320px;">
   </form>

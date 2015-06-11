@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -342,7 +343,7 @@ input.img_button_next {
        margin-top:20px;
        cursor: pointer;
 }
-input.submit {
+input.submit_plan {
 	   background-color: #FFC107;
        border: none;
        width: auto;
