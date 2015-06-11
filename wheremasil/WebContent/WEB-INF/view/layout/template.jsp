@@ -353,7 +353,17 @@ input.submit_plan {
        font-weight:bold;
        font-size:25px;
 
-
+}
+input.img_button_login {
+       background: url(/wheremasil/uploads/images/icon/login_btn.png) no-repeat;
+	   float:right;
+	   height: 121px;
+	   width: 50px;
+	   border: 0px;
+	   border-radius:7px;
+	   color:white;
+	   font-size:22px;
+}
 .schedule_container {
 	
 }

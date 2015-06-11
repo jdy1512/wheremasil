@@ -130,8 +130,7 @@
 		</div>
 		<div
 			style="position: absolute; left: 48%; top: 58%; width: 200px; height: 60px; overflow: hidden; margin-left: -50px; margin-top: -30px">
-			<input type="button" class="btn btn-warning btn-lg" value="START"
-				onclick="fn_layer_popup()">
+			<input type="button" class="btn btn-warning btn-lg" value="START" onclick="fn_layer_popup()">
 		</div>
 	</div>
 
