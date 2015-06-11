@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <script>
@@ -47,7 +46,7 @@
 	 z-index: 1; 
 	 visibility: hidden;
 	 background-color: #f5f5f5;
-	 padding: 10px;">
+	 padding: 2px;">
 
 	<div class="panel panel-warning">
 		<div class="panel-heading">
@@ -130,9 +129,8 @@
 			</h4>
 		</div>
 		<div
-			style="position: absolute; left: 48%; top: 60%; width: 200px; height: 60px; overflow: hidden; margin-left: -50px; margin-top: -30px">
-			<input type="button" class="btn btn-warning btn-lg" value="START"
-				onclick="fn_layer_popup()">
+			style="position: absolute; left: 48%; top: 58%; width: 200px; height: 60px; overflow: hidden; margin-left: -50px; margin-top: -30px">
+			<input type="button" class="btn btn-warning btn-lg" value="START" onclick="fn_layer_popup()">
 		</div>
 	</div>
 
@@ -144,7 +142,7 @@
 		Sorry, your browser does not support HTML5 video.
 	</video>
 
-	<div class="row" style="position:absolute; top:94%; left:30%">
+	<div class="row" style="position:absolute; top:88%; left:30%">
 		<font size="2">
 			<h3>최신 플랜</h3>
 		</font>
