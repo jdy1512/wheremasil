@@ -28,19 +28,21 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int  joinMember(Member member) {
 		
+		System.out.println("서비스확인");
 		if(dao.selectMemberById(member.getMember_id())!=null){
 		return -1;
 		
 	}else if(dao.selectMemberByName(member.getM_name())!=null){
 		return -1;
 	}
+		
 		return dao.insertMember(member);
 		
 	}
 
 	@Override
-	public void modifyMember(Member member) {
-		dao.updateMember(member);
+	public int modifyMember(Member member) {
+		return dao.updateMember(member);
 		
 	}
 

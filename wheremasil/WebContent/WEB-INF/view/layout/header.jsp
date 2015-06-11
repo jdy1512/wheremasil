@@ -91,6 +91,7 @@
 										alert("닉네임중복");
 
 									} else {
+										alert("가입완료!!!!")
 										location.reload(true);
 									}
 
@@ -126,10 +127,9 @@
 				$("#mypage").on("click", function() {
 					
 					alert("123");
-					location.href("/wheremasil/mypage/mypageconn.do");
-			
-				
-		
+					location.href="/wheremasil/mypage/mypageconn.do";
+
+					
 				});
 
 			});
@@ -217,7 +217,7 @@
 <tr>
 <td>이메일</td>
 <td>
-<input type="text" name="member_id1" id='member_id1' value="${param.email }" required="required"> 
+<input type="email" name="member_id1" id="member_id1" required="required"> 
 
 </tr>
 <tr>

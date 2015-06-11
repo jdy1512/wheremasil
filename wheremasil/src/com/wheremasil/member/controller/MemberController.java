@@ -26,6 +26,8 @@ import com.wheremasil.member.vo.Member;
 public class MemberController{
 
 	@Autowired
+	
+	
 	@Qualifier("memberService")
 	private MemberService service;
 
@@ -45,16 +47,19 @@ public class MemberController{
 		System.out.println(member);
 		System.out.println("서비스로넘김");
 		member.setM_email(member.getMember_id());
+		
 		String result="";
 		
 		Object o = service.getMemberById(member_id12);
+		System.out.println(o);
 		System.out.println("아이디 중복체크 = "+o);
 		if(o==null){
 			System.out.println("아이디 낫중복 닉넴중복확인 = "+o);
 			o= service.getMemberByName(m_name1);
 			
 			if(o==null){
-				
+				int count = service.joinMember(member);
+				System.out.println(count);
 			}else{
 				//닉넴중복
 				result= "2";
@@ -122,6 +127,13 @@ public class MemberController{
 			page = "main.tiles";
 		}
 		return page;
+	}
+	@RequestMapping("/memberchange.do")
+	public String change(Member member_id){
+		System.out.println("123");
+		service.modifyMember(member_id);
+		
+		return null;
 	}
 }
 	
