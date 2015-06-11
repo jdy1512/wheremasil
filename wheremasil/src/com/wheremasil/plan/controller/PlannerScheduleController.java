@@ -92,10 +92,12 @@ public class PlannerScheduleController {
 			String year = oriDate.substring(0, 4);
 			String month = oriDate.substring(4, 6);
 			String day = oriDate.substring(6, 8);
+			String newDate = year + "." + month + "." + day;
+			pd.setCurDate(newDate);
 			if (i == 0) {
-				pd.setStartDate(year + "." + month + "." + day);
+				pd.setStartDate(newDate);
 			} else if (i == pdList.size() - 1) {
-				pd.setEndDate(year + "." + month + "." + day);
+				pd.setEndDate(newDate);
 			}
 			System.out.println(pd);
 		}

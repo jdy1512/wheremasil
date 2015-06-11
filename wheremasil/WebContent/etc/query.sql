@@ -94,4 +94,9 @@ inner join
 on area_tbl.area_id=ac_tbl.area_id
 
 
+select p.plan_id, t.t_name, p.p_start_date, p.p_end_date, a.a_name, a.a_address
+from area_cost ac, area a, plan p, theme t
+where ac.area_id=a.area_id and ac.plan_id=p.plan_id and p.theme_id=t.theme_id
+
+
 

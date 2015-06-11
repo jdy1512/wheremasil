@@ -339,7 +339,7 @@ h1:before {
 }
 
 .schedule_container .itembox {
-	width: 75%;
+	width: 1425px;
 	height: inherit;
 	margin: 0 auto;
 	padding: 0 auto;
@@ -348,7 +348,7 @@ h1:before {
 }
 
 .schedule_container .side {
-	width: 25%;
+	width: 475px;
 	height: inherit;
 	margin: 0 auto;
 	padding: 0 auto;
@@ -358,14 +358,35 @@ h1:before {
 	float: left;
 }
 
-.schedule_container .itembox .root {
-	width: 80%;
-	height: 80%;
-	margin-top: 2%;
-	margin-bottom: 5%;
-	margin-left: 10%;
-	margin-right: 10%;
+.schedule_container .side .map {
+	width: 400px;
+	height: 400px;
+	margin: 20px 35px;
 	padding: 0 auto;
+	border: 1px solid black;
+}
+
+.schedule_container .side .cost {
+	width: 300px;
+	height: 200px;
+	margin: 20px 85px;
+	padding: 0 auto;
+	border: 1px solid black;
+}
+
+.schedule_container .itembox .root {
+	position: absolute;
+	width: 1145px;
+	height: 560px;
+	margin-top: 30px;
+	margin-bottom: 50px;
+	margin-left: 130px;
+	margin-right: 130px;
+	padding-top: 50px;
+	padding-left: 50px;
+	padding-right: 50px;
+	overflow-x: hidden;
+	
 	-webkit-box-shadow: 5px 5px 30px #D3D3D3;
 	-moz-box-shadow: 5px 5px 30px #D3D3D3;
 	box-shadow: 5px 5px 30px #D3D3D3;
@@ -375,16 +396,15 @@ h1:before {
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 12pt;
 	color: #888888;
-	text-align: center;
 }
+
 .schedule_container .itembox .day {
-	width: 70%;
-	height: 80%;
-	margin-top: 5%;
-	margin-battom: 5%;
-	margin-left: 15%;
-	margin-right: 15%;
+	position: absolute;
+	width: 300px;
+	height: 460px;
+	margin: 0 auto;
 	padding: 0 auto;
+	overflow-y: auto;
 	
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -397,6 +417,22 @@ h1:before {
 	font-size: 12pt;
 	color: #888888;
 	text-align: center;
+}
+
+.slide_prev {
+	position: absolute;
+	width: 60px;
+	height: 30px;
+	left: 35px;
+	top: 400px;
+}
+
+.slide_next {
+	position: absolute;
+	width: 60px;
+	height: 30px;
+	left: 1310px;
+	top: 400px;
 }
 
 </style>
