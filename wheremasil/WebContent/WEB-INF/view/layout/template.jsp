@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
 <!-- Optional theme -->
-
 <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cosmo/bootstrap.min.css" rel="stylesheet">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -25,19 +25,19 @@
 <style type="text/css">
 
 header {
-	color:white;
 	text-align: left;
 	padding: 13px;
 	height:57px;
+	background-color:#4E5D6C;
 }
 body {
-	
-	background-color: #f5f5f5;
+
+	background-color: #FFFFFF;
 }
 .left_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
-	background-color: #f5f5f5;
-	height: 700px;
+	background-color: #FFFFFF;
+	height: 800px;
 	width:18%;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -46,8 +46,8 @@ body {
 }
 .right_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
-	background-color: #f5f5f5;
-	height: 700px;
+	background-color: #FFFFFF;
+	height: 800px;
 	width:18%;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -59,14 +59,14 @@ body {
 }
 section {
 	/*TODO : 페이지를 줄이면 밑으로 내려간다.. 어떻게?*/
-	height:700px;
+	height:840px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	float: left;
 }
 footer {
  	padding-top: 20px;
-	background-color: #F5F5F5;
+	background-color: #222222;
 	color: gray;
 	text-align: center;
 	clear: both;
@@ -329,6 +329,45 @@ h1:before {
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
+input.img_button_before {
+       background: url(/wheremasil/uploads/images/icon/Last_Track_Left_Arrow_32.png) no-repeat;
+       border: none;
+       width: 32px;
+       height: 32px;
+       margin-left:20px;
+       margin-top:20px;
+       cursor: pointer;
+}
+input.img_button_next {
+       background: url(/wheremasil/uploads/images/icon/Skip_Track_32.png) no-repeat;
+       border: none;
+       width: 32px;
+       height: 32px;
+       margin-right:20px;
+       margin-top:20px;
+       cursor: pointer;
+}
+input.submit_plan {
+	   background-color: #FFC107;
+       border: none;
+       width: auto;
+       height: auto;
+       cursor: pointer;
+       font-variant:small-caps;
+       font-weight:bold;
+       font-size:25px;
+
+}
+input.img_button_login {
+       background: url(/wheremasil/uploads/images/icon/login_btn.png) no-repeat;
+	   float:right;
+	   height: 121px;
+	   width: 50px;
+	   border: 0px;
+	   border-radius:7px;
+	   color:white;
+	   font-size:22px;
+}
 .schedule_container {
 	width: 1900px;
 	height: 700px;
