@@ -460,18 +460,25 @@ input.img_button_login {
 
 .slide_prev {
 	position: absolute;
-	width: 60px;
-	height: 30px;
 	left: 35px;
 	top: 400px;
+	background: url(/wheremasil/uploads/images/icon/Last_Track_Left_Arrow_64.png) no-repeat;
+    border: none;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+	
 }
 
 .slide_next {
 	position: absolute;
-	width: 60px;
-	height: 30px;
 	left: 1310px;
 	top: 400px;
+    background: url(/wheremasil/uploads/images/icon/Skip_Track_64.png) no-repeat;
+    border: none;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
 }
 .abody
 {   position:absolute; 
