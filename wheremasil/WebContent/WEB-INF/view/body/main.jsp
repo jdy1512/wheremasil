@@ -20,10 +20,18 @@
 		});
 
 		$("#stDate").datepicker({
-			dateFormat : 'yymmdd'
+			dateFormat : 'yymmdd',
+			minDate:0,
+		    onClose: function( selectedDate ) {
+			  $("#edDate").datepicker( "option", "minDate", selectedDate );
+		    }
 		});
 		$("#edDate").datepicker({
-			dateFormat : 'yymmdd'
+			dateFormat : 'yymmdd',
+			minDate:0,
+			onClose: function( selectedDate ) {
+			  $("#stDate").datepicker( "option", "maxDate", selectedDate );
+		    }
 		});
 	});
 
@@ -50,7 +58,7 @@
 
 	<div class="panel panel-warning">
 		<div class="panel-heading">
-			<h3 class="panel-title">여행계획짜기</h3>
+			<h3 class="panel-title" align="right">여행계획짜기</h3>
 		</div>
 		<div class="panel-body">
 
@@ -118,7 +126,7 @@
 </div>
 
 <div class="section">
-	<div class="main_center">
+	<div class="main_center" >
 		<p style="text-align: center">
 			<font size="200%" color="white"><b>Where are you going ?</b></font>
 		</p>
@@ -128,8 +136,7 @@
 				<font color="white">지금 당장! 어디 마실 나가고 싶다면?</font>
 			</h4>
 		</div>
-		<div
-			style="position: absolute; left: 48%; top: 58%; width: 200px; height: 60px; overflow: hidden; margin-left: -50px; margin-top: -30px">
+		<div style="position: absolute; left: 48%; top: 58%; width: 200px; height: 60px; overflow: hidden; margin-left: -50px; margin-top: -30px">
 			<input type="button" class="btn btn-warning btn-lg" value="START" onclick="fn_layer_popup()">
 		</div>
 	</div>
@@ -142,7 +149,7 @@
 		Sorry, your browser does not support HTML5 video.
 	</video>
 
-	<div class="row" style="position:absolute; top:88%; left:30%">
+	<div style="position:absolute; top:88%; left:10%">
 		<font size="2">
 			<h3>최신 플랜</h3>
 		</font>
