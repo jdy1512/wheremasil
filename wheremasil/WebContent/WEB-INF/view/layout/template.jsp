@@ -32,7 +32,7 @@ header {
 }
 body {
 
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 }
 .left_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
@@ -80,10 +80,10 @@ footer {
 	top: -200px;
 	left: 0px;
 	min-width: 100%;
-	min-height: 60%;
+	min-height:840px;
 	width: auto;
 	height: auto;
-	z-index: -1000;
+	z-index: -1;
 	overflow: hidden;
 }
 .main_center { position:absolute; top:70%; left:50%; width:40%; height:30%; overflow:hidden; margin-top:-15%; margin-left:-20%;}
@@ -460,18 +460,25 @@ input.img_button_login {
 
 .slide_prev {
 	position: absolute;
-	width: 60px;
-	height: 30px;
 	left: 35px;
 	top: 400px;
+	background: url(/wheremasil/uploads/images/icon/Last_Track_Left_Arrow_64.png) no-repeat;
+    border: none;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+	
 }
 
 .slide_next {
 	position: absolute;
-	width: 60px;
-	height: 30px;
 	left: 1310px;
 	top: 400px;
+    background: url(/wheremasil/uploads/images/icon/Skip_Track_64.png) no-repeat;
+    border: none;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
 }
 
 .main_map {
@@ -481,6 +488,20 @@ input.img_button_login {
 	padding: 0 0;
 }
 
+.abody
+{   position:absolute; 
+	top:95%;
+	display:none;
+	width:1880px;
+	float:left;
+}
+.mapImg
+{
+	height:150px;
+	width:150px;
+	float:left;
+	margin:30px;
+}
 </style>
 </head>
 <body>

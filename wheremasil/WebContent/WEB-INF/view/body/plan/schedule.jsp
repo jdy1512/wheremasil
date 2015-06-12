@@ -174,24 +174,23 @@
 
 <div class="schedule_container">
 	<div id="schedule_itembox" class="schedule_container itembox">
-		<button class="slide_prev">이전</button>
+		<button class="slide_prev"></button>
 		<div><h2><b id="schedule_startDate"></b><b>&nbsp;&nbsp;~&nbsp;&nbsp;</b><b id="schedule_endDate"></b></h2></div>
 		<div id="schedule_root" class="schedule_container itembox root"></div>
-		<button class="slide_next">다음</button>
+		<button class="slide_next"></button>
 	</div>
 	<div class="schedule_container side">
 		<div id="scheduleMap" class="schedule_container side map"></div>
 		<div class="schedule_container side cost">
-			<p><h4><b>여행 경비 정리</b></h4></p>
-			<hr/>
-			<div style="padding-left:30px;text-align:left;">
-				<b>식비 : <span id="total_food"></span></b><br/>
+	    		<h3 class="panel-title">여행 경비 정리</h3>
+	  		<div style="padding-left:30px;text-align:left;">
+	    		<b>식비 : <span id="total_food"></span></b><br/>
 				<b>교통비 : <span id="total_vehicle"></span></b><br/>
 				<b>숙박비 : <span id="total_stay"></span></b><br/>
 				<b>기타 : <span id="total_etc"></span></b><br/>
-			</div>
 			<hr style="margin:0 0;padding:0 0;"/>
 			<p style="padding-left:30px;text-align:left;"><b>총 금액 : <span id="total_cost"></span></b></p>
+			</div>
 		</div>
 		<input type="button" value="닫기" style="margin-top:10px;">
 	</div>
