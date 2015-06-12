@@ -1,3 +1,21 @@
+
+
+select *
+from member
+where member_id='abc@abc.abc'
+
+
+DELETE FROM posting WHERE posting_id = 540
+
+
+
+
+
+
+
+
+
+
 update posting
 		set		p_hits=
 		(
@@ -11,8 +29,10 @@ update posting
 		
 		where	posting_id=283
 
-
-
+select *
+from POSTING
+					where boardtype_id='sq' or boardtype_id='sf' or boardtype_id='si' or boardtype_id='sr' or boardtype_id='sd' or boardtype_id='sl'
+					order by p_datetime DESC
 
 
 
@@ -63,14 +83,14 @@ CREATE SEQUENCE  sequence_totalPostring
         NOMAXVALUE 
        NOMINVALUE
        
-          create sequence rp_seq
+          create sequence sp_seq
         START WITH 1   
         INCREMENT BY 1 
         NOMAXVALUE 
        NOMINVALUE
        
        select posting_seq from dual;
-       
+       sp_seq.NEXTVAL
        rp_seq.NEXTVAL
        
        select * from user_sequences
@@ -82,9 +102,43 @@ insert into POSTING
        
        select * from BOARDTYPE;
        
-       
+       sequence_totalPostring.NEXTVAL
        insert into MEMBER
        values ('abc@abc.abc','abc','abc','abc','abc','abc','abc','0','1')
        
        insert into POSTING (POSTRING_ID, P_CONTENT_PATH, P_DATETIME, P_NUMBER, P_LIKE, P_TITLE, P_HITS, P_IMG_PATH, BOARDTYPE_ID,MEMBER_ID)
 		values (sequence_totalPostring.NEXTVAL, '1', '1', posting_seq.NEXTVAL, 0, '1',0,'NULL','b1','abc@abc.abc')
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
+					select *
+					from POSTING
+					where boardtype_id='sq' or boardtype_id='sf' or boardtype_id='si' or boardtype_id='sr' or boardtype_id='sd' or boardtype_id='sl'
+					order by p_datetime DESC
+					
+					
+					
+					
+					
+					
+					
+					
+						select *
+		from (
+			select  *
+			from 
+					posting
+					 where boardtype_id='sq' or boardtype_id='sf' or boardtype_id='si' or boardtype_id='sr' or boardtype_id='sd' or boardtype_id='sl'
+					order by p_like DESC
+			
+		) 
+		where page = #{pageNo}
+	

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%> 
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8" %> 
     <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
         <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -7,9 +7,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script src="/wheremasil/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+function delay(gap) { /* gap is in millisecs */
+    var then,now;
+    then = new Date().getTime();
+    now = then;
+    while((now - then) < gap) {
+        now = new Date().getTime();
+    }
+}
+
+
+</script>
 <script type="text/javascript">
 var path = "http://192.168.7.122:8082/wheremasil/uploads/images/posting_img/";
 var cnt=2;
@@ -30,10 +43,12 @@ $(document).ready(function(){
 		 alert(data);
 	   	 $.ajax({
 	       	    url: '/wheremasil/board/check.do',
-	       	    processData: false,
-  	    	    contentType: false,
-	       	    data: data,
-	       	    type: 'POST',
+	       	  type: "post",
+              dataType: "text",
+              data: data,
+              // cache: false,
+              processData: false,
+              contentType: false,
 	       	    success: function(result){
 	       	    	alert(path+result);
 	       	    	
@@ -43,10 +58,10 @@ $(document).ready(function(){
 	       	     var data = CKEDITOR.instances.editor1.getData();
 	       	     //var data = "<![CDATA["+data1+"]]>";
 
-
+delay(4000);
 	       	    	
 	       	    	
-	       	    	alert(data+"<img src='"+path+result+"'/>");
+	       	    //	alert(data+"<img src='"+path+result+"'/>");
 	       	    	$("#sumname").attr('value',path+result); 
 	       	    	if(($('input[name="upfile1_pos"]:checked').val())==0){
 	       	    	CKEDITOR.instances.editor1.setData(data+"<img src='"+path+result+"'/>");
@@ -73,16 +88,18 @@ $(document).ready(function(){
 	
 	
 	$("#titleimg").on("change",function(){
-		
-		var data = FormData();
+		alert("대표이미지 삽입이벤트");
+		var data =new FormData();
 		 data.append("file",jQuery(this).get(0).files[0]);
 		 alert(data);
-		 $.ajax({
+	   	 $.ajax({
 	       	    url: '/wheremasil/board/check.do',
-	       	    processData: false,
-	    	    contentType: false,
-	       	    data: data,
-	       	    type: 'POST',
+	       	  type: "post",
+             dataType: "text",
+             data: data,
+             // cache: false,
+             processData: false,
+             contentType: false,
 	       	    success: function(result){
 	       	    	alert(path+result);
 	       	    	
@@ -90,13 +107,15 @@ $(document).ready(function(){
 	       	    	
 	       	    	
 	       	     var data = CKEDITOR.instances.editor1.getData();
-	       	    	//alert(data);
-	       	    	//alert(data+"<img src='"+path+result+"'");
+	       	     //var data = "<![CDATA["+data1+"]]>";
+
+$("#sumname").attr('value',path+result); 
+	       	    	
+	       	    	
+	       	    //	alert(data+"<img src='"+path+result+"'/>");
 	       	    	
 	       	    	
 	       	    	
-	       	    	$("#sumname").attr('value',path+result); 
-	       	    	alert($("#sumname").val());
 	       	    },
 	       	    error:function(result){
 	       	    	alert(result);
@@ -139,6 +158,12 @@ $(document).ready(function(){
 		
 	});
 	
+	alert("re");
+	
+	alert( $("#con").val());
+	CKEDITOR.instances.editor1.setData( $("#con").val());
+	$("#sumname").attr('value',$("#con2").val()); 
+	
 	
 });
 
@@ -155,24 +180,30 @@ $(document).ready(function(){
 
 
 
+
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
+
 <body text="#000000" topmargin="0" leftmargin="0" bgcolor="#ffffff" marginheight="0" marginwidth="0">
+
+
 글쓰기폼
-<form action="/wheremasil/board/insertBoardDAO.do" enctype=“multipart/form-data” method="post" name="main" id="main">
+<form action="/wheremasil/board/insertBoardDAO.do" enctype="multipart/form-data" method="post" name="main" id="main">
 <table width="950" border="1" cellspacing="1" cellpadding="0">
 
 
 
                       <tbody><tr>
+                      <input type="hidden" id="con2" value="${requestScope.board.p_img_path }"/>
                       <input type="hidden" name="dateTime" value="1" />
                       <input type="hidden" name="sumname" id="sumname" value ="2" />
+                      <input type="hidden" name="con" id="con" value='${requestScope.board.p_content}'/>
                         <td width="100" height="35" bgcolor="#f7f7f7"><div align="right"><font color="#ff0000"></font><strong>닉네임
                             &nbsp;</strong> </div></td>
                         <td height="35" bgcolor="#ffffff">
-						&nbsp; <input name="name" type="text" size="14" maxlength="10" readonly="" value="kosta">
+						&nbsp; <input name="name" type="text" size="14" maxlength="10" readonly="" value="${sessionScope.login_info.member_id}">
 												</td>
                       </tr>
                       <tr>
@@ -203,7 +234,7 @@ $(document).ready(function(){
 
                       	  <tr>
                         <td height="35" bgcolor="#f7f7f7"><div align="right"><strong>제목 &nbsp;</strong></div></td>
-                        <td height="35" bgcolor="#ffffff"> &nbsp;   <input name="subject" id="subject" type="text" size="80" maxlength="40" required>
+                        <td height="35" bgcolor="#ffffff"> &nbsp;   <input name="subject" id="subject" type="text" size="80" maxlength="40" required value="${requestScope.board.p_title }">
                           &nbsp;</td>
                       </tr>
                       
@@ -247,7 +278,7 @@ $(document).ready(function(){
                       <table width="950" border="1" cellspacing="1" cellpadding="0" id="fileSection">
                       <tr>
                       <td height="30" bgcolor="#f7f7f7"><div align="right"><strong>파일1 </strong>&nbsp;&nbsp;</div></td>
-                      <td height="30" bgcolor="#ffffff"> &nbsp;&nbsp; <input name="upfile1" id="upfile1" type="file" onchange="check();">
+                      <td height="30" bgcolor="#ffffff"> &nbsp;&nbsp; <input name="upfile1" id="upfile1" type="file">
 						 
 						<input name="upfile1_pos" type="radio" value="1">맨위 <input name="upfile1_pos" type="radio" checked="" value="0">맨아래
 						<input type="button" value="파일추가" id="addFile" >
@@ -271,11 +302,14 @@ $(document).ready(function(){
                             
                         </td>
 </tr>
-</table>
-
-
 
 </table>
+
+
+
+</table>
+
 </form>
+
 </body>
 </html>
