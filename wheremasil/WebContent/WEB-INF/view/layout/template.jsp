@@ -9,6 +9,10 @@
 <title>Insert title here</title>
 <script type="text/javascript" src="/wheremasil/script/jquery.js"></script>
 <script type="text/javascript" src="/wheremasil/script/jquery.cookie.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
 <!-- Optional theme -->
 <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cosmo/bootstrap.min.css" rel="stylesheet">
 <!-- Latest compiled and minified JavaScript -->
@@ -365,28 +369,109 @@ input.img_button_login {
 	   font-size:22px;
 }
 .schedule_container {
-	
+	width: 1900px;
+	height: 700px;
+	margin: 0 0 auto;
+	padding: 0 0 auto;
+	text-align: center;
+	background-color: #EEEEEE;
 }
-.schedule_container .itembox .root{
-	width: 1000px;
-	height: 530px:
-	-webkit-border-radius: 30px;
-	-moz-border-radius: 30px;
-	border-radius: 30px;
+
+.schedule_container .itembox {
+	width: 1425px;
+	height: inherit;
+	margin: 0 auto;
+	padding: 0 auto;
+	text-align: center;
+	float: left;
+}
+
+.schedule_container .side {
+	width: 475px;
+	height: inherit;
+	margin: 0 auto;
+	padding: 0 auto;
+	border-left: 1px solid black;
+	
+	text-align: center;
+	float: left;
+}
+
+.schedule_container .side .map {
+	width: 400px;
+	height: 400px;
+	margin: 20px 35px;
+	padding: 0 auto;
+	border: 1px solid black;
+}
+
+.schedule_container .side .cost {
+	width: 300px;
+	height: 200px;
+	margin: 20px 85px;
+	padding: 0 auto;
+	border: 1px solid black;
+}
+
+.schedule_container .itembox .root {
+	position: absolute;
+	width: 1145px;
+	height: 560px;
+	margin-top: 30px;
+	margin-bottom: 50px;
+	margin-left: 130px;
+	margin-right: 130px;
+	padding-top: 50px;
+	padding-left: 50px;
+	padding-right: 50px;
+	overflow-x: hidden;
+	
 	-webkit-box-shadow: 5px 5px 30px #D3D3D3;
 	-moz-box-shadow: 5px 5px 30px #D3D3D3;
 	box-shadow: 5px 5px 30px #D3D3D3;
-	background-image: -moz-linear-gradient(top, #FFFFE0, #F0E68C);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #FFFFE0), color-stop(1.0, #F0E68C));
+	background-image: -moz-linear-gradient(top, #FFFFFF, #D3D3D3);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #FFFFFF), color-stop(1.0, #D3D3D3));
 	background-color: #DDDDDD;
-	padding: 10px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12pt;
+	color: #888888;
+}
+
+.schedule_container .itembox .day {
+	position: absolute;
+	width: 300px;
+	height: 460px;
+	margin: 0 auto;
+	padding: 0 auto;
+	overflow-y: auto;
+	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 5px 5px 30px #D3D3D3;
+	-moz-box-shadow: 5px 5px 30px #D3D3D3;
+	box-shadow: 5px 5px 30px #D3D3D3;
+	background-color: #FFF;
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 12pt;
 	color: #888888;
 	text-align: center;
 }
-.schedule_container .itembox .day {
-	
+
+.slide_prev {
+	position: absolute;
+	width: 60px;
+	height: 30px;
+	left: 35px;
+	top: 400px;
+}
+
+.slide_next {
+	position: absolute;
+	width: 60px;
+	height: 30px;
+	left: 1310px;
+	top: 400px;
 }
 .abody
 {   position:absolute; 
