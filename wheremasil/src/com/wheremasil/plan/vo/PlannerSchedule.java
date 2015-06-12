@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class PlannerSchedule implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private String plan_id; // 플래너 ID
 	private String title; // 플래너명
 	private String startDate; // 시작일
 	private String endDate; // 종료일
@@ -18,9 +19,11 @@ public class PlannerSchedule implements Serializable {
 	public PlannerSchedule() {
 	}
 
-	public PlannerSchedule(String title, String startDate, String endDate,
-			int groupNum, String theme, String memberId, String planCreateTime,
-			String planCalendarFilePath, String mapImgPath) {
+	public PlannerSchedule(String plan_id, String title, String startDate,
+			String endDate, int groupNum, String theme, String memberId,
+			String planCreateTime, String planCalendarFilePath,
+			String mapImgPath) {
+		this.plan_id = plan_id;
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -30,6 +33,14 @@ public class PlannerSchedule implements Serializable {
 		this.planCreateTime = planCreateTime;
 		this.planCalendarFilePath = planCalendarFilePath;
 		this.mapImgPath = mapImgPath;
+	}
+
+	public String getPlan_id() {
+		return plan_id;
+	}
+
+	public void setPlan_id(String plan_id) {
+		this.plan_id = plan_id;
 	}
 
 	public String getTitle() {
@@ -106,10 +117,10 @@ public class PlannerSchedule implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PlannerSchedule [title=" + title + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", groupNum=" + groupNum
-				+ ", theme=" + theme + ", memberId=" + memberId
-				+ ", planCreateTime=" + planCreateTime
+		return "PlannerSchedule [plan_id=" + plan_id + ", title=" + title
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", groupNum=" + groupNum + ", theme=" + theme + ", memberId="
+				+ memberId + ", planCreateTime=" + planCreateTime
 				+ ", planCalendarFilePath=" + planCalendarFilePath
 				+ ", mapImgPath=" + mapImgPath + "]";
 	}

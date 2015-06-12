@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,13 +10,10 @@
 <script type="text/javascript" src="/wheremasil/script/jquery.js"></script>
 <script type="text/javascript" src="/wheremasil/script/jquery.cookie.js"></script>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
 <!-- Optional theme -->
-
 <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cosmo/bootstrap.min.css" rel="stylesheet">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -27,19 +25,19 @@
 <style type="text/css">
 
 header {
-	color:white;
 	text-align: left;
 	padding: 13px;
 	height:57px;
+	background-color:#4E5D6C;
 }
 body {
-	
-	background-color: #f5f5f5;
+
+	background-color: #ffffff;
 }
 .left_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
-	background-color: #f5f5f5;
-	height: 700px;
+	background-color: #FFFFFF;
+	height: 800px;
 	width:18%;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -48,8 +46,8 @@ body {
 }
 .right_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
-	background-color: #f5f5f5;
-	height: 700px;
+	background-color: #FFFFFF;
+	height: 800px;
 	width:18%;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -61,14 +59,14 @@ body {
 }
 section {
 	/*TODO : 페이지를 줄이면 밑으로 내려간다.. 어떻게?*/
-	height:700px;
+	height:840px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	float: left;
 }
 footer {
  	padding-top: 20px;
-	background-color: #F5F5F5;
+	background-color: #222222;
 	color: gray;
 	text-align: center;
 	clear: both;
@@ -82,10 +80,10 @@ footer {
 	top: -200px;
 	left: 0px;
 	min-width: 100%;
-	min-height: 60%;
+	min-height:840px;
 	width: auto;
 	height: auto;
-	z-index: -1000;
+	z-index: -1;
 	overflow: hidden;
 }
 .main_center { position:absolute; top:70%; left:50%; width:40%; height:30%; overflow:hidden; margin-top:-15%; margin-left:-20%;}
@@ -331,31 +329,179 @@ h1:before {
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
-.schedule_container {
-	
+input.img_button_before {
+       background: url(/wheremasil/uploads/images/icon/Last_Track_Left_Arrow_32.png) no-repeat;
+       border: none;
+       width: 32px;
+       height: 32px;
+       margin-left:20px;
+       margin-top:20px;
+       cursor: pointer;
 }
-.schedule_container .itembox .root{
-	width: 1000px;
-	height: 530px:
-	-webkit-border-radius: 30px;
-	-moz-border-radius: 30px;
-	border-radius: 30px;
+input.img_button_next {
+       background: url(/wheremasil/uploads/images/icon/Skip_Track_32.png) no-repeat;
+       border: none;
+       width: 32px;
+       height: 32px;
+       margin-right:20px;
+       margin-top:20px;
+       cursor: pointer;
+}
+input.submit_plan {
+	   background-color: #FFC107;
+       border: none;
+       width: auto;
+       height: auto;
+       cursor: pointer;
+       font-variant:small-caps;
+       font-weight:bold;
+       font-size:25px;
+
+}
+input.img_button_login {
+       background: url(/wheremasil/uploads/images/icon/login_btn.png) no-repeat;
+	   float:right;
+	   height: 121px;
+	   width: 50px;
+	   border: 0px;
+	   border-radius:7px;
+	   color:white;
+	   font-size:22px;
+}
+.schedule_container {
+	width: 100%;
+	height: 700px;
+	margin: 0 0 auto;
+	padding: 0 0 auto;
+	text-align: center;
+	background-color: #EEEEEE;
+}
+
+.schedule_container .itembox {
+	width: 1424px;
+	height: inherit;
+	margin: 0 auto;
+	padding: 0 auto;
+	text-align: center;
+	float: left;
+}
+
+.schedule_container .side {
+	width: 470px;
+	height: inherit;
+	margin: 0 auto;
+	padding: 0 auto;
+	border-left: 1px solid black;
+	
+	text-align: center;
+	float: left;
+}
+
+.schedule_container .side .map {
+	width: 380px;
+	height: 380px;
+	margin: 20px 45px;
+	padding: 0 auto;
+	border: 1px solid black;
+}
+
+.schedule_container .side .cost {
+	width: 300px;
+	height: 200px;
+	margin: 10px 85px;
+	padding: 0 auto;
+	border: 1px solid black;
+}
+
+.schedule_container .itembox .root {
+	position: absolute;
+	width: 1144px;
+	height: 560px;
+	margin-top: 30px;
+	margin-bottom: 50px;
+	margin-left: 130px;
+	margin-right: 130px;
+	padding-top: 50px;
+	padding-left: 50px;
+	padding-right: 50px;
+	overflow-x: hidden;
+	
 	-webkit-box-shadow: 5px 5px 30px #D3D3D3;
 	-moz-box-shadow: 5px 5px 30px #D3D3D3;
 	box-shadow: 5px 5px 30px #D3D3D3;
-	background-image: -moz-linear-gradient(top, #FFFFE0, #F0E68C);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #FFFFE0), color-stop(1.0, #F0E68C));
+	background-image: -moz-linear-gradient(top, #FFFFFF, #D3D3D3);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.00, #FFFFFF), color-stop(1.0, #D3D3D3));
 	background-color: #DDDDDD;
-	padding: 10px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12pt;
+	color: #888888;
+}
+
+.schedule_container .itembox .day {
+	position: absolute;
+	width: 300px;
+	height: 460px;
+	margin: 0 auto;
+	padding: 0 auto;
+	overflow-y: auto;
+	
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 5px 5px 30px #D3D3D3;
+	-moz-box-shadow: 5px 5px 30px #D3D3D3;
+	box-shadow: 5px 5px 30px #D3D3D3;
+	background-color: #FFF;
 	font-family: Verdana, Geneva, sans-serif;
 	font-size: 12pt;
 	color: #888888;
 	text-align: center;
 }
-.schedule_container .itembox .day {
+
+.slide_prev {
+	position: absolute;
+	left: 35px;
+	top: 400px;
+	background: url(/wheremasil/uploads/images/icon/Last_Track_Left_Arrow_64.png) no-repeat;
+    border: none;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
 	
 }
 
+.slide_next {
+	position: absolute;
+	left: 1310px;
+	top: 400px;
+    background: url(/wheremasil/uploads/images/icon/Skip_Track_64.png) no-repeat;
+    border: none;
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+}
+
+.main_map {
+	width: 100%;
+	height: 100%;
+	margin: 0 0;
+	padding: 0 0;
+}
+
+.abody
+{   position:absolute; 
+	top:95%;
+	display:none;
+	width:1880px;
+	float:left;
+}
+.mapImg
+{
+	height:150px;
+	width:150px;
+	float:left;
+	margin:30px;
+}
 </style>
 </head>
 <body>

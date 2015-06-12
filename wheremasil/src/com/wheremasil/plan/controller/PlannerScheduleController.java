@@ -1,5 +1,6 @@
 package com.wheremasil.plan.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.wheremasil.plan.service.PlannerScheduleService;
 import com.wheremasil.plan.validator.PlannerScheduleValidator;
 import com.wheremasil.plan.vo.Area;
+import com.wheremasil.plan.vo.PlanDetail;
+import com.wheremasil.plan.vo.PlanMap;
 import com.wheremasil.plan.vo.PlannerSchedule;
 
 @Controller
@@ -77,13 +81,56 @@ public class PlannerScheduleController {
 			return new ModelAndView("plan/map.tiles", "plan", plan);
 		}
 		
-		return new ModelAndView("redirect:/plan/getSchedule.do");
+		return new ModelAndView("redirect:/plan/getSchedule.do?plan_id=" + plan.getPlan_id());
 	}
 	
 	@RequestMapping("getSchedule")
-	public ModelAndView getSchedule(HttpServletRequest request) {
-		PlannerSchedule plan = null;
+	public ModelAndView getSchedule(@RequestParam("plan_id") String planId, HttpServletRequest request) {
+		List<PlanDetail> pdList = service.getPlanDetails(planId);
 		
-		return new ModelAndView("plan/schedule.tiles", "plan", plan);
+		for (int i = 0; i < pdList.size(); i++) {
+			PlanDetail pd = pdList.get(i);
+			String oriDate = pd.getCurDate();
+			String year = oriDate.substring(0, 4);
+			String month = oriDate.substring(4, 6);
+			String day = oriDate.substring(6, 8);
+			String newDate = year + "." + month + "." + day;
+			pd.setCurDate(newDate);
+			if (i == 0) {
+				pd.setStartDate(newDate);
+			} else if (i == pdList.size() - 1) {
+				pd.setEndDate(newDate);
+			}
+			System.out.println(pd);
+		}
+		
+		return new ModelAndView("plan/schedule.tiles", "planDetailList", new Gson().toJson(pdList));
 	}
+	
+	@RequestMapping("getPlanIdList")
+	@ResponseBody
+	public List<PlanMap> getPlanIdListByNum(@RequestParam int num, HttpServletRequest request) {
+		if (num < 1) {
+			num = 1;
+		}
+		return service.getPlanIdListByNum(num);
+	}
+	
+	@RequestMapping("getPlanMapList")
+	@ResponseBody
+	public List<PlanMap> getPlanMapList(@RequestParam String planIdList, HttpServletRequest request) {
+		List<String> params = new ArrayList<String>();
+		String[] planIdListSplit = planIdList.split("&");
+		for (int i = 0; i < planIdListSplit.length; i++) {
+			params.add(planIdListSplit[i].split("=")[1]);
+		}
+		
+		List<PlanMap> list = service.getPlanMapList(params);
+		System.out.println(list);
+		return list;
+	}
+	
 }
+
+
+

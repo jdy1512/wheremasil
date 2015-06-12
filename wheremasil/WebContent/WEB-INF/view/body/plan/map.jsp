@@ -158,7 +158,7 @@
 		    		        })(marker, data[i].title, data[i].address, data[i].imgPath, data[i].id);
 		    		        
 		    		        if (data[i].channel == 'C3') {
-		    		        	var content = '<div class="borderme"><div id="leftmenu_' +
+		    		        	var content = '<div  style = "position:relative;left:-20px;top:18px;z-index:5;" ><img src="/wheremasil/uploads/images/icon/Best_choice_commercial_symbol_64.png"></div><div class="borderme"><div id="leftmenu_' +
 		    		        	data[i].title + '" class="infoview_container"><div class="infoview_image_block"><img src="' + 
 			        			data[i].imgPath + '" class="infoview_image"><input type="hidden" value="' + data[i].imgPath + '"></div><div class="infoview_text_block"><p class="infoview_text_title"><b>' + 
 			        			data[i].title + '</b></p><p class="infoview_text_content">' + 
@@ -504,7 +504,7 @@
 		                infowindow.close();
 		                displayInfowindow(marker, title, addr, img);
 		            });
-	
+		            
 		            daum.maps.event.addListener(marker, 'click', function() {
 		    		    map.panTo(marker.getPosition());
 		                map.setLevel(7);
