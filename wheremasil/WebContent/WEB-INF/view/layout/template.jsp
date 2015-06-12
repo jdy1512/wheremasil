@@ -369,7 +369,7 @@ input.img_button_login {
 	   font-size:22px;
 }
 .schedule_container {
-	width: 1900px;
+	width: 100%;
 	height: 700px;
 	margin: 0 0 auto;
 	padding: 0 0 auto;
@@ -378,7 +378,7 @@ input.img_button_login {
 }
 
 .schedule_container .itembox {
-	width: 1425px;
+	width: 1424px;
 	height: inherit;
 	margin: 0 auto;
 	padding: 0 auto;
@@ -387,7 +387,7 @@ input.img_button_login {
 }
 
 .schedule_container .side {
-	width: 475px;
+	width: 470px;
 	height: inherit;
 	margin: 0 auto;
 	padding: 0 auto;
@@ -398,9 +398,9 @@ input.img_button_login {
 }
 
 .schedule_container .side .map {
-	width: 400px;
-	height: 400px;
-	margin: 20px 35px;
+	width: 380px;
+	height: 380px;
+	margin: 20px 45px;
 	padding: 0 auto;
 	border: 1px solid black;
 }
@@ -408,14 +408,14 @@ input.img_button_login {
 .schedule_container .side .cost {
 	width: 300px;
 	height: 200px;
-	margin: 20px 85px;
+	margin: 10px 85px;
 	padding: 0 auto;
 	border: 1px solid black;
 }
 
 .schedule_container .itembox .root {
 	position: absolute;
-	width: 1145px;
+	width: 1144px;
 	height: 560px;
 	margin-top: 30px;
 	margin-bottom: 50px;
@@ -472,6 +472,13 @@ input.img_button_login {
 	height: 30px;
 	left: 1310px;
 	top: 400px;
+}
+
+.main_map {
+	width: 100%;
+	height: 100%;
+	margin: 0 0;
+	padding: 0 0;
 }
 
 </style>

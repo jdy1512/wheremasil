@@ -193,5 +193,6 @@
 			<hr style="margin:0 0;padding:0 0;"/>
 			<p style="padding-left:30px;text-align:left;"><b>총 금액 : <span id="total_cost"></span></b></p>
 		</div>
+		<input type="button" value="닫기" style="margin-top:10px;">
 	</div>
 </div>

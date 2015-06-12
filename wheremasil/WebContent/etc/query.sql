@@ -98,5 +98,57 @@ select p.plan_id, t.t_name, p.p_start_date, p.p_end_date, a.a_name, a.a_address
 from area_cost ac, area a, plan p, theme t
 where ac.area_id=a.area_id and ac.plan_id=p.plan_id and p.theme_id=t.theme_id
 
+select p_ac_tbl.plan_id, p_start_date, p_end_date, s_date, ac_seq, member_id, area_id
+from
+	(select plan_tbl.plan_id, p_start_date, p_end_date, ac_seq, member_id, area_id
+	from
+		(select plan_id, p_start_date, p_end_date, member_id
+		from plan
+		where plan_id='L202') plan_tbl
+	inner join
+		(select plan_id, ac_seq, area_id
+		from area_cost
+		where plan_id='L202') ac_tbl
+	on plan_tbl.plan_id=ac_tbl.plan_id) p_ac_tbl
+inner join
+	(select plan_id, s_date
+	from schedule
+	where plan_id='L202') s_tbl
+on p_ac_tbl.plan_id=s_tbl.plan_id
+order by s_date, ac_seq
 
 
+select p_tbl.plan_id, p_start_date, p_end_date, s_date, ac_seq, member_id, a_latitude, a_longitude
+from
+	(select plan_id, s_date, ac_seq, a_latitude, a_longitude
+	from
+		(select area_id, a_latitude, a_longitude
+		from area) area_tbl
+	inner join
+		(select s.plan_id, area_id, ac.s_date, ac_seq
+		from area_cost ac, schedule s
+		where (ac.plan_id='L198' and s.plan_id='L198' and ac.s_date=s.s_date) or (ac.plan_id='L223' and s.plan_id='L223' and ac.s_date=s.s_date) 
+		order by ac.plan_id, s_date, ac_seq) s_ac_tbl
+	on area_tbl.area_id=s_ac_tbl.area_id) s_ac_a_tbl
+inner join	
+	(select plan_id, p_start_date, p_end_date, member_id
+	from plan) p_tbl
+on p_tbl.plan_id=s_ac_a_tbl.plan_id
+
+
+select plan_id
+from
+	(select plan_id
+	from plan
+	order by p_create_datetime desc)
+where rownum <= 3
+
+select plan_id
+		from
+			(select plan_id
+			from plan
+			order by p_create_datetime desc)
+		where 3>=rownum
+		
+		
+select plan_id   from    (select plan_id    from plan    order by p_create_datetime desc)   where 3>=rownum

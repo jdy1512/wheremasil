@@ -26,6 +26,7 @@ import com.wheremasil.plan.dao.PlannerScheduleDAOImpl;
 import com.wheremasil.plan.vo.Area;
 import com.wheremasil.plan.vo.AreaCost;
 import com.wheremasil.plan.vo.PlanDetail;
+import com.wheremasil.plan.vo.PlanMap;
 import com.wheremasil.plan.vo.PlannerSchedule;
 import com.wheremasil.plan.vo.Schedule;
 
@@ -252,6 +253,16 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 	@Override
 	public List<PlanDetail> getPlanDetails(String planId) {
 		return dao.selectPlanDetails(planId);
+	}
+
+	@Override
+	public List<PlanMap> getPlanIdListByNum(int num) {
+		return dao.selectPlanIdListByNum(num);
+	}
+
+	@Override
+	public List<PlanMap> getPlanMapList(List<String> planIdList) {
+		return dao.selectPlanMapList(planIdList);
 	}
 
 

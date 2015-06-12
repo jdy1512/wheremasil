@@ -1,7 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=8090c845eb21bcc92becc6f8f3bf61fa&libraries=services"></script>
+<script type="text/javascript" src="/wheremasil/script/map_view.js"></script>
 
 <script>
 	<c:if test="${ not empty requestScope.plan }">
@@ -25,7 +28,27 @@
 		$("#edDate").datepicker({
 			dateFormat : 'yymmdd'
 		});
+		
+		// plan id 리스트 select
+		getPlanIdList(3);
 	});
+	
+	function getPlanIdList(num) {
+		$.ajax({
+			url: "/wheremasil/plan/getPlanIdList.do",
+			dataType: "json",
+			type: "POST",
+            timeout : 30000,
+            data : {"num" : num},
+			success: function(data) {
+				var planIdList = [];
+				for (var idx = 0; idx < data.length; idx++) {
+					planIdList[idx] = data[idx].planId;
+				}
+				getPlanMapList(planIdList, "plan_map_", "main_map");// {'L000','L001',...}, map parent id="plan_map_1~", map class="main_map"
+			}// end of success(getPlanIdList)
+		});// end of getPlanIdList(ajax)
+	}
 
 	function fn_layer_popup() {
 		var layer = document.getElementById("popup_layer");
@@ -142,25 +165,27 @@
 		Sorry, your browser does not support HTML5 video.
 	</video>
 
-	<div class="row" style="position:absolute; top:88%; left:30%">
+	<div class="row" style="position:absolute;width:100%;top:92%;left:25%;padding:0 0;margin:0 0;">
 		<font size="2">
 			<h3>최신 플랜</h3>
 		</font>
 	
-	  <div class="col-xs-6 col-md-3" style="float:left">
-	    <a href="#" class="thumbnail">
-	      <img src="/wheremasil/uploads/images/default/img_not_found.png" alt="...">
-	    </a>
-	  </div>
-	    <div class="col-xs-6 col-md-3" style="float:left">
-	    <a href="#" class="thumbnail">
-	      <img src="/wheremasil/uploads/images/default/img_not_found.png" alt="...">
-	    </a>
-	  </div>
-	    <div class="col-xs-6 col-md-3" style="float:left">
-	    <a href="#" class="thumbnail">
-	      <img src="/wheremasil/uploads/images/default/img_not_found.png" alt="...">
-	    </a>
-	  </div>
+		<div class="col-xs-6 col-md-3" style="float:left;width:300px;height:220px;margin:0 5px;">
+		  <a href="#" id="plan_map_1" class="thumbnail" style="width:100%;height:100%;">
+		    <img src="/wheremasil/uploads/images/default/img_not_found.png" alt="...">
+		  </a>
+		</div>
+		
+		<div class="col-xs-6 col-md-3" style="float:left;width:300px;height:220px;margin:0 5px;">
+		  <a href="#" id="plan_map_2" class="thumbnail" style="width:100%;height:100%;">
+		    <img src="/wheremasil/uploads/images/default/img_not_found.png" alt="...">
+		  </a>
+		</div>
+		
+		<div class="col-xs-6 col-md-3" style="float:left;width:300px;height:220px;margin:0 5px;">
+		  <a href="#" id="plan_map_3" class="thumbnail" style="width:100%;height:100%;">
+		    <img src="/wheremasil/uploads/images/default/img_not_found.png" alt="...">
+		  </a>
+		</div>
 	</div>
 </div>
