@@ -30,6 +30,7 @@
 		$("#tile_left_nav").css("visibility", "visible");
 		$("#tile_right_nav").css("visibility", "visible");
 		$("section").css("width", "64%");
+		$("section").css("height", "840px");
 		
 		// daum api 지도
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

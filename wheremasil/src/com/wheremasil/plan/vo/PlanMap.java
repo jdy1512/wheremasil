@@ -5,26 +5,28 @@ import java.io.Serializable;
 public class PlanMap implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String planId;
+	private String title;
 	private String startDate;
 	private String endDate;
 	private String curDate;
 	private String seq;
-	private String memberId;
+	private String mName;
 	private double aLatitude;
 	private double aLongitude;
 
 	public PlanMap() {
 	}
 
-	public PlanMap(String planId, String startDate, String endDate,
-			String curDate, String seq, String memberId, double aLatitude,
-			double aLongitude) {
+	public PlanMap(String planId, String title, String startDate,
+			String endDate, String curDate, String seq, String mName,
+			double aLatitude, double aLongitude) {
 		this.planId = planId;
+		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.curDate = curDate;
 		this.seq = seq;
-		this.memberId = memberId;
+		this.mName = mName;
 		this.aLatitude = aLatitude;
 		this.aLongitude = aLongitude;
 	}
@@ -35,6 +37,14 @@ public class PlanMap implements Serializable {
 
 	public void setPlanId(String planId) {
 		this.planId = planId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getStartDate() {
@@ -69,12 +79,12 @@ public class PlanMap implements Serializable {
 		this.seq = seq;
 	}
 
-	public String getMemberId() {
-		return memberId;
+	public String getmName() {
+		return mName;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setmName(String mName) {
+		this.mName = mName;
 	}
 
 	public double getaLatitude() {
@@ -95,10 +105,11 @@ public class PlanMap implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PlanMap [planId=" + planId + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", curDate=" + curDate + ", seq="
-				+ seq + ", memberId=" + memberId + ", aLatitude=" + aLatitude
-				+ ", aLongitude=" + aLongitude + "]";
+		return "PlanMap [planId=" + planId + ", title=" + title
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", curDate=" + curDate + ", seq=" + seq + ", mName=" + mName
+				+ ", aLatitude=" + aLatitude + ", aLongitude=" + aLongitude
+				+ "]";
 	}
 
 }

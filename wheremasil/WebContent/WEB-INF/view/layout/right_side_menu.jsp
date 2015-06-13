@@ -141,7 +141,7 @@
 
 <input type="button" class="img_button_before" name="before" onclick="beforeDayCheck()" style="float:left;"><input type="button"  class="img_button_next" name="after" onclick="afterDayCheck()" style="float:right;"><div id="day"></div>
 
-<form method="post" action="/wheremasil/plan/planInfo.do">
+<form method="post" action="/wheremasil/plan/session/planInfo.do">
 
    <div id="rightContent"></div>
    <input type="hidden" name="title" value="${requestScope.plan.title }">

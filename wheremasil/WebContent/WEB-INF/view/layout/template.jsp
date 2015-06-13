@@ -38,7 +38,6 @@ body {
 .left_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
 	background-color: #FFFFFF;
-	height: 800px;
 	width:18%;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -48,7 +47,6 @@ body {
 .right_nav {
 	line-height: 50px; /*줄 간격 - 메뉴이므로 줄간격을 넓게*/
 	background-color: #FFFFFF;
-	height: 800px;
 	width:18%;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -60,7 +58,6 @@ body {
 }
 section {
 	/*TODO : 페이지를 줄이면 밑으로 내려간다.. 어떻게?*/
-	height:840px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	float: left;
@@ -498,8 +495,10 @@ input.img_button_login {
 }
 .mapImg
 {
-	height:150px;
 	width:150px;
+	height:300px;
+	background-color:#FFF;
+	
 	float:left;
 	margin:30px;
 }

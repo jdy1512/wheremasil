@@ -118,7 +118,7 @@ on p_ac_tbl.plan_id=s_tbl.plan_id
 order by s_date, ac_seq
 
 
-select p_tbl.plan_id, p_start_date, p_end_date, s_date, ac_seq, member_id, a_latitude, a_longitude
+select p_tbl.plan_id, p_title, p_start_date, p_end_date, s_date, ac_seq, m_name, a_latitude, a_longitude
 from
 	(select plan_id, s_date, ac_seq, a_latitude, a_longitude
 	from
@@ -131,8 +131,8 @@ from
 		order by ac.plan_id desc, s_date, ac_seq) s_ac_tbl
 	on area_tbl.area_id=s_ac_tbl.area_id) s_ac_a_tbl
 left outer join	
-	(select plan_id, p_start_date, p_end_date, member_id
-	from plan) p_tbl
+	(select plan_id, p_title, p_start_date, p_end_date, (select m_name from member where member_id=p.member_id) m_name
+	from plan p) p_tbl
 on p_tbl.plan_id=s_ac_a_tbl.plan_id
 
 

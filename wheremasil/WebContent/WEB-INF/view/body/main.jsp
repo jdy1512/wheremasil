@@ -85,7 +85,7 @@
 		</div>
 		<div class="panel-body">
 
-			<form class="form-horizontal" action="/wheremasil/plan/map.do" method="post">
+			<form class="form-horizontal" action="/wheremasil/plan/session/map.do" method="post">
 				<fieldset>
 					<legend>여행 일정</legend>
 					<div class="form-group">

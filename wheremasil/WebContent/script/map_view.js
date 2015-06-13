@@ -31,9 +31,24 @@ function getPlanMapList(planIdList, mapContainerId, mapViewClassName) {
 					}
 					curPlanId = data[idx].planId;
 					planCnt = planCnt + 1;
+
+					var oriSDate = data[idx].startDate;
+					var year = oriSDate.substring(0, 4);
+					var month = oriSDate.substring(4, 6);
+					var day = oriSDate.substring(6, 8);
+					var newSDate = year + "." + month + "." + day;
 					
-					$("#" + mapContainerId + planCnt).html('<div id="plan_' + curPlanId + '" class="' + mapViewClassName + '"></div>');
+					var oriEDate = data[idx].endDate;
+					year = oriEDate.substring(0, 4);
+					month = oriEDate.substring(4, 6);
+					day = oriEDate.substring(6, 8);
+					var newEDate = year + "." + month + "." + day;
+					
 					$("#" + mapContainerId + planCnt).attr("href", "/wheremasil/plan/getSchedule.do?plan_id=" + curPlanId);
+					$("#" + mapContainerId + planCnt).attr("class", mapViewClassName);
+					$("#" + mapContainerId + planCnt).html('<div id="plan_' + curPlanId + '" style="width:100%;height:100%;"></div>' + 
+						'<div style="text-align:center;"><h4><p><b>' + data[idx].mName + ' < ' + data[idx].title + ' ></b></p></h4>' + 
+						'<h5><p><b>' + newSDate + ' ~ ' + newEDate + '</b></p></h5></div>');
 					
 					// map draw
 					var mapContainer = document.getElementById("plan_" + curPlanId), // 지도를 표시할 div

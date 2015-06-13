@@ -30,7 +30,7 @@ public class PlannerScheduleController {
 	@Autowired
 	PlannerScheduleService service;
 
-	@RequestMapping("map")
+	@RequestMapping("session/map")
 	public ModelAndView showPlannerScheduleMap(@ModelAttribute PlannerSchedule plan, Errors errors, HttpServletRequest request) {
 		new PlannerScheduleValidator().validate(plan, errors);
 		if(errors.hasErrors()){
@@ -69,7 +69,7 @@ public class PlannerScheduleController {
 		return id;
 	}
 	
-	@RequestMapping("planInfo")
+	@RequestMapping("session/planInfo")
 	public ModelAndView planInfo(@RequestParam Map<String, Object> params, HttpServletRequest request) {
 		PlannerSchedule plan = null;
 		request.getSession().setAttribute("login_info", "admin@wheremasil.com");
