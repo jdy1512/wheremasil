@@ -68,6 +68,7 @@
         
 		where (#{enLat} > a_latitude and a_latitude > #{stLat})
 			and (#{enLon} > a_longitude and a_longitude > #{stLon})
+			and 16 >= rownum
     </select>
 
 	<select id="selectPlanId" parameterType="string" resultType="string">
@@ -110,16 +111,16 @@
 			from
 				(select area_id, a_latitude, a_longitude
 				from area) area_tbl
-			inner join
+			right outer join
 				(select s.plan_id, area_id, ac.s_date, ac_seq
 				from area_cost ac, schedule s
 				where 
 					<foreach item="item" index="index" collection="list" separator=" or ">
 						(ac.plan_id='${item}' and s.plan_id='${item}' and ac.s_date=s.s_date)
 					</foreach>
-				order by s.plan_id, s_date, ac_seq) s_ac_tbl
+				order by s.plan_id desc, s_date, ac_seq) s_ac_tbl
 			on area_tbl.area_id=s_ac_tbl.area_id) s_ac_a_tbl
-		inner join	
+		left outer join	
 			(select plan_id, p_start_date, p_end_date, member_id
 			from plan) p_tbl
 		on p_tbl.plan_id=s_ac_a_tbl.plan_id

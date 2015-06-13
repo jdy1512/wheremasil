@@ -124,13 +124,13 @@ from
 	from
 		(select area_id, a_latitude, a_longitude
 		from area) area_tbl
-	inner join
+	right outer join
 		(select s.plan_id, area_id, ac.s_date, ac_seq
 		from area_cost ac, schedule s
-		where (ac.plan_id='L198' and s.plan_id='L198' and ac.s_date=s.s_date) or (ac.plan_id='L223' and s.plan_id='L223' and ac.s_date=s.s_date) 
-		order by ac.plan_id, s_date, ac_seq) s_ac_tbl
+		where (ac.plan_id='L241' and s.plan_id='L241' and ac.s_date=s.s_date) or (ac.plan_id='L224' and s.plan_id='L224' and ac.s_date=s.s_date) or (ac.plan_id='L223' and s.plan_id='L223' and ac.s_date=s.s_date) 
+		order by ac.plan_id desc, s_date, ac_seq) s_ac_tbl
 	on area_tbl.area_id=s_ac_tbl.area_id) s_ac_a_tbl
-inner join	
+left outer join	
 	(select plan_id, p_start_date, p_end_date, member_id
 	from plan) p_tbl
 on p_tbl.plan_id=s_ac_a_tbl.plan_id

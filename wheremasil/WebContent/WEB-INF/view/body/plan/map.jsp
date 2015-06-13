@@ -121,9 +121,13 @@
 				}, delayTime);
 			}
 		});
+		daum.maps.event.addListener(map, 'click', function() {
+			infowindow.close();
+		});
 		
 		getAreasByRange(map.getBounds());
 		function getAreasByRange(bounds) {
+			infowindow.close();
 			var swLatLng = bounds.getSouthWest();
 			var neLatLng = bounds.getNorthEast();
 			var stLat = swLatLng.getLat();
@@ -198,6 +202,7 @@
 				titles.push(fixedTitle);
 				// DB지역 데이타인 경우, 인포윈도우 '일정등록' 클릭시 등록
 	        	$(document).on("click", "#infowindow_" + fixedTitle , function() {
+	        		infowindow.close();
 	        		var data = $($(this).parents().html()).last().val().split(",");
 	        		var title = data[0];
 	        		var img = data[1];
@@ -226,7 +231,15 @@
 					        		setSchedule(content, data);
 	
 					        		// 선택한 일정 경로 추가
-					        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+					        		var correctCourseNo = 0;
+									for (var idx = 0; idx < dayCount - 1; idx++) {
+										correctCourseNo = correctCourseNo + courseCount[idx] - 1;
+									}
+					        		if (schedulePath.length != correctCourseNo + courseCount[dayCount-1] - 2) {
+					        			schedulePath.splice(correctCourseNo + courseCount[dayCount-1] - 2, 0, new daum.maps.LatLng(lat, lng));
+					        		} else {
+					        			schedulePath.push(new daum.maps.LatLng(lat, lng));
+					        		}
 					        		if (schedulePath.length > 1) {
 						    			polyline.setMap(null);
 					        			displayArrow(schedulePath);
@@ -242,7 +255,15 @@
 		        		setSchedule(content, id);
 
 		        		// 선택한 일정 경로 추가
-		        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+		        		var correctCourseNo = 0;
+						for (var idx = 0; idx < dayCount - 1; idx++) {
+							correctCourseNo = correctCourseNo + courseCount[idx] - 1;
+						}
+		        		if (schedulePath.length != correctCourseNo + courseCount[dayCount-1] - 2) {
+		        			schedulePath.splice(correctCourseNo + courseCount[dayCount-1] - 2, 0, new daum.maps.LatLng(lat, lng));
+		        		} else {
+		        			schedulePath.push(new daum.maps.LatLng(lat, lng));
+		        		}
 		        		if (schedulePath.length > 1) {
 			    			polyline.setMap(null);
 		        			displayArrow(schedulePath);
@@ -261,6 +282,7 @@
 
 						// 인포윈도우 '일정등록' 클릭시 등록
 			        	$(document).on("click", "#infowindow_" + fixedTitle , function() {
+			        		infowindow.close();
 			        		var data = $($(this).parents().html()).last().val().split(",");
 			        		var title = data[0];
 			        		var img = data[1];
@@ -289,7 +311,15 @@
 							        		setSchedule(content, data);
 	
 							        		// 선택한 일정 경로 추가
-							        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+							        		var correctCourseNo = 0;
+											for (var idx = 0; idx < dayCount - 1; idx++) {
+												correctCourseNo = correctCourseNo + courseCount[idx] - 1;
+											}
+							        		if (schedulePath.length != correctCourseNo + courseCount[dayCount-1] - 2) {
+							        			schedulePath.splice(correctCourseNo + courseCount[dayCount-1] - 2, 0, new daum.maps.LatLng(lat, lng));
+							        		} else {
+							        			schedulePath.push(new daum.maps.LatLng(lat, lng));
+							        		}
 							        		if (schedulePath.length > 1) {
 								    			polyline.setMap(null);
 							        			displayArrow(schedulePath);
@@ -305,7 +335,15 @@
 				        		setSchedule(content, id);
 
 				        		// 선택한 일정 경로 추가
-				        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+				        		var correctCourseNo = 0;
+								for (var idx = 0; idx < dayCount - 1; idx++) {
+									correctCourseNo = correctCourseNo + courseCount[idx] - 1;
+								}
+				        		if (schedulePath.length != correctCourseNo + courseCount[dayCount-1] - 2) {
+				        			schedulePath.splice(correctCourseNo + courseCount[dayCount-1] - 2, 0, new daum.maps.LatLng(lat, lng));
+				        		} else {
+				        			schedulePath.push(new daum.maps.LatLng(lat, lng));
+				        		}
 				        		if (schedulePath.length > 1) {
 					    			polyline.setMap(null);
 				        			displayArrow(schedulePath);
@@ -640,10 +678,15 @@
 		// 스케줄 클릭
 		$(document).on("click", ".schedule_borderme", function() {
 			var course = $(this).parents("fieldset").children("legend").text();
+
+			var correctCourseNo = 0;
+			for (var idx = 0; idx < dayCount - 1; idx++) {
+				correctCourseNo = correctCourseNo + courseCount[idx] - 1;
+			}
 			var targetNo = course.substring(6, 7);
 			
 			// 일정 경로 표시
-			schedulePath.splice(targetNo - 1, 1);
+			schedulePath.splice(correctCourseNo + parseInt(targetNo, 10) - 1, 1);
 			polyline.setMap(null);
 			if (schedulePath.length > 1) {
 				displayArrow(schedulePath);
