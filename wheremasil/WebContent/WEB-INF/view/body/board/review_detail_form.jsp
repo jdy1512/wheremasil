@@ -7,10 +7,8 @@
 <html><!-- style="float: right;" -->
 <!-- style="max-width:200px;" -->
 <head>
+
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
-</head>	
 
 
 <script type="text/javascript">
@@ -27,7 +25,7 @@ function insertHit(){
 	var txt = "posting_id" + "="+ $("#posting_id").val();
 	$.ajax({
    	    url: '/wheremasil/board/insertHit.do',
-   	    
+   	 type:"post",
    	    processData: false,
    	 
 	    data:txt,
@@ -65,7 +63,7 @@ function rpccnt(){
 		
 			$.ajax({
 		       	    url: '/wheremasil/board/rpcnt.do',
-		       	    
+		       	 type:"post",  
 		       	    processData: false,
 		       	 data:allData,
 		    	    dataType:"text",
@@ -100,7 +98,7 @@ function rpinsert(){
        	    url: '/wheremasil/board/sinsertRp.do',
        	    
        	    processData: false,
-       	 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+       	 type:"post",
     	    data:editor2,
     	    dataType:"JSON",
        	    
@@ -154,7 +152,7 @@ function inertLike(posting_id){
    	    url: '/wheremasil/board/insertLike.do',
    	    
    	    processData: false,
-   	 
+   	 type:"post",
 	    data:txt,
 	    dataType:"JSON",
    	    
@@ -225,13 +223,13 @@ $(document).ready(function(){
 	$("#rpregi").on("click",function(){
 		
 
-		var editor1 =  "editor1" + "="+ $("#rpcontext").val()+"&" +"member_id" + "="+ $("#member_id").val()+"&" +"posting_id" + "="+ $("#posting_id").val();
+		var editor1 =  "editor1" + "="+ $("#rpcontext").val()+"&" +"member_id" + "="+ $("#member_id1").val()+"&" +"posting_id" + "="+ $("#posting_id").val();
 		alert(editor1);
 		$.ajax({
 	       	    url: '/wheremasil/board/insertRp.do',
 	       	    
 	       	    processData: false,
-	       	 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	       	 type:"post",
 	    	    data:editor1,
 	    	    dataType:"JSON",
 	       	    
@@ -270,6 +268,35 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
+
+function getMemberImg(member_id) {
+	var result1;
+	var txt = "member_id" + "=" + member_id;
+	$.ajax({
+		url : '/wheremasil/board/getMemberImg.do',
+
+		processData : false,
+		type : "post",
+		data : txt,
+		dataType : "text",
+
+		success : function(result) {
+			 //alert("사용자 이미지가 성공적으로 넘어옴 = 	"+result);
+				result1=result;
+				
+			 $(".img"+member_id).attr('src',result);
+		},
+		error : function(result) {
+
+			alert("사용자 이미지주소 가저오기 실패");
+		}
+	});
+	//alert("보내기전 이미지값 ="+result1);
+	return result1;
+}
+
+
+
 function washrp(result) {
 	//이미지 링크 수정해야됨
 	
@@ -277,12 +304,20 @@ function washrp(result) {
 	 $("#rplist").html("");
 	for(var i=0; i<result.length; i++) {
 		
-    $("#rplist").append("<tr><td width='5%'>"+"이미지자리" +"</td><td width='5%'>"+result[i].member_id+"  </td><td style='max-width:10%;' width='60%'>"+result[i].r_content +"</td><td width='10%'>"+result[i].r_datetime+ "</td></tr>");
-    
+    $("#rplist").append("<tr><td width='5%'><img width='30px' height='30px' src class='img"+result[i].member_id+"'>"+"</td><td width='5%'>"+result[i].member_id+"  </td><td style='max-width:10%;' width='60%'>"+result[i].r_content +"</td><td width='10%'>"+result[i].r_datetime+ "</td></tr>");
+    getMemberImg(result[i].member_id);
 	}
  }
 
 </script>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+</head>	
+
+
+
 
 <body>
 
@@ -353,7 +388,7 @@ ${requestScope.posting.p_content }
 <td style="text-align:center; margin:auto;"  ><form action="#">
 <input type="hidden" id="member_id" value="${requestScope.posting.member_id}"/>
 <input type="hidden" id="posting_id" value="${requestScope.posting.posting_id}"/>
-
+<input type="hidden" id="member_id1" value="${sessionScope.login_info.member_id}"/>
 
 <!-- reply_id,r_parent_id,r_datetime,r_level,postring_id,member_id  -->
 

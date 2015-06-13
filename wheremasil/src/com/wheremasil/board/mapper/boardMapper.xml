@@ -44,6 +44,14 @@
 	</select>
 
 
+<insert id="insertSb" parameterType="com.wheremasil.board.vo.Board">
+ insert into POSTING(posting_id,p_content,p_datetime,p_number,p_like,p_title,p_hits,p_img_path,boardtype_id,member_id)
+		values (sequence_totalPostring.NEXTVAL, #{editor1}, #{dateTime}, sp_seq.NEXTVAL, 0, #{subject},0,#{sumname},#{theme},#{name})
+
+
+
+</insert>
+
 
 <insert id="insertRp" parameterType="com.wheremasil.board.vo.Reply">
 insert into reply( reply_id,r_parent_id,r_datetime,r_level,posting_id,member_id,r_content)
@@ -85,9 +93,38 @@ update posting
 
 </update>
 
+
+<select id="returnCategoriList" parameterType="string" resultMap="board-resultmap">
+
+select *
+from posting
+where boardtype_id=#{value}
+order by p_datetime DESC
+
+
+</select>
+
+
+
+<select id="selectMemberInfo" parameterType="string" resultType="com.wheremasil.member.vo.Member">
+select *
+from member
+where member_id=#{value}
+
+
+</select>
+
+<select id="selectPostingInfo" parameterType="string" resultMap="board-resultmap">
+select *
+from posting
+where posting_id=#{value}
+
+
+</select>
+
 <select id="selecthit" parameterType="string" resultType="_int">
 select p_hits
-		from posting
+		from posting 
 		where posting_id=#{value}
 
 </select>
@@ -99,6 +136,14 @@ select p_like
 
 </select>
 
+<select id="insertRpcnt" parameterType="string" resultMap="reply-resultmap">
+select *
+from reply
+where posting_id=#{value}
+
+
+</select>
+
 
 
 
@@ -107,7 +152,7 @@ select p_like
 
 <insert id="insertBoardVo" parameterType="com.wheremasil.board.vo.Board">
 		  insert into POSTING(posting_id,p_content,p_datetime,p_number,p_like,p_title,p_hits,p_img_path,boardtype_id,member_id)
-		values (sequence_totalPostring.NEXTVAL, #{editor1}, #{dateTime}, posting_seq.NEXTVAL, 0, #{subject},0,#{sumname},'p','abc@abc.abc')
+		values (sequence_totalPostring.NEXTVAL, #{editor1}, #{dateTime}, posting_seq.NEXTVAL, 0, #{subject},0,#{sumname},'p',#{name})
 	</insert>
   
 
@@ -118,6 +163,7 @@ select p_like
 			select ceil(rownum/#{contentsPerPage}) page, posting_id,p_content,p_datetime,p_number,p_like,p_title,p_hits,p_img_path,boardtype_id,member_id
 			from (
 					<include refid="board-select"/>
+					where boardtype_id='p'
 					order by p_datetime DESC
 			)
 		) 
@@ -143,9 +189,35 @@ order by p_like DESC
 		select *
 from reply
 where posting_id=#{value , jdbcType=VARCHAR}
-	
+	order by r_datetime DESC
 	
 	</select>
+	
+	
+
+ <select id="selectAllSpage" resultMap="board-resultmap">
+select *
+					from POSTING
+					where boardtype_id='sq' or boardtype_id='sf' or boardtype_id='si' or boardtype_id='sr' or boardtype_id='sd' or boardtype_id='sl'
+					order by p_datetime DESC
+	</select>
+	
+	<select id="selectSlike" resultMap="board-resultmap">
+	select  *
+			from 
+					posting
+					 where boardtype_id='sq' or boardtype_id='sf' or boardtype_id='si' or boardtype_id='sr' or boardtype_id='sd' or boardtype_id='sl'
+					order by p_like DESC
+	
+	</select>
+	
+	<delete id="deletePost" parameterType="string">
+	
+	DELETE
+	FROM posting 
+	WHERE posting_id = #{value}
+	
+	</delete>
 	
 	
 </mapper>

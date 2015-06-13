@@ -1,14 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="/wheremasil/script/jquery.js"></script>
-<script type="text/javascript" src="/wheremasil/script/jquery.cookie.js"></script>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -21,6 +19,9 @@
 <!-- pace : 프로그레스바 lib -->
 <script data-pace-options='{ "document": false, "ajax": true, "eventLag": false }' src="/wheremasil/script/pace.js"></script>
 <link rel="stylesheet" href="/wheremasil/css/pace/orange/pace-theme-center-atom.css" />
+
+<!-- SearchCSS -->
+<link rel="stylesheet" href="/wheremasil/css/search/search.css">
 
 <style type="text/css">
 

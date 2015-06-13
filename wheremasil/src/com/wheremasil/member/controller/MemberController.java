@@ -97,7 +97,7 @@ public class MemberController{
 			if(m_password.equals(m.getM_password())){
 				System.out.println("트루접근");
 				session.setAttribute("login_info", m);
-				session.setMaxInactiveInterval(180);
+				session.setMaxInactiveInterval(3600);
 				url = default_url;
 			}else{
 				System.out.println("엘스접근");

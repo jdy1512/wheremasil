@@ -15,8 +15,96 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#delete").on("click",function(){
+		if (confirm("정말 삭제하시겠습니까??") == true){   
+		   deletePost($(this).attr("name"));
+		}else{   
+		    return;
+		}
+	});
+	modi
+	$("#modi").on("click",function(){
+		if (confirm("수정 합니까??") == true){   
+		   location.href="/wheremasil/board/modiReveiw.do?posting_id="+$(this).attr("name");
+		}else{   
+		    return;
+		}
+	});
+	
+	
+	
+});
+
+</script>
 
 <script type="text/javascript">
+
+
+function deletePost(posting_id){
+	alert(posting_id);	
+var txt = "posting_id" + "="+ posting_id;
+	
+	$.ajax({
+   	    url: '/wheremasil/board/deletePost.do',
+   	 type:"post",
+   	    processData: false,
+   	 
+	    data:txt,
+	    dataType:"text",
+   	    
+   	    success: function(result){
+   	   
+   	    	
+   	    	alert("성공");
+   	    	location.reload(true);
+   	    	
+   	    	
+   	   
+   	    },
+   	    error:function(result){
+   	    	
+   	    	alert("삭제실패");
+   	    }
+   	});
+	
+	
+	
+}
+
+function insertRpcnt(posting_id){
+	var txt = "posting_id" + "="+ posting_id;
+	
+	$.ajax({
+   	    url: '/wheremasil/board/insertRpcnt.do',
+   	 type:"post",
+   	    processData: false,
+   	 
+	    data:txt,
+	    dataType:"text",
+   	    
+   	    success: function(result){
+   	    //alert(	$(".relpy"+posting_id).val());//text("["+result+"]"));
+   	    	
+   	    	//alert("넘어온 리플수 : "+result);
+   	    	
+   	    	
+   	    	  	    	
+   	    	$(".relpy"+posting_id).text("["+result+"]");
+   	    	
+   	    	
+   	   
+   	    },
+   	    error:function(result){
+   	    	
+   	    	alert("리플수업데이트 실패");
+   	    }
+   	});
+	
+	
+}
+
 
 function selHit(id){
 	
@@ -24,7 +112,7 @@ function selHit(id){
 	
 	$.ajax({
    	    url: '/wheremasil/board/selHit.do',
-   	    
+   	 type:"post",
    	    processData: false,
    	 
 	    data:txt,
@@ -59,7 +147,6 @@ function selHit(id){
 <script type="text/javascript">
 
 $(document).ready(function(){
-	
 	$("#xx").on("click",function(){
 		alert("버튼이벤트");
 		 $.session.set("login_info", "value");
@@ -79,6 +166,12 @@ $(document).ready(function(){
 
 
 <style type="text/css">
+body{
+margin-top: 100px;
+}
+
+
+
 #recent{
 height: 100px;
 vertical-align: top;
@@ -174,33 +267,50 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 <body>
 
 
-<input type="button" id="xx" value="버튼"/>
+
 
  
 
 
-<!-- <table border="1" width="30%"  style="float: right;">
-<tbody>
-<tr>
-<td height="100px"> </td>
-
-</tr>
 
 
-</table> -->
-
-<div id="lolBody">
+<div id="lolBody" style="top-padding:10px;">
 <div id="lolmain">
 <div id="powerbbsBody">
 <table border="1" width="" cellpadding="10">
-<tr>
-<td width="70%" style="text-align:right;"><a href="/wheremasil/board/reivew/writer.do">여행리뷰등록</a></td>
-<td style="text-align:center;">최근인기게시물 </td>
+
+<tr><td width="910px" style="text-align:right;"><a href="/wheremasil/board/reivew/writer.do">
+<c:if test="${sessionScope.login_info !=null }">
+여행리뷰등록
+
+
+</c:if>
+
+</a>
+<c:if test="${sessionScope.login_info ==null }">
+로그인후 글쓰기 가능
+
+</c:if> 
+</td>
+
+
+<td  width="300px"style="text-align:center;">최근인기게시물 </td> 
 
 </tr>
-<tbody>
+
+</table>
+<table border="1" width="" cellpadding="10">
+<!-- <tr>
+
+  <td width="700px" style="text-align:right;"><a href="/wheremasil/board/reivew/writer.do">여행리뷰등록</a></td>
+<td  width="300px"  style="text-align:center;">최근인기게시물 </td> 
+
+</tr> -->
+<!-- <tbody> -->
+
+
 <tr>
-<td width="1000px">
+<td width="900px">
 <div class="gSeries">
 <div class="list">
 <div class="wrap middle">
@@ -209,7 +319,7 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 
 <ul class="list" style="width:100%;">
 
-<form id="board_list1" >
+
 
 
 <c:if test="${fn:length(requestScope.board_list) != 0 }">
@@ -261,7 +371,16 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 				min-height: 52px;
 				/*overflow: hidden;*/
 				overflow-x: hidden;
-				margin: 0 6px;"><a href="/wheremasil/board//postingVal.do?postring_id="+${board.posting_id}>${board.p_title }</a>&nbsp;&nbsp;<span style="cursor: pointer;"><span style="color: rgb(37, 113, 10); letter-spacing: -1px; font-size: 11px; font-weight: bold;" id="hits" >1234</span></span></h4>
+				margin: 0 6px;"><a href="/wheremasil/board//postingVal.do?postring_id=${board.posting_id}">${board.p_title }</a>&nbsp;&nbsp;<span ><span style="color: rgb(37, 113, 10); letter-spacing: -1px; font-size: 11px; font-weight: bold;" id="hits" > <a href="/wheremasil/board//postingVal.do?postring_id=${board.posting_id}" class="relpy${board.posting_id}">댓글자리</a></span></span></h4>
+				 <c:if test="${sessionScope.login_info.member_id ==board.member_id}">
+				<a href="#" id="delete" name="${board.posting_id}">삭제</a>
+				
+				</c:if>
+				 <c:if test="${sessionScope.login_info.member_id ==board.member_id}">
+				<a href="#" id="modi" name="${board.posting_id}">수정</a>
+				
+				</c:if>  
+				
 				<span class="div" style="margin-top: 5px; margin-left: 5px;"><span style="cursor: pointer;">${board.member_id}</span>
 </span>				<div class="hitreq">
 	
@@ -274,7 +393,9 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 			</li>
 		</ul>
 	</li>
-	
+	<script type="text/javascript">
+	insertRpcnt("${board.posting_id}");
+	</script>
 		</c:forEach>
 		
 </c:if>
@@ -290,7 +411,7 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 	
 	
 	
-	</form>
+	
 	</ul>
 	
 	
@@ -299,7 +420,7 @@ body, input, select, textarea, a, th, td, caption, h1, h2, h3, h4, h5, h6  { fon
 	</div>
 	</div>
 	</td>
-	<td>
+	<td width="300px">
 	
 	<table>
 <%int a  =1; %>

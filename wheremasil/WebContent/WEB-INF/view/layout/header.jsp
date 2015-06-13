@@ -2,133 +2,108 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				var default_url;
-				$("#login_form_bt").on("click", function() {
-					var s = location.href;
-
-					default_url = s;
-					
-				});
-
-				$("#login_send").on(
-						"click",
-						function() {
-
-							var member_id = $('#member_id').val();
-							var m_password = $('#m_password').val();
-
-							var editor1 = "member_id" + "=" + member_id + "&"
-									+ "m_password" + "=" + m_password + "&"
-									+ "default_url" + "=" + default_url;
-
-						
-							$.ajax({
-								url : "/wheremasil/member/logincheck.do",
-								data : editor1,
-								type : "post",
-								dataType : "text",
-								success : function(data) {
-
+$(document).ready(function() {
+	var default_url;
+	$("#login_form_bt").on("click", function() {
+		var s = location.href;
+		default_url = s;
+	});
+	$("#login_send").on("click", function() {
+		var member_id = $('#member_id').val();
+		var m_password = $('#m_password').val();
+		var editor1 = "member_id" + "=" + member_id + "&"
+					+ "m_password" + "=" + m_password + "&"
+					+ "default_url" + "=" + default_url;
+		$.ajax({
+			url : "/wheremasil/member/logincheck.do",
+			data : editor1,
+			type : "post",
+			dataType : "text",
+			success : function(data) {
+				// window.location.replace(data);
+				if (data == "2") {
+					alert("아이디를 확인하세요");
+				} else if (data == "1") {
+					alert("password를 확인하세요");
+				} else {
+					location.reload(true);
+				}
+			},
+			error : function(data) {
+				alert("로그인실패 새로고침(F5)눌러주세요~");
+			}
+		});
+	});
+	$("#join_send").on("click",	function() {
+		var member_id1 = $('#member_id1').val();
+		var m_password1 = $('#m_password1').val();
+		var m_name1 = $('#m_name1').val();
 							
-
-									// window.location.replace(data);
-
-									if (data == "2") {
-										alert("아이디를 확인하세요");
-
-									} else if (data == "1") {
-										alert("password를 확인하세요");
-									} else {
-
-										location.reload(true);
-
-									}
-
-								},
-								error : function(data) {
-									alert("로그인실패 새로고침(F5)눌러주세요~");
-								}
-							});
-						});
-				
-				$("#join_send").on("click",	function() {
-							
-							var member_id1 = $('#member_id1').val();
-							var m_password1 = $('#m_password1').val();
-							var m_name1 = $('#m_name1').val();
-							
-							var editor1 = "member_id12" + "=" + member_id1
-									+ "&" + "m_password1" + "=" + m_password1
-									+ "&" + "m_name1" + "=" + m_name1;
-							$.ajax({
-								url : "/wheremasil/member/joinSuccess.do",
-								data : editor1,
-								type : "post",
-								dataType : "text",
-								success : function(data) {
-									if (data == "1") {
-										alert("아이디중복")
-
-									} else if (data == "2") {
-										alert("닉네임중복");
-
-									} else {
-										location.reload(true);
-									}
-
-								},
-								error : function(data) {
-									alert("회원가입실패 새로고침(F5)눌러주세요~");
-								}
-							});
-						});
-
-				$("#logout_bt").on("click", function() {
-
-					alert("로그아웃완료!");
-					//location.href("/wheremasil2	/member/logout.do?page="+location.href);
-					var editor1 = "page" + "=" + location.href;
-					$.ajax({
-						url : "/wheremasil/member/logout.do",
-						data : editor1,
-						type : "post",
-						dataType : "text",
-						success : function(data) {
-							location.reload(true);
-						},
-						error : function(data) {
-							location.reload(true);
-						}
-					});
-				});
-				
-				$("#popup_cancel_login").on("click", function() {
-					$("#popup_layer_login").css("visibility","hidden");
-				});
-				
-				$("#popup_cancel_join").on("click", function() {
-					$("#popup_layer_join").css("visibility","hidden");
-				});
-				
-				$("#mypage").on("click", function() {
-					
-					alert("123");
-					location.href("/wheremasil/mypage/mypageconn.do");
-		
-				});
-
-			});
+		var editor1 = "member_id12" + "=" + member_id1
+					+ "&" + "m_password1" + "=" + m_password1
+					+ "&" + "m_name1" + "=" + m_name1;
+		$.ajax({
+			url : "/wheremasil/member/joinSuccess.do",
+			data : editor1,
+			type : "post",
+			dataType : "text",
+			success : function(data) {
+				if (data == "1") {
+					alert("아이디중복")
+				} else if (data == "2") {
+					alert("닉네임중복");
+				} else {
+					location.reload(true);
+				}
+			},
+			error : function(data) {
+				alert("회원가입실패 새로고침(F5)눌러주세요~");
+			}
+		});
+	});
+	$("#logout_bt").on("click", function() {
+		alert("로그아웃완료!");
+		//location.href("/wheremasil2	/member/logout.do?page="+location.href);
+		var editor1 = "page" + "=" + location.href;
+		$.ajax({
+			url : "/wheremasil/member/logout.do",
+			data : editor1,
+			type : "post",
+			dataType : "text",
+			success : function(data) {
+				location.reload(true);
+			},
+			error : function(data) {
+				location.reload(true);
+			}
+		});
+	});
+	$("#popup_cancel_login").on("click", function() {
+		$("#popup_layer_login").css("visibility","hidden");
+	});
+	$("#popup_cancel_join").on("click", function() {
+		$("#popup_layer_join").css("visibility","hidden");
+	});
+	$("#mypage").on("click", function() {
+		alert("123");
+		location.href("/wheremasil/mypage/mypageconn.do");
+	});
+	// HeaderSearchForm 오류 검증
+	$("#headerSearch").on("submit",function(){
+		if(!$("#headerSearchWord").val() || $("#headerSearchWord").val().trim() == ""){
+			$("#headerSearchWord").focus();
+			return false;
+		}
+		return true;
+	});
+});
 	function fn_layer_popup_login() {
 		$("#popup_layer_login").css("visibility","visible");
-
 	}
 	
 	function fn_layer_popup_join() {
 		$("#popup_layer_join").css("visibility","visible");
 		$("#popup_layer_login").css("visibility","hidden");
-
 	}
 </script>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -155,13 +130,19 @@
 				<li><a href="/wheremasil/board/review.do">리뷰</a></li>
 				<li><a href="/wheremasil/board/qna.do">Q&A</a></li>
 			</ul>
-			<form class="navbar-form navbar-right" role="search">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
-				</div>
-				<button type="submit" class="btn btn-default">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-				</button>
+			<form class="navbar-form navbar-right" role="search" action="/wheremasil/search/simpleSearch.do" id="headerSearch">
+				<!-- headerSearch form hidden check -->
+				<c:if test="${empty requestScope.header_search}">
+					<div class="form-group">
+						<input type="hidden" name="page" value="">
+		 				<input type="text" class="form-control" placeholder="Search" name="searchWord" id="headerSearchWord">
+		 				<input type="hidden" name="category" value="simple">
+		 				<input type="hidden" name="type" value="">
+					</div>
+					<button type="submit" class="btn btn-default" id="searchWordBtn">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					</button>
+				</c:if>
 				<c:if test="${sessionScope.login_info != null}">
 					<input id="logout_bt" type="button"	class="btn btn-default navbar-btn" value="로그아웃">
 					<input id="mypage" type="button" class="btn btn-default navbar-btn" value="마이페이지">

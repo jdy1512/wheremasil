@@ -15,6 +15,7 @@ import com.wheremasil.board.vo.PagingBean;
 import com.wheremasil.board.vo.Board;
 import com.wheremasil.board.vo.Reply;
 import com.wheremasil.board.vo.ResultBoard;
+import com.wheremasil.member.vo.Member;
 @Repository
 public class BoardDAOImpl {
 	@Autowired
@@ -22,6 +23,47 @@ public class BoardDAOImpl {
 	
 	private String namespace="board.dao.boardMapper.";
 	
+	
+	public int deletePost(String posting_id){
+		
+		return session.delete(namespace+"deletePost",posting_id);
+	}
+	
+	
+	public List<Reply> insertRpcnt(String posting_id){
+		
+		return session.selectList(namespace+"insertRpcnt",posting_id);
+	}
+	
+	
+	public List<ResultBoard> returnCategoriList(String categori){
+		return session.selectList(namespace+"returnCategoriList",categori);
+	}
+	
+	
+	public List<Board> selectSlike(){
+		
+		 return session.selectList(namespace+"selectSlike");
+		
+	}
+	
+	
+	
+	public List<Member> returnMemberInfo(String member_id){
+		
+		return session.selectList(namespace+"selectMemberInfo",member_id);
+	}
+	
+	public ResultBoard returnPostingInfo(String posting_id){
+		return session.selectOne(namespace+"selectPostingInfo",posting_id);
+	}
+	
+	
+	
+	public int insertSb(Board board){
+		
+		return session.insert(namespace+"insertSb",board);
+	}
 	
 	
 	public int insertRp(Reply reply){
@@ -39,9 +81,12 @@ public class BoardDAOImpl {
 	
 	
 	
+	
+	
+	
 	public int insertBoardVo(Board board){
-	System.out.println("보냅니다");	
-	System.out.println(session);
+	//("보냅니다");	
+	//(session);
 		return session.insert(namespace+"insertBoardVo",board);
 		
 	}
@@ -70,6 +115,12 @@ public class BoardDAOImpl {
 	
 	public List<Reply>getRplist(String posting_id){
 		return session.selectList(namespace+"selectRpList",posting_id);
+	}
+	
+	
+public List<ResultBoard> returnSbValue(){
+		
+		return session.selectList(namespace+"selectAllSpage");
 	}
 	
 	public int insertLike(String posting_id){
