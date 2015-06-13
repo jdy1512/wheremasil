@@ -3,6 +3,7 @@
 <configuration>
 	<typeAliases>
 		<package name="com.wheremasil.plan.vo"/>
+		<package name="com.wheremasil.search.vo"/>
 	</typeAliases>
 	
 	<mappers>
@@ -10,5 +11,6 @@
 		<mapper resource="com/wheremasil/plan/mapper/planMapper.xml"/>
 		<mapper resource="com/wheremasil/board/mapper/boardMapper.xml"/>
 		<mapper resource="com/wheremasil/member/mapper/memberMapper.xml"/>
+		<mapper resource="com/wheremasil/search/mapper/searchMapper.xml"/>
 	</mappers>
 </configuration>
