@@ -36,7 +36,6 @@
 		$("#tile_right_nav").css("visibility", "hidden");
 		$(".left_nav").css("width", "0px");
 		$(".right_nav").css("width", "0px");
-		
 		$("#schedule_startDate").text(data[0].startDate);
 		$("#schedule_endDate").text(data[data.length - 1].endDate);
 
@@ -47,7 +46,8 @@
 					content += '<div style="clear:both;"><p>' + data[idx].memo + '</p></div>' +
 					'<hr style="margin:0 auto;padding:0 auto;"/><p>총 경비 : ' + totalCost + '원</p><hr style="margin:0 auto;padding:0 auto;"/></div>';
 					$("#schedule_root").append(content);
-					
+
+					total_cost += parseInt(totalCost, 10);
 					totalCost = 0;
 				}
 				writeFlg = !writeFlg;
@@ -66,12 +66,14 @@
 			total_vehicle += parseInt(data[idx].costVehicle, 10);
 			total_stay += parseInt(data[idx].costStay, 10);
 			total_etc += parseInt(data[idx].costEtc, 10);
-			total_cost += parseInt(totalCost, 10);
 			
 			var latLng = new daum.maps.LatLng(data[idx].aLatitude, data[idx].aLongitude);
 			bounds.extend(latLng);
     		schedulePath.push(latLng);
+    		
+    		
 		});
+		total_cost += parseInt(totalCost, 10);
 		content += '<div style="clear:both;">' + data[data.length - 1].memo + '</div>' +
 		'<hr style="margin:0 auto;padding:0 auto;"/><p>총 경비 : ' + totalCost + '원</p><hr style="margin:0 auto;padding:0 auto;"/></div>';
 		$("#schedule_root").append(content);
@@ -170,6 +172,12 @@
 		polyline.setMap(map);
 
 	});// end of ready
+	
+	window.onkeydown = function() {
+		var kcode = event.keyCode;
+		if(kcode == 8 || kcode == 116) event.returnValue = false;
+	}
+	
 </script>
 
 <div class="schedule_container">
@@ -182,16 +190,32 @@
 	<div class="schedule_container side">
 		<div id="scheduleMap" class="schedule_container side map"></div>
 		<div class="schedule_container side cost">
-	    		<h3 class="panel-title">여행 경비 정리</h3>
-	  		<div style="padding-left:30px;text-align:left;">
-	    		<b>식비 : <span id="total_food"></span></b><br/>
-				<b>교통비 : <span id="total_vehicle"></span></b><br/>
-				<b>숙박비 : <span id="total_stay"></span></b><br/>
-				<b>기타 : <span id="total_etc"></span></b><br/>
-			<hr style="margin:0 0;padding:0 0;"/>
-			<p style="padding-left:30px;text-align:left;"><b>총 금액 : <span id="total_cost"></span></b></p>
-			</div>
+		<table class="type08" style="width:100%;">
+		    <thead>
+			    <tr>
+			        <th colspan="4"><img src ="/wheremasil/uploads/images/icon/Check_box_32.png">여행경비정리</th>
+			    </tr>
+		    </thead>
+		    <tbody>
+			    <tr>
+			        <th scope="row">식비</th>
+			        <td><span id="total_food"></span></td>
+			        <th scope="row">교통비</th>
+			        <td><span id="total_vehicle"></span></td>
+			    </tr>
+			    <tr>
+			        <th scope="row">숙박비</th>
+			        <td><span id="total_stay"></span></td>
+			        <th scope="row">기타</th>
+			        <td><span id="total_etc"></span></td>
+			    </tr>
+			    <tr>
+			        <th scope="row">총 금액</th>
+			        <td colspan="3"><span id="total_cost"></span></td>
+			    </tr>
+		    </tbody>
+		</table>
+			<input type="button" class="submit_plan" value="완료" onClick="location.href='/wheremasil/index.do';" style="margin-top:10px;">
 		</div>
-		<input type="button" value="닫기" style="margin-top:10px;">
 	</div>
 </div>

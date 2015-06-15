@@ -368,11 +368,11 @@ input.img_button_login {
 }
 .schedule_container {
 	width: 100%;
-	height: 700px;
+	height: 750px;
 	margin: 0 0 auto;
 	padding: 0 0 auto;
 	text-align: center;
-	background-color: #EEEEEE;
+	background-color: #FFFFFF;
 }
 
 .schedule_container .itembox {
@@ -404,11 +404,11 @@ input.img_button_login {
 }
 
 .schedule_container .side .cost {
-	width: 300px;
-	height: 200px;
-	margin: 10px 85px;
+	width: 350px;
+	height: 310px;
+	margin: 10px 60px;
 	padding: 0 auto;
-	border: 1px solid black;
+	border:0px;
 }
 
 .schedule_container .itembox .root {
@@ -502,6 +502,39 @@ input.img_button_login {
 	float:left;
 	margin:30px;
 }
+
+table.type08 {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+    border-left: 1px solid #ccc;
+}
+
+table.type08 thead th {
+    padding: 10px;
+    font-weight: bold;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 2px solid #c00;
+    background: #dcdcd1;
+}
+table.type08 tbody th {
+    width: 200px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #ececec;
+}
+table.type08 td {
+    width: 200px;
+    padding: 10px;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
 </style>
 </head>
 <body>
