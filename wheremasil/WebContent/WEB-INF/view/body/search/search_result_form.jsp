@@ -27,8 +27,11 @@ $(document).ready(function(){
 		}
 		return true;
 	});
-
-	getPlanMapList("${requestScope.planId_list}", "plan_map_", "portfolio-item");
+	
+	if("${requestScope.planId_list}"){
+		getPlanMapList("${requestScope.planId_list}", "plan_map_", "portfolio-item");
+	}
+	
 });
 
 </script>
@@ -97,7 +100,7 @@ $(document).ready(function(){
    	
     <c:choose>
     	<c:when test="${requestScope.category == 'simple' || requestScope.category == 'detailsSimple'}">
-    		<c:if test="${fn:length(requestScope.planId_list) == 0 && fn:length(requestScope.review_list) == 0}">
+    		<c:if test="${fn:length(requestScope.planId_list) == 0 && fn:length(requestScope.board_list) == 0}">
     			<div class="row">
     				<div class="col-lg-12">
         				<h2 class="page-header">검색결과가 없습니다.</h2>
@@ -125,21 +128,21 @@ $(document).ready(function(){
     				</div>	
     			</c:if>	
     		</c:if>
-    		<c:if test="${fn:length(requestScope.review_list) != 0 }">
+    		<c:if test="${fn:length(requestScope.board_list) != 0 }">
     			<div class="row">
     				<div class="col-lg-12">
         				<h2 class="page-header">리뷰</h2>
         			</div>
     			</div>
-	    		<c:forEach items="${requestScope.review_list }" begin="0" end="2" var="review">
+	    		<c:forEach items="${requestScope.board_list }" begin="0" end="2" var="review">
 	        		<div class='col-md-4 portfolio-item'>
-						<a href='http://localhost:8088/wheremasil/board/postingVal.do?posting_id=${review.postingId }'>
-							<img class='img-responsive' src='${review.reviewImgPath }' alt=''></a>
-							<h3><a href='http://localhost:8088/wheremasil/board/postingVal.do?posting_id=${review.postingId }'>${fn:substring(review.reviewTitle,0,40)}</a></h3>
-							<p>${fn:substring(review.reviewContent,0,70)}<br> 추천수 : ${review.reviewLike}		조회수 : ${review.reviewHits}<br>ID : ${review.memberId}</p>
+						<a href='http://localhost:8088/wheremasil/board/postingVal.do?posting_id=${review.posting_id }'>
+							<img class='img-responsive' src='${review.p_img_path }' alt=''></a>
+							<h3><a href='http://localhost:8088/wheremasil/board/postingVal.do?posting_id=${review.posting_id }'>${fn:substring(review.p_title,0,40)}</a></h3>
+							<p>${fn:substring(review.p_content,0,70)}<br> 추천수 : ${review.p_like}		조회수 : ${review.p_hits}<br>ID : ${review.member_id}</p>
 					</div>
 				</c:forEach>
-				<c:if test="${fn:length(requestScope.review_list) >= 4 }">
+				<c:if test="${fn:length(requestScope.board_list) >= 4 }">
 					<div class="row text-center">
 	    				<div class="col-lg-12">
 	        				<h4 class="page-header"><a href='http://127.0.0.1:8088/wheremasil/search/${requestScope.search }Search.do?page=&searchWord=${requestScope.search_word }&category=${requestScope.search }&type=review&title=${requestScope.title }&content=${requestScope.content }&theme=${requestScope.theme }&attraction=${requestScope.attraction }&number=${requestScope.number}'>더보기</a></h4>
@@ -164,18 +167,18 @@ $(document).ready(function(){
 					</div>
 				</c:forEach>		
 		    </c:if>
-		    <c:if test="${fn:length(requestScope.review_list) != 0 }">
+		    <c:if test="${fn:length(requestScope.board_list) != 0 }">
 		    	<div class="row">
 		    		<div class="col-lg-12">
 		        		<h2 class="page-header">리뷰</h2>
 		        	</div>
 		    	</div>
-		    	<c:forEach items="${requestScope.review_list }" var="review">
-		        	<div class='col-md-4 portfolio-item'>
-						<a href='http://localhost:8088/wheremasil/board/postingVal.do?posting_id=${review.postingId }'>
-							<img class='img-responsive' src='${review.reviewImgPath }' alt=''></a>
-							<h3><a href='http://localhost:8088/wheremasil/board/postingVal.do?posting_id=${review.postingId }'>${fn:substring(review.reviewTitle,0,40)}</a></h3>
-							<p>${fn:substring(review.reviewContent,0,70)}<br> 추천수 : ${review.reviewLike}		조회수 : ${review.reviewHits}<br>ID : ${review.memberId}</p>
+		    	<c:forEach items="${requestScope.board_list }" var="review">
+		        	div class='col-md-4 portfolio-item'>
+						<a href='http://localhost:8088/wheremasil/board/postingVal.do?posting_id=${review.posting_id }'>
+							<img class='img-responsive' src='${review.p_img_path }' alt=''></a>
+							<h3><a href='http://localhost:8088/wheremasil/board/postingVal.do?posting_id=${review.posting_id }'>${fn:substring(review.p_title,0,40)}</a></h3>
+							<p>${fn:substring(review.p_content,0,70)}<br> 추천수 : ${review.p_like}		조회수 : ${review.p_hits}<br>ID : ${review.member_id}</p>
 					</div>
 				</c:forEach>		
 		    </c:if>

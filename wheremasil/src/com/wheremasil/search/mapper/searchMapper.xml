@@ -22,6 +22,7 @@
 	<sql id="review-default-select">
 		select	posting_id,
 				p_content,
+				p_datetime,
 				p_title,
 				p_number,
 				p_like,
@@ -38,29 +39,18 @@
 	<!-- 
 		resultmap
 	-->
-	
-	<resultMap type="planResult" id="planresult-resultmap">
-		<id column="plan_id" property="planId"/>
-		<result column="p_title" property="planTitle"/>
-		<result column="p_start_date" property="planStartDate"/>
-		<result column="p_end_date" property="planEndDate"/>
-		<result column="p_groupno" property="planGroupNum"/>
-		<result column="p_map_img_path" property="planMapImgPath"/>
-		<result column="t_name" property="planTheme"/>
-		<result column="a_name" property="planAttraction"/>
-		<result column="a_address" property="planAddress"/>
-	</resultMap>
-	
-	<resultMap type="reviewResult" id="reviewresult-resultmap">
-		<id column="posting_id" property="postingId"/>
-		<result column="p_content" property="reviewContent"/>
-		<result column="p_number" property="reviewNumber"/>
-		<result column="p_title" property="reviewTitle"/>
-		<result column="p_like" property="reviewLike"/>
-		<result column="p_hits" property="reviewHits"/>
-		<result column="p_img_path" property="reviewImgPath"/>
-		<result column="boardtype_id" property="boardtypeId"/>
-		<result column="member_id" property="memberId"/>
+		
+	<resultMap type="ResultBoard" id="reviewresult-resultmap">
+		<id column="posting_id" property="posting_id"/>
+		<result column="p_content" property="p_content"/>
+		<result column="p_datetime" property="p_datetime"/>
+		<result column="p_number" property="p_number"/>
+		<result column="p_like" property="p_like"/>
+		<result column="p_title" property="p_title"/>
+		<result column="p_hits" property="p_hits"/>
+		<result column="p_img_path" property="p_img_path"/>
+		<result column="boardtype_id" property="boardtype_id"/>
+		<result column="member_id" property="member_id"/>
 	</resultMap>
 	
 	<!-- end of resultmap -->
@@ -69,21 +59,9 @@
 		defaultSearch select
 	-->
 	
-	<!-- defaultPlanSearch -->
-	<select id="selectPlanSearch" parameterType="map" resultMap="planresult-resultmap">
-		select	plan_id, p_title, p_start_date, p_end_date, p_groupno, p_map_img_path, 
-				t_name, a_name, a_address
-		from(
-				<include refid="plan-default-select"/>
-		)
-		where 	p_title like '%'||#{searchWord}||'%' or t_name like '%'||#{searchWord}||'%'
-				or a_name like '%'||#{searchWord}||'%'
-	</select>
-	
 	<!-- defaultPlanSearchPaging -->
-	<select id="selectPlanSearchPaging" parameterType="map" resultMap="planresult-resultmap">
-		select	plan_id, p_title, p_start_date, p_end_date, p_groupno, 
-			   	p_map_img_path, t_name, a_name, a_address
+	<select id="selectPlanSearchPaging" parameterType="map" resultType="String">
+		select	plan_id
 		from(
 				select	ceil(rownum/#{contentsPerPage}) page, plan_id, p_title,
 					 	p_start_date, p_end_date, p_groupno, p_map_img_path, t_name, a_name, a_address
@@ -118,24 +96,15 @@
 				or a_name like '%'||#{searchWord}||'%'
 	</select>
 	
-	<!-- defaultReviewSearch -->
-	<select id="selectReviewSearch" parameterType="map" resultMap="reviewresult-resultmap">
-		select	posting_id, p_content, p_title, p_number, p_like, p_hits, p_img_path, boardtype_id, member_id
-		from(
-				<include refid="review-default-select"/>
-		)
-		where	p_content like '%'||#{searchWord}||'%' or p_title like '%'||#{searchWord}||'%'
-	</select>
-	
 	<!-- defaultReviewSearchPaging -->
 	<select id="selectReviewSearchPaging" parameterType="map" resultMap="reviewresult-resultmap">
-		select	posting_id, p_content, p_title, p_number, p_like, p_hits, p_img_path, boardtype_id,
+		select	posting_id, p_content, p_datetime, p_title, p_number, p_like, p_hits, p_img_path, boardtype_id,
 				member_id
 		from(
-				select	ceil(rownum/#{contentsPerPage}) page, posting_id, p_content, p_title, p_number,
+				select	ceil(rownum/#{contentsPerPage}) page, posting_id, p_content, p_datetime, p_title, p_number,
 						p_like, p_hits, p_img_path, boardtype_id, member_id
 				from(
-						select	posting_id, p_content, p_title, p_number, p_like, p_hits, 
+						select	posting_id, p_content, p_datetime, p_title, p_number, p_like, p_hits, 
 								p_img_path, boardtype_id, member_id
 						from(
 								<include refid="review-default-select"/>
@@ -161,32 +130,9 @@
 		detailsSearch select
 	-->
 	
-	<!-- detailsPlanSearch -->
-	<select id="selectPlanDetailsSearch" parameterType="map" resultMap="planresult-resultmap">
-		select	plan_id, p_title, p_start_date, p_end_date, p_groupno, p_map_img_path, 
-				t_name, a_name, a_address
-		from(
-				<include refid="plan-default-select"/>
-		)
-		where	1=1
-				<if test="title != null and title != ''">
-					and p_title like '%'||#{title}||'%'
-				</if>
-				<if test="theme != null and theme != ''">
-					and t_name like '%'||#{theme}||'%'
-				</if>
-				<if test="attraction != null and attraction != ''">
-					and a_name like '%'||#{attraction}||'%'
-				</if>
-				<if test="number != null and number !=''">
-					and p_groupno = #{number}
-				</if>
-	</select>
-	
 	<!-- detailsPlanSearchPaging -->
-	<select id="selectPlanDetailsSearchPaging" parameterType="map" resultMap="planresult-resultmap">
-		select	plan_id, p_title, p_start_date, p_end_date, p_groupno, 
-			   	p_map_img_path, t_name, a_name, a_address
+	<select id="selectPlanDetailsSearchPaging" parameterType="map" resultType="String">
+		select	plan_id
 		from(
 				select	ceil(rownum/#{contentsPerPage}) page, plan_id, p_title,
 					 	p_start_date, p_end_date, p_groupno, p_map_img_path, t_name, a_name, a_address
@@ -204,18 +150,23 @@
 								<include refid="plan-default-select"/>
 						)
 						where	1=1
-								<if test="title != null and title != ''">
-									and p_title like '%'||#{title}||'%'
-								</if>
-								<if test="theme != null and theme != ''">
-									and t_name like '%'||#{theme}||'%'
-								</if>
-								<if test="attraction != null and attraction != ''">
-									and a_name like '%'||#{attraction}||'%'
-								</if>
-								<if test="number != null and number !=''">
-									and p_groupno = #{number}
-								</if>
+								<choose>
+									<when test="title != null and title != ''">
+										and p_title like '%'||#{title}||'%'
+									</when>
+									<when test="theme != null and theme != ''">
+										and t_name like '%'||#{theme}||'%'
+									</when>
+									<when test="attraction != null and attraction != ''">
+										and a_name like '%'||#{attraction}||'%'
+									</when>
+									<when test="number != null and number !=''">
+										and p_groupno = #{number}
+									</when>
+									<otherwise>
+										and 1=0
+									</otherwise>
+								</choose>
 						order by plan_id
 				)
 		)
@@ -229,55 +180,50 @@
 				<include refid="plan-default-select"/>
 			)
 		where	1=1
-				<if test="title != null and title != ''">
-					and p_title like '%'||#{title}||'%'
-				</if>
-				<if test="theme != null and theme != ''">
-					and t_name like '%'||#{theme}||'%'
-				</if>
-				<if test="attraction != null and attraction != ''">
-					and a_name like '%'||#{attraction}||'%'
-				</if>
-				<if test="number != null and number !=''">
-					and p_groupno = #{number}
-				</if>
-	</select>
-	
-	<!-- detailsReviewSearch -->
-	<select id="selectReviewDetailsSearch" parameterType="map" resultMap="reviewresult-resultmap">
-		select	posting_id, p_content, p_title, p_number, p_like, p_hits, p_img_path, boardtype_id, member_id
-		from(
-				<include refid="review-default-select"/>
-		)
-		where	1=1
-				<if test="title != null and title != ''">
-					and p_title like '%'||#{title}||'%'
-				</if>
-				<if test="content != null and content != ''">
-					and p_content like '%'||#{content}||'%'
-				</if>
+				<choose>
+					<when test="title != null and title != ''">
+						and p_title like '%'||#{title}||'%'
+					</when>
+					<when test="theme != null and theme != ''">
+						and t_name like '%'||#{theme}||'%'
+					</when>
+					<when test="attraction != null and attraction != ''">
+						and a_name like '%'||#{attraction}||'%'
+					</when>
+					<when test="number != null and number !=''">
+						and p_groupno = #{number}
+					</when>
+					<otherwise>
+						and 1=0
+					</otherwise>
+				</choose>
 	</select>
 	
 	<!-- detailsReviewSearchPaging -->
 	<select id="selectReviewDetailsSearchPaging" parameterType="map" resultMap="reviewresult-resultmap">
-		select	posting_id, p_content, p_title, p_number, p_like, p_hits, p_img_path, boardtype_id,
+		select	posting_id, p_content, p_datetime, p_title, p_number, p_like, p_hits, p_img_path, boardtype_id,
 				member_id
 		from(
-				select	ceil(rownum/#{contentsPerPage}) page, posting_id, p_content, p_title, p_number,
+				select	ceil(rownum/#{contentsPerPage}) page, posting_id, p_content, p_datetime, p_title, p_number,
 						p_like, p_hits, p_img_path, boardtype_id, member_id
 				from(
-						select	posting_id, p_content, p_title, p_number, p_like, p_hits, 
+						select	posting_id, p_content, p_datetime, p_title, p_number, p_like, p_hits, 
 								p_img_path, boardtype_id, member_id
 						from(
 								<include refid="review-default-select"/>
 						)
 						where	1=1
-								<if test="title != null and title != ''">
-									and p_title like '%'||#{title}||'%'
-								</if>
-								<if test="content != null and content != ''">
-									and p_content like '%'||#{content}||'%'
-								</if>
+								<choose>
+									<when test="title != null and title != ''">
+										and p_title like '%'||#{title}||'%'
+									</when>
+									<when test="content != null and content != ''">
+										and p_content like '%'||#{content}||'%'
+									</when>
+									<otherwise>
+										and 1=0
+									</otherwise>
+								</choose>
 				)
 		)
 		where page = #{pageNo}
@@ -290,12 +236,17 @@
 				<include refid="review-default-select"/>
 			)
 		where	1=1
-				<if test="title != null and title != ''">
-					and p_title like '%'||#{title}||'%'
-				</if>
-				<if test="content != null and content != ''">
-					and p_content like '%'||#{content}||'%'
-				</if>
+				<choose>
+					<when test="title != null and title != ''">
+						and p_title like '%'||#{title}||'%'
+					</when>
+					<when test="content != null and content != ''">
+						and p_content like '%'||#{content}||'%'
+					</when>
+					<otherwise>
+						and 1=0
+					</otherwise>
+				</choose>
 	</select>
 	
 	<!-- end of detailsSearch -->
