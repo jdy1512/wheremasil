@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.wheremasil.plan.vo.Area;
 import com.wheremasil.plan.vo.AreaCost;
+import com.wheremasil.plan.vo.PlanDetail;
+import com.wheremasil.plan.vo.PlanMap;
 import com.wheremasil.plan.vo.PlannerSchedule;
 import com.wheremasil.plan.vo.Schedule;
 
@@ -17,4 +19,9 @@ public interface PlannerScheduleDAO {
 	public int insertSchedule(Schedule schedule);
 	public int updateScheduleByMemo(Schedule schedule);
 	public int insertAreaCost(AreaCost ac);
+	
+	public List<PlanDetail> selectPlanDetails(String planId);
+	
+	public List<PlanMap> selectPlanIdListByNum(int num);
+	public List<PlanMap> selectPlanMapList(List<String> planIdList);
 }

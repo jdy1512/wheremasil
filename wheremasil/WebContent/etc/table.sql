@@ -213,7 +213,7 @@ ALTER TABLE SCHEDULE_PICTURE
 /* AREA */
 CREATE TABLE AREA (
    area_id VARCHAR2(16) NOT NULL, /* 지역고유코드 */
-   a_name VARCHAR2(32) NOT NULL, /* 지역 이름 */
+   a_name VARCHAR2(256) NOT NULL, /* 지역 이름 */
    a_address VARCHAR2(128), /* 지역 주소 */
    a_latitude VARCHAR2(32) NOT NULL, /* 지역 위도 */
    a_longitude VARCHAR2(32) NOT NULL, /* 지역 경도 */

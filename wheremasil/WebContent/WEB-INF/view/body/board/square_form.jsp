@@ -1,12 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script src="http://www.google-analytics.com/ga.js" type="text/javascript"></script>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 
+<script src="http://www.google-analytics.com/ga.js"
+	type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/wheremasil/script/jquery.blockUI.js"></script>
 
 
 
@@ -14,13 +19,600 @@
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#tag").on("click", function() {
+
+		});
+
+	});
+</script>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+function delay(gap){ /* gap is in millisecs */ 
+  var then,now; 
+  then=new Date().getTime(); 
+  now=then; 	
+  while((now-then)<gap){ 
+    now=new Date().getTime();  // í˜„ì¬ì‹œê°„ì„ ì½ì–´ í•¨ìˆ˜ë¥¼ ë¶ˆëŸ¬ë“¤ì¸ ì‹œê°„ê³¼ì˜ ì°¨ë¥¼ ì´ìš©í•˜ì—¬ ì²˜ë¦¬ 
+  } 
+} 
+
+
+	function detailveiw(posting_id) {
+		var txt = "posting_id" + "=" + posting_id;
+
+		$
+				.ajax({
+					url : '/wheremasil/board/getMemberInfo.do',
+					type : "post",
+					data : txt,
+					dataType : "json",
+					success : function(result) {
+						var r;
+						var c;
+					
+
+						
+						r = returnTy(result.boardtype_id);
+						c = getdata(result.p_datetime);
+
+						//alert("ì¹´í…Œê³ ë¦¬ë¦¬ìŠ¤íŠ¸ë°›ì•„ì˜´");
+						$
+								.blockUI({
+									message : "<p align='middle'><div class='modal-content'><div class='modal-header'><button class='close' aria-hidden='true' type='button' data-dismiss='modal' onclick='removeModal();'>Ã—</button><h4 class='modal-title' id='notifydetail_title'>NEWS FEED</h4></div><div class='modal-body' style='width: 580px; height: 430px;'>"
+											+ "<table width='200' style='padding: 0px; border: 0px currentColor; margin-bottom: 10px;'><tbody><tr><td vAlign='top' style='margin: 0px; padding: 0px; border: 0px currentColor;'><a href='#'><img width='36' id='img_pf' class='img"+result.member_id+"'  src='' border='0'></a></td><td vAlign='top' style='margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 0px;'><a href='#?id=dbswndz '><font class='small' style='color: gray;'><b>"
+											+ result.member_id
+											+ "</b></font></a> <a href='javascript:detailveiw("
+											+ result.posting_id
+											+ ")'><font class='small'>"
+											+ result.p_content
+											+ "</font></a> <font class='small'>"
+											+ c
+											+ "</font></td></tr></tbody></table>"
+											+ "<iframe width='560' height='400' id='if_notifydetail' frameBorder='0' scrolling='no'></iframe></div></div></p>"
+								});
+						getMemberImg(result.member_id);
+
+					},
+					error : function(result) {
+						alert("ì¹´í…Œê³ ë¦¬ ë¦¬ìŠ¤íŠ¸ ë°›ì•„ì˜¤ê¸° ì‹¤íŒ¨");
+					}
+				});
+
+	}
+
+	$(function() {
+		var posting_id = 437;
+
+		$("#openmodal")
+				.click(
+						function() {
+
+							var txt = "posting_id" + "=" + posting_id;
+
+							$
+									.ajax({
+										url : '/wheremasil/board/getMemberInfo.do',
+										type : "post",
+										data : txt,
+										dataType : "json",
+										success : function(result) {
+											var r;
+											var c;
+											
+											r = returnTy(result.boardtype_id);
+											c = getdata(result.p_datetime)
+
+											//alert("ì¹´í…Œê³ ë¦¬ë¦¬ìŠ¤íŠ¸ë°›ì•„ì˜´");
+											$
+													.blockUI({
+														message : "<p align='middle'><div class='modal-content'><div class='modal-header'><button class='close' aria-hidden='true' type='button' data-dismiss='modal' onclick='removeModal();'>Ã—</button><h4 class='modal-title' id='notifydetail_title'>NEWS FEED</h4></div><div class='modal-body' style='width: 580px; height: 430px;'>"
+																+ "<table width='200' style='padding: 0px; border: 0px currentColor; margin-bottom: 10px;'><tbody><tr><td vAlign='top' style='margin: 0px; padding: 0px; border: 0px currentColor;'><a href='#'><img width='36' id='img_pf'  src='' border='0'></a></td><td vAlign='top' style='margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;'><a href='#?id=dbswndz '><font class='small' style='color: gray;'><b>"
+																+ result.member_id
+																+ "</b></font></a> <a href='javascript:detailveiw("
+																+ result[i].posting_id
+																+ ")'><font class='small'>"
+																+ result.p_content
+																+ "</font></a> <font class='small'>"
+																+ c
+																+ "</font></td></tr></tbody></table>"
+																+ "<iframe width='560' height='400' id='if_notifydetail' frameBorder='0' scrolling='no'></iframe></div></div></p>"
+													});
+											getMemberImg(result.member_id);
+										},
+										error : function(result) {
+											alert("ì¹´í…Œê³ ë¦¬ ë¦¬ìŠ¤íŠ¸ ë°›ì•„ì˜¤ê¸° ì‹¤íŒ¨");
+										}
+									});
+
+						});
+	})
+	function removeModal() {
+		$.unblockUI();
+	}
+
+	function categoriReturn(categori,cnt) {
+		//alert("categori í‘ì…˜ ì ‘ê·¼");
+		var txt = "categori" + "=" + categori;
+		$
+				.ajax({
+					url : '/wheremasil/board/returnCategoriList.do',
+					type : "post",
+					data : txt,
+					dataType : "json",
+					success : function(result) {
+						//alert("ì¹´í…Œê³ ë¦¬ë¦¬ìŠ¤íŠ¸ë°›ì•„ì˜´");
+						/* alert("ë°›ì•„ì˜¨ë¦¬ìŠ¤íŠ¸");
+						alert(result); */
+						document.getElementById("resvSquare").innerHTML = "";
+						$("resvSquare").html("");
+						var r;
+						var c;
+					
+						cnt = parseInt(cnt);
+						for ( var i = 0; i < cnt; i++) {
+							f = getMemberImg(result[i].member_id);
+							r = returnTy(result[i].boardtype_id);
+							c = getdata(result[i].p_datetime);
+
+							  
+
+							$("#resvSquare")
+									.append(
+											"<div class='row item' style='margin-left: 0px; border-top-color: rgb(239, 239, 239); border-top-width: 7px; border-top-style: solid;'><div style='padding: 7px; float: left;'><a href='' target='_parent'><img width='48' class='img"+result[i].member_id+"' src='' border='0'></a></div><ul class='unstyled' style=' list-style-type: none; width: 100%;' padding-left:7px;><li><h6><a href='' target='_parent'>"
+													+ result[i].member_id
+													+ "  </a> &nbsp;</h6></li><li> "
+													+ result[i].p_content
+													+ " <span class='label'> "
+													+ r
+													+ "  </span></li><li class='itemrow withheight'>&nbsp;<a style='color: rgb(105, 105, 105);' href='javascript:insertLike("
+													+ result[i].posting_id
+													+ ");' ><span class='ui-icon ui-icon-heart' style='float: left;'></span> <span id='btn_helpful_1000000000115309999'> ì¶”ì²œí•˜ê¸°	</span> </a>  "
+													+ c
+													+ "  </li><li class='itemrow withheight hide' id='helpfulbox_container_1000000000115309999'></li></ul><form><input type='hidden' id='posting_id' value="+result[i].posting_id+">  </form></div>");
+
+						}
+						getMemberImg(result.member_id);
+
+					},
+					error : function(result) {
+						alert("ì¹´í…Œê³ ë¦¬ ë¦¬ìŠ¤íŠ¸ ë°›ì•„ì˜¤ê¸° ì‹¤íŒ¨");
+					}
+				});
+
+	}
+
+	function hlight(o) {
+
+		//highlight the current nav
+
+		$(".active").attr('class', "");
+
+		if (o == 1) {
+			$("#tag1").attr('class', 'active');
+			location.reload(true);
+		} else if (o == 3) {
+			$("#tag3").attr('class', 'active');
+			categoriReturn("sr",4);
+			$('#cnt').attr('value',4);
+		} else if (o == 4) {
+			$("#tag4").attr('class', 'active');
+			categoriReturn("sq",4);
+			$('#cnt').attr('value',4);
+		} else if (o == 5) {
+			$("#tag5").attr('class', 'active');
+			categoriReturn("sd",4);
+			$('#cnt').attr('value',4);
+		} else if (o == 6) {
+			$("#tag6").attr('class', 'active');
+			categoriReturn("si",4);
+			$('#cnt').attr('value',4);
+		} else if (o == 7) {
+			$("#tag7").attr('class', 'active');
+			categoriReturn("sl",4);
+			$('#cnt').attr('value',4);
+		} else if (o == 8) {
+			$("#tag8").attr('class', 'active');
+			categoriReturn("sf",4);
+			$('#cnt').attr('value',4);
+		}
+	}
+
+	function reload_slike() {
+		//alert("ì¶”ì²œë¦¬ìŠ¤íŠ¸ë°›ì•„ì˜¤ê¸°ì‹¤í–‰");
+
+		$
+				.ajax({
+					url : '/wheremasil/board/selectSlike.do',
+					type : "post",
+					dataType : "json",
+					success : function(result) {
+						//alert("ì¶”ì²œë¦¬ìŠ¤íŠ¸ë°›ì•„ì˜´");
+						/* alert("ë°›ì•„ì˜¨ë¦¬ìŠ¤íŠ¸");
+						alert(result); */
+						document.getElementById("recent_view22").innerHTML = "";
+						$("recent_view22").html("");
+						var r;
+						var c;
+						
+						cnt = parseInt(cnt);
+						for ( var i = 0; i < 6; i++) {
+						
+							r = returnTy(result[i].boardtype_id);
+							c = getdata(result[i].p_datetime);
+
+							 //alert("ë„£ê¸°ì „ì´ë¯¸ì§€ê°’ ì´ë¯¸ì§€ê°’ = "+f); 
+
+							$("#recent_view22")
+									.append(
+											"<table width='200' style='padding: 0px; border: 0px currentColor; margin-bottom: 10px;'><tbody><tr><td vAlign='top' style='margin: 0px; padding: 0px; border: 0px currentColor;'><a href='#'><img width='36' class='img"+result[i].member_id+"'  id='img_pf'  src='' border='0'></a></td><td vAlign='top' style='margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;'><a href='#?id=dbswndz '><font class='small' style='color: gray;'><b>"
+											+ result[i].member_id
+											+ "</b></font></a> <a href='javascript:detailveiw("
+											+ result[i].posting_id
+											+ ")'><font class='small'>"
+											+ result[i].p_content
+											+ "</font></a> <font class='small'>"
+											+ c
+												
+													+ "</font></li><li style='text-align: right;list-style-type: none; '  ><span class='label success'>ì¶”ì²œ  "
+													+ result[i].p_like
+													+ "íšŒ</span></li></ul></td></tr></tbody></table>");
+
+							getMemberImg(result[i].member_id);
+						}
+
+						//alert("ë¶™ì—¬ë„£ê¸°ì‘ì—…ë");	
+						
+					},
+					error : function(result) {
+						alert("ì¶”ì²œë¦¬ìŠ¤íŠ¸ ë°›ì•„ì˜¤ê¸° ì‹¤íŒ¨");
+					}
+				});
+
+	}
+
+	function reload_view() {
+
+		$
+				.ajax({
+					url : '/wheremasil/board/Sblist.do',
+
+					processData : false,
+					type : "post",
+
+					dataType : "json",
+
+					success : function(result) {
+						/* alert("ë°›ì•„ì˜¨ë¦¬ìŠ¤íŠ¸");
+						alert(result); */
+						document.getElementById("recent_view").innerHTML = "";
+						$("recent_view").html("");
+						var r;
+						var c;
+						
+						cnt = parseInt(cnt);
+						for ( var i = 0; i < 6; i++) {
+							
+							r = returnTy(result[i].boardtype_id);
+							c = getdata(result[i].p_datetime);
+
+							 //alert("ë„£ê¸°ì „ì´ë¯¸ì§€ê°’ ì´ë¯¸ì§€ê°’ = "+f); 
+
+							$("#recent_view")
+									.append(
+											"<table width='200' style='padding: 0px; border: 0px currentColor; margin-bottom: 10px;'><tbody><tr><td vAlign='top' style='margin: 0px; padding: 0px; border: 0px currentColor;'><a href='#'><img width='36' class='img"+result[i].member_id+"'  id='img_pf'  src='' border='0'></a></td><td vAlign='top' style='margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;'><a href='#?id=dbswndz '><font class='small' style='color: gray;'><b>"
+													+ result[i].member_id
+													+ "</b></font></a> <a href='javascript:detailveiw("
+													+ result[i].posting_id
+													+ ")'><font class='small'>"
+													+ result[i].p_content
+													+ "</font></a> <font class='small'>"
+													+ c
+													+ "</font></td></tr></tbody></table>");
+
+						
+							getMemberImg(result[i].member_id);
+						}
+					
+
+					},
+					error : function(result) {
+						alert(" ìµœê·¼ ê¸€ ë¦¬ìŠ¤íŠ¸ ë°›ì•„ì˜¤ê¸° ì‹¤íŒ¨");
+					}
+				});
+
+	}
+	
+
+	function getMemberImg(member_id) {
+		var result1;
+		var txt = "member_id" + "=" + member_id;
+		$.ajax({
+			url : '/wheremasil/board/getMemberImg.do',
+
+			processData : false,
+			type : "post",
+			data : txt,
+			dataType : "text",
+
+			success : function(result) {
+				 //alert("ì‚¬ìš©ì ì´ë¯¸ì§€ê°€ ì„±ê³µì ìœ¼ë¡œ ë„˜ì–´ì˜´ = 	"+result);
+					result1=result;
+					
+				 $(".img"+member_id).attr('src',result);
+			},
+			error : function(result) {
+
+				alert("ì‚¬ìš©ì ì´ë¯¸ì§€ì£¼ì†Œ ê°€ì €ì˜¤ê¸° ì‹¤íŒ¨");
+			}
+		});
+		//alert("ë³´ë‚´ê¸°ì „ ì´ë¯¸ì§€ê°’ ="+result1);
+		return result1;
+	}
+
+	function insertLike(r) {
+
+		var txt = "posting_id" + "=" + r;
+
+		$.ajax({
+			url : '/wheremasil/board/insertLike.do',
+			type : "post",
+			processData : false,
+
+			data : txt,
+			dataType : "JSON",
+
+			success : function(result) {
+				//alert("ì„±ê³µ");
+				//alert(result);
+
+			},
+			error : function(result) {
+				alert(result);
+				alert("ë¼ì´í¬ ì—…ë°ì´íŠ¸ ì‹¤íŒ¨");
+			}
+		});
+
+	}
+
+	function pad2(n) {
+		return n < 10 ? '0' + n : n
+	}
+
+	function getdata(r) {
+
+		var date = new Date();
+
+		cnt = parseInt(date.getFullYear().toString()
+				+ pad2(date.getMonth() + 1) + pad2(date.getDate())
+				+ pad2(date.getHours()) + pad2(date.getMinutes())
+				+ pad2(date.getSeconds()));
+
+		/* alert("ì‹œìŠ¤í…œìƒ í˜„ì¬ì‹œê°„"+cnt);
+		alert("DB ë°›ì•„ì˜¨ ì‹œê°„==="+r); 
+		 */
+		var l = cnt - r;
+		/* alert("ì°¨ì´ê°’ = " + l);  */
+		var totalSec = l;
+		var day = totalSec / (60 * 60 * 24);
+		var hour = totalSec / (60 * 60);
+		var minute = (totalSec) / 60;
+		var second = totalSec;
+
+		if (totalSec < 60) {
+			return Math.floor(second) + "ì´ˆì „";
+		} else if (totalSec < 3600) {
+			return Math.floor(minute) + "ë¶„ì „";
+		} else if (totalSec < 86400) {
+			return Math.floor(hour) + "ì‹œê°„ì „";
+		} else {
+			return Math.floor(day) + "ì¼ì „";
+		}
+
+	}
+
+	function getLogs(cnt) {
+		var txt = $(".active").text();
+		alert("í˜„ì¬ ì¹´í…Œê³ ë¦¬ì •ë³´ = "+txt);
+		var c = parseInt(cnt);
+		if (c == 4) {
+			c = 8;
+		}
+		
+		
+		
+		
+		
+
+		$("#cnt").attr('value', c + 4);
+
+		if(txt=="ì „ì²´"){
+			reloadList(c);
+		}else if(txt=="ìˆ™ì†Œê´€ë ¨"){
+			categoriReturn("sr",c);
+		}else if(txt=="ì¼ë°˜ì§ˆë¬¸"){
+			categoriReturn("sq",c);
+		}else if(txt=="íŠ¹ê°€ì •ë³´"){
+			categoriReturn("sd",c);
+		}else if(txt=="ììœ "){
+			categoriReturn("sl",c);
+		}else if(txt=="ë™í–‰ì°¾ê¸°"){
+			categoriReturn("sf",c);
+		}else{
+			reloadList(c);
+		}
+
+	}
+
+	function logincheck() {
+
+		if ($("#login_info").val() == "") {
+			alert("ë¡œê·¸ì¸ë¶€í„°í•˜ì„¸ì—¬");
+
+		} else {
+
+		}
+	}
+
+	function Wlogin() {
+		if ($("#login_info").val() == "") {
+			alert("ë¡œê·¸ì¸ë¶€í„°í•˜ì„¸ì—¬");
+
+		} else {
+			//alert("ì¹´í…Œê³ ë¦¬ë‚´ìš©"+$("#categori").val());
+			//alert("í…ìŠ¤íŠ¸ì—ë¦¬ì•„ë‚´ìš©"+$("#msg").val());
+			//alert("ê¸€ì“´ì‚¬ëŒ ì•„ì´ë”” : "+ $("#login_id").val());
+			var categori = $("#categori").val();
+			var msg = $("#msg").val();
+			var login_id = $("#login_id").val();
+
+			var txt = "categori" + "=" + $("#categori").val() + "&" + "msg"
+					+ "=" + $("#msg").val() + "&" + "login_id" + "="
+					+ $("#login_id").val();
+
+			$.ajax({
+				url : '/wheremasil/board/insertSb.do',
+				type : "post",
+				processData : false,
+				data : txt,
+				dataType : "text",
+
+				success : function(result) {
+					//alert("ì„±ê³µ");
+					/* alert(result); */
+
+					$("#cnt").attr('value', 4);
+
+					reloadList(parseInt($("#cnt").val()));
+
+				},
+				error : function(result) {
+
+					alert("ê´‘ì¥ ê¸€ì—…ë°ì´íŠ¸ ì‹¤íŒ¨");
+				}
+			});
+
+		}
+
+	}
+
+	function reloadList(cnt) {
+		/* alert("ë¦¬ë¡œë“œë¦¬ìŠ¤íŠ¸ì‹¤í–‰");
+		alert("ë°›ì•„ì˜¨ cnt"+cnt); */
+		$
+				.ajax({
+					url : '/wheremasil/board/Sblist.do',
+
+					processData : false,
+					type : "post",
+
+					dataType : "json",
+
+					success : function(result) {
+						/* 	alert("ë°›ì•„ì˜¨ë¦¬ìŠ¤íŠ¸"); */
+						//alert(result);
+						document.getElementById("resvSquare").innerHTML = "";
+						$("resvSquare").html("");
+						var r;
+						var c;
+						
+						cnt = parseInt(cnt);
+						for ( var i = 0; i < cnt; i++) {
+							
+							r = returnTy(result[i].boardtype_id);
+							c = getdata(result[i].p_datetime);
+
+							  
+
+							$("#resvSquare")
+									.append(
+											"<div class='row item' style='margin-left: 0px; border-top-color: rgb(239, 239, 239); border-top-width: 7px; border-top-style: solid;'><div style='padding: 7px; float: left;'><a href='' target='_parent'><img width='48' class='img"+result[i].member_id+"' src='' border='0'></a></div><ul class='unstyled' style=' list-style-type: none; width: 100%;'><li><h6><a href='' target='_parent'>"
+													+ result[i].member_id
+													+ "  </a> &nbsp;</h6></li><li> "
+													+ result[i].p_content
+													+ " <span class='label'> "
+													+ r
+													+ "  </span></li><li class='itemrow withheight'>&nbsp;<a style='color: rgb(105, 105, 105);' href='javascript:insertLike("
+													+ result[i].posting_id
+													+ ");' ><span class='ui-icon ui-icon-heart' style='float: left;'></span> <span id='btn_helpful_1000000000115309999'> ì¶”ì²œí•˜ê¸°	</span> </a>  "
+													+ c
+													+ "  </li><li class='itemrow withheight hide' id='helpfulbox_container_1000000000115309999'></li></ul><form><input type='hidden' id='posting_id' value="+result[i].posting_id+">  </form></div>");
+
+							getMemberImg(result[i].member_id);
+						}
+
+					},
+					error : function(result) {
+						alert("ì´ˆê¸° ê¸€ ë¦¬ìŠ¤íŠ¸ ë°›ì•„ì˜¤ê¸° ì‹¤íŒ¨");
+					}
+				});
+
+	}
+
+	function returnTy(type) {
+		var r = "ì´ˆê¸°ê°’";
+		if (type == "sf") {
+			r = "ë™í–‰ì°¾ê¸°";
+		} else if (type == "sq") {
+			r = "ì§ˆë¬¸";
+		} else if (type == "si") {
+			r = "ì •ë³´";
+		} else if (type == "sr") {
+			r = "ìˆ™ì†Œë¦¬ë·°";
+		} else if (type == "sd") {
+			r = "í• ì¸ì •ë³´";
+		} else if (type == "sl") {
+			r = "ììœ ";
+		}
+		return r;
+	}
+
+	function newsTypeChanged() {
+		//alert($("#newsType option:selected").text());
+		//alert("ê¸°ì¡´ ë‚´ìš©"+$("#categori").val());
+		if ($("#newsType option:selected").text() == "ë™í–‰ì°¾ê¸°") {
+			$("#categori").attr('value', "sf");
+
+		} else if ($("#newsType option:selected").text() == "ì •ë³´") {
+			$("#categori").attr('value', "si");
+
+		} else if ($("#newsType option:selected").text() == "ìˆ™ì†Œë¦¬ë·°") {
+			$("#categori").attr('value', "sr");
+
+		} else if ($("#newsType option:selected").text() == "í• ì¸ì •ë³´") {
+			$("#categori").attr('value', "sd");
+
+		} else if ($("#newsType option:selected").text() == "ììœ ") {
+			$("#categori").attr('value', "sl");
+
+		}
+
+		//alert("ë°”ë€ ë‚´ìš©"+$("#categori").val());
+
+	}
+</script>
+
 
 
 
@@ -37,618 +629,337 @@
 </head>
 
 <style type="text/css">
-.footer1{
-position: absolute;
-margin-top:-100%;
-z-index: 10;
-float: 
+.footer1 {
+	position: absolute;
+	margin-top: -100%;
+	z-index: 10;
+	float:
 }
 
- html, body {
-             height: 100%;
-             margin: 0pt;
-        }
-        .Frame {
-             display: table;
-             height: 100%;
-             width: 100%;
-        }
-        .Row {
-             display: table-row;
-             height: 1px;
-        }
-        .Row.Expand {
-             height: auto;
-        }
+.commentbox {
+	height: 30px;
+	border: 7px solid #c0c0c0;
+	width: 100%;
+	color: #c0c0c0;
+}
 
+html,body {
+	height: 100%;
+	margin: 0pt;
+}
 
+.Frame {
+	display: table;
+	height: 100%;
+	width: 100%;
+}
+
+.Row {
+	display: table-row;
+	height: 7px;
+}
+
+.Row.Expand {
+	height: auto;
+}
 
 li {
-  line-height: 20px;
+	line-height: 20px;
 }
 
-
-.slick-slider
-{
-    position: relative;
-
-    display: block;
-
-    -moz-box-sizing: border-box;
-         box-sizing: border-box;
-
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-
-    -webkit-touch-callout: none;
-    -khtml-user-select: none;
-    -ms-touch-action: pan-y;
-        touch-action: pan-y;
-    -webkit-tap-highlight-color: transparent;
+.slick-slider {
+	position: relative;
+	display: block;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-touch-callout: none;
+	-khtml-user-select: none;
+	-ms-touch-action: pan-y;
+	touch-action: pan-y;
+	-webkit-tap-highlight-color: transparent;
 }
 
-
-
-
-
-.slick-initialized .slick-slide
-{
-    display: block;
+.slick-initialized .slick-slide {
+	display: block;
 }
 
-
-.slick-slider .slick-list
-{
-    -webkit-transform: translate3d(0, 0, 0);
-       -moz-transform: translate3d(0, 0, 0);
-        -ms-transform: translate3d(0, 0, 0);
-         -o-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
+.slick-slider .slick-list {
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
 }
 
-
-
-.slick-slider
-{
-    margin-bottom: 30px;
+.slick-slider {
+	margin-bottom: 30px;
 }
 
-.span10
-{
-	width:90%;
-	margin-left:20px;
+.span10 {
+	width: 90%;
+	margin-left: 20px;
 }
-
 
 .btn {
-	border-color: rgb(204, 204, 204); color: rgb(51, 51, 51); background-color: rgb(255, 255, 255);
+	border-color: rgb(204, 204, 204);
+	color: rgb(51, 51, 51);
+	background-color: rgb(255, 255, 255);
 }
 
-
-.span 
-{
-	margin-left:10px;
-	float:left!important;
+.span {
+	margin-left: 10px;
+	float: left !important;
 }
 
-
-.label
-{
-	background-color:rgb(153, 153, 153);
+.label {
+	background-color: rgb(153, 153, 153);
 }
 
-
-
-
-.stubby_container
-{
-
-
-	text-align:center;
-top-padding:-30%;
-
+.stubby_container {
+	text-align: center;
+	top-padding: -30%;
 	position: relative;
-  display: inline-block;
- 
-  width: 50%;
-  padding: 1em;
-
-  color: black;
+	display: inline-block;
+	width: 50%;
+	padding: 1em;
+	color: black;
 }
 
-.stubby_content
-{
-	text-align:left;
-	width:1014px;
-	padding-top:70px;
-	display:inline-block;
-	background:#fff;
+.stubby_content {
+	text-align: left;
+	width: 1014px;
+	padding-top: 70px;
+	display: inline-block;
+	background: #fff;
 	padding-left: 0;
 	margin-left: -150px;
 	-webkit-border-radius: 0 0 6px 6px;
 	-moz-border-radius: 0 0 6px 6px;
 	border-radius: 0 0 6px 6px;
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-	box-shadow: 0 1px 2px rgba(0,0,0,.15);
-}	
-
-    .outer {
-  display: table;
-  width: 100%;
-  height: 100%;
- 
+	-webkit-box-shadow: 0 7px 2px rgba(0, 0, 0, .15);
+	-moz-box-shadow: 0 7px 2px rgba(0, 0, 0, .15);
+	box-shadow: 0 7px 2px rgba(0, 0, 0, .15);
 }
+
+.outer {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
 .inner {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
 }
 
-
-.pace-done{
-background: rgba(237, 237, 237, 1);
+.pace-done {
+	background: rgba(237, 237, 237, 1);
 }
-
-
-
 </style>
-ÀÚ¹Ù½ºÅ©¸³Æ®
-<script type="text/javascript">
-function logincheck(){
-	
-	if($("#login_info").val()==""){
-		alert("·Î±×ÀÎºÎÅÍÇÏ¼¼¿©");
-		
-	}else{
-		
-	}
-}
 
-function Wlogin(){
-	if($("#login_info").val()==""){
-		alert("·Î±×ÀÎºÎÅÍÇÏ¼¼¿©");
-		
-	}else{
-		alert($("#categori").val());
-	}
-	
-}
 
-function newsTypeChanged(){
-	alert()$( "#newsType option:selected" ).text());
-	
-	
-}
-
-</script>
 <body>
+	<!-- <input type="button" id="openmodal" value="ëª¨ë‹¬ë„ìš°ê¸°"/>
+<br/>
+<div id="blocklayer">ì—¬ê¸°ë§Œ<br/>ëª¨ë‹¬ì°½ìœ¼ë¡œ ê°ìŒ‰ë‹ˆë‹¤</div>
+<form> -->
 
-<form>
-<input id="login_info" type="hidden" value="${sessionScope.login_info}"/>
-</form>
+	<input type="hidden" id="cnt" value=4;>
 
-<div class="container" style=" margin-top: -8%;">
-  <div class="outer">
-    <div class="inner">
-<div class="stubby_container"
-style="
-	height:100px;
-	text-align:center;">
-<div class="stubby_content">
-<ul id="catagori" class="nav nav-tabs" role="tablist" style="margin-top: 0px; margin-left: 0px; list-style-type: none;">
-		<li class="active" ><a href="index.asp"><h5>ÀüÃ¼</h5></a></li>
-		<li><a href="index.asp?newstype=ALB"><h5>¾Ù¹ü</h5></a></li>
-		<li><a href="index.asp?newstype=MSP"><h5>¼÷¼Ò°ü·Ã</h5></a></li>
-		<li><a href="index.asp?newstype=QNA"><h5>ÀÏ¹İÁú¹®</h5></a></li>
-		<li><a href="index.asp?newstype=HOT"><h5>Æ¯°¡Á¤º¸</h5></a></li>
-		<li><a href="index.asp?newstype=INF"><h5>ÀÏ¹İÁ¤º¸</h5></a></li>
-		<li><a href="index.asp?newstype=FRE"><h5>ÀÚÀ¯</h5></a></li>
-		<li><a href="index.asp?newstype=FND"><h5>µ¿ÇàÃ£±â</h5></a></li>
-		<li><a href="index.asp?newstype=UPD"><h5>¹ß°ß</h5></a></li>
-		<li><table><tbody><tr><td style="width: 10px;">&nbsp;</td></tr></tbody></table></li>
-	</ul>
-	
+	<input id="login_info" type="hidden" value="${sessionScope.login_info}" />
+	<input id="login_id" type="hidden"
+		value="${sessionScope.login_info.member_id}" />
+	<input id="categori" type="hidden" value="sq" />
+	</form>
 
-<div class="row">
+	<div class="container" style="margin-top: -8%;">
+		<div class="outer">
+			<div class="inner">
+				<div class="stubby_container"
+					style="height: 100px; text-align: center;">
+					<div class="stubby_content">
+						<ul id="catagori" class="nav nav-tabs" role="tablist"
+							style="margin-top: 0px; margin-left: 0px; list-style-type: none;">
+							<li class="active" id="tag1" name="tag" value="ì „ì²´"><a href="#"
+								onclick="hlight('1');"><h5>ì „ì²´</h5></a></li>
 
-<div class="col-md-8" style="border-right-color: rgb(239, 239, 239); border-right-width: 1px; border-right-style: solid;">
+							<li id="tag3"><a href="#" onclick="hlight('3');" value="ìˆ™ì†Œê´€ë ¨"><h5>ìˆ™ì†Œê´€ë ¨</h5></a></li>
+							<li id="tag4"><a href="#" onclick="hlight('4');" value="ì¼ë°˜ì§ˆë¬¸"><h5>ì¼ë°˜ì§ˆë¬¸</h5></a></li>
+							<li id="tag5"><a href="#" onclick="hlight('5');" value="íŠ¹ê°€ì •ë³´"><h5>íŠ¹ê°€ì •ë³´</h5></a></li>
 
-<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px;">
+							<li id="tag7"><a href="#" onclick="hlight('7');" value="ììœ "><h5>ììœ </h5></a></li>
+							<li id="tag8"><a href="#" onclick="hlight('8');" value="ë™í–‰ì°¾ê¸°"><h5>ë™í–‰ì°¾ê¸°</h5></a></li>
 
-  <button class="close" type="button" data-dismiss="alert"><span aria-hidden="true">¡¿</span><span class="sr-only">Close</span></button>
-  <strong>
- ±¤ÀåÀº ¿©ÇàÀÇ Á¤º¸¿Í ÀÌ¾ß±â¸¦ ÀÚÀ¯·Ó°Ô °øÀ¯ÇÏ´Â °ø°£ÀÌ¿¡¿ä. <br>
-¿©ÇàÀÚµéÀ» µµ¿ÍÁÖ½Ã´Â ¸àÅäºĞµé ´öºĞ¿¡ ±¤ÀåÀÌ È°¹ßÇÏ°Ô ¿î¿µµÉ ¼ö ÀÖ´ä´Ï´Ù.<br>
-±¤Àå¿¡ Áú¹®À» ¿Ã¸®½Ã´Â ºĞµéÀº ¾Æ·¡ µÎ °¡Áö¸¸ ÁöÄÑÁÖ¼¼¿ä!<br>
-1. Á¶±İ¸¸ ½Ã°£À» ÅõÀÚÇÏ¸é Ã£À» ¼ö ÀÖ´Â Á¤º¸´Â ¸ÕÀú ½º½º·Î Ã£¾ÆÁÖ¼¼¿ä.<br>
- ¹İº¹µÇ´Â ±âÃÊÀûÀÎ Áú¹®Àº ÁöÃÄ¿ä:( <br>
-2. ´äº¯À» ¾òÀº ÈÄ¿£ °¨»ç¸¦ Ç¥½ÃÇØÁÖ¼¼¿ä.<br>
- ÁÖ°í¹Ş´Â ÀÎ»ç¼Ó¿¡ ÈÆÈÆÇÑ ±¤Àå :)
-
-   </strong>
-</div>
+							<li><table>
+									<tbody>
+										<tr>
+											<td style="width: 10px;">&nbsp;</td>
+										</tr>
+									</tbody>
+								</table></li>
+						</ul>
 
 
+						<div class="row">
 
-<div class="row" style="margin-top: 5px; margin-left: 0px;">
-				<div class="span" style="width: 70px; height: 100px; overflow: hidden; position: relative;"><img width="70" id="img_pf" style="border: 4px solid rgb(255, 255, 255);" src="http://192.168.7.122:8082/wheremasil/uploads/images/default/no-photo.png	" border="0"></div>
-				<div class="span" style="width: 570px;">
-					<input name="optGuidebook" id="att_guidebook" type="hidden" value="">
-					<input name="optMap" id="att_map" type="hidden" value="">
-					<input name="optRoute" id="att_route" type="hidden" value="">
-					<input name="optPlan" id="att_plan" type="hidden" value="">
-					<input name="optLink" id="att_link" type="hidden" value="">
+							<div class="col-md-8"
+								style="border-right-color: rgb(239, 239, 239); border-right-width: 7px; border-right-style: solid;">
 
-					<textarea name="msg" id="msg" style="width: 100%;" onclick="logincheck();" rows="4"></textarea>
-					<div style="clear: both;"></div>
-					<div class="row" style="margin-top: 7px;">
-						<div class="span8">
-						<span style="float: right;">
-						<select name="newsType" id="newsType" style="width: 110px;" onchange="newsTypeChanged()">
-							<option value="QNA">Áú¹®</option>
-							
-							<option value="FND">µ¿ÇàÃ£±â</option>
-							<option value="INF">Á¤º¸</option>
-							<option value="MSP">¼÷¼Ò¸®ºä</option>
-							<option value="HOT">ÇÒÀÎÁ¤º¸</option>
-							<option value="FRE">ÀÚÀ¯</option>
-						</select>
+								<div class="alert alert-warning alert-dismissible" role="alert"
+									style="margin-top: 10px;">
 
-						&nbsp;&nbsp;<a class="btn btn-success btn-lg" style="width: 150px; margin-right: 20px;" href="javascript:Wlogin();">±Û¾²±â</a>
-						</span>
-						<span class="label">Ã·ºÎ</span>
-						<select name="attType" class="span3" id="attachType" onchange="attach();">
-							<option value="">Ã·ºÎÇÏ±â</option>
-							<option value="link">¸µÅ©</option>
-							<option value="map">Áöµµ</option>
-							<option value="route">·çÆ®</option>
-							<option value="plan">³» °èÈ¹</option>
-							<option value="guidebook">°¡ÀÌµåºÏ</option>
-						</select>		
+									<button class="close" type="button" data-dismiss="alert">
+										<span aria-hidden="true">Ã—</span><span class="sr-only">Close</span>
+									</button>
+									<strong> ê´‘ì¥ì€ ì—¬í–‰ì˜ ì •ë³´ì™€ ì´ì•¼ê¸°ë¥¼ ììœ ë¡­ê²Œ ê³µìœ í•˜ëŠ” ê³µê°„ì´ì—ìš”. <br>
+										ì—¬í–‰ìë“¤ì„ ë„ì™€ì£¼ì‹œëŠ” ë©˜í† ë¶„ë“¤ ë•ë¶„ì— ê´‘ì¥ì´ í™œë°œí•˜ê²Œ ìš´ì˜ë  ìˆ˜ ìˆë‹µë‹ˆë‹¤.<br> ê´‘ì¥ì— ì§ˆë¬¸ì„
+										ì˜¬ë¦¬ì‹œëŠ” ë¶„ë“¤ì€ ì•„ë˜ ë‘ ê°€ì§€ë§Œ ì§€ì¼œì£¼ì„¸ìš”!<br> 1. ì¡°ê¸ˆë§Œ ì‹œê°„ì„ íˆ¬ìí•˜ë©´ ì°¾ì„ ìˆ˜ ìˆëŠ” ì •ë³´ëŠ”
+										ë¨¼ì € ìŠ¤ìŠ¤ë¡œ ì°¾ì•„ì£¼ì„¸ìš”.<br> ë°˜ë³µë˜ëŠ” ê¸°ì´ˆì ì¸ ì§ˆë¬¸ì€ ì§€ì³ìš”:( <br> 2. ë‹µë³€ì„ ì–»ì€
+										í›„ì—” ê°ì‚¬ë¥¼ í‘œì‹œí•´ì£¼ì„¸ìš”.<br> ì£¼ê³ ë°›ëŠ” ì¸ì‚¬ì†ì— í›ˆí›ˆí•œ ê´‘ì¥ :)
+
+									</strong>
+								</div>
+
+
+
+								<div class="row" style="margin-top: 5px; margin-left: 0px;">
+									<div class="span"
+										style="width: 70px; height: 100px; overflow: hidden; position: relative;">
+										<img width="70" id="img_pf"
+											style="border: 4px solid rgb(255, 255, 255);"
+											src="http://192.168.7.122:8082/wheremasil/uploads/images/default/no-photo.png	"
+											border="0">
+									</div>
+									<div class="span" style="width: 570px;">
+										<input name="optGuidebook" id="att_guidebook" type="hidden"
+											value=""> <input name="optMap" id="att_map"
+											type="hidden" value=""> <input name="optRoute"
+											id="att_route" type="hidden" value=""> <input
+											name="optPlan" id="att_plan" type="hidden" value="">
+										<input name="optLink" id="att_link" type="hidden" value="">
+
+										<textarea name="msg" id="msg" style="width: 100%;"
+											onclick="logincheck();" rows="4"></textarea>
+										<div style="clear: both;"></div>
+										<div class="row" style="margin-top: 7px;">
+											<div class="span8">
+												<span style="float: right;"> <select name="newsType"
+													id="newsType" style="width: 110px;"
+													onchange="newsTypeChanged()">
+														<option value="QNA">ì§ˆë¬¸</option>
+
+														<option value="FND">ë™í–‰ì°¾ê¸°</option>
+														<option value="INF">ì •ë³´</option>
+														<option value="MSP">ìˆ™ì†Œë¦¬ë·°</option>
+														<option value="HOT">í• ì¸ì •ë³´</option>
+														<option value="FRE">ììœ </option>
+												</select> &nbsp;&nbsp;<a class="btn btn-success btn-lg"
+													style="width: 150px; margin-right: 20px;"
+													href="javascript:Wlogin();">ê¸€ì“°ê¸°</a>
+												</span>
+
+											</div>
+										</div>
+										<div class="row" style="margin-top: 7px; margin-bottom: 5px;">
+											<div class="span8">
+												<p id="label_for_write_mentors"
+													style="text-align: right; color: rgb(105, 105, 105); font-size: 8pt;">
+
+													ë‚˜ì˜ ë©˜í† ë“¤(0ëª…)ì—ê²Œ ì¤‘ìš”í•œ ì§ˆë¬¸ìœ¼ë¡œ í‘œì‹œë˜ë©° ë©”ì¼ë¡œ ì§ˆë¬¸ì´ ì „ì†¡ë©ë‹ˆë‹¤.</p>
+												<p class="hide" id="label_for_write_mentees"
+													style="text-align: right; color: rgb(105, 105, 105); font-size: 8pt; display: none;">
+													ë‚˜ì˜ ë©˜í‹°ë“¤(0ëª…)ì—ê²Œ ì´ ì •ë³´ê°€ ì¤‘ìš”í•œ ì •ë³´ë¡œ í‘œì‹œë©ë‹ˆë‹¤.</p>
+											</div>
+										</div>
+										<div style="margin-top: 7px; margin-bottom: 15px;">
+											<div id="att_map_div"></div>
+										</div>
+									</div>
+								</div>
+
+								<div class="resvSquare" id="resvSquare">
+
+
+									<script type="text/javascript">
+										reloadList($("#cnt").val());
+									</script>
+
+
+
+								</div>
+
+								<div class="row" id="row_btnmore">
+									<input name="page" id="page" type="hidden" value="1"> <a
+										class="btn span10" style="text-align: center;"
+										href="javascript:getLogs(  $('#cnt').val()  );">ë”ë³´ê¸°</a>
+								</div>
+
+								<!--  mid 8 -->
+							</div>
+
+
+
+							<div class="col-md-4">
+
+
+
+
+
+								<h5>ìµœê·¼ ë“±ë¡ëœ ê¸€</h5>
+								<div id="recent_view">
+									<script type="text/javascript">
+										setTimeout("reload_view()", 500);
+									</script>
+								</div>
+
+
+
+
+
+
+
+
+								<hr>
+								<h5>ìµœê³ ì˜ ì¸ê¸°ê¸€</h5>
+
+								<div id="recent_view22">
+									<script type="text/javascript">
+										setTimeout("reload_slike()", 1000);
+									</script>
+								</div>
+
+
+
+
+
+
+
+								<!--right end--->
+
+							</div>
+							<!-- col-md-4 -->
 						</div>
-					</div>
- 					<div class="row" style="margin-top: 7px; margin-bottom: 5px;">
-						<div class="span8">
-							<p id="label_for_write_mentors" style="text-align: right; color: rgb(105, 105, 105); font-size: 8pt;">
 
-³ªÀÇ ¸àÅäµé(0¸í)¿¡°Ô Áß¿äÇÑ Áú¹®À¸·Î Ç¥½ÃµÇ¸ç ¸ŞÀÏ·Î Áú¹®ÀÌ Àü¼ÛµË´Ï´Ù.</p>
-							<p class="hide" id="label_for_write_mentees" style="text-align: right; color: rgb(105, 105, 105); font-size: 8pt; display: none;"> ³ªÀÇ ¸àÆ¼µé(0¸í)¿¡°Ô ÀÌ Á¤º¸°¡ Áß¿äÇÑ Á¤º¸·Î Ç¥½ÃµË´Ï´Ù.</p>
-						</div>
+						<!--  row -->
+
+
+
+
+
 					</div>
-					<div style="margin-top: 7px; margin-bottom: 15px;">
-							<div id="att_map_div"></div>
-					</div>
+
+					<!-- stubby_content -->
+
+
 				</div>
 			</div>
-
-
-<div id="resvSquare">
-<hr></hr>
-
-<div class="row item" style="margin-left: 0px; border-top-color: rgb(239, 239, 239); border-top-width: 1px; border-top-style: solid;">
-		<div style="padding: 7px; float: left;">
-			<img width="48" onerror="this.src='/img_v6/img_pfnull.gif'" src="/pfimg/2/1/dbswndz_sq.jpg" border="0">
-		</div>
-		<div id="item_1000000000115212999" style="width: 510px; float: left;">
-			<ul class="unstyled" style="width: 100%; list-style-type: none;">
-				<li><h6><a href="/plan/profile.asp?id=dbswndz">dbswndz</a>  &nbsp;</h6></li>
-				<li>
-				
-				<font class="needTranslate">ÆÄ¸®¿¡¼­ ¿¡¾îºñ¿£ºñ ¼÷¼Ò °°ÀÌ ¾²½ÇºĞ ±¸ÇØ¿ä! À§Ä¡ ÃÖ°í 4¸í¿¡¼­ ¾µ¼öÀÖ´Â¹æÀÎµ¥ Áö±İ 2¸í¿¡¼­ ¾µ ¿¹Á¤ÀÌ°í ÇÑ¸í´õ ±¸ÇØ¼­ ¼ÂÀÌ¼­ ¾²¸é ÁÁÀ»°Å°°¾Æ¿ä À§Ä¡´Â ·çºê¸£ ¼§Á¦¸®Á¦ÂÊÀÌ±¸¿ä 6/27-29 ÀÌÆ² ¸Ó¹«½Ç ¿©ÀÚºĞ ±¸ÇØ¿ä! ÇÏ·ç¿¡ 50ºÒ¾¿ÀÔ´Ï´Ù! °ü½ÉÀÖÀ¸½Ã¸é ´ñ±Û ³²°ÜÁÖ¼¼¿ä~</font>
-				
-					<span class="label">µ¿ÇàÃ£±â</span>
-				
-				</li>
-
-				<li class="itemrow withheight">&nbsp;<a title="ÀÌ °Ô½Ã¹°À» ÃßÃµÇÕ´Ï´Ù!" href="javascript:itshelpful('1000000000115212999')"><span class="ui-icon ui-icon-heart" style="float: left;"></span><span id="btn_helpful_1000000000115212999" style="color: rgb(105, 105, 105);">ÃßÃµÇÏ±â</span></a> ¡¤  35ºĞÀü</li>
-
-				
-				<li class="itemrow withheight hide" id="helpfulbox_container_1000000000115212999">
-<span id="helpfulbox_1000000000115212999">
-</span>
-				</li>
-
-
-				
-				<li class="itemrow">
-	
-					<div id="cmt_container_1000000000115212999">
-					
-					</div>
-					
-					<div class="container_commentbox">
-						<input name="se" id="se" type="hidden" value="1000000000115212999">
-						<input name="p" id="p" type="hidden" value="">
-						<input name="r" id="r" type="hidden" value="">
-
-						<input class="span8 commentbox" id="commentbox_1000000000115212999" type="text" value="">
-					</div>
-	
-				</li>
-
-			</ul>
-		</div>
-		<div class="span item_menu hide" id="menu" style="display: none;">
-			
-			<ul id="jsddm">
-				<li><a href="#"><span class="ui-icon ui-icon-triangle-1-s item_menu_btn"></span></a>
-					<ul>
-						
-						<li><a href="javascript:ReportItem(1000000000115212999);">±¤°í/½ºÆÔ½Å°í</a></li>
-					</ul>
-				</li>
-			</ul>
-
 		</div>
 	</div>
-	
-	<div class="row item" style="margin-left: 0px; border-top-color: rgb(239, 239, 239); border-top-width: 1px; border-top-style: solid;">
-		<div style="padding: 7px; float: left;">
-			<img width="48" onerror="this.src='/img_v6/img_pfnull.gif'" src="/img_v6/img_pfnull.gif" border="0">
-		</div>
-		<div id="item_1000000000115211999" style="width: 510px; float: left;">
-			<ul class="unstyled" style="width: 100%; list-style-type: none;">
-				<li><h6><a href="/plan/profile.asp?id=jeson90">jeson90</a>  &nbsp;</h6></li>
-				<li>
-				
-				<font class="needTranslate">¾Æ·¡ °èÈ¹°ú µÑÁß¿¡ ¾î´À ·çÆ®°¡ ´õ ³ª¾Æº¸ÀÌ³ª¿ä???<br>ÆÄ¸®-½ºÀ§½º-¹ÀÇî-º£´Ï½º(¾ß°£¿­Â÷)<br>ÆÄ¸®-¹ÀÇî-½ºÀ§½º-ÀÌÅ»¸®¾Æ</font>
-				
-					<span class="label">Á¤º¸</span>
-				
-				</li>
-
-		<li>
-			<table><tbody><tr>
-				<td vAlign="top"><a href="/plan/getadvice.asp?s=127761" target="_blank"><img width="120" height="80" src="http://maps.google.com/staticmap?size=120x80&amp;maptype=mobile&amp;path=rgba:0x333333ff,weight:2|51.5,-0.126|48.861,2.342|46.686,7.856|47.046,8.308|48.14,11.579|45.434,12.339|43.769,11.257|41.895,12.482&amp;markers=51.5,-0.126,reds|41.895,12.482,rede&amp;key=ABQIAAAAriWY6VN2eq0XjjFKUdLrvBSVo5uNAna0IGBr7A5fE2H0gZW6dxSbnR_A-0Zpnh5FLUk69fa9L9hi0A"></a></td>
-				<td vAlign="top" style="padding-left: 10px;">
-					<ul class="unstyled" >
-						<li><a class="btn small" href="/plan/getadvice.asp?s=127761" target="_blank">HelpMe ÆäÀÌÁö <span class="label">Updated</span></a></li>
-					
-						<li><a href="/plan/getadvice.asp?s=127761" target="_blank"><b>ÇÃ·£ A</b></a></li>
-						<li><a href="/plan/getadvice.asp?s=127761" target="_blank">2015³â 7¿ù Ãâ¹ß(26ÀÏ°£)</a></li>
-						
-					</ul>
-				</td>
-			</tr></tbody></table>
-		</li>
-
-				<li class="itemrow withheight">&nbsp;<a title="ÀÌ °Ô½Ã¹°À» ÃßÃµÇÕ´Ï´Ù!" href="javascript:itshelpful('1000000000115211999')"><span class="ui-icon ui-icon-heart" style="float: left;"></span><span id="btn_helpful_1000000000115211999" style="color: rgb(105, 105, 105);">ÃßÃµÇÏ±â</span></a> ¡¤  1½Ã°£Àü</li>
-
-				
-				<li class="itemrow withheight hide" id="helpfulbox_container_1000000000115211999">
-<span id="helpfulbox_1000000000115211999">
-</span>
-				</li>
-
-
-				
-				<li class="itemrow">
-	
-					<div id="cmt_container_1000000000115211999">
-					
-					<div class="row comment_item" id="item_1000000000115211998">
-						<div class="span comment_img">
-							<a href="/plan/profile.asp?id=jyoon0411" target="_blank"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif'" src="/pfimg/5/7/jyoon0411_sq.jpg" border="0"></a>
-						</div>
-						<div class="span comment_content">
-							<ul class="unstyled">
-							<li><a href="/plan/profile.asp?id=jyoon0411" target="_blank"><b>jyoon0411</b></a>&nbsp;ÆÄ¸® ½ºÀ§½º ¹ÀÇî º£´Ï½º°¡ ³ª¾Æ¿ä :)</li>
-							<li><span style="float: left;">1½Ã°£Àü ¡¤ 
-								
-								<a title="ÀÌ ´ñ±ÛÀÌ ÁÁ¾Æ¿ä! " href="javascript:itshelpful('1000000000115211998')"><u><span id="btn_helpful_1000000000115211998" style="color: rgb(105, 105, 105);">Like</span></u></a> ¡¤ </span><span class="helpfulbox" id="helpfulbox_1000000000115211998"></span></li>
-							</ul>
-						</div>
-					</div>
-					
-					</div>
-					
-					<div class="container_commentbox">
-						<input name="se" id="se" type="hidden" value="1000000000115211999">
-						<input name="p" id="p" type="hidden" value="">
-						<input name="r" id="r" type="hidden" value="">
-
-						<input class="span8 commentbox" id="commentbox_1000000000115211999" type="text" value="">
-					</div>
-	
-				</li>
-
-			</ul>
-		</div>
-		<div class="span item_menu hide" id="menu" style="display: none;">
-			
-			<ul id="jsddm">
-				<li><a href="#"><span class="ui-icon ui-icon-triangle-1-s item_menu_btn"></span></a>
-					<ul>
-						
-						<li><a href="javascript:ReportItem(1000000000115211999);">±¤°í/½ºÆÔ½Å°í</a></li>
-					</ul>
-				</li>
-			</ul>
-
-		</div>
-	</div>
-<hr></hr>
-
-<!-- resvSquare -->
-</div>
-<div class="row" id="row_btnmore">
-		<input name="page" id="page" type="hidden" value="1">
-		<a class="btn span10" style="text-align: center;" href="javascript:getLogs(1);">´õº¸±â</a>
-	</div>
-
-<!--  mid 8 -->
-</div>
-
-
-
-<div class="col-md-4">
-
-
-
-
-
-	<h5>ÃÖ±Ù µî·ÏµÈ ±Û</h5>
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=dbswndz"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/pfimg/2/1/dbswndz_sq.jpg" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<a href="/plan/profile.asp?id=dbswndz "><font class="small" style="color: gray;"><b>dbswndz</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000115212999','')"><font class="small">ÆÄ¸®¿¡¼­ ¿¡¾îºñ¿£ºñ ¼÷¼Ò °°ÀÌ ¾²½ÇºĞ ±¸ÇØ¿ä!..</font></a> <font class="small">35ºĞÀü</font>
-				</td>
-				</tr></tbody></table>
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=skyoon06"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/img_v6/img_pfnull.gif" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<a href="/plan/profile.asp?id=skyoon06 "><font class="small" style="color: gray;"><b>skyoon06</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000115196996','')"><font class="small"> ÁÁ¾Æ¿ä</font></a> <font class="small">57ºĞÀü</font>
-				</td>
-				</tr></tbody></table>
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=jyoon0411"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/pfimg/5/7/jyoon0411_sq.jpg" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<a href="/plan/profile.asp?id=jyoon0411 "><font class="small" style="color: gray;"><b>jyoon0411</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000115207997','')"><font class="small">ÆÄ¸®´Â 2¹ÚÇÏ±â ³Ê¹«................</font></a> <font class="small">1½Ã°£Àü</font>
-				</td>
-				</tr></tbody></table>
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=jyoon0411"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/pfimg/5/7/jyoon0411_sq.jpg" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<a href="/plan/profile.asp?id=jyoon0411 "><font class="small" style="color: gray;"><b>jyoon0411</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000115208998','')"><font class="small">È«Äá µå·¡°ï¾ÆÀÌ :) Á¡½É¿¡ ¹«Á¦ÇÑ µõ¼¶ ºÎÆä..</font></a> <font class="small">1½Ã°£Àü</font>
-				</td>
-				</tr></tbody></table>
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=lsy6078"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/img_v6/img_pfnull.gif" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<a href="/plan/profile.asp?id=lsy6078 "><font class="small" style="color: gray;"><b>lsy6078</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000115179988','')"><font class="small">³·Àº »ó°ü¾ø´Âµ¥ ¹ã¿¡´Â È¥ÀÚ À§ÇèÇÏ½Ç°Å¿¡¿ä¤Ğ¤Ğ</font></a> <font class="small">1½Ã°£Àü</font>
-				</td>
-				</tr></tbody></table>
-
-
-
-
-
-<h5>ÃÖ±Ù ÃßÃµ¹Ş´Â ±Û</h5>
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=jalaea8793"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/pfimg/5/1/jalaea8793_sq.jpg" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<ul class="unstyled" style="margin-top: 0px; margin-bottom: 0px; list-style-type: none;">
-					<li><a href="/plan/profile.asp?id=jalaea8793 "><font class="small"><b>jalaea8793</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000115179997','')"><font class="small">³·¿¡´Â ±¦ÂúÁö¾ÊÀ»±î¿ä?</font></a> <font class="small">12½Ã°£Àü</font></li>
-					 <li style="text-align: right;"><span class="label "> ÃßÃµ 2È¸</span></li>
-					</ul>
-				</td>
-				</tr></tbody></table>
-
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=thkim0418"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/img_v6/img_pfnull.gif" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<ul class="unstyled" style="margin-top: 0px; margin-bottom: 0px; list-style-type: none;">
-					<li><a href="/plan/profile.asp?id=thkim0418 "><font class="small"><b>thkim0418</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000115044999','')"><font class="small">¾È³çÇÏ¼¼¿ä~ 7¿ù Áß ÀÌÅ»¸®¾Æ ¿©ÇàÇÏ·Á°í ÇÏ´Â..</font></a> <font class="small">2ÀÏÀü</font></li>
-					 <li style="text-align: right;"><span class="label "> ÃßÃµ 2È¸</span></li>
-					</ul>
-				</td>
-				</tr></tbody></table>
-
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=poopoop52"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/img_v6/img_pfnull.gif" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<ul class="unstyled" style="margin-top: 0px; margin-bottom: 0px; list-style-type: none;">
-					<li><a href="/plan/profile.asp?id=poopoop52 "><font class="small"><b>poopoop52</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000114941999','')"><font class="small">¾ó¸¥¶°³ª°í½Í¾î¿ä </font></a> <font class="small">3ÀÏÀü</font></li>
-					 <li style="text-align: right;"><span class="label "> ÃßÃµ 3È¸</span></li>
-					</ul>
-				</td>
-				</tr></tbody></table>
-
-
-<hr>
-<h5>ÃÖ°íÀÇ ÀÎ±â±Û</h5>
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=duwnsl11"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/pfimg/2/3/duwnsl11_sq.jpg" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<ul class="unstyled" style="margin-top: 0px; margin-bottom: 0px; list-style-type: none;">
-					<li><a href="/plan/profile.asp?id=duwnsl11 "><font class="small"><b>duwnsl11</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000113020999','')"><font class="small">À¯·Î½ºÅ¸°¡ ºÎ´ãµÇ´Â ºĞµé¿¡°Ô ÆÁ~~!!!!
-
-..</font></a> <font class="small">5¿ù 10ÀÏ</font></li>
-					 <li style="text-align: right;"><span class="label success"> ÃßÃµ 14È¸</span></li>
-					</ul>
-				</td>
-				</tr></tbody></table>
-
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=dlsugs3"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/pfimg/2/6/dlsugs3_sq.jpg" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<ul class="unstyled" style="margin-top: 0px; margin-bottom: 0px; list-style-type: none;">
-					<li><a href="/plan/profile.asp?id=dlsugs3 "><font class="small"><b>dlsugs3</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000110752999','')"><font class="small">¾Æ¸§´ä°í ¸ÚÀÖ¾ú´ø À¯·´¿©Çà.
-ÀØÁö¸øÇÒ Ãß¾ïµé..</font></a> <font class="small">4¿ù 9ÀÏ</font></li>
-					 <li style="text-align: right;"><span class="label success"> ÃßÃµ 11È¸</span></li>
-					</ul>
-				</td>
-				</tr></tbody></table>
-
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=sang2269"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/pfimg/1/1/sang2269_sq.jpg" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<ul class="unstyled" style="margin-top: 0px; margin-bottom: 0px; list-style-type: none;">
-					<li><a href="/plan/profile.asp?id=sang2269 "><font class="small"><b>sang2269</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000110644999','')"><font class="small">ÇÏ³ªÅõ¾î¿¡¼­ ¿À´Ã,³»ÀÏ µü ÀÌÆ²µ¿¾È Ç×°ø±Ç Æ¯..</font></a> <font class="small">4¿ù 7ÀÏ</font></li>
-					 <li style="text-align: right;"><span class="label success"> ÃßÃµ 8È¸</span></li>
-					</ul>
-				</td>
-				</tr></tbody></table>
-
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=ychan5170"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/pfimg/7/2/ychan5170_sq.jpg" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<ul class="unstyled" style="margin-top: 0px; margin-bottom: 0px; list-style-type: none;">
-					<li><a href="/plan/profile.asp?id=ychan5170 "><font class="small"><b>ychan5170</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000107480999','')"><font class="small">¿©Çà ÀÏÁ¤ Â¥½Ç ¶§ Âü°íÇØº¸¼¼¿ä!
-¿©Çà°¡±âÀü¿£..</font></a> <font class="small">2¿ù 20ÀÏ</font></li>
-					 <li style="text-align: right;"><span class="label success"> ÃßÃµ 27È¸</span></li>
-					</ul>
-				</td>
-				</tr></tbody></table>
-
-
-				<table width="200" style="padding: 0px; border: 0px currentColor; margin-bottom: 10px;"><tbody><tr>
-				<td vAlign="top" style="margin: 0px; padding: 0px; border: 0px currentColor;"><a href="/plan/profile.asp?id=kachia3s"><img width="36" id="img_pf" onerror="this.src='/img_v6/img_pfnull.gif';" src="/pfimg/6/1/kachia3s_sq.jpg" border="0"></a></td>
-				<td vAlign="top" style="margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;">
-					<ul class="unstyled" style="margin-top: 0px; margin-bottom: 0px; list-style-type: none;">
-					<li><a href="/plan/profile.asp?id=kachia3s "><font class="small"><b>kachia3s</b></font></a> <a href="javascript:shownotifydetail('newsfeed','1000000000096968999','')"><font class="small">¾Æ·¡¿¡¼­ ÇöÁö¿¡¼­ ½º¸¶Æ®Æù »ç¿ë¿¡ °üÇÑ Áú¹®ÀÌ..</font></a> <font class="small">2014³â 9¿ù 2ÀÏ</font></li>
-					 <li style="text-align: right;"><span class="label success"> ÃßÃµ 36È¸</span></li>
-					</ul>
-				</td>
-				</tr></tbody></table>
-
-
-<!--right end--->
-
-</div>
-<!-- col-md-4 -->
-</div>
-
-<!--  row -->
-
-
-
-
-
-</div>
-
-<!-- stubby_content -->
-
-
-</div>
-</div>
-</div>
-</div>
 
 
 

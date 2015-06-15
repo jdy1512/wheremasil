@@ -25,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.wheremasil.plan.dao.PlannerScheduleDAOImpl;
 import com.wheremasil.plan.vo.Area;
 import com.wheremasil.plan.vo.AreaCost;
+import com.wheremasil.plan.vo.PlanDetail;
+import com.wheremasil.plan.vo.PlanMap;
 import com.wheremasil.plan.vo.PlannerSchedule;
 import com.wheremasil.plan.vo.Schedule;
 
@@ -163,7 +165,9 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 		c = new GregorianCalendar();
 
 		//DB에서 해당 플랜 ID조회
-		schedulePlanId = getPlanId(plan.getMemberId());
+		String planId = getPlanId(plan.getMemberId());
+		plan.setPlan_id(planId);
+		schedulePlanId = planId;
 		
 		// split 형식에 맞지않는 prof 삭제
 		params.remove("title");
@@ -183,7 +187,6 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 			String value = (String) entry.getValue();
 			
 			if (curScheduleIdx != scheduleIdx) {
-				System.out.println("----------------------------------------------");
 				curScheduleIdx = scheduleIdx;
 				curCostIdx = -1;
 				
@@ -209,7 +212,6 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 					areaCost.setsDate(scheduleDate);
 					areaCost.setPlanId(schedulePlanId);
 					registAreaCost(areaCost);
-					System.out.println(areaCost);
 				} // 새로운 일정이 생성되는 곳. 
 				curCostIdx = costIdx;
 				areaCost = new AreaCost();
@@ -237,13 +239,26 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 				areaCost.setsDate(scheduleDate);
 				areaCost.setPlanId(schedulePlanId);
 				registAreaCost(areaCost);
-
-				System.out.println(areaCost);
-				System.out.println(schedule);
 			}
 		}// end of for
 		
 		return plan;
 	}
+
+	@Override
+	public List<PlanDetail> getPlanDetails(String planId) {
+		return dao.selectPlanDetails(planId);
+	}
+
+	@Override
+	public List<PlanMap> getPlanIdListByNum(int num) {
+		return dao.selectPlanIdListByNum(num);
+	}
+
+	@Override
+	public List<PlanMap> getPlanMapList(List<String> planIdList) {
+		return dao.selectPlanMapList(planIdList);
+	}
+
 
 }

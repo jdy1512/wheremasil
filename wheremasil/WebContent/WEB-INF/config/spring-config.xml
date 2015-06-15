@@ -17,11 +17,11 @@
 	<!-- 이동 뷰 컨트롤러 -->
 	<mvc:view-controller path="index.do" view-name="main.tiles"/>
 	
-	
+	<!-- interceptors -->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**/session/**/*"/>
-			<bean class="com.mycom.common.interceptor.LoginCheckInterceptor"/>
+			<bean class="com.wheremasil.common.interceptor.LoginCheckInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
 	

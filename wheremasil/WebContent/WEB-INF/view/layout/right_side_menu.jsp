@@ -61,6 +61,13 @@
             collapsible: false
           });
       
+		$("#schedule_form").submit(function() {
+			if (schedulePath.length == 0) {
+				alert("일정을 선택해주세요.");
+				return false;
+			}
+			return true;
+		});
      });// end of function;
      
 
@@ -141,7 +148,7 @@
 
 <input type="button" class="img_button_before" name="before" onclick="beforeDayCheck()" style="float:left;"><input type="button"  class="img_button_next" name="after" onclick="afterDayCheck()" style="float:right;"><div id="day"></div>
 
-<form method="post" action="/wheremasil/plan/planInfo.do">
+<form id="schedule_form" method="post" action="/wheremasil/plan/session/planInfo.do">
 
    <div id="rightContent"></div>
    <input type="hidden" name="title" value="${requestScope.plan.title }">

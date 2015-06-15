@@ -30,6 +30,7 @@
 		$("#tile_left_nav").css("visibility", "visible");
 		$("#tile_right_nav").css("visibility", "visible");
 		$("section").css("width", "64%");
+		$("section").css("height", "840px");
 		
 		// daum api 지도
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -121,9 +122,13 @@
 				}, delayTime);
 			}
 		});
+		daum.maps.event.addListener(map, 'click', function() {
+			infowindow.close();
+		});
 		
 		getAreasByRange(map.getBounds());
 		function getAreasByRange(bounds) {
+			infowindow.close();
 			var swLatLng = bounds.getSouthWest();
 			var neLatLng = bounds.getNorthEast();
 			var stLat = swLatLng.getLat();
@@ -192,12 +197,15 @@
 		
 		// 지역명 리스트 추가
 		function addTitle(title) {
-			var fixedTitle = title.replace(/\s/gi, '');
+			var regExp = /[\s*\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+			var fixedTitle = title.replace(regExp, '');
+			
 			//TODO: 신규 지역정보 db insert
 			if (titles.length == 0) {
 				titles.push(fixedTitle);
 				// DB지역 데이타인 경우, 인포윈도우 '일정등록' 클릭시 등록
 	        	$(document).on("click", "#infowindow_" + fixedTitle , function() {
+	        		infowindow.close();
 	        		var data = $($(this).parents().html()).last().val().split(",");
 	        		var title = data[0];
 	        		var img = data[1];
@@ -226,7 +234,15 @@
 					        		setSchedule(content, data);
 	
 					        		// 선택한 일정 경로 추가
-					        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+					        		var correctCourseNo = 0;
+									for (var idx = 0; idx < dayCount - 1; idx++) {
+										correctCourseNo = correctCourseNo + courseCount[idx] - 1;
+									}
+					        		if (schedulePath.length != correctCourseNo + courseCount[dayCount-1] - 2) {
+					        			schedulePath.splice(correctCourseNo + courseCount[dayCount-1] - 2, 0, new daum.maps.LatLng(lat, lng));
+					        		} else {
+					        			schedulePath.push(new daum.maps.LatLng(lat, lng));
+					        		}
 					        		if (schedulePath.length > 1) {
 						    			polyline.setMap(null);
 					        			displayArrow(schedulePath);
@@ -242,7 +258,15 @@
 		        		setSchedule(content, id);
 
 		        		// 선택한 일정 경로 추가
-		        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+		        		var correctCourseNo = 0;
+						for (var idx = 0; idx < dayCount - 1; idx++) {
+							correctCourseNo = correctCourseNo + courseCount[idx] - 1;
+						}
+		        		if (schedulePath.length != correctCourseNo + courseCount[dayCount-1] - 2) {
+		        			schedulePath.splice(correctCourseNo + courseCount[dayCount-1] - 2, 0, new daum.maps.LatLng(lat, lng));
+		        		} else {
+		        			schedulePath.push(new daum.maps.LatLng(lat, lng));
+		        		}
 		        		if (schedulePath.length > 1) {
 			    			polyline.setMap(null);
 		        			displayArrow(schedulePath);
@@ -261,6 +285,7 @@
 
 						// 인포윈도우 '일정등록' 클릭시 등록
 			        	$(document).on("click", "#infowindow_" + fixedTitle , function() {
+			        		infowindow.close();
 			        		var data = $($(this).parents().html()).last().val().split(",");
 			        		var title = data[0];
 			        		var img = data[1];
@@ -289,7 +314,15 @@
 							        		setSchedule(content, data);
 	
 							        		// 선택한 일정 경로 추가
-							        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+							        		var correctCourseNo = 0;
+											for (var idx = 0; idx < dayCount - 1; idx++) {
+												correctCourseNo = correctCourseNo + courseCount[idx] - 1;
+											}
+							        		if (schedulePath.length != correctCourseNo + courseCount[dayCount-1] - 2) {
+							        			schedulePath.splice(correctCourseNo + courseCount[dayCount-1] - 2, 0, new daum.maps.LatLng(lat, lng));
+							        		} else {
+							        			schedulePath.push(new daum.maps.LatLng(lat, lng));
+							        		}
 							        		if (schedulePath.length > 1) {
 								    			polyline.setMap(null);
 							        			displayArrow(schedulePath);
@@ -305,7 +338,15 @@
 				        		setSchedule(content, id);
 
 				        		// 선택한 일정 경로 추가
-				        		schedulePath.push(new daum.maps.LatLng(lat, lng));
+				        		var correctCourseNo = 0;
+								for (var idx = 0; idx < dayCount - 1; idx++) {
+									correctCourseNo = correctCourseNo + courseCount[idx] - 1;
+								}
+				        		if (schedulePath.length != correctCourseNo + courseCount[dayCount-1] - 2) {
+				        			schedulePath.splice(correctCourseNo + courseCount[dayCount-1] - 2, 0, new daum.maps.LatLng(lat, lng));
+				        		} else {
+				        			schedulePath.push(new daum.maps.LatLng(lat, lng));
+				        		}
 				        		if (schedulePath.length > 1) {
 					    			polyline.setMap(null);
 				        			displayArrow(schedulePath);
@@ -504,7 +545,7 @@
 		                infowindow.close();
 		                displayInfowindow(marker, title, addr, img);
 		            });
-	
+		            
 		            daum.maps.event.addListener(marker, 'click', function() {
 		    		    map.panTo(marker.getPosition());
 		                map.setLevel(7);
@@ -560,8 +601,7 @@
 		// 검색결과 목록 하단에 페이지번호를 표시는 함수
 		function displayPagination(pagination) {
 		    var paginationEl = document.getElementById('pagination'),
-		        fragment = document.createDocumentFragment(),
-		        i; 
+		        fragment = document.createDocumentFragment(), i; 
 	
 		    // 기존에 추가된 페이지번호를 삭제
 		    while (paginationEl.hasChildNodes()) {
@@ -590,7 +630,8 @@
 		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수
 		// 인포윈도우에 장소명을 표시
 		function displayInfowindow(marker, title, addr, img, id) {
-			var fixedTitle = title.replace(/\s/gi, '');
+			var regExp = /[\s*\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+			var fixedTitle = title.replace(regExp, "");
 			
 			var imageUrl = img;
 			if (imageUrl == '') {
@@ -601,6 +642,7 @@
 				"img":imageUrl,
 				"addr":addr
 			};
+			
 		    var content = '<div style="max-width:300px"><div style="width:32%;float:left;margin:1%"><img src="' + 
 		    	imageUrl + '" style="width:100%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:90%;margin:5%;text-align:center"><b>' + 
 		    	title + '</b></p><p style="width:90%;margin-top:5%;margin-left:5%;margin-right:5%;text-align:center">' + 
@@ -640,10 +682,15 @@
 		// 스케줄 클릭
 		$(document).on("click", ".schedule_borderme", function() {
 			var course = $(this).parents("fieldset").children("legend").text();
+
+			var correctCourseNo = 0;
+			for (var idx = 0; idx < dayCount - 1; idx++) {
+				correctCourseNo = correctCourseNo + courseCount[idx] - 1;
+			}
 			var targetNo = course.substring(6, 7);
 			
 			// 일정 경로 표시
-			schedulePath.splice(targetNo - 1, 1);
+			schedulePath.splice(correctCourseNo + parseInt(targetNo, 10) - 1, 1);
 			polyline.setMap(null);
 			if (schedulePath.length > 1) {
 				displayArrow(schedulePath);
