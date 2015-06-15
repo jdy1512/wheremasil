@@ -72,7 +72,6 @@ public class PlannerScheduleController {
 	@RequestMapping("session/planInfo")
 	public ModelAndView planInfo(@RequestParam Map<String, Object> params, HttpServletRequest request) {
 		PlannerSchedule plan = null;
-		request.getSession().setAttribute("login_info", "admin@wheremasil.com");
 		
 		try {
 			plan = service.registPlanScheduleTran(params, request);
