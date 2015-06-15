@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=8090c845eb21bcc92becc6f8f3bf61fa&libraries=services"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
+
 		var jsonData = $.parseJSON('{"planDetailList":${requestScope.planDetailList}}');
 		var data = jsonData.planDetailList;
 		var content;

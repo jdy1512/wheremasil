@@ -267,6 +267,7 @@ h1:before {
 	height:0px;
 	margin:0 auto;
 	font-size:90%;
+	white-space:nowrap;
 }
 .infoview_text_content {
 	width:100%;
