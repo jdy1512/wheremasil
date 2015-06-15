@@ -10,6 +10,9 @@
    <c:if test="${ not empty requestScope.plan }">
       alert("${ requestScope.plan.title } 등록 완료");
    </c:if>
+   <c:if test="${ not empty requestScope.session }">
+   	  alert("${requestScope.session}");
+   </c:if>
    $(function() {
       $("header").css("background-color", "none");
       $("section").css("width","1880px");

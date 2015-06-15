@@ -187,7 +187,6 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 			String value = (String) entry.getValue();
 			
 			if (curScheduleIdx != scheduleIdx) {
-				System.out.println("----------------------------------------------");
 				curScheduleIdx = scheduleIdx;
 				curCostIdx = -1;
 				
@@ -213,7 +212,6 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 					areaCost.setsDate(scheduleDate);
 					areaCost.setPlanId(schedulePlanId);
 					registAreaCost(areaCost);
-					System.out.println(areaCost);
 				} // 새로운 일정이 생성되는 곳. 
 				curCostIdx = costIdx;
 				areaCost = new AreaCost();
@@ -241,9 +239,6 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 				areaCost.setsDate(scheduleDate);
 				areaCost.setPlanId(schedulePlanId);
 				registAreaCost(areaCost);
-
-				System.out.println(areaCost);
-				System.out.println(schedule);
 			}
 		}// end of for
 		

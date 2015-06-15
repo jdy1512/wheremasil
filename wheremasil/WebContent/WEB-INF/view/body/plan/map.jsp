@@ -197,7 +197,9 @@
 		
 		// 지역명 리스트 추가
 		function addTitle(title) {
-			var fixedTitle = title.replace(/\s/gi, '');
+			var regExp = /[\s*\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+			var fixedTitle = title.replace(regExp, '');
+			
 			//TODO: 신규 지역정보 db insert
 			if (titles.length == 0) {
 				titles.push(fixedTitle);
@@ -599,8 +601,7 @@
 		// 검색결과 목록 하단에 페이지번호를 표시는 함수
 		function displayPagination(pagination) {
 		    var paginationEl = document.getElementById('pagination'),
-		        fragment = document.createDocumentFragment(),
-		        i; 
+		        fragment = document.createDocumentFragment(), i; 
 	
 		    // 기존에 추가된 페이지번호를 삭제
 		    while (paginationEl.hasChildNodes()) {
@@ -629,7 +630,8 @@
 		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수
 		// 인포윈도우에 장소명을 표시
 		function displayInfowindow(marker, title, addr, img, id) {
-			var fixedTitle = title.replace(/\s/gi, '');
+			var regExp = /[\s*\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+			var fixedTitle = title.replace(regExp, "");
 			
 			var imageUrl = img;
 			if (imageUrl == '') {
@@ -640,6 +642,7 @@
 				"img":imageUrl,
 				"addr":addr
 			};
+			
 		    var content = '<div style="max-width:300px"><div style="width:32%;float:left;margin:1%"><img src="' + 
 		    	imageUrl + '" style="width:100%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:90%;margin:5%;text-align:center"><b>' + 
 		    	title + '</b></p><p style="width:90%;margin-top:5%;margin-left:5%;margin-right:5%;text-align:center">' + 
