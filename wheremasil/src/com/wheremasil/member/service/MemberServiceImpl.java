@@ -41,8 +41,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int modifyMember(Member member) {
-		return dao.updateMember(member);
+	public int modifyMember(String member_id,String m_password) {
+		
+		int modify =  dao.updateMember(member_id,m_password);
+		System.out.println(modify);
+		return modify;
 		
 	}
 

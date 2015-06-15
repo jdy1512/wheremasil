@@ -41,9 +41,9 @@
 	<update id="updateMember" parameterType="com.wheremasil.member.vo.Member">
 		update member
 		set
-		m_password=#{m_password},
-		m_email=#{m_email},
-		m_name=#{m_name}
+		
+		m_password=#{m_password}
+		
 
 		where member_id=#{member_id}
 	</update>
