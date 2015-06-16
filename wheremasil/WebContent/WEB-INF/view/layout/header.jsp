@@ -105,6 +105,12 @@ function fn_layer_popup_join() {
 	$("#popup_layer_join").css("visibility", "visible");
 	$("#popup_layer_login").css("visibility", "hidden");
 }
+
+function fn_layer_popup() {
+    var layer = document.getElementById("popup_layer");
+    layer.style.visibility = "visible"; //반대는 hidden 
+
+ }
 </script>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
@@ -126,6 +132,7 @@ function fn_layer_popup_join() {
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
+				<li><a href="#" onclick="fn_layer_popup()">플랜만들기</a></li>
 				<li class="active"><a href="/wheremasil/board/square.do">광장
 						<span class="sr-only">(current)</span>
 				</a></li>
@@ -166,7 +173,88 @@ function fn_layer_popup_join() {
 		</div>
 	</div>
 </nav>
+<div id="popup_layer"
+    style="position: absolute; 
+    top: 52%; 
+    left: 50%; 
+    border-radius: 0.4em; 
+    width: 30%; 
+    height: 50%; 
+    margin-left: -15%; 
+    margin-top: -20%; 
+    z-index: 1; 
+    visibility: hidden;
+    background-color: #f5f5f5;
+    padding: 2px;">
 
+   <div class="panel panel-warning">
+      <div class="panel-heading">
+         <h3 class="panel-title" align="right">여행계획짜기</h3>
+      </div>
+      <div class="panel-body">
+
+         <form class="form-horizontal" action="/wheremasil/plan/session/map.do" method="post">
+            <fieldset>
+               <legend>여행 일정</legend>
+               <div class="form-group">
+                  <label for="inputTitle" class="col-lg-2 control-label">플랜명</label>
+                  <div class="col-lg-10">
+                     <input type="text" class="form-control" id="title" name="title"
+                        placeholder="여행 계획 명" autofocus required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <label for="select" class="col-lg-2 control-label">테마 </label>
+                        <div class="col-lg-10">
+                           <select class="form-control" id="theme" name="theme" required>
+                              <option value="">테마선택</option>
+                              <option value="T1">배낭여행</option>
+                              <option value="T2">우정여행</option>
+                              <option value="T3">가족여행</option>
+                              <option value="T4">커플여행</option>
+                              <option value="T5">부모님여행</option>
+                           </select> <br>
+                        </div> 
+                        <label for="select" class="col-lg-2 control-label">인원수</label>
+                         <div class="col-lg-10">
+                            <select class="form-control" id="groupNum" name="groupNum" required>
+                              <option value="">인원수 선택</option>
+                              <%
+                                 for (int i = 1; i <= 100; i++) {
+                              %>
+                              <option value="<%=i%>"><%=i + "명"%></option>
+                              <%
+                                 }
+                              %>
+                           </select><br>
+                        </div>
+                        <label for="inputStDate" class="col-lg-2 control-label">시작일</label>
+                        <div class="col-lg-9">
+                           <input type="text" class="form-control" id="stDate"
+                              name="startDate" placeholder="여행 시작 날짜" required>
+                        </div><br>
+                     
+                  
+                        <label for="inputendDate" class="col-lg-2 control-label">종료일</label>
+                        <div class="col-lg-9">
+                           <input type="text" class="form-control" id="edDate"
+                              name="endDate" placeholder="여행 종료 날짜" required>
+                        </div>
+                  
+               </div>
+
+               <div class="form-group" >
+                   <div class="col-lg-10 col-lg-offset-7">
+                      <input type="submit" class="btn btn-warning" value="작성 시작">
+                      <input type="reset" class="btn btn-default" id="popup_cancel" value="취소">
+                   </div>
+               </div>
+            </fieldset>
+         </form>
+      </div>
+   </div>
+
+</div>
 <!-- 로그인 -->
 <div id="popup_layer_login"
 	style="position: absolute; top: 70%; left: 53%; border-radius: 0.4em; width: 25%; height: 31%; margin-left: -15%; margin-top: -20%; z-index: 1; visibility: hidden; background-color: #f5f5f5; padding: 2px;">
