@@ -29,7 +29,7 @@ public class SearchController {
 						String searchWord, String category, String title, String content,
 						String theme, String attraction, String number){
 		Map map = new HashMap();
-		
+				
 		if(category.equals("simple")){
 			map = service.getSimpleSearchList(page, searchWord);
 		}else if(category.equals("detailsSimple")){
@@ -43,6 +43,10 @@ public class SearchController {
 	public ModelAndView defaultSearch(@RequestParam(defaultValue="1")int page,
 									String searchWord, String category, String type){
 		Map map = new HashMap();
+		
+		if(searchWord.trim().equals("")){
+			return new ModelAndView("search/search_result_form.tiles");
+		}
 		
 		if(type.equals("plan")){
 			map = service.getPlanSearchListPaging(page, searchWord);
@@ -58,6 +62,11 @@ public class SearchController {
 									String category, String type, String title, String content,
 									String theme, String attraction, String number){
 		Map map = new HashMap();
+		
+		if(title.trim().equals("")&&content.trim().equals("")&&theme.trim().equals("")&&
+			attraction.trim().equals("")&&number.trim().equals("")){
+			return new ModelAndView("search/search_result_form.tiles");
+		}
 		
 		if(type.equals("plan")){
 			map = service.getPlanDetailsSearchListPaging(page, title, theme, attraction, number);

@@ -2,118 +2,109 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				var default_url;
-				$("#login_form_bt").on("click", function() {
-					var s = location.href;
-					default_url = s;
-				});
-				$("#login_send").on(
-						"click",
-						function() {
-							var member_id = $('#member_id').val();
-							var m_password = $('#m_password').val();
-							var editor1 = "member_id" + "=" + member_id + "&"
-									+ "m_password" + "=" + m_password + "&"
-									+ "default_url" + "=" + default_url;
-							$.ajax({
-								url : "/wheremasil/member/logincheck.do",
-								data : editor1,
-								type : "post",
-								dataType : "text",
-								success : function(data) {
-									// window.location.replace(data);
-									if (data == "2") {
-										alert("아이디를 확인하세요");
-									} else if (data == "1") {
-										alert("password를 확인하세요");
-									} else {
-										location.reload(true);
-									}
-								},
-								error : function(data) {
-									alert("로그인실패 새로고침(F5)눌러주세요~");
-								}
-							});
-						});
-				$("#join_send").on(
-						"click",
-						function() {
-							var member_id1 = $('#member_id1').val();
-							var m_password1 = $('#m_password1').val();
-							var m_name1 = $('#m_name1').val();
+$(document).ready(function() {
+	var default_url;
+	$("#login_form_bt").on("click", function() {
+		var s = location.href;
+		default_url = s;
+	});
+	$("#login_send").on("click",function() {
+		var member_id = $('#member_id').val();
+		var m_password = $('#m_password').val();
+		var editor1 = "member_id" + "=" + member_id + "&"
+					+ "m_password" + "=" + m_password + "&"
+					+ "default_url" + "=" + default_url;
+		$.ajax({
+			url : "/wheremasil/member/logincheck.do",
+			data : editor1,
+			type : "post",
+			dataType : "text",
+			success : function(data) {
+				// window.location.replace(data);
+				if (data == "2") {
+					alert("아이디를 확인하세요");
+				} else if (data == "1") {
+					alert("password를 확인하세요");
+				} else {
+					location.reload(true);
+				}
+			},
+			error : function(data) {
+				alert("로그인실패 새로고침(F5)눌러주세요~");
+			}
+		});
+	});
+	$("#join_send").on("click",	function() {
+		var member_id1 = $('#member_id1').val();
+		var m_password1 = $('#m_password1').val();
+		var m_name1 = $('#m_name1').val();
 
-							var editor1 = "member_id12" + "=" + member_id1
-									+ "&" + "m_password1" + "=" + m_password1
-									+ "&" + "m_name1" + "=" + m_name1;
-							$.ajax({
-								url : "/wheremasil/member/joinSuccess.do",
-								data : editor1,
-								type : "post",
-								dataType : "text",
-								success : function(data) {
-									if (data == "1") {
-										alert("아이디중복")
-									} else if (data == "2") {
-										alert("닉네임중복");
-									} else {
-										location.reload(true);
-									}
-								},
-								error : function(data) {
-									alert("회원가입실패 새로고침(F5)눌러주세요~");
-								}
-							});
-						});
-				$("#logout_bt").on("click", function() {
-					alert("로그아웃완료!");
-					//location.href("/wheremasil2	/member/logout.do?page="+location.href);
-					var editor1 = "page" + "=" + location.href;
-					$.ajax({
-						url : "/wheremasil/member/logout.do",
-						data : editor1,
-						type : "post",
-						dataType : "text",
-						success : function(data) {
-							location.reload(true);
-						},
-						error : function(data) {
-							location.reload(true);
-						}
-					});
-				});
-				$("#popup_cancel_login").on("click", function() {
-					$("#popup_layer_login").css("visibility", "hidden");
-				});
-				$("#popup_cancel_join").on("click", function() {
-					$("#popup_layer_join").css("visibility", "hidden");
-				});
-				$("#mypage").on("click", function() {
-					location.href("/wheremasil/mypage/mypageconn.do");
-				});
-				// HeaderSearchForm 오류 검증
-				$("#headerSearch")
-						.on(
-								"submit",
-								function() {
-									if (!$("#headerSearchWord").val()
-											|| $("#headerSearchWord").val()
-													.trim() == "") {
-										$("#headerSearchWord").focus();
-										return false;
-									}
-									return true;
-								});
-			});
-	function fn_layer_popup_login() {
-		$("#popup_layer_login").css("visibility", "visible");
-	}
-
-	function fn_layer_popup_join() {
-		$("#popup_layer_join").css("visibility", "visible");
+		var editor1 = "member_id12" + "=" + member_id1
+					+ "&" + "m_password1" + "=" + m_password1
+					+ "&" + "m_name1" + "=" + m_name1;
+		$.ajax({
+			url : "/wheremasil/member/joinSuccess.do",
+			data : editor1,
+			type : "post",
+			dataType : "text",
+			success : function(data) {
+				if (data == "1") {
+					alert("아이디중복")
+				} else if (data == "2") {
+					alert("닉네임중복");
+				} else {
+					location.reload(true);
+				}
+			},
+			error : function(data) {
+				alert("회원가입실패 새로고침(F5)눌러주세요~");
+			}
+		});
+	});
+	$("#logout_bt").on("click", function() {
+		alert("로그아웃완료!");
+		//location.href("/wheremasil2	/member/logout.do?page="+location.href);
+		var editor1 = "page" + "=" + location.href;
+		$.ajax({
+			url : "/wheremasil/member/logout.do",
+			data : editor1,
+			type : "post",
+			dataType : "text",
+			success : function(data) {
+				location.reload(true);
+			},
+			error : function(data) {
+				location.reload(true);
+			}
+		});
+	});
+	$("#popup_cancel_login").on("click", function() {
 		$("#popup_layer_login").css("visibility", "hidden");
-	}
+	});
+	$("#popup_cancel_join").on("click", function() {
+		$("#popup_layer_join").css("visibility", "hidden");
+	});
+	$("#mypage").on("click", function() {
+		location.href("/wheremasil/mypage/mypageconn.do");
+	});
+	// HeaderSearchForm 오류 검증
+	$("#headerSearch").on("submit",function() {
+		if (!$("#headerSearchWord").val()|| $("#headerSearchWord").val().trim() == "") {
+			$("#headerSearchWord").focus();
+			return false;
+		}
+		return true;
+	});
+});
+	
+function fn_layer_popup_login() {
+	$("#popup_layer_login").css("visibility", "visible");
+}
+
+function fn_layer_popup_join() {
+	$("#popup_layer_join").css("visibility", "visible");
+	$("#popup_layer_login").css("visibility", "hidden");
+}
 </script>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">

@@ -8,13 +8,16 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	
 	// bodySearch btn 빈문자열 오류 검증
 	$("#search-btn").on("click",function(){
+		
 		if(!$("#bodySearchWord").val() || $("#bodySearchWord").val().trim() == ""){
 			alert("검색어입력하세요");
 			$("#bodySearchWord").focus();
 			return false;
 		}
+		
 		location.href="http://127.0.0.1:8088/wheremasil/search/simpleSearch.do?page=&searchWord="+$("#bodySearchWord").val()+"&category=simple&type=";
 	});
 	
