@@ -99,6 +99,7 @@ public class MemberController{
 				session.setAttribute("login_info", m);
 				session.setMaxInactiveInterval(3600);
 				url = default_url;
+				System.out.println("세션넣어서넘김");
 			}else{
 				System.out.println("엘스접근");
 				url =  "1";

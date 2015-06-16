@@ -20,7 +20,7 @@ public class PagingBean {
 	/**
 	 * 한 페이지에 보여질 데이터(내용)개수
 	 */
-	public static int CONTENTS_PER_PAGE = 8;//한페이지에 10개의 내용(Row)를 보여준다.
+	public static int CONTENTS_PER_PAGE = 6;//한페이지에 10개의 내용(Row)를 보여준다.
 	/**
 	 * Page Group 내 Page 수.  페이지 그룹에 들어갈 페이지 개수
 	 */

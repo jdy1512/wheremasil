@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,18 @@ public class BoardController {
 	@Autowired
 	BoardServiceImpl service;
 	
+	
+	
+	@RequestMapping("/returnNic.do")
+	@ResponseBody
+	public String returnNic(String member_id){
+		
+		
+		return service.returnNic(member_id);
+	}
+	
+	
+	
 	@RequestMapping("/modiReveiw.do")
 	public ModelAndView modiReveiw(String posting_id){
 		System.out.println(posting_id);
@@ -47,6 +60,12 @@ public class BoardController {
 	public String deletePost(String posting_id){
 		
 		return service.deletePost(posting_id);
+	}
+	@ResponseBody
+	@RequestMapping("/RdeletePost.do")
+	public String RdeletePost(String posting_id){
+		System.out.println(posting_id);
+		return service.RdeletePost(posting_id);
 	}
 	
 	
@@ -124,7 +143,7 @@ public class BoardController {
 	
 	@RequestMapping("/insertSb.do")
 	@ResponseBody
-	public String insertSb(@RequestParam String categori,@RequestParam String msg ,@RequestParam String login_id) throws UnsupportedEncodingException{
+	public String insertSb(@RequestParam String categori,@RequestParam String msg ,@RequestParam String login_id,String m_name) throws UnsupportedEncodingException{
 		
 		
 		
@@ -134,7 +153,7 @@ public class BoardController {
 	
 		
 		
-		service.insertSb(categori, msg, login_id);
+		service.insertSb(categori, msg, login_id,m_name);
 		
 		return "성공";
 		
@@ -148,7 +167,7 @@ public class BoardController {
 	@RequestMapping("/square.do")
 	public String squareController(){
 		//("Accece squareController");
-		return "board/square_form.tiles";
+		return "board/square_form.Stiles";
 	}
 	
 	
@@ -156,14 +175,14 @@ public class BoardController {
 	public ModelAndView reviewController(@RequestParam(defaultValue="1")int page){
 		//("Accece reviewController");
 		Map map =service.getReviewList(page);
-		return new ModelAndView("board/review_list_form.tiles", map);
+		return new ModelAndView("board/review_list_form.Stiles", map);
 		
 	}
 	@RequestMapping("/postingVal")
 	public ModelAndView returnPostValue(@RequestParam(defaultValue="1") int postring_id){
 		Map map = service.returnPostringValue(postring_id);
 		
-		return new ModelAndView("/WEB-INF/view/body/board/review_detail_form.jsp", map);
+		return new ModelAndView("board/review_detail_form.Stiles", map);
 	}
 	
 	
@@ -177,7 +196,7 @@ public class BoardController {
 	@RequestMapping("/reivew/writer.do")
 	public String revieWriter(){
 		//("Accece revieWriter");
-		return "/WEB-INF/view/body/board/review_writer_form.jsp";
+		return "board/review_writer_form.Stiles";
 		
 	}
 	@RequestMapping(value="/insertBoardDAO.do",method=RequestMethod.POST)
@@ -200,7 +219,7 @@ public class BoardController {
 	@RequestMapping(value = "/check.do" , method = RequestMethod.POST)
 @ResponseBody
 	public String check(MultipartHttpServletRequest req, 
-		    HttpServletResponse res) throws IllegalStateException, IOException{
+		    HttpServletResponse res,HttpServletRequest request) throws IllegalStateException, IOException{
 		System.out.println("파일 저장 들어옴");
 	
 		Iterator<String> itr =  req.getFileNames();
@@ -218,9 +237,13 @@ public class BoardController {
 		//		 +date+"."+arr[1]);
 		 //String path = req.getServletContext().getRealPath("/uploads/files/");
 		 //String path1= "C:\\Users\\JPH.KOSTA_03_030-HP\\git\\wheremasil1\\wheremasil\\WebContent\\uploads\\images\\";
-		 String path1="C:\\Users\\JPH.KOSTA_03_030-HP\\git\\wheremasil3\\wheremasil\\WebContent\\uploads\\images\\posting_img\\";
+		// String path1="C:\\Users\\JPH.KOSTA_03_030-HP\\git\\wheremasil3\\wheremasil\\WebContent\\uploads\\images\\posting_img\\";
+		 String path1=request.getSession().getServletContext().getRealPath("/uploads/images/posting_img");
+		 System.out.println(path1);
 		 String fileName = System.currentTimeMillis()+""; 
 		 File pic = new File(path1, fileName+"."+arr[1]);
+		 
+		 System.out.println(pic.toString());
 		 
 		 //("저장된 파일위치"+pic);
 		 
@@ -235,7 +258,7 @@ public class BoardController {
 	
 	@RequestMapping(value="/insertRp.do",produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String insertRp( @RequestParam String editor1,@RequestParam String member_id,@RequestParam String posting_id ) {
+	public String insertRp( @RequestParam String editor1,@RequestParam String member_id,@RequestParam String posting_id ,String m_name) {
 		
 		
 		long time = System.currentTimeMillis(); 
@@ -243,9 +266,10 @@ public class BoardController {
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyyMMddhhmmss");
 		String str = dayTime.format(new Date(time));
 		// Reply(reply_id, r_parent_id, r_datetime, r_level, posting_id, member_id, r_content)
-		Reply reply = new Reply("x", "x", str, 0, posting_id, member_id,editor1);
+		//Reply reply = new Reply("x", "x", str, 0, posting_id, member_id,editor1);
+		Reply reply = new Reply("x", "x", str, 0, posting_id, member_id, editor1, m_name);
 		//("컨트롤러리플값"+reply);
-		int r=	service.insertRp(reply,editor1);
+		int r=	service.insertRp(reply);
 		
 		
 	

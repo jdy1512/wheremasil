@@ -12,8 +12,9 @@ public class Board {
 	private String editor1;
 	private String dateTime;
 	private String sumname;
+	private String m_name;
 	public Board(String name, String theme, String subject, String editor1,
-			String dateTime, String sumname) {
+			String dateTime, String sumname, String m_name) {
 		super();
 		this.name = name;
 		this.theme = theme;
@@ -21,6 +22,7 @@ public class Board {
 		this.editor1 = editor1;
 		this.dateTime = dateTime;
 		this.sumname = sumname;
+		this.m_name = m_name;
 	}
 	public Board() {
 		super();
@@ -29,7 +31,7 @@ public class Board {
 	public String toString() {
 		return "Board [name=" + name + ", theme=" + theme + ", subject="
 				+ subject + ", editor1=" + editor1 + ", dateTime=" + dateTime
-				+ ", sumname=" + sumname + "]";
+				+ ", sumname=" + sumname + ", m_name=" + m_name + "]";
 	}
 	public String getName() {
 		return name;
@@ -66,6 +68,12 @@ public class Board {
 	}
 	public void setSumname(String sumname) {
 		this.sumname = sumname;
+	}
+	public String getM_name() {
+		return m_name;
+	}
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
 	}
 	
 	

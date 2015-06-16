@@ -11,6 +11,36 @@ public class ResultBoard {
 	private String p_img_path;
 	private String boardtype_id;
 	private String member_id;
+	private String m_name;
+	public ResultBoard(int posting_id, String p_content, String p_datetime,
+			int p_number, int p_like, String p_title, int p_hits,
+			String p_img_path, String boardtype_id, String member_id,
+			String m_name) {
+		super();
+		this.posting_id = posting_id;
+		this.p_content = p_content;
+		this.p_datetime = p_datetime;
+		this.p_number = p_number;
+		this.p_like = p_like;
+		this.p_title = p_title;
+		this.p_hits = p_hits;
+		this.p_img_path = p_img_path;
+		this.boardtype_id = boardtype_id;
+		this.member_id = member_id;
+		this.m_name = m_name;
+	}
+	public ResultBoard() {
+		super();
+	}
+	@Override
+	public String toString() {
+		return "ResultBoard [posting_id=" + posting_id + ", p_content="
+				+ p_content + ", p_datetime=" + p_datetime + ", p_number="
+				+ p_number + ", p_like=" + p_like + ", p_title=" + p_title
+				+ ", p_hits=" + p_hits + ", p_img_path=" + p_img_path
+				+ ", boardtype_id=" + boardtype_id + ", member_id=" + member_id
+				+ ", m_name=" + m_name + "]";
+	}
 	public int getPosting_id() {
 		return posting_id;
 	}
@@ -71,32 +101,11 @@ public class ResultBoard {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-	@Override
-	public String toString() {
-		return "ResultBoard [posting_id=" + posting_id + ", p_content="
-				+ p_content + ", p_datetime=" + p_datetime + ", p_number="
-				+ p_number + ", p_like=" + p_like + ", p_title=" + p_title
-				+ ", p_hits=" + p_hits + ", p_img_path=" + p_img_path
-				+ ", boardtype_id=" + boardtype_id + ", member_id=" + member_id
-				+ "]";
+	public String getM_name() {
+		return m_name;
 	}
-	public ResultBoard(int posting_id, String p_content, String p_datetime,
-			int p_number, int p_like, String p_title, int p_hits,
-			String p_img_path, String boardtype_id, String member_id) {
-		super();
-		this.posting_id = posting_id;
-		this.p_content = p_content;
-		this.p_datetime = p_datetime;
-		this.p_number = p_number;
-		this.p_like = p_like;
-		this.p_title = p_title;
-		this.p_hits = p_hits;
-		this.p_img_path = p_img_path;
-		this.boardtype_id = boardtype_id;
-		this.member_id = member_id;
-	}
-	public ResultBoard() {
-		super();
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
 	}
 	
 

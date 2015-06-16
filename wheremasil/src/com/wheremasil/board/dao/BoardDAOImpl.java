@@ -24,9 +24,20 @@ public class BoardDAOImpl {
 	private String namespace="board.dao.boardMapper.";
 	
 	
+	
+	public List<Member> returnNic(String member_id){
+		return session.selectList(namespace+"returnNic",member_id);
+	}
+	
+	
 	public int deletePost(String posting_id){
 		
 		return session.delete(namespace+"deletePost",posting_id);
+	}
+	
+public int RdeletePost(String posting_id){
+		
+		return session.delete(namespace+"RdeletePost",posting_id);
 	}
 	
 	

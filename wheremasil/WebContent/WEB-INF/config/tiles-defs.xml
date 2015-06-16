@@ -12,6 +12,17 @@
 	    <put-attribute name="right_menu" value="/WEB-INF/view/layout/right_side_menu.jsp"/>
 	</definition>
 	
+	
+	
+	<definition name="templateS" template="/WEB-INF/view/layout/template.jsp">
+	    <put-attribute name="header" value="/WEB-INF/view/layout/header.jsp"/>
+	    <put-attribute name="footer" value="/WEB-INF/view/layout/footer1.jsp"/>
+	    <put-attribute name="left_menu" value="/WEB-INF/view/layout/left_side_menu.jsp"/>
+	    <put-attribute name="right_menu" value="/WEB-INF/view/layout/right_side_menu.jsp"/>
+	</definition>
+	
+	
+	
 	<!-- main.tiles, abc.tiles, root.tiles -->
 	<definition name="*.tiles" extends="template">
 	    <put-attribute name="body" value="/WEB-INF/view/body/{1}.jsp"/>
@@ -19,6 +30,10 @@
 	
 	<!-- member/login_form.tiles, order/order_form.tiles -->
 	<definition name="*/*.tiles" extends="template">
+	    <put-attribute name="body" value="/WEB-INF/view/body/{1}/{2}.jsp"/>
+	</definition>
+	
+	<definition name="*/*.Stiles" extends="templateS">
 	    <put-attribute name="body" value="/WEB-INF/view/body/{1}/{2}.jsp"/>
 	</definition>
 	
