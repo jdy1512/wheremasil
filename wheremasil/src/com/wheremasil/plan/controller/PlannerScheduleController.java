@@ -72,7 +72,6 @@ public class PlannerScheduleController {
 	@RequestMapping("session/planInfo")
 	public ModelAndView planInfo(@RequestParam Map<String, Object> params, HttpServletRequest request) {
 		PlannerSchedule plan = null;
-		request.getSession().setAttribute("login_info", "admin@wheremasil.com");
 		
 		try {
 			plan = service.registPlanScheduleTran(params, request);
@@ -101,7 +100,6 @@ public class PlannerScheduleController {
 			} else if (i == pdList.size() - 1) {
 				pd.setEndDate(newDate);
 			}
-			System.out.println(pd);
 		}
 		
 		return new ModelAndView("plan/schedule.tiles", "planDetailList", new Gson().toJson(pdList));
@@ -119,6 +117,9 @@ public class PlannerScheduleController {
 	@RequestMapping("getPlanMapList")
 	@ResponseBody
 	public List<PlanMap> getPlanMapList(@RequestParam String planIdList, HttpServletRequest request) {
+		if (planIdList.length() < 1) {
+			return null;
+		}
 		List<String> params = new ArrayList<String>();
 		String[] planIdListSplit = planIdList.split("&");
 		for (int i = 0; i < planIdListSplit.length; i++) {
@@ -126,7 +127,6 @@ public class PlannerScheduleController {
 		}
 		
 		List<PlanMap> list = service.getPlanMapList(params);
-		System.out.println(list);
 		return list;
 	}
 	

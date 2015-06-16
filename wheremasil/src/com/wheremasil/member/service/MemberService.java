@@ -19,8 +19,9 @@ public interface MemberService {
 	/**
 	 * 회원 정보 수정 처리 메소드
 	 * @param member 수정할 회원 전보
+	 * @return 
 	 */
-	public abstract void modifyMember(Member member);
+	public abstract int modifyMember(String member_id,String m_password);
 	
 	public abstract Member getMemberById(String member_id);
 	

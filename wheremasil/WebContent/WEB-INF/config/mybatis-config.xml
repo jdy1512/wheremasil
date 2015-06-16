@@ -3,7 +3,7 @@
 <configuration>
 	<typeAliases>
 		<package name="com.wheremasil.plan.vo"/>
-		<package name="com.wheremasil.search.vo"/>
+		<package name="com.wheremasil.board.vo"/>
 	</typeAliases>
 	
 	<mappers>

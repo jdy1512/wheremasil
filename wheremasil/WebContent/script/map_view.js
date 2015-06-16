@@ -47,7 +47,7 @@ function getPlanMapList(planIdList, mapContainerId, mapViewClassName) {
 					$("#" + mapContainerId + planCnt).attr("href", "/wheremasil/plan/getSchedule.do?plan_id=" + curPlanId);
 					$("#" + mapContainerId + planCnt).attr("class", mapViewClassName);
 					$("#" + mapContainerId + planCnt).html('<div id="plan_' + curPlanId + '" style="width:100%;height:100%;"></div>' + 
-						'<div style="text-align:center;"><h4><p><b>' + data[idx].mName + ' < ' + data[idx].title + ' ></b></p></h4>' + 
+						'<div style="text-align:center;"><p><font size=5 color="black">' + data[idx].title + '</font><br><img src="/wheremasil/uploads/images/icon/Black_user_shape_24.png"><b><font size=4 color="black">' + data[idx].mName + '</b></p></font>' + 
 						'<h5><p><b>' + newSDate + ' ~ ' + newEDate + '</b></p></h5></div>');
 					
 					// map draw

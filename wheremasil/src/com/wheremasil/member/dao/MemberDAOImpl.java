@@ -35,6 +35,7 @@ public class MemberDAOImpl implements MemberDAO {
 	 */
 	@Override
 	public int insertMember(Member member){
+		System.out.println("확인");
 		return session.insert(namespace+"insertMember", member);
 	}
 	/**
@@ -43,7 +44,8 @@ public class MemberDAOImpl implements MemberDAO {
 	 * @param member
 	 */
 	@Override
-	public int updateMember(Member member){
+	public int updateMember(String member_id,String m_password){
+		Member member = new Member(member_id, "", m_password, "", "", "", "", "", "");
 		return  session.update(namespace+"updateMember", member);
 	}
 	@Override

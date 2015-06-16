@@ -13,7 +13,7 @@ public interface MemberDAO {
 	//회원 정보를 DB에 insert하는 메소드
 	public abstract int insertMember(Member member);
 	//회원 정보 수정 메소드
-	public abstract int updateMember(Member member);
+	public abstract int updateMember(String member_id, String m_password);
 	
 	public abstract Member selectMemberByName(String m_name);
 	

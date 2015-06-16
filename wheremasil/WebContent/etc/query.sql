@@ -8,7 +8,7 @@ ALTER TABLE reply add(r_content VARCHAR2(4000));
 
 ALTER TABLE posting MODIFY(p_title VARCHAR2(512));
 ALTER TABLE area_cost rename column seq_id to p_content_path;
-ALTER TABLE posting MODIFY(p_content VARCHAR2(512));
+ALTER TABLE area MODIFY(a_name VARCHAR2(256));
 ALTER TABLE posting add(p_content clob);
 ALTER TABLE posting drop column p_content;
 ALTER TABLE member MODIFY m_position NULL;
@@ -19,6 +19,7 @@ select * from area_cost
 select * from schedule
 select * from plan
 select * from member
+update member set m_name='admin' where member_id='admin@wheremasil.com'
 
 update area set channel_id='C3' where area_id='A11'
 
@@ -43,7 +44,7 @@ select * from v$resource_limit where resource_name = 'processes';
 
 delete from area_cost;
 delete from schedule;
-delete from plan where plan_id='L160';
+delete from plan where plan_id='L304';
 delete from area;
 drop sequence area_seq;
 create sequence area_seq start with 1 increment by 1;

@@ -4,6 +4,7 @@
 <script type="text/javascript">
 	var map;
 	var bounds;
+	var firstBounds;
 	// 지역명 리스트
 	var titles = [];
 	// 마커를 담을 배열
@@ -44,6 +45,7 @@
 		
 		// 지도 뷰 범위를 생성한다
 		bounds = new daum.maps.LatLngBounds();
+		firstBounds = map.getBounds();
 		
 		// 지도 타입변경 (체크박스)
 		// 지도 타입 정보를 가지고 있을 객체
@@ -197,7 +199,9 @@
 		
 		// 지역명 리스트 추가
 		function addTitle(title) {
-			var fixedTitle = title.replace(/\s/gi, '');
+			var regExp = /[\s*\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+			var fixedTitle = title.replace(regExp, '');
+			
 			//TODO: 신규 지역정보 db insert
 			if (titles.length == 0) {
 				titles.push(fixedTitle);
@@ -372,6 +376,9 @@
 			for (var idx = 0; idx < areaMarkers.length; idx++) {
 				extendsBounds(areaMarkers[idx].getPosition());
 			}
+			if (areaMarkers.length == 0) {
+				bounds = firstBounds;
+			}
 			setBounds();
 		}
 		
@@ -486,7 +493,7 @@
 			$("#menu_more").val("접기");
 	
 		    // 장소검색 객체를 통해 키워드로 장소검색을 요청
-		    ps.keywordSearch( keyword, placesSearchCB); 
+		    ps.keywordSearch( keyword, placesSearchCB, {location:map.getCenter()}); 
 		}
 		// 장소검색이 완료됐을 때 호출되는 콜백함수
 		function placesSearchCB(status, data, pagination) {
@@ -573,7 +580,7 @@
 		    $("#menu_wrap").css("height", totalHeight + "px");
 	
 		    // 검색된 장소 위치를 기준으로 지도 범위를 재설정
-		    setBounds();
+		    //setBounds();
 		}
 		// 검색결과 항목을 Element로 반환하는 함수
 		function getListItem(index, places) {
@@ -599,8 +606,7 @@
 		// 검색결과 목록 하단에 페이지번호를 표시는 함수
 		function displayPagination(pagination) {
 		    var paginationEl = document.getElementById('pagination'),
-		        fragment = document.createDocumentFragment(),
-		        i; 
+		        fragment = document.createDocumentFragment(), i; 
 	
 		    // 기존에 추가된 페이지번호를 삭제
 		    while (paginationEl.hasChildNodes()) {
@@ -629,7 +635,8 @@
 		// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수
 		// 인포윈도우에 장소명을 표시
 		function displayInfowindow(marker, title, addr, img, id) {
-			var fixedTitle = title.replace(/\s/gi, '');
+			var regExp = /[\s*\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi;
+			var fixedTitle = title.replace(regExp, "");
 			
 			var imageUrl = img;
 			if (imageUrl == '') {
@@ -640,6 +647,7 @@
 				"img":imageUrl,
 				"addr":addr
 			};
+			
 		    var content = '<div style="max-width:300px"><div style="width:32%;float:left;margin:1%"><img src="' + 
 		    	imageUrl + '" style="width:100%;margin:5px;"></div><div style="width:64%;float:right;margin:1%"><p style="width:90%;margin:5%;text-align:center"><b>' + 
 		    	title + '</b></p><p style="width:90%;margin-top:5%;margin-left:5%;margin-right:5%;text-align:center">' + 

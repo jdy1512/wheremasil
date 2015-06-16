@@ -17,14 +17,14 @@
 	<!-- 이동 뷰 컨트롤러 -->
 	<mvc:view-controller path="index.do" view-name="main.tiles"/>
 	
-	<!-- interceptors 
+	<!-- interceptors -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**/login/**/*"/>
-			<bean class="com.mycom.common.interceptor.LoginCheckInterceptor"/>
+			<mvc:mapping path="/**/session/**/*"/>
+			<bean class="com.wheremasil.common.interceptor.LoginCheckInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
-	-->
+	
 	
 	<!-- file upload 처리 multipartResolver 등록 -->
 	<bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
@@ -55,7 +55,7 @@
 	<!-- BasicDataSource -->
 	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" p:driverClassName="oracle.jdbc.driver.OracleDriver"
-		p:url="jdbc:oracle:thin:@192.168.7.252:1521:XE" p:username="scott"
+		p:url="jdbc:oracle:thin:@127.0.0.1:1521:XE" p:username="scott"
 		p:password="tiger" p:maxActive="50" p:initialSize="20" />
 	<!-- SqlSessionFactoryBean : SqlSessionFactoryBuilder의 역할. SqlSessionFactory를 
 		생성한다. -->

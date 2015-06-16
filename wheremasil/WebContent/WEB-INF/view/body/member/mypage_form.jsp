@@ -1,56 +1,124 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+	pageEncoding="EUC-KR"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript">
-function photo(){
-	alert("123");
-	$.ajax({
-		url : "/wheremasil/member/logincheck.do",
-		data : editor1,
-		type : "post",
-		dataType : "text",
-		success : function(data) {
+$(document).ready( function(){
 
-	
+						$("#inforchange").on("click", function() {
+							
+						});
+						$("#change").on("click",function() {
 
-			// window.location.replace(data);
+									$("#memberchange").css("background-color",
+											"#000000");
+									$("#memberchange").css("visibility",
+											"visible");
 
-			if (data == "2") {
-				alert("아이디를 확인하세요");
+								});
+						$("#changsucc").on("click",function() {
+											
+											var member_id = $
+											{
+												sessionScope.login_info.member_id
+											};
+											var m_password = $('#m_passwordchange').val();
+											
+											var editor1 = "member_id" + "="
+													+ member_id + "&"
+													+ "m_password" + "="
+													+ m_password;
 
-			} else if (data == "1") {
-				alert("password를 확인하세요");
-			} else {
+											$.ajax({
+														url : "/wheremasil/member/memberchange.do",
+														data : editor1,
+														type : "post",
+														dataType : "text",
+														success : function(data) {
+															if (data == "a") {
+																alert("정보수정완료!");
+																$("#memberchange").css("visibility","hidden");
+															} else {
+																alert("수정실패 새로고침(F5)눌러주세요");
+															}
+														},
 
-				location.reload(true);
+													});
 
-			}
-
-		},
-		error : function(data) {
-			alert("로그인실패 새로고침(F5)눌러주세요~");
-		}
-	});
-}
+										});
+						$("#changecancel").on("click", function() {
+							$("#memberchange").css("visibility", "hidden");
+						});
+						$("#addplan_bt").on("click", function() {
+							
+							
+							$("#popup_layer1").css("visibility", "visible");
+							
+						});
+						
+						
+						
+});
+					
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
 <Style>
-#wrap { position: absolute; top: 10px; left: 50%; margin-left: -512px; width:1024px; }
-#ML1 { position: absolute; top: 95px; left: 5px; width: 300px; height: 3-0px; align: center; background: #EAEAEA; }
-
+#ML1 {
+	position: absolute;
+	top: 95px;
+	left: 5px;
+	width: px;
+	height: 3 -0px;
+	align: center;
+}
 </style>
 <body>
 
- <div id="wrap"></div>
 
- <div id="ML1"><img height="160"  style="margin-bottom: 10px;" src="http://192.168.7.99:8078/wheremasil/uploads/images/default/no-photo.png" border="0"><br>
-  <input type="file" value="" onclick="photo();">
-  <input type="button" value="프로필사진교체" onclick="photo();">
- </div>
 
+	<div id="ML1">
+		<img height="160" style="margin-bottom: 10px;"
+			src="http://192.168.7.99:8078/wheremasil/uploads/images/default/no-photo.png"
+			border="0"><br> <font size="10">
+			${sessionScope.login_info.member_id}<br>
+		</font> <input type="file" value="" id="upphoto"> <input id="addFile"
+			type="button" value="프로필사진교체"><br> <input id="change"
+			type="button" value="개인정보수정"><br> a<br> a<br>
+		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
+
+	</div>
+
+
+	<div id="memberchange"
+		style="width: 300px; height: 250px; left: 50%; top: 50%; visibility: hidden; position: absolute;">
+
+		<h2>개인정보수정</h2>
+		<br>
+
+		<table width='500'>
+			<tr>
+				<td>password</td>
+				<td><input type="password" id="m_passwordchange"
+					name="m_password" required="required"></td>
+			</tr>
+			
+			<tr>
+
+
+				<td colspan="2"><input type="button" value="수정" id="changsucc">
+					<input type="button" value="취소" id="changecancel"></td>
+			</tr>
+		</table>
+	</div>
+
+
+	
 </body>
 </html>
