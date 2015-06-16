@@ -156,11 +156,11 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 		plan.setEndDate((String) params.get("endDate"));
 		plan.setGroupNum(Integer.parseInt((String) params.get("groupNum")));
 		plan.setMemberId((String) request.getSession().getAttribute("login_info"));
-
+		
 		// 플랜 등록
 		registPlanSchedule(plan);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyymmdd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		Date date = sdf.parse(plan.getStartDate());
 		c = new GregorianCalendar();
 

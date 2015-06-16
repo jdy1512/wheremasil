@@ -87,6 +87,7 @@ public class PlannerScheduleController {
 	public ModelAndView getSchedule(@RequestParam("plan_id") String planId, HttpServletRequest request) {
 		List<PlanDetail> pdList = service.getPlanDetails(planId);
 		
+		
 		for (int i = 0; i < pdList.size(); i++) {
 			PlanDetail pd = pdList.get(i);
 			String oriDate = pd.getCurDate();
