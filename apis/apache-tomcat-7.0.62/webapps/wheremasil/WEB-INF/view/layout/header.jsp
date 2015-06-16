@@ -166,7 +166,6 @@ function fn_layer_popup() {
 				</li>
 				<li class="active"><a href="/wheremasil/board/square.do">광장</a></li>
 				<li><a href="/wheremasil/board/review.do">리뷰</a></li>
-				<li><a href="/wheremasil/board/qna.do">Q&A</a></li>
 			</ul>
 			<form class="navbar-form navbar-right" role="search"
 				action="/wheremasil/search/simpleSearch.do" id="headerSearch">

@@ -14,6 +14,7 @@
 		<result column="p_img_path" property="p_img_path"/>
 		<result column="boardtype_id" property="boardtype_id"/>
 		<result column="member_id" property="member_id"/>
+		<result column="m_name" property="m_name"/>
 		
 	</resultMap>
 	
@@ -45,8 +46,8 @@
 
 
 <insert id="insertSb" parameterType="com.wheremasil.board.vo.Board">
- insert into POSTING(posting_id,p_content,p_datetime,p_number,p_like,p_title,p_hits,p_img_path,boardtype_id,member_id)
-		values (sequence_totalPostring.NEXTVAL, #{editor1}, #{dateTime}, sp_seq.NEXTVAL, 0, #{subject},0,#{sumname},#{theme},#{name})
+ insert into POSTING(posting_id,p_content,p_datetime,p_number,p_like,p_title,p_hits,p_img_path,boardtype_id,member_id,m_name)
+		values (sequence_totalPostring.NEXTVAL, #{editor1}, #{dateTime}, sp_seq.NEXTVAL, 0, #{subject},0,#{sumname},#{theme},#{name},#{m_name})
 
 
 
@@ -54,8 +55,8 @@
 
 
 <insert id="insertRp" parameterType="com.wheremasil.board.vo.Reply">
-insert into reply( reply_id,r_parent_id,r_datetime,r_level,posting_id,member_id,r_content)
-		values (rp_seq.NEXTVAL, #{r_parent_id},#{r_datetime},#{r_level},#{posting_id},#{member_id},#{r_content})
+insert into reply( reply_id,r_parent_id,r_datetime,r_level,posting_id,member_id,r_content,m_name)
+		values (rp_seq.NEXTVAL, #{r_parent_id},#{r_datetime},#{r_level},#{posting_id},#{member_id},#{r_content},#{m_name})
 
 </insert>
 
@@ -104,12 +105,20 @@ order by p_datetime DESC
 
 </select>
 
+<select id="returnNic" parameterType="string" resultType="com.wheremasil.member.vo.Member">
+
+select *
+from member
+where m_name=#{value}
+
+</select>
+
 
 
 <select id="selectMemberInfo" parameterType="string" resultType="com.wheremasil.member.vo.Member">
 select *
 from member
-where member_id=#{value}
+where m_name=#{value}
 
 
 </select>
@@ -171,12 +180,13 @@ where posting_id=#{value}
 	</select>
 	
 	<select id="selectTotalMemberCount" resultType="_int">
-		select count(p_number) from posting
+		select count(p_number) from posting where boardtype_id='p'
 	</select>
 	
 	<select id="selectOrderByLike" resultMap="board-resultmap">
-	select *
+select *
 from POSTING
+where boardtype_id='p'
 order by p_like DESC
 					
 	
@@ -216,6 +226,14 @@ select *
 	DELETE
 	FROM posting 
 	WHERE posting_id = #{value}
+	
+	</delete>
+	
+	<delete id="RdeletePost" parameterType="string">
+	
+	DELETE
+	FROM reply 
+	WHERE reply_id = #{value}
 	
 	</delete>
 	

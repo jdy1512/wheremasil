@@ -21,7 +21,7 @@ function resize(obj) {
 var check =2;
 
 function insertHit(){
-	alert("조회수 펑션");
+	//alert("조회수 펑션");
 	var txt = "posting_id" + "="+ $("#posting_id").val();
 	$.ajax({
    	    url: '/wheremasil/board/insertHit.do',
@@ -33,7 +33,7 @@ function insertHit(){
    	    
    	    success: function(result){
    	    	
-   	    	alert(result);
+   	    	//alert(result);
    	    	
    	    	
    	    	
@@ -46,7 +46,7 @@ function insertHit(){
    	   
    	    },
    	    error:function(result){
-   	    	alert(result);
+   	    	//alert(result);
    	    	alert("조회수 업데이트 실패");
    	    }
    	});
@@ -83,7 +83,7 @@ function rpccnt(){
 		       	   
 		       	    },
 		       	    error:function(result){
-		       	    	alert(result);
+		       	    	//alert(result);
 		       	    	alert("리플개수못옴");
 		       	    }
 		       	});
@@ -92,7 +92,8 @@ function rpccnt(){
 }
 
 function rpinsert(){
-	var editor2 = "editor1" + "="+ $("#posting_id").val();
+	var editor2 = "editor1" + "="+ $("#posting_id").val()+"&" + "m_name"
+	+ "=" + $("#m_name12345").val();
 	
 	$.ajax({
        	    url: '/wheremasil/board/sinsertRp.do',
@@ -116,7 +117,7 @@ function rpinsert(){
        	   
        	    },
        	    error:function(result){
-       	    	alert(result);
+       	    	(result);
        	    	alert("첫리플로드  실패");
        	    }
        	});
@@ -129,24 +130,31 @@ function rpinsert(){
 }
 
 function button(){
-	alert("버튼클릭");
-	alert(check);
+	//alert("버튼클릭");
+	//alert(check);
+	$(document).scrollTop( 99999);
 	if(check==1){
 	document.getElementById("rplist").innerHTML="";
 	document.getElementById("button").innerHTML="▼";
 	check=2;
+	$(document).scrollTop( 99999);
+	
+	
 	
 	}else{
+		
 		rpinsert();
 		document.getElementById("button").innerHTML="▲";
 		
 		check=1;
+		$(document).scrollTop( 99999);
 	}
+	$(document).scrollTop( 99999);
 }
 
 
 function inertLike(posting_id){
-	alert("추천하기 펑션");
+	//alert("추천하기 펑션");
 	var txt = "posting_id" + "="+ $("#posting_id").val();
 	$.ajax({
    	    url: '/wheremasil/board/insertLike.do',
@@ -158,9 +166,9 @@ function inertLike(posting_id){
    	    
    	    success: function(result){
    	    	
-   	    	alert(result);
-   	    	
-   	    	
+   	 alert("추천하였습니다.");
+   	    	$(document).scrollTop( 99999);
+   	    
    	    	
    	    	
 
@@ -187,6 +195,10 @@ function inertLike(posting_id){
 $(document).ready(function(){
 	
 	insertHit();
+	123456
+	
+	
+
 	
 	
 	$("#like").on("click",function(){
@@ -222,9 +234,12 @@ $(document).ready(function(){
 	
 	$("#rpregi").on("click",function(){
 		
+		
+		
+		if($("#member_id2").val()!=""	){
 
-		var editor1 =  "editor1" + "="+ $("#rpcontext").val()+"&" +"member_id" + "="+ $("#member_id1").val()+"&" +"posting_id" + "="+ $("#posting_id").val();
-		alert(editor1);
+		var editor1 =  "editor1" + "="+ $("#rpcontext").val()+"&" +"member_id" + "="+ $("#member_id2").val()+"&" +"posting_id" + "="+ $("#posting_id").val()+"&" +"m_name" + "="+ $("#m_name12345").val();
+		
 		$.ajax({
 	       	    url: '/wheremasil/board/insertRp.do',
 	       	    
@@ -234,15 +249,13 @@ $(document).ready(function(){
 	    	    dataType:"JSON",
 	       	    
 	       	    success: function(result){
-	       	    	alert(result);
-	       	    	
-	       	    	alert(result[0].posting_id);
 	       	    	
 	       	    	
+	       	    	alert("리플을 등록했습니다");
 	 
 	       	    	washrp(result);
-	       	    	alert("리설트싸이즈"+result.size());
-	       	    	alert("리플업로드!!");
+	       	    	
+	       	    	
 	       	    	
 	       	    	rpccnt();
 	       	    	
@@ -256,8 +269,11 @@ $(document).ready(function(){
 	       	    }
 	       	});
 		
-		
-		
+	
+		}else{
+			
+			alert("로그인부터하세요");
+		}
 	});
 	
 
@@ -268,6 +284,73 @@ $(document).ready(function(){
 </script>
 
 <script type="text/javascript">
+
+var scrollTop = 0;
+var scrollLeft = 0;
+//Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+function EndRequestHandler(sender, args) { 
+    setScroll();
+}
+function setScroll()
+{
+    document.getElementById('AdjResultsDiv').scrollTop = scrollTop;
+    document.getElementById('AdjResultsDiv').scrollLeft = scrollLeft;
+}
+
+function saveScroll()
+{
+    scrollTop = document.getElementById('AdjResultsDiv').scrollTop;
+    scrollLeft = document.getElementById('AdjResultsDiv').scrollLeft;
+}
+
+
+
+function del(asd){
+	//alert("확인");
+	if (confirm("정말 삭제하시겠습니까??") == true){  
+		//alert(asd);
+	   //deletePost(asd);
+	}else{   
+	    return;
+	}
+}
+
+
+function deletePost(posting_id){
+	//alert("넘너온 포스팅넘버"+posting_id);	
+var txt = "posting_id" + "="+ posting_id;
+	
+	$.ajax({
+   	    url: '/wheremasil/board/RdeletePost.do',
+   	 type:"post",
+   	    processData: false,
+   	 
+	    data:txt,
+	    dataType:"text",
+   	    
+   	    success: function(result){
+   	   
+   	    	
+   	    	alert("성공");
+   	    	location.reload(true);
+   	    	
+   	    	
+   	   
+   	    },
+   	    error:function(result){
+   	    	
+   	    	alert("삭제실패");
+   	    }
+   	});
+	
+	
+	
+}
+
+
+
+
+
 
 function getMemberImg(member_id) {
 	var result1;
@@ -304,8 +387,8 @@ function washrp(result) {
 	 $("#rplist").html("");
 	for(var i=0; i<result.length; i++) {
 		
-    $("#rplist").append("<tr><td width='5%'><img width='30px' height='30px' src class='img"+result[i].member_id+"'>"+"</td><td width='5%'>"+result[i].member_id+"  </td><td style='max-width:10%;' width='60%'>"+result[i].r_content +"</td><td width='10%'>"+result[i].r_datetime+ "</td></tr>");
-    getMemberImg(result[i].member_id);
+    $("#rplist").append("<tr><td width='50'><img width='30px' height='30px' src class='img"+result[i].m_name+"'>"+"</td><td width=''>"+result[i].m_name+"  </td><td style='whie-space:normal; max-width: 500px;'>"+result[i].r_content +"</td><td width=''> <button class='btn btn-danger' id='fileSection1' onclick='del("+result[i].reply_id+");' type='button' name='"+result[i].reply_id+"'>삭제하기</button></td><td width='10%'>"+result[i].r_datetime+ "</td></tr>");
+    getMemberImg(result[i].m_name);
 	}
  }
 
@@ -370,9 +453,9 @@ ${requestScope.posting.p_content }
 <table border="1" width="100%">
 <tr>
 <td width="5%">댓글   <span id="rp_cnt"></span>  </td>
-<td width="5%"><a href="#" id="button" >▼</a></td>
+<td width="5%"><button id="button" >▼</button></td>
 <td width="60%" > </td>
-<td width="10%"> <a href="#" id="like">   추천하기</a></td>
+<td width="10%" > <a href="#" id="like">   추천하기</a></td>
 <td width="10%"> 관심여행등록</td>
 
 </table>
@@ -388,8 +471,8 @@ ${requestScope.posting.p_content }
 <td style="text-align:center; margin:auto;"  ><form action="#">
 <input type="hidden" id="member_id" value="${requestScope.posting.member_id}"/>
 <input type="hidden" id="posting_id" value="${requestScope.posting.posting_id}"/>
-<input type="hidden" id="member_id1" value="${sessionScope.login_info.member_id}"/>
-
+<input type="hidden" id="member_id2" value="${sessionScope.login_info.member_id}"/>
+<input type="hidden" id="m_name12345" value="${sessionScope.login_info.m_name}"/>
 <!-- reply_id,r_parent_id,r_datetime,r_level,postring_id,member_id  -->
 
 <input type="button" value="리플등록" id="rpregi">
@@ -401,4 +484,3 @@ ${requestScope.posting.p_content }
 
 
 </body>
-</html>

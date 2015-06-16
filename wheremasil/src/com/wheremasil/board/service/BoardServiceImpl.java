@@ -82,9 +82,7 @@ public class BoardServiceImpl {
 	
 	
 	public String insertRpcnt(String posting_id){
-		System.out.println("서비스 posting_id  ="+ posting_id);
 		List<Reply> list = dao.insertRpcnt(posting_id);
-		System.out.println("넘어온"+posting_id+"리스트  = "+list);
 		
 		String to = Integer.toString(list.size());
 		

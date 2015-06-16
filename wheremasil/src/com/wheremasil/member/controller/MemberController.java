@@ -103,10 +103,9 @@ public class MemberController{
 		if(m!=null){
 			if(m_password.equals(m.getM_password())){
 			
-				session.setAttribute("login_info", member_id);
+				session.setAttribute("login_info", m);
 				session.setMaxInactiveInterval(3600);
 				url = default_url;
-				System.out.println("세션넣어서넘김");
 			}else{
 				
 				url =  "1";

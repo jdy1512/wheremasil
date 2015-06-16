@@ -48,9 +48,7 @@ public class BoardController {
 	
 	@RequestMapping("/modiReveiw.do")
 	public ModelAndView modiReveiw(String posting_id){
-		System.out.println(posting_id);
 		Map map = service.modiReveiw(posting_id);
-		System.out.println("맵찍기"+map);
 		return new ModelAndView("/WEB-INF/view/body/board/review_writer_form.jsp", map);
 	}
 	
@@ -64,7 +62,6 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping("/RdeletePost.do")
 	public String RdeletePost(String posting_id){
-		System.out.println(posting_id);
 		return service.RdeletePost(posting_id);
 	}
 	
@@ -220,7 +217,6 @@ public class BoardController {
 @ResponseBody
 	public String check(MultipartHttpServletRequest req, 
 		    HttpServletResponse res,HttpServletRequest request) throws IllegalStateException, IOException{
-		System.out.println("파일 저장 들어옴");
 	
 		Iterator<String> itr =  req.getFileNames();
 		 MultipartFile mpf = req.getFile(itr.next());
@@ -239,11 +235,9 @@ public class BoardController {
 		 //String path1= "C:\\Users\\JPH.KOSTA_03_030-HP\\git\\wheremasil1\\wheremasil\\WebContent\\uploads\\images\\";
 		// String path1="C:\\Users\\JPH.KOSTA_03_030-HP\\git\\wheremasil3\\wheremasil\\WebContent\\uploads\\images\\posting_img\\";
 		 String path1=request.getSession().getServletContext().getRealPath("/uploads/images/posting_img");
-		 System.out.println(path1);
 		 String fileName = System.currentTimeMillis()+""; 
 		 File pic = new File(path1, fileName+"."+arr[1]);
 		 
-		 System.out.println(pic.toString());
 		 
 		 //("저장된 파일위치"+pic);
 		 

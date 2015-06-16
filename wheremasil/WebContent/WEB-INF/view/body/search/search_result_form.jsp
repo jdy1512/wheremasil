@@ -18,7 +18,7 @@ $(document).ready(function(){
 			return false;
 		}
 		
-		location.href="http://127.0.0.1:8088/wheremasil/search/simpleSearch.do?page=&searchWord="+$("#bodySearchWord").val()+"&category=simple&type=";
+		location.href="http://127.0.0.1:48080/wheremasil/search/simpleSearch.do?page=&searchWord="+$("#bodySearchWord").val()+"&category=simple&type=";
 	});
 	
 	// detailsSearchForm 빈문자열 오류 검증

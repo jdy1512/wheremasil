@@ -24,9 +24,10 @@ function delay(gap) { /* gap is in millisecs */
 
 </script>
 <script type="text/javascript">
-var path = "http://192.168.7.122:8082/wheremasil/uploads/images/posting_img/";
+var path = "http://192.168.7.252:8082/wheremasil/uploads/images/posting_img/";
 var cnt=2;
 $(document).ready(function(){
+	
 	
 	var temp=1;
 	var imgpath="default";

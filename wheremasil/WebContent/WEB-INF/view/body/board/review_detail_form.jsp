@@ -287,7 +287,7 @@ $(document).ready(function(){
 
 var scrollTop = 0;
 var scrollLeft = 0;
-Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+//Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
 function EndRequestHandler(sender, args) { 
     setScroll();
 }

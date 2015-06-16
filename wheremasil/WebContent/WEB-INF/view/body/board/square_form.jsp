@@ -437,7 +437,6 @@ function delay(gap){ /* gap is in millisecs */
 
 	function getLogs(cnt) {
 		var txt = $(".active").text();
-		alert("현재 카테고리정보 = "+txt);
 		var c = parseInt(cnt);
 		if (c == 4) {
 			c = 8;
@@ -471,7 +470,7 @@ function delay(gap){ /* gap is in millisecs */
 	function logincheck() {
 
 		if ($("#login_info").val() == "") {
-			alert("로그인부터하세여");
+			alert("로그인부터하세요");
 
 		} else {
 
@@ -480,7 +479,7 @@ function delay(gap){ /* gap is in millisecs */
 
 	function Wlogin() {
 		if ($("#login_info").val() == "") {
-			alert("로그인부터하세여");
+			alert("로그인부터하세요");
 
 		} else {
 			//alert("카테고리내용"+$("#categori").val());
@@ -712,7 +711,7 @@ li {
 	margin-left: 20px;
 }
 
-.btn {
+.btns {
 	border-color: rgb(204, 204, 204);
 	color: rgb(51, 51, 51);
 	background-color: rgb(255, 255, 255);
@@ -774,8 +773,8 @@ li {
 <body>
 	<!-- <input type="button" id="openmodal" value="모달띄우기"/>
 <br/>
-<div id="blocklayer">여기만<br/>모달창으로 감쌉니다</div>
-<form> -->
+<div id="blocklayer">여기만<br/>모달창으로 감쌉니다</div>-->
+<form> 
 
 	<input type="hidden" id="cnt" value=4;>
 
@@ -867,7 +866,7 @@ li {
 														<option value="MSP">숙소리뷰</option>
 														<option value="HOT">할인정보</option>
 														<option value="FRE">자유</option>
-												</select> &nbsp;&nbsp;<a class="btn btn-success btn-lg"
+												</select> &nbsp;&nbsp;<a class="btns btn-success btn-lg"
 													style="width: 150px; margin-right: 20px;"
 													href="javascript:Wlogin();">글쓰기</a>
 												</span>
@@ -902,9 +901,11 @@ li {
 
 								</div>
 
+	
+	
 								<div class="row" id="row_btnmore">
 									<input name="page" id="page" type="hidden" value="1"> <a
-										class="btn span10" style="text-align: center;"
+										class="btn span10" style="text-align: center;border-color: rgb(204, 204, 204);color: rgb(51, 51, 51);background-color: rgb(255, 255, 255);"
 										href="javascript:getLogs(  $('#cnt').val()  );">더보기</a>
 								</div>
 
