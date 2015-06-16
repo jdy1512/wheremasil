@@ -23,6 +23,8 @@
 <!-- SearchCSS -->
 <link rel="stylesheet" href="/wheremasil/css/search/search.css">
 
+<!-- mypage CSS -->
+<link rel="stylesheet" href="/wheremasil/css/member/mypage.css">
 <style type="text/css">
 
 header {

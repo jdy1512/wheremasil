@@ -35,7 +35,7 @@ public class MemberDAOImpl implements MemberDAO {
 	 */
 	@Override
 	public int insertMember(Member member){
-		System.out.println("확인");
+		
 		return session.insert(namespace+"insertMember", member);
 	}
 	/**
@@ -44,8 +44,8 @@ public class MemberDAOImpl implements MemberDAO {
 	 * @param member
 	 */
 	@Override
-	public int updateMember(String member_id,String m_password){
-		Member member = new Member(member_id, "", m_password, "", "", "", "", "", "");
+	public int updateMember(Member member){
+		
 		return  session.update(namespace+"updateMember", member);
 	}
 	@Override
@@ -53,6 +53,9 @@ public class MemberDAOImpl implements MemberDAO {
 		return session.selectOne(namespace+"selectMemberByName", m_name);
 	}
 	
-
+	@Override
+	public List<String> selectPlanId(String member_id){
+		return session.selectList(namespace+"selectPlanId",member_id);
+	}
 	
 }

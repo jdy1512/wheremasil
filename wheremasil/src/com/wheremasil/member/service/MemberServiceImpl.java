@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 
+
+import com.google.gson.JsonObject;
 import com.wheremasil.member.dao.MemberDAO;
 import com.wheremasil.member.vo.Member;
 
@@ -26,26 +28,22 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO dao;
 	
 	@Override
-	public int  joinMember(Member member) {
+	public String joinMember(Member member) {
 		
-		System.out.println("서비스확인");
 		if(dao.selectMemberById(member.getMember_id())!=null){
-		return -1;
+			return "id";
+		}else if(dao.selectMemberByName(member.getM_name())!=null){
+			return "name";
+		}
 		
-	}else if(dao.selectMemberByName(member.getM_name())!=null){
-		return -1;
-	}
-		
-		return dao.insertMember(member);
-		
+		dao.insertMember(member);
+		return "success";	
 	}
 
 	@Override
-	public int modifyMember(String member_id,String m_password) {
+	public void modifyMember(Member member) {
 		
-		int modify =  dao.updateMember(member_id,m_password);
-		System.out.println(modify);
-		return modify;
+		dao.updateMember(member);
 		
 	}
 
@@ -59,6 +57,16 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectMemberByName(m_name);
 	}
 	
+	@Override
+	public Map getPlanId(String member_id){
+		List<String> planList = dao.selectPlanId(member_id);
+				
+		Map map = new HashMap();
+		
+		map.put("planId_list", planList);
+	
+		return map; 
+	}
 
 	
 }

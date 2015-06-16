@@ -3,23 +3,26 @@
  */
 package com.wheremasil.member.controller;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.Errors;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonObject;
 import com.wheremasil.member.service.MemberService;
-import com.wheremasil.member.validator.MemberValidator;
 import com.wheremasil.member.vo.Member;
 
 
@@ -28,124 +31,97 @@ import com.wheremasil.member.vo.Member;
 public class MemberController{
 
 	@Autowired
-	
-	
-	@Qualifier("memberService")
 	private MemberService service;
 
-	@RequestMapping("/join.do")
+	@RequestMapping(value="/join.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String  joinform()throws Exception{
+	public String joinMember(@ModelAttribute Member member, HttpServletRequest request)throws Exception{
 		
-		return "member/join_form.tiles";
-	}
-	@RequestMapping("/joinSuccess.do")
-	@ResponseBody
-	public String joinSuccess(String m_name1,String m_password1,String member_id12,HttpSession session,HttpServletRequest request)throws Exception{
-	
-		
-		Member member = new Member(member_id12, m_name1, m_password1, "", "", "", "", "", "");		
-		
-	
 		member.setM_email(member.getMember_id());
-		
-		String result="";
-		
-		Object o = service.getMemberById(member_id12);
-	
-		if(o==null){
-			
-			o= service.getMemberByName(m_name1);
-			
-			if(o==null){
-				int count = service.joinMember(member);
-				
-			}else{
-				//닉넴중복
-				result= "2";
-			}
-			
-		}else{
-			//아이디 중복
-			result= "1";
+		MultipartFile file = member.getPicture();
+		if(file != null && !file.isEmpty()){
+			String path = request.getServletContext().getRealPath("/uploads/images/profile");
+			String fileName = System.currentTimeMillis()+"";
+			File pic = new File(path, fileName);
+			file.transferTo(pic);//파일 이동
+			member.setM_prof_img_path(fileName);
 		}
 		
+		return service.joinMember(member);
 		
-
-		
-	/*	
-		int count = service.joinMember(member);
-		if(count == -1){
-			session.setAttribute("error", "id중복됩니다.");
-			return "1";
-		}
-		System.out.println(count);
-		
-		return "main.tiles";*/
-	return result;
 	}
-
-	@RequestMapping(value="/sessionlogincheck.do")
-	@ResponseBody
-	public String logincheck(@RequestParam String member_id, @RequestParam String m_password,String default_url,HttpSession session, HttpServletResponse response,HttpServletRequest request, ModelMap map)throws Exception{
-	//System.out.println("로그인상황 = "+request.getSession().getAttribute("login_info"));
-		
-		
 	
+	@RequestMapping("/login.do")
+	@ResponseBody
+	public String login(String member_id, String m_password, HttpServletRequest request, ModelMap map)throws Exception{
 		
 		Member m = service.getMemberById(member_id);
 		
-		
 		String url = null;
-		System.out.println(member_id+m_password);
+		
 		if(m!=null){
 			if(m_password.equals(m.getM_password())){
-			
-				session.setAttribute("login_info", m);
-				session.setMaxInactiveInterval(3600);
-				url = default_url;
-			}else{
 				
+				request.getSession().setAttribute("login_info",m);
+				url = "success";
+			}else{
 				url =  "1";
 				map.addAttribute("error_message", "Password를 확인하세요");
 			}
 		}else{
-			
 			url = "2";
 			map.addAttribute("error_message", "ID를 확인하세요");
 		}
-		
 		return url;
 	}
+	
 	@RequestMapping("/logout.do")
-	public String logout(String page, HttpSession session){
-		
-		
+	public void logout(HttpSession session){
 		session.invalidate();
-		System.out.println(page);
-		if(page.equals("http://127.0.0.1:8078/wheremasil/")){
-			page = "main.tiles";
-		}
-		return page;
 	}
-	@RequestMapping("/memberchange.do")
-	@ResponseBody
-	public String change(String member_id,String m_password){
-		System.out.println("수정");
-		int change1= service.modifyMember(member_id,m_password);
-		String change2;
-		if(change1==1){
-			change2 = "a";
-		}else{
-			change2="b";
-		}
-		return change2;
+	
+	@RequestMapping("/mypageconn.do")
+	public ModelAndView mypage(String member_id) throws Exception {
+		Map map = new HashMap();
+		map = service.getPlanId(member_id);
+		return new ModelAndView("member/mypage_form.tiles",map);
 	}
+	
+	@RequestMapping(value="/modifyMember.do", method=RequestMethod.POST	)
+	public ModelAndView change(@ModelAttribute Member member, HttpSession session, HttpServletRequest request) throws Exception{
+		
+		
+		Member loginInfo = (Member)session.getAttribute("login_info");
+		
+		MultipartFile file = member.getPicture();
+		
+		String newFileName = null;
+		if(file!=null&&!file.isEmpty()){
+			newFileName = System.currentTimeMillis()+"";
+			File picture = new File(request.getServletContext().getRealPath("/uploads/images/profile"), newFileName);
+			file.transferTo(picture);
+			if(loginInfo.getM_prof_img_path() != null){
+				File oldPic = new File(request.getServletContext().getRealPath("/uploads/images/profile"), loginInfo.getM_prof_img_path());
+				oldPic.delete();
+			}
+			member.setM_prof_img_path(newFileName);
+		}
+		Map map = new HashMap();
+		map = service.getPlanId(member.getMember_id());
+		service.modifyMember(member);
+		loginInfo.setM_name(member.getM_name());
+		loginInfo.setM_password(member.getM_password());
+		if(newFileName != null){
+			loginInfo.setM_prof_img_path(newFileName);
+		}
+		return new ModelAndView("member/mypage_form.tiles", map);
+	}
+	
+	
 	@RequestMapping("/logoutmypage.do")
 	public String logoutmypage(){
 		return "main.tiles";
 	}
-	
 	
 }
 

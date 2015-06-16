@@ -1,124 +1,118 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% int cnt = 0; %>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=8090c845eb21bcc92becc6f8f3bf61fa&libraries=services"></script>
+<script type="text/javascript" src="/wheremasil/script/map_view.js"></script>
 <script type="text/javascript">
-$(document).ready( function(){
-
-						$("#inforchange").on("click", function() {
-							
-						});
-						$("#change").on("click",function() {
-
-									$("#memberchange").css("background-color",
-											"#000000");
-									$("#memberchange").css("visibility",
-											"visible");
-
-								});
-						$("#changsucc").on("click",function() {
-											
-											var member_id = $
-											{
-												sessionScope.login_info.member_id
-											};
-											var m_password = $('#m_passwordchange').val();
-											
-											var editor1 = "member_id" + "="
-													+ member_id + "&"
-													+ "m_password" + "="
-													+ m_password;
-
-											$.ajax({
-														url : "/wheremasil/member/memberchange.do",
-														data : editor1,
-														type : "post",
-														dataType : "text",
-														success : function(data) {
-															if (data == "a") {
-																alert("¡§∫∏ºˆ¡§øœ∑·!");
-																$("#memberchange").css("visibility","hidden");
-															} else {
-																alert("ºˆ¡§Ω«∆– ªı∑Œ∞Ìƒß(F5)¥≠∑Ø¡÷ººø‰");
-															}
-														},
-
-													});
-
-										});
-						$("#changecancel").on("click", function() {
-							$("#memberchange").css("visibility", "hidden");
-						});
-						$("#addplan_bt").on("click", function() {
-							
-							
-							$("#popup_layer1").css("visibility", "visible");
-							
-						});
-						
-						
-						
-});
-					
-</script>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
-</head>
-<Style>
-#ML1 {
-	position: absolute;
-	top: 95px;
-	left: 5px;
-	width: px;
-	height: 3 -0px;
-	align: center;
-}
-</style>
-<body>
-
-
-
-	<div id="ML1">
-		<img height="160" style="margin-bottom: 10px;"
-			src="http://192.168.7.99:8078/wheremasil/uploads/images/default/no-photo.png"
-			border="0"><br> <font size="10">
-			${sessionScope.login_info.member_id}<br>
-		</font> <input type="file" value="" id="upphoto"> <input id="addFile"
-			type="button" value="«¡∑Œ« ªÁ¡¯±≥√º"><br> <input id="change"
-			type="button" value="∞≥¿Œ¡§∫∏ºˆ¡§"><br> a<br> a<br>
-		a<br> a<br> a<br> a<br> a<br> a<br> a<br>
-
-	</div>
-
-
-	<div id="memberchange"
-		style="width: 300px; height: 250px; left: 50%; top: 50%; visibility: hidden; position: absolute;">
-
-		<h2>∞≥¿Œ¡§∫∏ºˆ¡§</h2>
-		<br>
-
-		<table width='500'>
-			<tr>
-				<td>password</td>
-				<td><input type="password" id="m_passwordchange"
-					name="m_password" required="required"></td>
-			</tr>
-			
-			<tr>
-
-
-				<td colspan="2"><input type="button" value="ºˆ¡§" id="changsucc">
-					<input type="button" value="√Îº“" id="changecancel"></td>
-			</tr>
-		</table>
-	</div>
-
-
+$(document).ready(function() {
+	$("#change").on("click", function() {
+		
+		$("#memberchange").css("visibility", "visible");
+	});
 	
-</body>
-</html>
+	$("#changecancel").on("click", function() {
+		$("#memberchange").css("visibility", "hidden");
+	});
+	$("#addplan_bt").on("click", function() {
+		$("#popup_layer1").css("visibility", "visible");
+	});
+	
+	if("${requestScope.planId_list}"){
+		getPlanMapList("${requestScope.planId_list}", "plan_map_", "portfolio-item");
+	}
+});
+
+</script>
+
+<div class="container">
+    <div class="row profile" style="margin-top:20px;">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<c:choose>
+						<c:when test="${empty sessionScope.login_info.m_prof_img_path }">
+							<img src="/wheremasil/uploads/images/profile/no-photo.png" class="img-responsive" alt="">
+						</c:when>
+						<c:otherwise>
+							<img src="/wheremasil/uploads/images/profile/${sessionScope.login_info.m_prof_img_path }" class="img-responsive" alt="">
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+			
+						${sessionScope.login_info.member_id}
+			
+					</div>
+					<div class="profile-usertitle-job">
+						${sessionScope.login_info.m_name}
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+				<div class="profile-userbuttons">
+					<button type="button" class="btn btn-success btn-sm" id="change">Í∞úÏù∏Ï†ïÎ≥¥ÏàòÏ†ï</button>
+				</div>
+				<!-- END SIDEBAR BUTTONS -->
+			
+			</div>
+		</div>
+		<div class="col-md-9">
+            <div class="profile-content">
+            	<div class="row">
+			    	<div class="col-lg-9">
+			        	<h2 class="page-header">My plan</h2>
+			        </div>
+			    </div>
+			   <c:if test="${fn:length(requestScope.planId_list) != 0 }">
+			        <c:forEach items="${requestScope.planId_list }" var="plan">
+			        	<div class='col-md-4 portfolio-item'>
+							<a id="plan_map_<%= ++cnt %>" href='/wheremasil/plan/getSchedule.do?plan_id=${plan }'>
+								<img class='img-responsive' src='/wheremasil/uploads/images/default/img_not_found.png' alt=''></a>
+						</div>
+					</c:forEach>
+				</c:if>		
+            </div>
+            <div class="row text-center">		
+			<div id="memberchange" style="margin-top:200px; visibility: hidden;"  class="mainbox col-md-4" >                    
+				<div class="panel panel-info" >
+			    	<div class="panel-heading">
+			        	<div class="panel-title">Í∞úÏù∏Ï†ïÎ≥¥ÏàòÏ†ï</div>
+			        </div>     
+				        <div style="padding-top:30px" class="panel-body" >
+				            	<form id="loginform" class="form-horizontal" role="form" action="/wheremasil/member/modifyMember.do" method="post"
+				            	enctype="multipart/form-data">
+				            		<input type="hidden" name="member_id" value="${sessionScope.login_info.member_id }">
+				            		<input type="hidden" name="m_email" value="${sessionScope.login_info.member_id }">
+	 			            		<div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input name="m_name" type="text" class="form-control" placeholder="nickname">                                        
+                                    </div>
+				                	<div style="margin-bottom: 25px" class="input-group">
+				                		<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+				                        	<input type="password" class="form-control" name="m_password" placeholder="password">
+				                    </div>
+				                    <div style="margin-bottom: 25px" class="input-group">
+				                    	<input type="file" name="picture">
+				                    </div>
+				                    <div style="margin-top:10px" class="form-group">
+				                    <!-- Button -->
+				                    <input type="submit" value="Î≤ÑÌäº">
+					                    <div class="col-md-9 controls">
+				    	                    <a id="changsucc" class="btn btn-success">ÏàòÏ†ï  </a>
+				                            <a id="changecancel" class="btn btn-primary">Ï∑®ÏÜå</a>
+				                        </div>
+				                     </div>
+								</form>
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+	
+</div>

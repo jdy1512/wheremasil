@@ -1,5 +1,7 @@
 package com.wheremasil.member.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Member {
 
 	private String member_id;
@@ -11,8 +13,26 @@ public class Member {
 	private String m_drop_date;
 	private String m_position;
 	private String m_state;
+	private MultipartFile picture;
 	
 	public Member(){}
+
+	public Member(String member_id, String m_name, String m_password,
+			String m_email, String m_prof_img_path, String m_join_date,
+			String m_drop_date, String m_position, String m_state,
+			MultipartFile picture) {
+		super();
+		this.member_id = member_id;
+		this.m_name = m_name;
+		this.m_password = m_password;
+		this.m_email = m_email;
+		this.m_prof_img_path = m_prof_img_path;
+		this.m_join_date = m_join_date;
+		this.m_drop_date = m_drop_date;
+		this.m_position = m_position;
+		this.m_state = m_state;
+		this.picture = picture;
+	}
 
 	public Member(String member_id, String m_name, String m_password,
 			String m_email, String m_prof_img_path, String m_join_date,
@@ -101,6 +121,14 @@ public class Member {
 		this.m_state = m_state;
 	}
 
+	public MultipartFile getPicture() {
+		return picture;
+	}
+
+	public void setPicture(MultipartFile picture) {
+		this.picture = picture;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -120,6 +148,7 @@ public class Member {
 		result = prime * result + ((m_state == null) ? 0 : m_state.hashCode());
 		result = prime * result
 				+ ((member_id == null) ? 0 : member_id.hashCode());
+		result = prime * result + ((picture == null) ? 0 : picture.hashCode());
 		return result;
 	}
 
@@ -177,6 +206,11 @@ public class Member {
 				return false;
 		} else if (!member_id.equals(other.member_id))
 			return false;
+		if (picture == null) {
+			if (other.picture != null)
+				return false;
+		} else if (!picture.equals(other.picture))
+			return false;
 		return true;
 	}
 
@@ -186,11 +220,11 @@ public class Member {
 				+ ", m_password=" + m_password + ", m_email=" + m_email
 				+ ", m_prof_img_path=" + m_prof_img_path + ", m_join_date="
 				+ m_join_date + ", m_drop_date=" + m_drop_date
-				+ ", m_position=" + m_position + ", m_state=" + m_state + "]";
+				+ ", m_position=" + m_position + ", m_state=" + m_state
+				+ ", picture=" + picture + "]";
 	}
 
-
-
+	
 
 	
 	
