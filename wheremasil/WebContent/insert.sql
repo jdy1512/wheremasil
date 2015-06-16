@@ -1,15 +1,24 @@
-
+ALTER TABLE reply
+ADD (m_name VARCHAR2(256));
 
 select *
 from member
 where member_id='abc@abc.abc'
 
+select count(p_number) from posting where boardtype_id='p'
 
 DELETE FROM posting WHERE posting_id = 540
 
 
+	select *
+from POSTING
+where boardtype_id='p'
+order by p_like DESC
 
 
+DELETE
+	FROM reply 
+	WHERE reply_id = 232
 
 
 

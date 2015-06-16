@@ -8,6 +8,10 @@
 <html>
 <head>
 
+
+
+
+
 <script src="http://www.google-analytics.com/ga.js"
 	type="text/javascript"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -19,12 +23,10 @@
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
 
 <!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
 
 <!-- Latest compiled and minified JavaScript -->
 <script
@@ -81,8 +83,8 @@ function delay(gap){ /* gap is in millisecs */
 						$
 								.blockUI({
 									message : "<p align='middle'><div class='modal-content'><div class='modal-header'><button class='close' aria-hidden='true' type='button' data-dismiss='modal' onclick='removeModal();'>×</button><h4 class='modal-title' id='notifydetail_title'>NEWS FEED</h4></div><div class='modal-body' style='width: 580px; height: 430px;'>"
-											+ "<table width='200' style='padding: 0px; border: 0px currentColor; margin-bottom: 10px;'><tbody><tr><td vAlign='top' style='margin: 0px; padding: 0px; border: 0px currentColor;'><a href='#'><img width='36' id='img_pf' class='img"+result.member_id+"'  src='' border='0'></a></td><td vAlign='top' style='margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 0px;'><a href='#?id=dbswndz '><font class='small' style='color: gray;'><b>"
-											+ result.member_id
+											+ "<table width='200' style='padding: 0px; border: 0px currentColor; margin-bottom: 10px;'><tbody><tr><td vAlign='top' style='margin: 0px; padding: 0px; border: 0px currentColor;'><a href='#'><img width='36' id='img_pf' class='img"+result.m_name+"'  src='' border='0'></a></td><td vAlign='top' style='margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 0px;'><a href='#?id=dbswndz '><font class='small' style='color: gray;'><b>"
+											+ result.m_name
 											+ "</b></font></a> <a href='javascript:detailveiw("
 											+ result.posting_id
 											+ ")'><font class='small'>"
@@ -92,7 +94,7 @@ function delay(gap){ /* gap is in millisecs */
 											+ "</font></td></tr></tbody></table>"
 											+ "<iframe width='560' height='400' id='if_notifydetail' frameBorder='0' scrolling='no'></iframe></div></div></p>"
 								});
-						getMemberImg(result.member_id);
+						getMemberImg(result.m_name);
 
 					},
 					error : function(result) {
@@ -129,7 +131,7 @@ function delay(gap){ /* gap is in millisecs */
 													.blockUI({
 														message : "<p align='middle'><div class='modal-content'><div class='modal-header'><button class='close' aria-hidden='true' type='button' data-dismiss='modal' onclick='removeModal();'>×</button><h4 class='modal-title' id='notifydetail_title'>NEWS FEED</h4></div><div class='modal-body' style='width: 580px; height: 430px;'>"
 																+ "<table width='200' style='padding: 0px; border: 0px currentColor; margin-bottom: 10px;'><tbody><tr><td vAlign='top' style='margin: 0px; padding: 0px; border: 0px currentColor;'><a href='#'><img width='36' id='img_pf'  src='' border='0'></a></td><td vAlign='top' style='margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;'><a href='#?id=dbswndz '><font class='small' style='color: gray;'><b>"
-																+ result.member_id
+																+ result.m_name
 																+ "</b></font></a> <a href='javascript:detailveiw("
 																+ result[i].posting_id
 																+ ")'><font class='small'>"
@@ -139,7 +141,7 @@ function delay(gap){ /* gap is in millisecs */
 																+ "</font></td></tr></tbody></table>"
 																+ "<iframe width='560' height='400' id='if_notifydetail' frameBorder='0' scrolling='no'></iframe></div></div></p>"
 													});
-											getMemberImg(result.member_id);
+											getMemberImg(result.m_name);
 										},
 										error : function(result) {
 											alert("카테고리 리스트 받아오기 실패");
@@ -172,7 +174,7 @@ function delay(gap){ /* gap is in millisecs */
 					
 						cnt = parseInt(cnt);
 						for ( var i = 0; i < cnt; i++) {
-							f = getMemberImg(result[i].member_id);
+							f = getMemberImg(result[i].m_name);
 							r = returnTy(result[i].boardtype_id);
 							c = getdata(result[i].p_datetime);
 
@@ -180,8 +182,8 @@ function delay(gap){ /* gap is in millisecs */
 
 							$("#resvSquare")
 									.append(
-											"<div class='row item' style='margin-left: 0px; border-top-color: rgb(239, 239, 239); border-top-width: 7px; border-top-style: solid;'><div style='padding: 7px; float: left;'><a href='' target='_parent'><img width='48' class='img"+result[i].member_id+"' src='' border='0'></a></div><ul class='unstyled' style=' list-style-type: none; width: 100%;' padding-left:7px;><li><h6><a href='' target='_parent'>"
-													+ result[i].member_id
+											"<div class='row item' style='margin-left: 0px; border-top-color: rgb(239, 239, 239); border-top-width: 7px; border-top-style: solid;'><div style='padding: 7px; float: left;'><a href='' target='_parent'><img width='48' class='img"+result[i].m_name+"' src='' border='0'></a></div><ul class='unstyled' style=' list-style-type: none; width: 100%;' padding-left:7px;><li><h6><a href='' target='_parent'>"
+													+ result[i].m_name
 													+ "  </a> &nbsp;</h6></li><li> "
 													+ result[i].p_content
 													+ " <span class='label'> "
@@ -193,7 +195,7 @@ function delay(gap){ /* gap is in millisecs */
 													+ "  </li><li class='itemrow withheight hide' id='helpfulbox_container_1000000000115309999'></li></ul><form><input type='hidden' id='posting_id' value="+result[i].posting_id+">  </form></div>");
 
 						}
-						getMemberImg(result.member_id);
+						getMemberImg(result.m_name);
 
 					},
 					error : function(result) {
@@ -255,10 +257,10 @@ function delay(gap){ /* gap is in millisecs */
 						$("recent_view22").html("");
 						var r;
 						var c;
-						
+						var a;
 						cnt = parseInt(cnt);
 						for ( var i = 0; i < 6; i++) {
-						
+						    
 							r = returnTy(result[i].boardtype_id);
 							c = getdata(result[i].p_datetime);
 
@@ -266,20 +268,19 @@ function delay(gap){ /* gap is in millisecs */
 
 							$("#recent_view22")
 									.append(
-											"<table width='200' style='padding: 0px; border: 0px currentColor; margin-bottom: 10px;'><tbody><tr><td vAlign='top' style='margin: 0px; padding: 0px; border: 0px currentColor;'><a href='#'><img width='36' class='img"+result[i].member_id+"'  id='img_pf'  src='' border='0'></a></td><td vAlign='top' style='margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;'><a href='#?id=dbswndz '><font class='small' style='color: gray;'><b>"
-											+ result[i].member_id
-											+ "</b></font></a> <a href='javascript:detailveiw("
-											+ result[i].posting_id
-											+ ")'><font class='small'>"
+											"<table width='200' style='padding: 0px; border: 0px currentColor; margin-bottom: 10px;'><tbody><tr><td vAlign='top' style='margin: 0px; padding: 0px; border: 0px currentColor;'><a href='#'><img width='36' class='img"+result[i].m_name+"'  id='img_pf'  src='' border='0'></a></td><td vAlign='top' style='margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;'><a href='#?id=dbswndz '><font class='small' style='color: gray;'><b>"
+											+ result[i].m_name
+											+ "<br></b></font></a>"
+											+ "<font class='small'>"
 											+ result[i].p_content
-											+ "</font></a> <font class='small'>"
+											+ "</font> <font class='small'>"
 											+ c
 												
 													+ "</font></li><li style='text-align: right;list-style-type: none; '  ><span class='label success'>추천  "
 													+ result[i].p_like
 													+ "회</span></li></ul></td></tr></tbody></table>");
 
-							getMemberImg(result[i].member_id);
+							getMemberImg(result[i].m_name);
 						}
 
 						//alert("붙여넣기작업끝");	
@@ -310,6 +311,7 @@ function delay(gap){ /* gap is in millisecs */
 						$("recent_view").html("");
 						var r;
 						var c;
+						var a;
 						
 						cnt = parseInt(cnt);
 						for ( var i = 0; i < 6; i++) {
@@ -321,18 +323,16 @@ function delay(gap){ /* gap is in millisecs */
 
 							$("#recent_view")
 									.append(
-											"<table width='200' style='padding: 0px; border: 0px currentColor; margin-bottom: 10px;'><tbody><tr><td vAlign='top' style='margin: 0px; padding: 0px; border: 0px currentColor;'><a href='#'><img width='36' class='img"+result[i].member_id+"'  id='img_pf'  src='' border='0'></a></td><td vAlign='top' style='margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;'><a href='#?id=dbswndz '><font class='small' style='color: gray;'><b>"
-													+ result[i].member_id
-													+ "</b></font></a> <a href='javascript:detailveiw("
-													+ result[i].posting_id
-													+ ")'><font class='small'>"
+											"<table width='200' style='padding: 0px; border: 0px currentColor; margin-bottom: 10px;'><tbody><tr><td vAlign='top' style='margin: 0px; padding: 0px; border: 0px currentColor;'><a href='#'><img width='36' class='img"+result[i].m_name+"'  id='img_pf'  src='' border='0'></a></td><td vAlign='top' style='margin: 0px; border: 0px currentColor; padding-top: 0px; padding-bottom: 0px; padding-left: 7px;'><a href='#?id=dbswndz '><font class='small' style='color: gray;'><b>"
+													+ result[i].m_name
+													+ "<br></b></font></a><font class='small'>"
 													+ result[i].p_content
-													+ "</font></a> <font class='small'>"
+													+ "</font></a> <font class='small'><br>"
 													+ c
 													+ "</font></td></tr></tbody></table>");
 
 						
-							getMemberImg(result[i].member_id);
+							getMemberImg(result[i].m_name);
 						}
 					
 
@@ -346,7 +346,9 @@ function delay(gap){ /* gap is in millisecs */
 	
 
 	function getMemberImg(member_id) {
+		//alert(member_id);
 		var result1;
+		
 		var txt = "member_id" + "=" + member_id;
 		$.ajax({
 			url : '/wheremasil/board/getMemberImg.do',
@@ -358,13 +360,14 @@ function delay(gap){ /* gap is in millisecs */
 
 			success : function(result) {
 				 //alert("사용자 이미지가 성공적으로 넘어옴 = 	"+result);
-					result1=result;
+					//result1=result;
+					//alert(result);
 					
 				 $(".img"+member_id).attr('src',result);
 			},
 			error : function(result) {
 
-				alert("사용자 이미지주소 가저오기 실패");
+				//alert("사용자 이미지주소 가저오기 실패");
 			}
 		});
 		//alert("보내기전 이미지값 ="+result1);
@@ -489,7 +492,8 @@ function delay(gap){ /* gap is in millisecs */
 
 			var txt = "categori" + "=" + $("#categori").val() + "&" + "msg"
 					+ "=" + $("#msg").val() + "&" + "login_id" + "="
-					+ $("#login_id").val();
+					+ $("#login_id").val()+ "&" + "m_name"
+					+ "=" +$("#m_name12345").val();
 
 			$.ajax({
 				url : '/wheremasil/board/insertSb.do',
@@ -547,8 +551,8 @@ function delay(gap){ /* gap is in millisecs */
 
 							$("#resvSquare")
 									.append(
-											"<div class='row item' style='margin-left: 0px; border-top-color: rgb(239, 239, 239); border-top-width: 7px; border-top-style: solid;'><div style='padding: 7px; float: left;'><a href='' target='_parent'><img width='48' class='img"+result[i].member_id+"' src='' border='0'></a></div><ul class='unstyled' style=' list-style-type: none; width: 100%;'><li><h6><a href='' target='_parent'>"
-													+ result[i].member_id
+											"<div class='row item' style='margin-left: 0px; border-top-color: rgb(239, 239, 239); border-top-width: 7px; border-top-style: solid;'><div style='padding: 7px; float: left;'><a href='' target='_parent'><img width='48' class='img"+result[i].m_name+"' src='' border='0'></a></div><ul class='unstyled' style=' list-style-type: none; width: 100%;'><li><h6><a href='' target='_parent'>"
+													+ result[i].m_name
 													+ "  </a> &nbsp;</h6></li><li> "
 													+ result[i].p_content
 													+ " <span class='label'> "
@@ -559,7 +563,7 @@ function delay(gap){ /* gap is in millisecs */
 													+ c
 													+ "  </li><li class='itemrow withheight hide' id='helpfulbox_container_1000000000115309999'></li></ul><form><input type='hidden' id='posting_id' value="+result[i].posting_id+">  </form></div>");
 
-							getMemberImg(result[i].member_id);
+							getMemberImg(result[i].m_name);
 						}
 
 					},
@@ -569,6 +573,10 @@ function delay(gap){ /* gap is in millisecs */
 				});
 
 	}
+	
+
+	
+	
 
 	function returnTy(type) {
 		var r = "초기값";
@@ -775,6 +783,7 @@ li {
 	<input id="login_id" type="hidden"
 		value="${sessionScope.login_info.member_id}" />
 	<input id="categori" type="hidden" value="sq" />
+	<input id="m_name12345" type="hidden" value="${sessionScope.login_info.m_name}">
 	</form>
 
 	<div class="container" style="margin-top: -8%;">
@@ -828,11 +837,11 @@ li {
 
 
 								<div class="row" style="margin-top: 5px; margin-left: 0px;">
-									<div class="span"
+									<div class="span" 
 										style="width: 70px; height: 100px; overflow: hidden; position: relative;">
-										<img width="70" id="img_pf"
+										<img class = "img${sessionScope.login_info.m_name}"  width="70" id="img_pf" 
 											style="border: 4px solid rgb(255, 255, 255);"
-											src="http://192.168.7.122:8082/wheremasil/uploads/images/default/no-photo.png	"
+											src="http://192.168.7.251:8082/wheremasil/uploads/images/default/no-photo.png"
 											border="0">
 									</div>
 									<div class="span" style="width: 570px;">
@@ -948,7 +957,14 @@ li {
 						<!--  row -->
 
 
+<script type="text/javascript">
 
+
+
+($("#login_id").val());
+
+
+</script>
 
 
 					</div>

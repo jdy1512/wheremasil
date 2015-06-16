@@ -38,6 +38,13 @@ public class BoardServiceImpl {
 	private BoardDAOImpl dao;
 	
 	
+	public String returnNic(String member_id){
+	
+		List<Member> mList =  dao.returnMemberInfo(member_id);
+		System.out.println(mList.get(0).getM_name());
+		return mList.get(0).getM_name();		
+	}
+	
 	public Map modiReveiw(String posting_id){
 		ResultBoard b =  dao.returnPostingInfo(posting_id);
 		HashMap map = new HashMap();
@@ -59,6 +66,19 @@ public class BoardServiceImpl {
 		}
 		return r;
 	}
+	
+	public String RdeletePost(String posting_id){
+		int i = 	dao.RdeletePost(posting_id);
+		String r="";
+			if(i==1){
+				r="성공";
+			}
+			else{
+				r="실패";
+			}
+			System.out.println(i);
+			return r;
+		}
 	
 	
 	public String insertRpcnt(String posting_id){
@@ -142,7 +162,7 @@ public class BoardServiceImpl {
 	
 	
 	
-	public int insertSb(String categori,String msg,String login_id){
+	public int insertSb(String categori,String msg,String login_id,String m_name){
 		
 	
 		
@@ -155,7 +175,8 @@ public class BoardServiceImpl {
 		
 		//("저장될 data"+str);
 		
-		Board board = new Board(login_id, categori, "x", msg, str, "x");
+		Board board = new Board(login_id, categori, "x", msg, str, "x", m_name);
+		
 		
 		return dao.insertSb(board);
 	}
@@ -255,7 +276,7 @@ public class BoardServiceImpl {
 		return map;
 	}
 	
-	public int insertRp(Reply context,String rp){
+	public int insertRp(Reply context){
 	//("서비스값"+context);
 	int result= dao.insertRp(context);
 	
