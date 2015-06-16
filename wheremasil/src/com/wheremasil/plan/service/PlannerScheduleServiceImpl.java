@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.wheremasil.member.vo.Member;
 import com.wheremasil.plan.dao.PlannerScheduleDAOImpl;
 import com.wheremasil.plan.vo.Area;
 import com.wheremasil.plan.vo.AreaCost;
@@ -155,7 +156,7 @@ public class PlannerScheduleServiceImpl implements PlannerScheduleService{
 		plan.setStartDate((String) params.get("startDate"));
 		plan.setEndDate((String) params.get("endDate"));
 		plan.setGroupNum(Integer.parseInt((String) params.get("groupNum")));
-		plan.setMemberId((String) request.getSession().getAttribute("login_info"));
+		plan.setMemberId(((Member) (request.getSession().getAttribute("login_info"))).getMember_id());
 		
 		// 플랜 등록
 		registPlanSchedule(plan);
