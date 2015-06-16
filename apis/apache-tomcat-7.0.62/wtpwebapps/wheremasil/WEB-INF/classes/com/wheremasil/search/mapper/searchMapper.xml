@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="search.dao.searchMapper">
+	<!-- 
+		sql
+	-->
+	
+	<sql id="plan-default-select">
+		select	p.plan_id,
+				p.p_title, 
+				p.p_start_date, 
+				p.p_end_date, 
+				p.p_groupno, 
+				p.p_map_img_path, 
+				t.t_name, 
+				a.a_name, 
+				a.a_address
+		from 	area_cost ac, area a, plan p, theme t
+		where	ac.area_id=a.area_id and ac.plan_id=p.plan_id and p.theme_id=t.theme_id
+	</sql>
+	
+	<sql id="review-default-select">
+		select	posting_id,
+				p_content,
+				p_title,
+				p_number,
+				p_like,
+				p_hits,
+				p_img_path,
+				boardtype_id,
+				member_id
+		from	posting
+		where	boardtype_id = 'p'
+	</sql>
+	
+	<!-- end of sql -->
+	
+	<!-- 
+		resultmap
+	-->
+	
+	<resultMap type="planResult" id="planresult-resultmap">
+		<id column="plan_id" property="planId"/>
+		<result column="p_title" property="planTitle"/>
+		<result column="p_start_date" property="planStartDate"/>
+		<result column="p_end_date" property="planEndDate"/>
+		<result column="p_groupno" property="planGroupNum"/>
+		<result column="p_map_img_path" property="planMapImgPath"/>
+		<result column="t_name" property="planTheme"/>
+		<result column="a_name" property="planAttraction"/>
+		<result column="a_address" property="planAddress"/>
+	</resultMap>
+	
+	<resultMap type="reviewResult" id="reviewresult-resultmap">
+		<id column="posting_id" property="postingId"/>
+		<result column="p_content" property="reviewContent"/>
+		<result column="p_number" property="reviewNumber"/>
+		<result column="p_title" property="reviewTitle"/>
+		<result column="p_like" property="reviewLike"/>
+		<result column="p_hits" property="reviewHits"/>
+		<result column="p_img_path" property="reviewImgPath"/>
+		<result column="boardtype_id" property="boardtypeId"/>
+		<result column="member_id" property="memberId"/>
+	</resultMap>
+	
+	<!-- end of resultmap -->
+	
+	<!-- 
+		defaultSearch select
+	-->
+	
+	<!-- defaultPlanSearch -->
+	<select id="selectPlanSearch" parameterType="map" resultMap="planresult-resultmap">
+		select	plan_id, p_title, p_start_date, p_end_date, p_groupno, p_map_img_path, 
+				t_name, a_name, a_address
+		from(
+				<include refid="plan-default-select"/>
+		)
+		where 	p_title like '%'||#{searchWord}||'%' or t_name like '%'||#{searchWord}||'%'
+				or a_name like '%'||#{searchWord}||'%'
+	</select>
+	
+	<!-- defaultPlanSearchPaging -->
+	<select id="selectPlanSearchPaging" parameterType="map" resultMap="planresult-resultmap">
+		select	plan_id, p_title, p_start_date, p_end_date, p_groupno, 
+			   	p_map_img_path, t_name, a_name, a_address
+		from(
+				select	ceil(rownum/#{contentsPerPage}) page, plan_id, p_title,
+					 	p_start_date, p_end_date, p_groupno, p_map_img_path, t_name, a_name, a_address
+				from(
+						select	plan_id, 
+								p_title, 
+								p_start_date, 
+								p_end_date, 
+								p_groupno, 
+								p_map_img_path, 
+								t_name, 
+								a_name, 
+								a_address
+						from(
+								<include refid="plan-default-select"/>
+						)
+						where 	p_title like '%'||#{searchWord}||'%' or t_name like '%'||#{searchWord}||'%'
+								or a_name like '%'||#{searchWord}||'%'
+						order by plan_id
+				)
+		)
+		where page = #{pageNo}
+	</select>
+	
+	<!-- defaultPlanCount -->
+	<select id="selectPlanSearchCount" parameterType="String" resultType="_int">
+		select	count(plan_id)
+		from(
+				<include refid="plan-default-select"/>
+			)
+		where 	p_title like '%'||#{searchWord}||'%' or t_name like '%'||#{searchWord}||'%'
+				or a_name like '%'||#{searchWord}||'%'
+	</select>
+	
+	<!-- defaultReviewSearch -->
+	<select id="selectReviewSearch" parameterType="map" resultMap="reviewresult-resultmap">
+		select	posting_id, p_content, p_title, p_number, p_like, p_hits, p_img_path, boardtype_id, member_id
+		from(
+				<include refid="review-default-select"/>
+		)
+		where	p_content like '%'||#{searchWord}||'%' or p_title like '%'||#{searchWord}||'%'
+	</select>
+	
+	<!-- defaultReviewSearchPaging -->
+	<select id="selectReviewSearchPaging" parameterType="map" resultMap="reviewresult-resultmap">
+		select	posting_id, p_content, p_title, p_number, p_like, p_hits, p_img_path, boardtype_id,
+				member_id
+		from(
+				select	ceil(rownum/#{contentsPerPage}) page, posting_id, p_content, p_title, p_number,
+						p_like, p_hits, p_img_path, boardtype_id, member_id
+				from(
+						select	posting_id, p_content, p_title, p_number, p_like, p_hits, 
+								p_img_path, boardtype_id, member_id
+						from(
+								<include refid="review-default-select"/>
+						)
+						where	p_content like '%'||#{searchWord}||'%' or p_title like '%'||#{searchWord}||'%'
+						order by posting_id	
+				)
+		)
+		where page = #{pageNo}
+	</select>
+	
+	<!-- defaultReviewCount -->
+	<select id="selectReviewSearchCount" parameterType="String" resultType="_int">
+		select	count(posting_id)
+		from(
+				<include refid="review-default-select"/>
+			)
+		where	p_content like '%'||#{searchWord}||'%' or p_title like '%'||#{searchWord}||'%'
+	</select>
+	<!-- end of defaultSearch -->
+	
+	<!-- 
+		detailsSearch select
+	-->
+	
+	<!-- detailsPlanSearch -->
+	<select id="selectPlanDetailsSearch" parameterType="map" resultMap="planresult-resultmap">
+		select	plan_id, p_title, p_start_date, p_end_date, p_groupno, p_map_img_path, 
+				t_name, a_name, a_address
+		from(
+				<include refid="plan-default-select"/>
+		)
+		where	1=1
+				<if test="title != null and title != ''">
+					and p_title like '%'||#{title}||'%'
+				</if>
+				<if test="theme != null and theme != ''">
+					and t_name like '%'||#{theme}||'%'
+				</if>
+				<if test="attraction != null and attraction != ''">
+					and a_name like '%'||#{attraction}||'%'
+				</if>
+				<if test="number != null and number !=''">
+					and p_groupno = #{number}
+				</if>
+	</select>
+	
+	<!-- detailsPlanSearchPaging -->
+	<select id="selectPlanDetailsSearchPaging" parameterType="map" resultMap="planresult-resultmap">
+		select	plan_id, p_title, p_start_date, p_end_date, p_groupno, 
+			   	p_map_img_path, t_name, a_name, a_address
+		from(
+				select	ceil(rownum/#{contentsPerPage}) page, plan_id, p_title,
+					 	p_start_date, p_end_date, p_groupno, p_map_img_path, t_name, a_name, a_address
+				from(
+						select	plan_id, 
+								p_title, 
+								p_start_date, 
+								p_end_date, 
+								p_groupno, 
+								p_map_img_path, 
+								t_name, 
+								a_name, 
+								a_address
+						from(
+								<include refid="plan-default-select"/>
+						)
+						where	1=1
+								<if test="title != null and title != ''">
+									and p_title like '%'||#{title}||'%'
+								</if>
+								<if test="theme != null and theme != ''">
+									and t_name like '%'||#{theme}||'%'
+								</if>
+								<if test="attraction != null and attraction != ''">
+									and a_name like '%'||#{attraction}||'%'
+								</if>
+								<if test="number != null and number !=''">
+									and p_groupno = #{number}
+								</if>
+						order by plan_id
+				)
+		)
+		where page = #{pageNo}
+	</select>
+	
+	<!-- detailsPlanCount -->
+	<select id="selectPlanDetailsSearchCount" parameterType="map" resultType="_int">
+		select	count(plan_id)
+		from(
+				<include refid="plan-default-select"/>
+			)
+		where	1=1
+				<if test="title != null and title != ''">
+					and p_title like '%'||#{title}||'%'
+				</if>
+				<if test="theme != null and theme != ''">
+					and t_name like '%'||#{theme}||'%'
+				</if>
+				<if test="attraction != null and attraction != ''">
+					and a_name like '%'||#{attraction}||'%'
+				</if>
+				<if test="number != null and number !=''">
+					and p_groupno = #{number}
+				</if>
+	</select>
+	
+	<!-- detailsReviewSearch -->
+	<select id="selectReviewDetailsSearch" parameterType="map" resultMap="reviewresult-resultmap">
+		select	posting_id, p_content, p_title, p_number, p_like, p_hits, p_img_path, boardtype_id, member_id
+		from(
+				<include refid="review-default-select"/>
+		)
+		where	1=1
+				<if test="title != null and title != ''">
+					and p_title like '%'||#{title}||'%'
+				</if>
+				<if test="content != null and content != ''">
+					and p_content like '%'||#{content}||'%'
+				</if>
+	</select>
+	
+	<!-- detailsReviewSearchPaging -->
+	<select id="selectReviewDetailsSearchPaging" parameterType="map" resultMap="reviewresult-resultmap">
+		select	posting_id, p_content, p_title, p_number, p_like, p_hits, p_img_path, boardtype_id,
+				member_id
+		from(
+				select	ceil(rownum/#{contentsPerPage}) page, posting_id, p_content, p_title, p_number,
+						p_like, p_hits, p_img_path, boardtype_id, member_id
+				from(
+						select	posting_id, p_content, p_title, p_number, p_like, p_hits, 
+								p_img_path, boardtype_id, member_id
+						from(
+								<include refid="review-default-select"/>
+						)
+						where	1=1
+								<if test="title != null and title != ''">
+									and p_title like '%'||#{title}||'%'
+								</if>
+								<if test="content != null and content != ''">
+									and p_content like '%'||#{content}||'%'
+								</if>
+				)
+		)
+		where page = #{pageNo}
+	</select>
+	
+	<!-- detailsReviewCount -->
+	<select id="selectReviewDetailsSearchCount" parameterType="map" resultType="_int">
+		select	count(posting_id)
+		from(
+				<include refid="review-default-select"/>
+			)
+		where	1=1
+				<if test="title != null and title != ''">
+					and p_title like '%'||#{title}||'%'
+				</if>
+				<if test="content != null and content != ''">
+					and p_content like '%'||#{content}||'%'
+				</if>
+	</select>
+	
+	<!-- end of detailsSearch -->
+</mapper>

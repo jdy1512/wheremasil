@@ -85,7 +85,7 @@ public class MemberController{
 	return result;
 	}
 
-	@RequestMapping(value="/sessionlogincheck.do")
+	@RequestMapping(value="/logincheck.do")
 	@ResponseBody
 	public String logincheck(@RequestParam String member_id, @RequestParam String m_password,String default_url,HttpSession session, HttpServletResponse response,HttpServletRequest request, ModelMap map)throws Exception{
 	//System.out.println("로그인상황 = "+request.getSession().getAttribute("login_info"));
@@ -97,11 +97,13 @@ public class MemberController{
 		
 		
 		String url = null;
-		System.out.println(member_id+m_password);
+		System.out.println("--------------------------------------");
+		System.out.println(member_id + " 접속");
+		System.out.println("--------------------------------------");
 		if(m!=null){
 			if(m_password.equals(m.getM_password())){
 			
-				session.setAttribute("login_info", m);
+				session.setAttribute("login_info", member_id);
 				session.setMaxInactiveInterval(3600);
 				url = default_url;
 			}else{
@@ -122,7 +124,7 @@ public class MemberController{
 		
 		
 		session.invalidate();
-		System.out.println(page);
+		//System.out.println(page);
 		if(page.equals("http://127.0.0.1:8078/wheremasil/")){
 			page = "main.tiles";
 		}
@@ -131,7 +133,7 @@ public class MemberController{
 	@RequestMapping("/memberchange.do")
 	@ResponseBody
 	public String change(String member_id,String m_password){
-		System.out.println("수정");
+		//System.out.println("수정");
 		int change1= service.modifyMember(member_id,m_password);
 		String change2;
 		if(change1==1){

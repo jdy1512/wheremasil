@@ -117,6 +117,9 @@ public class PlannerScheduleController {
 	@RequestMapping("getPlanMapList")
 	@ResponseBody
 	public List<PlanMap> getPlanMapList(@RequestParam String planIdList, HttpServletRequest request) {
+		if (planIdList.length() < 1) {
+			return null;
+		}
 		List<String> params = new ArrayList<String>();
 		String[] planIdListSplit = planIdList.split("&");
 		for (int i = 0; i < planIdListSplit.length; i++) {
