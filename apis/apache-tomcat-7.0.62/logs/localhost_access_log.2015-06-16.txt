@@ -8279,3 +8279,4 @@
 127.0.0.1 - - [16/Jun/2015:19:26:20 +0900] "POST /wheremasil/plan/getPlanMapList.do HTTP/1.1" 200 7000
 127.0.0.1 - - [16/Jun/2015:19:26:48 +0900] "GET /wheremasil/search/simpleSearch.do?page=&searchWord=%EC%97%AC%ED%96%89&category=simple&type= HTTP/1.1" 200 59271
 127.0.0.1 - - [16/Jun/2015:19:26:48 +0900] "POST /wheremasil/plan/getPlanMapList.do HTTP/1.1" 200 12
+127.0.0.1 - - [16/Jun/2015:19:32:06 +0900] "GET / HTTP/1.1" 200 11418
