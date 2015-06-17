@@ -50,6 +50,7 @@ public class MemberController{
 		return service.joinMember(member);
 		
 	}
+
 	
 	@RequestMapping("/login.do")
 	@ResponseBody
@@ -58,7 +59,7 @@ public class MemberController{
 		Member m = service.getMemberById(member_id);
 		
 		String url = null;
-		
+
 		if(m!=null){
 			if(m_password.equals(m.getM_password())){
 				
@@ -78,13 +79,16 @@ public class MemberController{
 	@RequestMapping("/logout.do")
 	public void logout(HttpSession session){
 		session.invalidate();
+
 	}
+
 	
 	@RequestMapping("/mypageconn.do")
 	public ModelAndView mypage(String member_id) throws Exception {
 		Map map = new HashMap();
 		map = service.getPlanId(member_id);
 		return new ModelAndView("member/mypage_form.tiles",map);
+
 	}
 	
 	@RequestMapping(value="/modifyMember.do", method=RequestMethod.POST	)

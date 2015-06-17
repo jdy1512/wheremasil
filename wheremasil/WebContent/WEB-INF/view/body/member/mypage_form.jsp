@@ -101,9 +101,9 @@ $(document).ready(function() {
 				                    </div>
 				                    <div style="margin-top:10px" class="form-group">
 				                    <!-- Button -->
-				                    <input type="submit" value="버튼">
+				               
 					                    <div class="col-md-9 controls">
-				    	                    <a id="changsucc" class="btn btn-success">수정  </a>
+				    	                  <input type="submit"  class="btn btn-warning"	value="수정"> 
 				                            <a id="changecancel" class="btn btn-primary">취소</a>
 				                        </div>
 				                     </div>

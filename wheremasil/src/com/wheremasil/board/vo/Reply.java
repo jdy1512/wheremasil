@@ -8,11 +8,10 @@ public class Reply {
 	private String posting_id;
 	private String member_id;
 	private String r_content;
-	public Reply() {
-		super();
-	}
+	private String m_name;
 	public Reply(String reply_id, String r_parent_id, String r_datetime,
-			int r_level, String posting_id, String member_id, String r_content) {
+			int r_level, String posting_id, String member_id, String r_content,
+			String m_name) {
 		super();
 		this.reply_id = reply_id;
 		this.r_parent_id = r_parent_id;
@@ -21,6 +20,17 @@ public class Reply {
 		this.posting_id = posting_id;
 		this.member_id = member_id;
 		this.r_content = r_content;
+		this.m_name = m_name;
+	}
+	public Reply() {
+		super();
+	}
+	@Override
+	public String toString() {
+		return "Reply [reply_id=" + reply_id + ", r_parent_id=" + r_parent_id
+				+ ", r_datetime=" + r_datetime + ", r_level=" + r_level
+				+ ", posting_id=" + posting_id + ", member_id=" + member_id
+				+ ", r_content=" + r_content + ", m_name=" + m_name + "]";
 	}
 	public String getReply_id() {
 		return reply_id;
@@ -64,17 +74,13 @@ public class Reply {
 	public void setR_content(String r_content) {
 		this.r_content = r_content;
 	}
-	@Override
-	public String toString() {
-		return "Reply [reply_id=" + reply_id + ", r_parent_id=" + r_parent_id
-				+ ", r_datetime=" + r_datetime + ", r_level=" + r_level
-				+ ", posting_id=" + posting_id + ", member_id=" + member_id
-				+ ", r_content=" + r_content + "]";
+	public String getM_name() {
+		return m_name;
 	}
-	
-	
-	
-	
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
+	}
+
 	
 
 }

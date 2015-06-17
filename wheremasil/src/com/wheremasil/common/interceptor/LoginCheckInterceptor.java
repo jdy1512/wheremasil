@@ -12,7 +12,6 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		System.out.println("interceptor");
 		HttpSession session = request.getSession();
 		if (session.getAttribute("login_info") == null) {
 			throw new ModelAndViewDefiningException(new ModelAndView("/", "session", "로그인을 해주세요."));

@@ -87,6 +87,7 @@ public class PlannerScheduleController {
 	public ModelAndView getSchedule(@RequestParam("plan_id") String planId, HttpServletRequest request) {
 		List<PlanDetail> pdList = service.getPlanDetails(planId);
 		
+		
 		for (int i = 0; i < pdList.size(); i++) {
 			PlanDetail pd = pdList.get(i);
 			String oriDate = pd.getCurDate();
@@ -117,6 +118,9 @@ public class PlannerScheduleController {
 	@RequestMapping("getPlanMapList")
 	@ResponseBody
 	public List<PlanMap> getPlanMapList(@RequestParam String planIdList, HttpServletRequest request) {
+		if (planIdList.length() < 1) {
+			return null;
+		}
 		List<String> params = new ArrayList<String>();
 		String[] planIdListSplit = planIdList.split("&");
 		for (int i = 0; i < planIdListSplit.length; i++) {
