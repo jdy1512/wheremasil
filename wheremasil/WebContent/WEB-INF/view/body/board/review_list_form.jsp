@@ -42,7 +42,7 @@
 $(document).ready(function(){
 	$("#delete").on("click",function(){
 		if (confirm("정말 삭제하시겠습니까??") == true){  
-			alert("이넘버"+$(this).attr("name"))
+			//alert("이넘버"+$(this).attr("name"))
 		   deletePost($(this).attr("name"));
 		}else{   
 		    return;
@@ -67,7 +67,7 @@ $(document).ready(function(){
 
 
 function deletePost(posting_id){
-	alert(posting_id);	
+	//alert(posting_id);	
 var txt = "posting_id" + "="+ posting_id;
 	
 	$.ajax({
@@ -172,10 +172,10 @@ function selHit(id){
 
 $(document).ready(function(){
 	$("#xx").on("click",function(){
-		alert("버튼이벤트");
+		//alert("버튼이벤트");
 		 $.session.set("login_info", "value");
-		alert("세션값확인");
-		alert($.session.get("login_info"));
+		//alert("세션값확인");
+		//alert($.session.get("login_info"));
 		
 		
 	});

@@ -3,9 +3,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <% int cnt = 0; %>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=8090c845eb21bcc92becc6f8f3bf61fa&libraries=services"></script>
-<script type="text/javascript" src="/wheremasil/script/map_view.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	var list = eval('${requestScope.planIdList}');
+	getPlanMapList(list, "plan_map_", "main_map");
+	
 	$("#change").on("click", function() {
 		
 		$("#memberchange").css("visibility", "visible");
@@ -18,9 +20,6 @@ $(document).ready(function() {
 		$("#popup_layer1").css("visibility", "visible");
 	});
 	
-	if("${requestScope.planId_list}"){
-		getPlanMapList("${requestScope.planId_list}", "plan_map_", "portfolio-item");
-	}
 });
 
 </script>
@@ -68,10 +67,10 @@ $(document).ready(function() {
 			        	<h2 class="page-header">My plan</h2>
 			        </div>
 			    </div>
-			   <c:if test="${fn:length(requestScope.planId_list) != 0 }">
-			        <c:forEach items="${requestScope.planId_list }" var="plan">
-			        	<div class='col-md-4 portfolio-item'>
-							<a id="plan_map_<%= ++cnt %>" href='/wheremasil/plan/getSchedule.do?plan_id=${plan }'>
+			   <c:if test="${fn:length(requestScope.planIdList) != 0 }">
+			        <c:forEach items="${requestScope.planIdList }" var="plan">
+			        	<div class='col-md-4 portfolio-item' style="height:200px;margin-top:100px;">
+							<a id="plan_map_<%= ++cnt %>">
 								<img class='img-responsive' src='/wheremasil/uploads/images/default/img_not_found.png' alt=''></a>
 						</div>
 					</c:forEach>

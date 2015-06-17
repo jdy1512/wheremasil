@@ -19,14 +19,54 @@ function delay(gap) { /* gap is in millisecs */
     while((now - then) < gap) {
         now = new Date().getTime();
     }
+    
+    
+    
+    	
+    	
+    	
+    }
+    
+function deletePost(posting_id){
+	//alert(posting_id);	
+var txt = "posting_id" + "="+ posting_id;
+	
+	$.ajax({
+   	    url: '/wheremasil/board/deletePost.do',
+   	 type:"post",
+   	    processData: false,
+   	 
+	    data:txt,
+	    dataType:"text",
+   	    
+   	    success: function(result){
+   	   
+   	    	
+   	    	//alert("성공");
+   	    	
+   	    	
+   	    	
+   	   
+   	    },
+   	    error:function(result){
+   	    	
+   	    	//alert("삭제실패");
+   	    }
+   	});
+	
+	
+	
 }
+
 
 
 </script>
 <script type="text/javascript">
-var path = "http://192.168.7.252:8082/wheremasil/uploads/images/posting_img/";
+var path = "http://192.168.7.252:48080/wheremasil/uploads/images/posting_img/";
 var cnt=2;
 $(document).ready(function(){
+	
+deletePost("${requestScope.board.posting_id}");
 	
 	
 	var temp=1;
@@ -41,7 +81,7 @@ $(document).ready(function(){
 	$("#fileSection").on("change","input[type='file']",function(){
 		 var data =new FormData();
 		 data.append("file",jQuery(this).get(0).files[0]);
-		 alert(data);
+		 //alert(data);
 	   	 $.ajax({
 	       	    url: '/wheremasil/board/check.do',
 	       	  type: "post",
@@ -51,7 +91,7 @@ $(document).ready(function(){
               processData: false,
               contentType: false,
 	       	    success: function(result){
-	       	    	alert(path+result);
+	       	    	//alert(path+result);
 	       	    	
 	       	    	alert("업로드 성공!!");
 	       	    	
@@ -73,7 +113,7 @@ delay(4000);
 	       	    	
 	       	    },
 	       	    error:function(result){
-	       	    	alert(result);
+	       	    	//alert(result);
 	       	    	alert("실패");
 	       	    }
 	       	});
@@ -89,7 +129,7 @@ delay(4000);
 	
 	
 	$("#titleimg").on("change",function(){
-		alert("대표이미지 삽입이벤트");
+		//alert("대표이미지 삽입이벤트");
 		var data =new FormData();
 		 data.append("file",jQuery(this).get(0).files[0]);
 		 alert(data);
@@ -102,7 +142,7 @@ delay(4000);
              processData: false,
              contentType: false,
 	       	    success: function(result){
-	       	    	alert(path+result);
+	       	    	//alert(path+result);
 	       	    	
 	       	    	alert("업로드 성공!!");
 	       	    	
@@ -130,24 +170,24 @@ $("#sumname").attr('value',path+result);
 	
 	
 	$("#main").submit(function(event){
-		alert("섭밋전 이벤트호출");
+		//alert("섭밋전 이벤트호출");
 		
 		if($("#sumname").val()=="2"){
 			if(imgpath=="default"){
-			alert("이미지, 초기이미지 아무것도안넘");
+			//alert("이미지, 초기이미지 아무것도안넘");
 			$("#sumname").attr('value',imgpath); 
 			}else{
-			alert("2라면");
+			//alert("2라면");
 			$("#sumname").attr('value',imgpath); 
 			}
 		}else{
-			alert("아니라면");
+			//alert("아니라면");
 		}
 		return true;
 	});
 	
 	$("#cancle_btn").on("click",function(){
-		alert("켄슬이벤트");
+		//alert("켄슬이벤트");
 		var result = confirm('Are you sure you want to do this?');
 
 	    if(result) {
@@ -159,9 +199,9 @@ $("#sumname").attr('value',path+result);
 		
 	});
 	
-	alert("re");
+	//alert("re");
 	
-	alert( $("#con").val());
+	//alert( $("#con").val());
 	CKEDITOR.instances.editor1.setData( $("#con").val());
 	$("#sumname").attr('value',$("#con2").val()); 
 	

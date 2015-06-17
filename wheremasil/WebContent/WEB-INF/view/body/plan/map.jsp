@@ -263,6 +263,9 @@
 						        		Pace.stop();
 					    			}, 1000);
 					        		getAreasByRange(map.getBounds());
+					        	},
+					        	error: function(error) {
+					        		getAreasByRange(map.getBounds());
 					        	}
 							});// end of ajax
 						});// end of track (pace)
@@ -343,6 +346,9 @@
 							    		    setTimeout(function(){
 								        		Pace.stop();
 							    			}, 1000);
+							        		getAreasByRange(map.getBounds());
+							        	},
+							        	error: function(error) {
 							        		getAreasByRange(map.getBounds());
 							        	}
 									});// end of ajax
@@ -591,8 +597,6 @@
 		    			bounds = new daum.maps.LatLngBounds();
 		    			extendsBounds(marker.getPosition());
 		    			setBounds();
-		                infowindow.close();
-		                displayInfowindow(marker, title, addr, img);
 		            };
 		        })(marker, places[i].title, places[i].address, places[i].imageUrl);
 	

@@ -1,10 +1,7 @@
 package com.wheremasil.member.service;
 
-import java.util.DuplicateFormatFlagsException;
 import java.util.List;
-import java.util.Map;
 
-import com.google.gson.JsonObject;
 import com.wheremasil.member.vo.Member;
 
 
@@ -28,5 +25,5 @@ public interface MemberService {
 	
 	public abstract Member getMemberByName(String m_name);
 	
-	public abstract Map getPlanId(String member_id);
+	public abstract List<String> getPlanId(String member_id);
 }

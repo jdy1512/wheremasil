@@ -14,14 +14,14 @@ ALTER TABLE posting drop column p_content;
 ALTER TABLE member MODIFY m_position NULL;
 
 delete from plan
-select * from area
+select * from area where a_name like '성산%'
 select * from area_cost
 select * from schedule
 select * from plan
 select * from member
 update member set m_name='admin' where member_id='admin@wheremasil.com'
 
-update area set channel_id='C3' where area_id='A11'
+update area set channel_id='C3' where area_id='A120'
 
 insert into theme values('T1', '배낭여행');
 insert into theme values('T2', '우정여행');

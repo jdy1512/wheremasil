@@ -58,14 +58,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public Map getPlanId(String member_id){
+	public List<String> getPlanId(String member_id){
 		List<String> planList = dao.selectPlanId(member_id);
 				
-		Map map = new HashMap();
+		//Map map = new HashMap();
 		
-		map.put("planId_list", planList);
+		//map.put("planId_list", planList);
 	
-		return map; 
+		return planList; 
 	}
 
 	

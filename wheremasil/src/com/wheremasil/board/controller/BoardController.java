@@ -234,7 +234,10 @@ public class BoardController {
 		 //String path = req.getServletContext().getRealPath("/uploads/files/");
 		 //String path1= "C:\\Users\\JPH.KOSTA_03_030-HP\\git\\wheremasil1\\wheremasil\\WebContent\\uploads\\images\\";
 		// String path1="C:\\Users\\JPH.KOSTA_03_030-HP\\git\\wheremasil3\\wheremasil\\WebContent\\uploads\\images\\posting_img\\";
-		 String path1=request.getSession().getServletContext().getRealPath("/uploads/images/posting_img");
+		 //String path1=request.getSession().getServletContext().getRealPath("/uploads/images/posting_img");
+		 String path1="C:\\Users\\KOSTA_03_001_\\Desktop\\wheremasil_master\\wheremasil\\apis\\apache-tomcat-7.0.62\\webapps\\wheremasil\\uploads\\images\\posting_img\\";
+		// String path1="C:\\Users\\KOSTA_03_001_\\Desktop\\mylibrary\\developers\\apis\\apache-tomcat-7.0.61\\webapps\\wheremasil\\uploads\\images\\posting_img\\";
+		// String path1="C:\\Users\\KOSTA_03_001_\\Desktop\\wheremasil_master\\wheremasil\\wheremasil\\WebContent\\uploads\\images\\posting_img\\";
 		 String fileName = System.currentTimeMillis()+""; 
 		 File pic = new File(path1, fileName+"."+arr[1]);
 		 

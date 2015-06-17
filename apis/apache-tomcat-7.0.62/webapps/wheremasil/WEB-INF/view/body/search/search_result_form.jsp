@@ -4,10 +4,10 @@
 <% int cnt = 0; %>
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=8090c845eb21bcc92becc6f8f3bf61fa&libraries=services"></script>
-<script type="text/javascript" src="/wheremasil/script/map_view.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	var list = eval('${requestScope.planId_list}');
+	getPlanMapList(list, "plan_map_", "portfolio-item");
 	
 	// bodySearch btn 빈문자열 오류 검증
 	$("#search-btn").on("click",function(){
@@ -18,7 +18,7 @@ $(document).ready(function(){
 			return false;
 		}
 		
-		location.href="http://127.0.0.1:48080/wheremasil/search/simpleSearch.do?page=&searchWord="+$("#bodySearchWord").val()+"&category=simple&type=";
+		location.href="/wheremasil/search/simpleSearch.do?page=&searchWord="+$("#bodySearchWord").val()+"&category=simple&type=";
 	});
 	
 	// detailsSearchForm 빈문자열 오류 검증
@@ -30,10 +30,6 @@ $(document).ready(function(){
 		}
 		return true;
 	});
-	
-	if("${requestScope.planId_list}"){
-		getPlanMapList("${requestScope.planId_list}", "plan_map_", "portfolio-item");
-	}
 	
 });
 
@@ -52,7 +48,7 @@ $(document).ready(function(){
 	                	<div class="dropdown dropdown-lg">
 	                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
 	                        <div class="dropdown-menu dropdown-menu-right" role="menu">
-	                            <form class="form-horizontal" role="form" action="http://127.0.0.1:8088/wheremasil/search/simpleSearch.do" method="POST" id="detailsSearchForm">
+	                            <form class="form-horizontal" role="form" action="/wheremasil/search/simpleSearch.do" method="POST" id="detailsSearchForm">
 	                              	<input type="hidden" name="page" value="">
 	                               	<input type="hidden" name="category" value="detailsSimple">
 	                               	<input type="hidden" name="type" value="">
@@ -118,15 +114,15 @@ $(document).ready(function(){
     			</div>
     			
     			<c:forEach items="${requestScope.planId_list }" begin="0" end="2" var="plan" >
-        			<div class='col-md-4 portfolio-item'>
-						<a id="plan_map_<%= ++cnt %>" href='http://localhost:8088/wheremasil/plan/getSchedule.do?plan_id=${plan }'>
+        			<div class='col-md-4 portfolio-item' style="height:200px; margin-top:100px">
+						<a id="plan_map_<%= ++cnt %>" href='/wheremasil/plan/getSchedule.do?plan_id=${plan }'>
 							<img class='img-responsive' src='/wheremasil/uploads/images/default/img_not_found.png' alt=''></a>
 					</div>
 				</c:forEach>
 				<c:if test="${fn:length(requestScope.planId_list) >= 4 }">
 					<div class="row text-center">
-    					<div class="col-lg-12">
-        					<h4 class="page-header"><a href='http://127.0.0.1:8088/wheremasil/search/${requestScope.search }Search.do?page=&searchWord=${requestScope.search_word }&category=${requestScope.search }&type=plan&title=${requestScope.title }&content=${requestScope.content }&theme=${requestScope.theme }&attraction=${requestScope.attraction }&number=${requestScope.number}'>더보기</a></h4>
+    					<div class="col-lg-12" style="margin-top:100px;">
+        					<h4 class="page-header"><a href='/wheremasil/search/${requestScope.search }Search.do?page=&searchWord=${requestScope.search_word }&category=${requestScope.search }&type=plan&title=${requestScope.title }&content=${requestScope.content }&theme=${requestScope.theme }&attraction=${requestScope.attraction }&number=${requestScope.number}'>더보기</a></h4>
         				</div>
     				</div>	
     			</c:if>	
@@ -139,16 +135,16 @@ $(document).ready(function(){
     			</div>
 	    		<c:forEach items="${requestScope.board_list }" begin="0" end="2" var="review">
 	        		<div class='col-md-4 portfolio-item'>
-						<a href='http://localhost:8088/wheremasil/board/postingVal.do?posting_id=${review.posting_id }'>
+						<a href='/wheremasil/board/postingVal.do?posting_id=${review.posting_id }'>
 							<img class='img-responsive' src='${review.p_img_path }' alt=''></a>
-							<h3><a href='http://localhost:8088/wheremasil/board/postingVal.do?posting_id=${review.posting_id }'>${fn:substring(review.p_title,0,40)}</a></h3>
+							<h3><a href='/wheremasil/board/postingVal.do?posting_id=${review.posting_id }'>${fn:substring(review.p_title,0,40)}</a></h3>
 							<p>${fn:substring(review.p_content,0,70)}<br> 추천수 : ${review.p_like}		조회수 : ${review.p_hits}<br>ID : ${review.member_id}</p>
 					</div>
 				</c:forEach>
 				<c:if test="${fn:length(requestScope.board_list) >= 4 }">
 					<div class="row text-center">
 	    				<div class="col-lg-12">
-	        				<h4 class="page-header"><a href='http://127.0.0.1:8088/wheremasil/search/${requestScope.search }Search.do?page=&searchWord=${requestScope.search_word }&category=${requestScope.search }&type=review&title=${requestScope.title }&content=${requestScope.content }&theme=${requestScope.theme }&attraction=${requestScope.attraction }&number=${requestScope.number}'>더보기</a></h4>
+	        				<h4 class="page-header"><a href='/wheremasil/search/${requestScope.search }Search.do?page=&searchWord=${requestScope.search_word }&category=${requestScope.search }&type=review&title=${requestScope.title }&content=${requestScope.content }&theme=${requestScope.theme }&attraction=${requestScope.attraction }&number=${requestScope.number}'>더보기</a></h4>
 	        			</div>
 	    			</div>
 	    		</c:if>				
@@ -164,8 +160,8 @@ $(document).ready(function(){
 		        	</div>
 		    	</div>
 		    	<c:forEach items="${requestScope.planId_list }" var="plan">
-		        	<div class='col-md-4 portfolio-item'>
-						<a id="plan_map_<%= ++cnt %>" href='http://localhost:8088/wheremasil/plan/getSchedule.do?plan_id=${plan }'>
+		        	<div class='col-md-4 portfolio-item' style="height:200px;margin-top:100px">
+						<a id="plan_map_<%= ++cnt %>" href='/wheremasil/plan/getSchedule.do?plan_id=${plan }'>
 							<img class='img-responsive' src='/wheremasil/uploads/images/default/img_not_found.png' alt=''></a>
 					</div>
 				</c:forEach>		
@@ -177,22 +173,22 @@ $(document).ready(function(){
 		        	</div>
 		    	</div>
 		    	<c:forEach items="${requestScope.board_list }" var="review">
-		        	div class='col-md-4 portfolio-item'>
-						<a href='http://localhost:8088/wheremasil/board/postingVal.do?posting_id=${review.posting_id }'>
+		        	<div class='col-md-4 portfolio-item'>
+						<a href='/wheremasil/board/postingVal.do?posting_id=${review.posting_id }'>
 							<img class='img-responsive' src='${review.p_img_path }' alt=''></a>
-							<h3><a href='http://localhost:8088/wheremasil/board/postingVal.do?posting_id=${review.posting_id }'>${fn:substring(review.p_title,0,40)}</a></h3>
+							<h3><a href='/wheremasil/board/postingVal.do?posting_id=${review.posting_id }'>${fn:substring(review.p_title,0,40)}</a></h3>
 							<p>${fn:substring(review.p_content,0,70)}<br> 추천수 : ${review.p_like}		조회수 : ${review.p_hits}<br>ID : ${review.member_id}</p>
 					</div>
 				</c:forEach>		
 		    </c:if>
 		    <hr>
 		    <div class="row text-center">
-		    	<div class="col-lg-12">
+		    	<div class="col-lg-12" style="margin-top:100px">
 		        	<ul class="pagination">
 		            	<c:choose>
 							<c:when test="${PagingBean.previousPageGroup }">
 								<li>
-		                			<a href="http://127.0.0.1:8088/wheremasil/search/${requestScope.category}Search.do?page=${PagingBean.startPageOfPageGroup-1}&searchWord=${requestScope.search_word}&category=${requestScope.category}&type=${requestScope.type}&title=${requestScope.title }&content=${requestScope.content }&theme=${requestScope.theme }&attraction=${requestScope.attraction }&number=${requestScope.number}">&laquo;</a>
+		                			<a href="/wheremasil/search/${requestScope.category}Search.do?page=${PagingBean.startPageOfPageGroup-1}&searchWord=${requestScope.search_word}&category=${requestScope.category}&type=${requestScope.type}&title=${requestScope.title }&content=${requestScope.content }&theme=${requestScope.theme }&attraction=${requestScope.attraction }&number=${requestScope.number}">&laquo;</a>
 		           				</li>
 							</c:when>
 							<c:otherwise>
@@ -206,7 +202,7 @@ $(document).ready(function(){
 								</c:when>
 							<c:otherwise>
 								<li>
-		                        	<a href="http://127.0.0.1:8088/wheremasil/search/${requestScope.category}Search.do?page=${pageNum}&searchWord=${requestScope.search_word}&category=${requestScope.category}&type=${requestScope.type}&title=${requestScope.title }&content=${requestScope.content }&theme=${requestScope.theme }&attraction=${requestScope.attraction }&number=${requestScope.number}">${pageNum}</a>
+		                        	<a href="/wheremasil/search/${requestScope.category}Search.do?page=${pageNum}&searchWord=${requestScope.search_word}&category=${requestScope.category}&type=${requestScope.type}&title=${requestScope.title }&content=${requestScope.content }&theme=${requestScope.theme }&attraction=${requestScope.attraction }&number=${requestScope.number}">${pageNum}</a>
 		                    	</li>
 							</c:otherwise>
 							</c:choose>
@@ -214,7 +210,7 @@ $(document).ready(function(){
 		                <c:choose>
 							<c:when test="${PagingBean.nextPageGroup }">
 								<li>
-									<a href="http://127.0.0.1:8088/wheremasil/search/${requestScope.category}Search.do?page=${PagingBean.endPageOfPageGroup+1}&searchWord=${requestScope.search_word}&category=${requestScope.category}&type=${requestScope.type}&title=${requestScope.title }&content=${requestScope.content }&theme=${requestScope.theme }&attraction=${requestScope.attraction }&number=${requestScope.number}">&raquo;</a>
+									<a href="/wheremasil/search/${requestScope.category}Search.do?page=${PagingBean.endPageOfPageGroup+1}&searchWord=${requestScope.search_word}&category=${requestScope.category}&type=${requestScope.type}&title=${requestScope.title }&content=${requestScope.content }&theme=${requestScope.theme }&attraction=${requestScope.attraction }&number=${requestScope.number}">&raquo;</a>
 								</li>
 							</c:when>
 						<c:otherwise>

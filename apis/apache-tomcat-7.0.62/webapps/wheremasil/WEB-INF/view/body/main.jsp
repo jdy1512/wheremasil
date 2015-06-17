@@ -4,7 +4,6 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=8090c845eb21bcc92becc6f8f3bf61fa&libraries=services"></script>
-<script type="text/javascript" src="/wheremasil/script/map_view.js"></script>
 
 <script>
    <c:if test="${ not empty requestScope.plan }">

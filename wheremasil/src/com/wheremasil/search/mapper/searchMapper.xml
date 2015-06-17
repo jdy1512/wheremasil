@@ -63,18 +63,10 @@
 	<select id="selectPlanSearchPaging" parameterType="map" resultType="String">
 		select	plan_id
 		from(
-				select	ceil(rownum/#{contentsPerPage}) page, plan_id, p_title,
-					 	p_start_date, p_end_date, p_groupno, p_map_img_path, t_name, a_name, a_address
+				select	ceil(rownum/#{contentsPerPage}) page, plan_id
 				from(
-						select	plan_id, 
-								p_title, 
-								p_start_date, 
-								p_end_date, 
-								p_groupno, 
-								p_map_img_path, 
-								t_name, 
-								a_name, 
-								a_address
+						select	distinct plan_id
+								
 						from(
 								<include refid="plan-default-select"/>
 						)
@@ -88,7 +80,7 @@
 	
 	<!-- defaultPlanCount -->
 	<select id="selectPlanSearchCount" parameterType="String" resultType="_int">
-		select	count(plan_id)
+		select	count(distinct plan_id)
 		from(
 				<include refid="plan-default-select"/>
 			)
@@ -132,20 +124,11 @@
 	
 	<!-- detailsPlanSearchPaging -->
 	<select id="selectPlanDetailsSearchPaging" parameterType="map" resultType="String">
-		select	plan_id
+		select	distinct plan_id
 		from(
-				select	ceil(rownum/#{contentsPerPage}) page, plan_id, p_title,
-					 	p_start_date, p_end_date, p_groupno, p_map_img_path, t_name, a_name, a_address
+				select	ceil(rownum/#{contentsPerPage}) page, plan_id
 				from(
-						select	plan_id, 
-								p_title, 
-								p_start_date, 
-								p_end_date, 
-								p_groupno, 
-								p_map_img_path, 
-								t_name, 
-								a_name, 
-								a_address
+						select	distinct plan_id
 						from(
 								<include refid="plan-default-select"/>
 						)
@@ -175,7 +158,7 @@
 	
 	<!-- detailsPlanCount -->
 	<select id="selectPlanDetailsSearchCount" parameterType="map" resultType="_int">
-		select	count(plan_id)
+		select	count(distinct plan_id)
 		from(
 				<include refid="plan-default-select"/>
 			)

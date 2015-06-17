@@ -63,10 +63,10 @@ $(document).ready(function() {
 			type : "post",
 			dataType : "text",
 			success : function(data) {
-				location.reload(true);
+				location.href="/wheremasil/member/logoutmypage.do"
 			},
 			error : function(data) {
-				location.reload(true);
+				location.href="/wheremasil/member/logoutmypage.do"
 			}
 		});
 	});

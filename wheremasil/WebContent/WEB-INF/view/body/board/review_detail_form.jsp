@@ -309,7 +309,7 @@ function del(asd){
 	//alert("확인");
 	if (confirm("정말 삭제하시겠습니까??") == true){  
 		//alert(asd);
-	   //deletePost(asd);
+	   deletePost(asd);
 	}else{   
 	    return;
 	}

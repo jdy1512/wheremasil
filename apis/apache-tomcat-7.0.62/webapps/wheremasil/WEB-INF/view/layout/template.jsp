@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="/wheremasil/script/jquery.js"></script>
+<script type="text/javascript" src="/wheremasil/script/map_view.js"></script>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -23,6 +24,8 @@
 <!-- SearchCSS -->
 <link rel="stylesheet" href="/wheremasil/css/search/search.css">
 
+<!-- mypage CSS -->
+<link rel="stylesheet" href="/wheremasil/css/member/mypage.css">
 <style type="text/css">
 
 header {

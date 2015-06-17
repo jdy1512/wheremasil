@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
 import com.wheremasil.board.vo.ResultBoard;
 import com.wheremasil.common.util.PagingBean;
 import com.wheremasil.search.dao.SearchDAO;
@@ -30,7 +31,7 @@ public class SearchServiceImpl implements SearchService {
 		List<ResultBoard> boardList = dao.selectReviewSearchPaging(pageNo, searchWord);
 		
 		HashMap map = new HashMap();
-		map.put("planId_list", planIdList);
+		map.put("planId_list", new Gson().toJson(planIdList));
 		map.put("board_list", boardList);
 		map.put("search", "default");
 		map.put("category", "simple");
@@ -48,7 +49,7 @@ public class SearchServiceImpl implements SearchService {
 		PagingBean PagingBean = new PagingBean(TotalContent, pageNo);
 		
 		HashMap map = new HashMap();
-		map.put("planId_list", planIdList);
+		map.put("planId_list", new Gson().toJson(planIdList));
 		map.put("PagingBean", PagingBean);
 		map.put("category", "default");
 		map.put("type", "plan");
@@ -87,7 +88,7 @@ public class SearchServiceImpl implements SearchService {
 		List<ResultBoard> boardList = dao.selectReviewDetailsSearchPaging(pageNo, title, content);
 				
 		HashMap map = new HashMap();
-		map.put("planId_list", planIdList);
+		map.put("planId_list", new Gson().toJson(planIdList));
 		map.put("board_list", boardList);
 		map.put("search", "details");
 		map.put("category", "detailsSimple");
@@ -112,7 +113,7 @@ public class SearchServiceImpl implements SearchService {
 		
 				
 		HashMap map = new HashMap();
-		map.put("planId_list", planIdList);
+		map.put("planId_list", new Gson().toJson(planIdList));
 		map.put("PagingBean", PagingBean);
 		map.put("category", "details");
 		map.put("type", "plan");

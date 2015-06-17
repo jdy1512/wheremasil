@@ -5,6 +5,7 @@ package com.wheremasil.member.controller;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonObject;
+import com.google.gson.Gson;
 import com.wheremasil.member.service.MemberService;
 import com.wheremasil.member.vo.Member;
 
@@ -85,10 +85,8 @@ public class MemberController{
 	
 	@RequestMapping("/mypageconn.do")
 	public ModelAndView mypage(String member_id) throws Exception {
-		Map map = new HashMap();
-		map = service.getPlanId(member_id);
-		return new ModelAndView("member/mypage_form.tiles",map);
-
+		List<String> list = service.getPlanId(member_id);
+		return new ModelAndView("member/mypage_form.tiles", "planIdList", new Gson().toJson(list));
 	}
 	
 	@RequestMapping(value="/modifyMember.do", method=RequestMethod.POST	)
@@ -110,15 +108,14 @@ public class MemberController{
 			}
 			member.setM_prof_img_path(newFileName);
 		}
-		Map map = new HashMap();
-		map = service.getPlanId(member.getMember_id());
+		List<String> list = service.getPlanId(loginInfo.getMember_id());
 		service.modifyMember(member);
 		loginInfo.setM_name(member.getM_name());
 		loginInfo.setM_password(member.getM_password());
 		if(newFileName != null){
 			loginInfo.setM_prof_img_path(newFileName);
 		}
-		return new ModelAndView("member/mypage_form.tiles", map);
+		return new ModelAndView("member/mypage_form.tiles", "planIdList", new Gson().toJson(list));
 	}
 	
 	

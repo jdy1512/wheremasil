@@ -43,7 +43,7 @@ function getPlanMapList(planIdList, mapContainerId, mapViewClassName) {
 					month = oriEDate.substring(4, 6);
 					day = oriEDate.substring(6, 8);
 					var newEDate = year + "." + month + "." + day;
-					
+
 					$("#" + mapContainerId + planCnt).attr("href", "/wheremasil/plan/getSchedule.do?plan_id=" + curPlanId);
 					$("#" + mapContainerId + planCnt).attr("class", mapViewClassName);
 					$("#" + mapContainerId + planCnt).html('<div id="plan_' + curPlanId + '" style="width:100%;height:100%;"></div>' + 

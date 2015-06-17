@@ -3,49 +3,13 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	var default_url;
-	$("#login_form_bt").on("click", function() {
-		var s = location.href;
-		default_url = s;
-	});
-	$("#m_password").on("keyup", function(e) {
-		if (e.which == 13) {/* 13 == enter key@ascii */
-			var member_id = $('#member_id').val();
-			var m_password = $('#m_password').val();
-			var editor1 = "member_id" + "=" + member_id + "&"
-						+ "m_password" + "=" + m_password + "&"
-						+ "default_url" + "=" + default_url;
-			$.ajax({
-				url : "/wheremasil/member/logincheck.do",
-				data : editor1,
-				type : "post",
-				dataType : "text",
-				success : function(data) {
-					// window.location.replace(data);
-					if (data == "2") {
-						alert("아이디를 확인하세요");
-					} else if (data == "1") {
-						alert("password를 확인하세요");
-					} else {
-						location.reload(true);
-					}
-				},
-				error : function(data) {
-					alert("로그인실패 새로고침(F5)눌러주세요~");
-				}
-			});
-		}
-	});
+
 	$("#login_send").on("click",function() {
-		var member_id = $('#member_id').val();
-		var m_password = $('#m_password').val();
-		var editor1 = "member_id" + "=" + member_id + "&"
-					+ "m_password" + "=" + m_password + "&"
-					+ "default_url" + "=" + default_url;
+		
 		$.ajax({
-			url : "/wheremasil/member/logincheck.do",
-			data : editor1,
-			type : "post",
+			url : "/wheremasil/member/login.do",
+			data : "member_id="+$("#loginMember_id").val()+"&m_password="+$("#loginM_password").val(),
+			type : "get",
 			dataType : "text",
 			success : function(data) {
 				// window.location.replace(data);
@@ -53,7 +17,7 @@ $(document).ready(function() {
 					alert("아이디를 확인하세요");
 				} else if (data == "1") {
 					alert("password를 확인하세요");
-				} else {
+				} else{
 					location.reload(true);
 				}
 			},
@@ -62,47 +26,47 @@ $(document).ready(function() {
 			}
 		});
 	});
-	$("#join_send").on("click",	function() {
-		var member_id1 = $('#member_id1').val();
-		var m_password1 = $('#m_password1').val();
-		var m_name1 = $('#m_name1').val();
-
-		var editor1 = "member_id12" + "=" + member_id1
-					+ "&" + "m_password1" + "=" + m_password1
-					+ "&" + "m_name1" + "=" + m_name1;
+	
+	$("#join_send").click(function(){
+		var formData = new FormData();
+		formData.append("member_id",$("input[name=member_id]").val());
+		formData.append("m_password",$("input[name=m_password]").val());
+		formData.append("m_name",$("input[name=m_name]").val());
+		formData.append("picture",$("input[name=picture]")[0].files[0]);
 		$.ajax({
-			url : "/wheremasil/member/joinSuccess.do",
-			data : editor1,
-			type : "post",
-			dataType : "text",
+			url:"/wheremasil/member/join.do",
+			data: formData,
+			processData : false,
+			contentType : false,
+			type : 'POST',
 			success : function(data) {
-				if (data == "1") {
-					alert("아이디중복")
-				} else if (data == "2") {
-					alert("닉네임중복");
-				} else {
+				if(data == "id"){
+					alert("아이디를 확인하세요");
+				}else if(data == "name"){
+					alert("password를 확인하세요");
+				}else if(data == "success"){
 					location.reload(true);
 				}
+				
 			},
-			error : function(data) {
-				alert("회원가입실패 새로고침(F5)눌러주세요~");
+			error : function(data, xhr, message) {
+				alert(data.status + ", " + xhr + ", " + message);
+				
 			}
 		});
-	});
+	});	
+		
 	$("#logout_bt").on("click", function() {
-		alert("로그아웃완료!");
-		//location.href("/wheremasil2	/member/logout.do?page="+location.href);
-		var editor1 = "page" + "=" + location.href;
+		
 		$.ajax({
 			url : "/wheremasil/member/logout.do",
-			data : editor1,
 			type : "post",
 			dataType : "text",
 			success : function(data) {
-				location.reload(true);
+				location.href="/wheremasil/member/logoutmypage.do"
 			},
 			error : function(data) {
-				location.reload(true);
+				location.href="/wheremasil/member/logoutmypage.do"
 			}
 		});
 	});
@@ -113,7 +77,7 @@ $(document).ready(function() {
 		$("#popup_layer_join").css("visibility", "hidden");
 	});
 	$("#mypage").on("click", function() {
-		location.href("/wheremasil/mypage/mypageconn.do");
+		location.href="/wheremasil/member/mypageconn.do?member_id=${sessionScope.login_info.member_id}";
 	});
 	// HeaderSearchForm 오류 검증
 	$("#headerSearch").on("submit",function() {
@@ -182,7 +146,9 @@ function fn_layer_popup() {
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					</button>
 				</c:if>
-				<c:if test="${sessionScope.login_info != null}">
+				
+				
+				<c:if test="${!empty sessionScope.login_info.member_id}">
 					<input id="logout_bt" type="button"
 						class="btn btn-default navbar-btn" value="로그아웃">
 					<input id="mypage" type="button" class="btn btn-default navbar-btn"
@@ -190,13 +156,14 @@ function fn_layer_popup() {
 
 				</c:if>
 
-				<c:if test="${sessionScope.login_info == null}">
+				<c:if test="${empty sessionScope.login_info.member_id}">
 
 					<button id="login_form_bt" type="button"
 						class="btn btn-default navbar-btn"
 						onclick="fn_layer_popup_login()">로그인</button>
 
 				</c:if>
+			
 			</form>
 		</div>
 	</div>
@@ -301,15 +268,15 @@ function fn_layer_popup() {
 					<div class="form-group">
 						<label for="inputTitle" class="col-lg-3 control-label">이메일</label>
 						<div class="col-lg-7">
-							<input type="text" class="form-control" id="member_id"
-								name="member_id" placeholder="email주소" autofocus required>
+							<input type="text" class="form-control" id="loginMember_id"
+								placeholder="email주소" autofocus required>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputTitle" class="col-lg-3 control-label">패스워드</label>
 						<div class="col-lg-7">
-							<input type="password" class="form-control" id="m_password"
-								name="m_password" placeholder="password" autofocus required>
+							<input type="password" class="form-control" id="loginM_password"
+								placeholder="password" autofocus required>
 						</div>
 					</div>
 
@@ -336,36 +303,34 @@ function fn_layer_popup() {
 		</div>
 		<div class="panel-body">
 
-			<form class="form-horizontal" action="">
+			<form id="ajaxform" class="form-horizontal" action="/wheremasil/member/join.do" method="post" enctype="multipart/form-data">
 				<fieldset>
 					<legend>회원가입</legend>
 					<div class="form-group">
 						<label for="inputTitle" class="col-lg-3 control-label">이메일</label>
 						<div class="col-lg-7">
-							<input type="text" class="form-control" id="member_id1"
-								name="member_id1" value="${param.email }" placeholder="email주소"
-								autofocus required>
+							<input type="text" class="form-control" name="member_id" placeholder="email주소"	autofocus required>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputTitle" class="col-lg-3 control-label">패스워드</label>
 						<div class="col-lg-7">
-							<input type="password" class="form-control" id="m_password1"
-								name="m_password" placeholder="password" autofocus required>
+							<input type="password" class="form-control" name="m_password" placeholder="password" autofocus required>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputTitle" class="col-lg-3 control-label">닉네임</label>
 						<div class="col-lg-7">
-							<input type="text" class="form-control" id="m_name1"
-								name="m_name" placeholder="닉네임" autofocus required>
+							<input type="text" class="form-control" name="m_name" placeholder="닉네임" autofocus required>
 						</div>
 					</div>
 					<div class="form-group">
+						<input type="file" name="picture">
+	 				</div>
+					<div class="form-group">
 						<div class="col-lg-7 col-lg-offset-4">
-							<input type="button" id="join_send" class="btn btn-warning"
-								value="가입"> <input type="reset" id="popup_cancel_join"
-								class="btn btn-default" value="취소">
+							<input type="button" id="join_send" class="btn btn-warning"	value="가입"> 
+							<input type="reset" id="popup_cancel_join" class="btn btn-default" value="취소">
 						</div>
 					</div>
 				</fieldset>
